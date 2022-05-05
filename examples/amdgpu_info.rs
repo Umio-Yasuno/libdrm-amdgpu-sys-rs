@@ -40,7 +40,15 @@ fn main() {
 
     unsafe {
         println!();
-        AMDGPU::vbios_size(fd, amdgpu_dev).unwrap();
-        AMDGPU::vbios_info(fd, amdgpu_dev).unwrap();
+        let vbios = AMDGPU::vbios_info(fd, amdgpu_dev).unwrap();
+        let vbios_size = AMDGPU::vbios_size(fd, amdgpu_dev).unwrap();
+
+        // println!("{:?}", vbios);
+        println!("name: {}", String::from_utf8(vbios.name.to_vec()).unwrap());
+        println!("pn: {}", String::from_utf8(vbios.vbios_pn.to_vec()).unwrap());
+        println!("ver: {}", String::from_utf8(vbios.vbios_ver_str.to_vec()).unwrap());
+        println!("date: {}", String::from_utf8(vbios.date.to_vec()).unwrap());
+
+        println!("vbios size: {vbios_size}");
     }
 }

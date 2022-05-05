@@ -7,7 +7,7 @@ build = "build.rs"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [lib]
-# name = "libdrm_sys"
+# name = "libdrm_amdgpu_sys"
 path = "lib.rs"
 
 [build-dependencies]

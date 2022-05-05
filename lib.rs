@@ -28,6 +28,10 @@ pub mod AMDGPU {
     #[path = "amdgpu_chip_class.rs"]
     mod amdgpu_chip_class;
     pub use amdgpu_chip_class::*;
+
+    #[path = "amdgpu_vbios.rs"]
+    mod amdgpu_vbios;
+    pub use amdgpu_vbios::*;
 }
 
 pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
