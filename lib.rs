@@ -30,29 +30,18 @@ pub mod AMDGPU {
     pub use amdgpu_chip_class::*;
 }
 
-#[macro_export]
-macro_rules! query_error {
-    ($r: expr) => {
-        if $r != 0 {
-            return Err($r);
-        }
+pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
+    let drm_ver = bindings::drmGetVersion(fd);
+
+    return bindings::_drmVersion {
+            version_major:      (*drm_ver).version_major,
+            version_minor:      (*drm_ver).version_minor,
+            version_patchlevel: (*drm_ver).version_patchlevel,
+            name_len:           (*drm_ver).name_len,
+            name:               (*drm_ver).name,
+            date_len:           (*drm_ver).date_len,
+            date:               (*drm_ver).date,
+            desc_len:           (*drm_ver).desc_len,
+            desc:               (*drm_ver).desc,
     };
-}
-
-pub fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
-    unsafe {
-        let drm_ver = bindings::drmGetVersion(fd);
-
-        return bindings::_drmVersion {
-                version_major:      (*drm_ver).version_major,
-                version_minor:      (*drm_ver).version_minor,
-                version_patchlevel: (*drm_ver).version_patchlevel,
-                name_len:           (*drm_ver).name_len,
-                name:               (*drm_ver).name,
-                date_len:           (*drm_ver).date_len,
-                date:               (*drm_ver).date,
-                desc_len:           (*drm_ver).desc_len,
-                desc:               (*drm_ver).desc,
-        };
-    }
 }

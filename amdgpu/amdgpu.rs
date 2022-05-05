@@ -11,6 +11,15 @@ use bindings::{
     drm_amdgpu_info_gds,
 };
 
+#[macro_export]
+macro_rules! query_error {
+    ($r: expr) => {
+        if $r != 0 {
+            return Err($r);
+        }
+    };
+}
+
 pub fn device_initialize(
     fd: ::std::os::raw::c_int,
 ) -> Result<amdgpu_device_handle, i32> {
