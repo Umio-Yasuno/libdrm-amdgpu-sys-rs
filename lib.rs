@@ -9,29 +9,9 @@ mod bindings {
 
 #[path = "./amdgpu/"]
 pub mod AMDGPU {
-    #[path = "amdgpu.rs"]
-    mod amdgpu;
-    pub use amdgpu::*;
-
-    #[path = "amdgpu_family.rs"]
-    mod amdgpu_family;
-    pub use amdgpu_family::*;
-
-    #[path = "amdgpu_vram.rs"]
-    mod amdgpu_vram;
-    pub use amdgpu_vram::*;
-
-    #[path = "amdgpu_asic.rs"]
-    mod amdgpu_asic;
-    pub use amdgpu_asic::*;
-
-    #[path = "amdgpu_chip_class.rs"]
-    mod amdgpu_chip_class;
-    pub use amdgpu_chip_class::*;
-
-    #[path = "amdgpu_vbios.rs"]
-    mod amdgpu_vbios;
-    pub use amdgpu_vbios::*;
+    #[path = "amdgpu_mod.rs"]
+    mod amdgpu_mod;
+    pub use amdgpu_mod::*;
 }
 
 pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {

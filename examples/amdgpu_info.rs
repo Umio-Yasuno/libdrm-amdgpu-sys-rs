@@ -1,4 +1,5 @@
 use libdrm_amdgpu_sys::*;
+use libdrm_amdgpu_sys::AMDGPU::HANDLE;
 
 use std::fs::File;
 use std::os::unix::io::IntoRawFd;
@@ -7,12 +8,15 @@ fn main() {
     let v = File::open("/dev/dri/renderD128").unwrap();
     let fd = v.into_raw_fd();
 
-    let amdgpu_dev = AMDGPU::device_initialize(fd).unwrap();
+    // let amdgpu_dev = AMDGPU::device_initialize(fd).unwrap();
+    let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
 
-    let gpu_info = AMDGPU::query_gpu_info(amdgpu_dev).unwrap();
+    // let gpu_info = AMDGPU::query_gpu_info(amdgpu_dev).unwrap();
+    let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
     println!("{gpu_info:?}");
 
-    let mark_name = AMDGPU::get_marketing_name(amdgpu_dev).unwrap();
+    // let mark_name = AMDGPU::get_marketing_name(amdgpu_dev).unwrap();
+    let mark_name = amdgpu_dev.get_marketing_name().unwrap();
 
     println!();
     println!("Marketing Name: [{mark_name}]");
@@ -35,13 +39,14 @@ fn main() {
     println!("VRAM Bit Width: {}-bit", gpu_info.vram_bit_width);
     println!("Peak Memory BW: {peak_bw} GB/s");
 
-    let info = AMDGPU::INFO::device_info(amdgpu_dev).unwrap();
+    let info = amdgpu_dev.device_info().unwrap();
+    // let info = AMDGPU::INFO::device_info(amdgpu_dev).unwrap();
     // println!("{:?}", info);
 
     unsafe {
         println!();
-        let vbios = AMDGPU::vbios_info(fd, amdgpu_dev).unwrap();
-        let vbios_size = AMDGPU::vbios_size(fd, amdgpu_dev).unwrap();
+        let vbios = amdgpu_dev.vbios_info(fd).unwrap();
+        let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
 
         // println!("{:?}", vbios);
         println!("name: {}", String::from_utf8(vbios.name.to_vec()).unwrap());
