@@ -32,3 +32,13 @@ macro_rules! query_error {
         }
     };
 }
+
+pub fn is_apu(ids_flags: u64) -> bool {
+    use crate::bindings::{
+        AMDGPU_IDS_FLAGS_FUSION,
+        // AMDGPU_IDS_FLAGS_PREEMPTION,
+        // AMDGPU_IDS_FLAGS_TMZ,
+    };
+
+    return (ids_flags & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
+}
