@@ -1,0 +1,17 @@
+[package]
+name = "libdrm_sys"
+version = "0.1.0"
+edition = "2021"
+build = "build.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+# name = "libdrm_sys"
+path = "lib.rs"
+
+[build-dependencies]
+bindgen = "0.59.0"
+pkg-config = "0.3.25"
+
+[dependencies]
