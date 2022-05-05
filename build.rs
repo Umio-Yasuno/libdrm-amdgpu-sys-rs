@@ -23,8 +23,8 @@ fn main() {
         // .no_unstable_rust()
         // The input header we would like to generate
         // bindings for.
-        .header("wrapper_drm.h")
-        .header("wrapper_amdgpu.h")
+        .header("wrapper/wrapper_drm.h")
+        .header("wrapper/wrapper_amdgpu.h")
         .clang_args(config.iter())
         // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         // Finish the builder and generate the bindings.
