@@ -76,3 +76,26 @@ fn test_amdgpu_chip_class() {
         CHIP_CLASS::GFX8,
     )
 }
+
+use std::fmt;
+
+impl fmt::Display for CHIP_CLASS {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Self::CLASS_UNKNOWN => write!(f, "Unknown"),
+            Self::R300 => write!(f, "R300"),
+            Self::R400 => write!(f, "R400"),
+            Self::R500 => write!(f, "R500"),
+            Self::R600 => write!(f, "R600"),
+            Self::R700 => write!(f, "R700"),
+            Self::EVERGREEN => write!(f, "EverGreen"),
+            Self::CAYMAN => write!(f, "Cayman"),
+            Self::GFX6 => write!(f, "GFX6"),
+            Self::GFX7 => write!(f, "GFX7"),
+            Self::GFX8 => write!(f, "GFX8"),
+            Self::GFX9 => write!(f, "GFX9"),
+            Self::GFX10 => write!(f, "GFX10"),
+            Self::GFX10_3 => write!(f, "GFX10_3"),
+        }
+    }
+}
