@@ -21,12 +21,16 @@ pub trait HANDLE {
     fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> where Self: Sized;
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
-    fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32>;
+
     fn device_info(self) -> Result<drm_amdgpu_info_device, i32>;
     fn memory_info(self) -> Result<drm_amdgpu_memory_info, i32>;
     fn vram_usage_info(self) -> Result<u64, i32>;
     fn gds_info(self) -> Result<drm_amdgpu_info_gds, i32>;
 
+    #[doc(hidden)]
+    fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32>;
+
+    #[doc(hidden)]
     unsafe fn query_vbios<T>(
         self,
         fd: ::std::os::raw::c_int,
@@ -49,19 +53,19 @@ impl HANDLE for DEVICE_HANDLE {
     fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
-            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
-            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut _major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut _minor: MaybeUninit<u32> = MaybeUninit::zeroed();
 
             let r = amdgpu_device_initialize(
                 fd,
-                major.as_mut_ptr(),
-                minor.as_mut_ptr(),
+                _major.as_mut_ptr(),
+                _minor.as_mut_ptr(),
                 amdgpu_dev.as_mut_ptr(),
             );
 
             query_error!(r);
 
-            let [_major, _minor] = [major, minor].map(
+            let [_major, _minor] = [_major, _minor].map(
                 |v| v.assume_init()
             );
 

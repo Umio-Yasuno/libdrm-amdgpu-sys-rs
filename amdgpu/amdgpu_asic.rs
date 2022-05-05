@@ -229,6 +229,25 @@ impl ASIC_NAME {
     pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
         AMDGPU::CHIP_CLASS::from_asic_name(*self)
     }
+    /*
+        https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c
+    */
+    fn has_rbplus(&self) -> bool {
+        *self == Self::CHIP_STONEY || *self >= Self::CHIP_VEGA10
+    }
+    pub fn rbplus_allowed(&self) -> bool {
+        self.has_rbplus() &&
+            (*self == Self::CHIP_STONEY || *self == Self::CHIP_VEGA12 ||
+            *self == Self::CHIP_RAVEN || *self == Self::CHIP_RAVEN2 ||
+            *self == Self::CHIP_RENOIR || *self >= Self::CHIP_SIENNA_CICHLID)
+    }
+    pub fn has_packed_math_16bit(&self) -> bool {
+        *self >= Self::CHIP_VEGA10
+    }
+    pub fn has_accelerated_dot_product(&self) -> bool {
+        *self == Self::CHIP_ARCTURUS || *self == Self::CHIP_ALDEBARAN ||
+        *self == Self::CHIP_VEGA20 || *self >= Self::CHIP_NAVI12
+    }
 }
 
 #[test]

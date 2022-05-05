@@ -30,7 +30,7 @@
 
 use crate::AMDGPU::ASIC_NAME;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum CHIP_CLASS {
    CLASS_UNKNOWN = 0,
@@ -66,6 +66,9 @@ impl CHIP_CLASS {
         } else {
             Self::CLASS_UNKNOWN
         }
+    }
+    pub fn has_packed_math_16bit(&self) -> bool {
+        *self >= Self::GFX9
     }
 }
 
