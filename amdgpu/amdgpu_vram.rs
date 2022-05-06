@@ -17,7 +17,7 @@ use bindings::{
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum VRAM_TYPE {
-    UNKNOWN,
+    UNKNOWN = 0,
     GDDR1,
     DDR2,
     GDDR3,
@@ -31,8 +31,8 @@ pub enum VRAM_TYPE {
 }
 
 impl VRAM_TYPE {
-    pub fn get(id: u32) -> Self {
-        match id {
+    pub fn from_type_id(type_id: u32) -> Self {
+        match type_id {
             AMDGPU_VRAM_TYPE_GDDR1 => Self::GDDR1,
             AMDGPU_VRAM_TYPE_DDR2 => Self::DDR2,
             AMDGPU_VRAM_TYPE_GDDR3 => Self::GDDR3,
@@ -45,6 +45,9 @@ impl VRAM_TYPE {
             AMDGPU_VRAM_TYPE_DDR5 => Self::DDR5,
             AMDGPU_VRAM_TYPE_UNKNOWN | _ => Self::UNKNOWN,
         }
+    }
+    pub fn to_u32(&self) -> u32 {
+        *self as u32
     }
     /* https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-od-clk-voltage */
     fn clk_rate(&self) -> u64 {

@@ -31,7 +31,7 @@ fn main() {
     println!("ASIC Name: {asic_name}");
     println!("Chip class: {chip_class}");
 
-    let vram_type = AMDGPU::VRAM_TYPE::get(gpu_info.vram_type);
+    let vram_type = AMDGPU::VRAM_TYPE::from_type_id(gpu_info.vram_type);
     let peak_bw = vram_type.peak_bw_gb(gpu_info.max_memory_clk, gpu_info.vram_bit_width);
 
     println!();
@@ -42,6 +42,11 @@ fn main() {
     let info = amdgpu_dev.device_info().unwrap();
     // let info = AMDGPU::INFO::device_info(amdgpu_dev).unwrap();
     // println!("{:?}", info);
+
+    let hw_ip = amdgpu_dev.query_hw_ip_info(AMDGPU::HW_IP::GFX, 0).unwrap();
+    println!("GFX: {hw_ip:?}");
+    let fw_ver = amdgpu_dev.query_firmware_version(AMDGPU::FW::VCE, 0, 0).unwrap();
+    println!("VCE FW: {:X}", fw_ver.0);
 
     unsafe {
         println!();

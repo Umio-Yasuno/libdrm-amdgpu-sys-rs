@@ -226,6 +226,9 @@ impl ASIC_NAME {
             _ => Self::CHIP_UNKNOWN,
         }
     }
+    pub fn to_u32(&self) -> u32 {
+        *self as u32
+    }
     pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
         AMDGPU::CHIP_CLASS::from_asic_name(*self)
     }
