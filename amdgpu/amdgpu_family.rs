@@ -31,7 +31,7 @@ pub enum FAMILY_NAME {
 }
 
 impl FAMILY_NAME {
-    pub fn get(id: u32) -> Self {
+    pub fn from_id(id: u32) -> Self {
         match id {
             AMDGPU_FAMILY_SI => Self::SI,
             AMDGPU_FAMILY_CI => Self::CI,
@@ -45,6 +45,9 @@ impl FAMILY_NAME {
             AMDGPU_FAMILY_YC => Self::YC,
             AMDGPU_FAMILY_UNKNOWN | _ => Self::UNKNOWN,
         }
+    }
+    pub fn asic_name(&self, chip_external_rev: u32) -> AMDGPU::ASIC_NAME {
+        AMDGPU::ASIC_NAME::get(*self, chip_external_rev)
     }
 }
 

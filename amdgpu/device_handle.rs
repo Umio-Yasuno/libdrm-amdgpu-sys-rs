@@ -6,6 +6,7 @@ use bindings::{
     amdgpu_device_handle,
     amdgpu_device_initialize,
     amdgpu_gpu_info,
+    amdgpu_gds_resource_info,
     amdgpu_heap_info,
     drm_amdgpu_info_device,
     drm_amdgpu_memory_info,
@@ -23,7 +24,9 @@ pub trait HANDLE {
     fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> where Self: Sized;
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
+    fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32>;
     // fn query_heap_info(self) -> Result<amdgpu_heap_info, i32>;
+
     fn query_hw_ip_info(self,
         type_: ::std::os::raw::c_uint,
         ip_instance: ::std::os::raw::c_uint,
@@ -109,6 +112,21 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok(gpu_info.assume_init());
         }
     }
+    fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32> {
+        unsafe {
+            let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
+
+            let r = bindings::amdgpu_query_gds_info(
+                self,
+                gds_info.as_mut_ptr(),
+            );
+
+            query_error!(r);
+
+            return Ok(gds_info.assume_init());
+        }
+    }
+
     fn query_hw_ip_info(
         self,
         type_: ::std::os::raw::c_uint,

@@ -22,7 +22,7 @@ fn main() {
     println!("Marketing Name: [{mark_name}]");
     println!("DeviceID.RevID: {:#0X}.{:#0X}", gpu_info.asic_id, gpu_info.pci_rev_id);
 
-    let family = AMDGPU::FAMILY_NAME::get(gpu_info.family_id);
+    let family = AMDGPU::FAMILY_NAME::from_id(gpu_info.family_id);
     let asic_name = AMDGPU::ASIC_NAME::get(family, gpu_info.chip_external_rev);
     let chip_class = asic_name.chip_class();
 

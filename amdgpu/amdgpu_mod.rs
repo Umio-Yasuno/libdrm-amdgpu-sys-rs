@@ -18,6 +18,10 @@ pub use amdgpu_asic::*;
 mod amdgpu_chip_class;
 pub use amdgpu_chip_class::*;
 
+#[path = "gpu_info.rs"]
+mod gpu_info;
+pub use gpu_info::*;
+
 /*
 #[path = "amdgpu_vbios.rs"]
 mod amdgpu_vbios;
@@ -31,14 +35,4 @@ macro_rules! query_error {
             return Err($r);
         }
     };
-}
-
-pub fn is_apu(ids_flags: u64) -> bool {
-    use crate::bindings::{
-        AMDGPU_IDS_FLAGS_FUSION,
-        // AMDGPU_IDS_FLAGS_PREEMPTION,
-        // AMDGPU_IDS_FLAGS_TMZ,
-    };
-
-    return (ids_flags & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
 }
