@@ -14,18 +14,28 @@ pub mod AMDGPU {
     pub use amdgpu_mod::*;
 }
 
+#[path = "./pci_bus_info.rs"]
+mod pci_bus_info;
+pub use pci_bus_info::*;
+
+pub fn null_control_to_space(src: Vec<u8>) -> Vec<u8> {
+    let mut flag = false;
+
+    let tmp: Vec<u8> = src.iter().map(|&v| {
+        if v == 0 { flag = true; }
+
+        if flag || v < 0x20 {
+            0x20
+        } else {
+            v
+        }
+    }).collect();
+
+    return tmp;
+}
+
 pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
     let drm_ver = bindings::drmGetVersion(fd);
 
-    return bindings::_drmVersion {
-            version_major:      (*drm_ver).version_major,
-            version_minor:      (*drm_ver).version_minor,
-            version_patchlevel: (*drm_ver).version_patchlevel,
-            name_len:           (*drm_ver).name_len,
-            name:               (*drm_ver).name,
-            date_len:           (*drm_ver).date_len,
-            date:               (*drm_ver).date,
-            desc_len:           (*drm_ver).desc_len,
-            desc:               (*drm_ver).desc,
-    };
+    return *drm_ver;
 }
