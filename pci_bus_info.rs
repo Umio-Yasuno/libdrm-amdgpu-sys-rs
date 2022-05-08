@@ -88,7 +88,7 @@ use std::fmt;
 
 impl fmt::Display for PCI::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:04}:{:02}:{:02}.{:01}",
+        write!(f, "{:04x}:{:02x}:{:02x}.{:01x}",
             self.domain, self.bus, self.dev, self.func)
     }
 }
