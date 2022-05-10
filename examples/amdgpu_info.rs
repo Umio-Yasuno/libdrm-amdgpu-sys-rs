@@ -1,5 +1,4 @@
 use libdrm_amdgpu_sys::*;
-use libdrm_amdgpu_sys::AMDGPU::HANDLE;
 
 use std::fs::File;
 use std::os::unix::io::IntoRawFd;
@@ -7,6 +6,8 @@ use std::os::unix::io::IntoRawFd;
 fn main() {
     let v = File::open("/dev/dri/renderD128").unwrap();
     let fd = v.into_raw_fd();
+
+    use libdrm_amdgpu_sys::AMDGPU::HANDLE;
 
     let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
 
@@ -50,6 +51,8 @@ fn main() {
         println!();
         println!("{:?}", bus_info);
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
+
+        use libdrm_amdgpu_sys::AMDGPU::VBIOS_QUERY;
 
         println!();
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();

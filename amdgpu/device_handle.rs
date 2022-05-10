@@ -8,7 +8,7 @@ use bindings::{
     amdgpu_device_initialize,
     amdgpu_gpu_info,
     amdgpu_gds_resource_info,
-    amdgpu_heap_info,
+    // amdgpu_heap_info,
     drm_amdgpu_info_device,
     drm_amdgpu_memory_info,
     drm_amdgpu_info_gds,
