@@ -7,7 +7,7 @@ mod bindings {
     include!("./bindings/drm.rs");
 }
 
-#[path = "./amdgpu/"]
+#[path = "./"]
 pub mod AMDGPU {
     #[path = "amdgpu_mod.rs"]
     mod amdgpu_mod;
@@ -19,12 +19,14 @@ mod pci_bus_info;
 pub use pci_bus_info::*;
 
 pub fn null_control_to_space(src: Vec<u8>) -> Vec<u8> {
-    let mut flag = false;
+    let mut null_char_flag = false;
 
     let tmp: Vec<u8> = src.iter().map(|&v| {
-        if v == 0 { flag = true; }
+        /* '\0' */
+        if v == 0 { null_char_flag = true; }
 
-        if flag || v < 0x20 {
+        /* replace from \u0000..\u001F (<Control>) to \u0020 (<Space>) */
+        if null_char_flag || v < 0x20 {
             0x20
         } else {
             v

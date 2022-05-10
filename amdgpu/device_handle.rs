@@ -1,4 +1,5 @@
 use crate::*;
+use super::*;
 
 use std::mem::{MaybeUninit, size_of};
 use std::ffi::CStr;
@@ -31,6 +32,7 @@ pub trait HANDLE {
         type_: ::std::os::raw::c_uint,
         ip_instance: ::std::os::raw::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32>;
+
     fn query_firmware_version(
         self,
         fw_type: ::std::os::raw::c_uint,
@@ -45,25 +47,7 @@ pub trait HANDLE {
 
     #[doc(hidden)]
     fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32>;
-
-    #[doc(hidden)]
-    unsafe fn query_vbios<T>(
-        self,
-        fd: ::std::os::raw::c_int,
-        info_id: ::std::os::raw::c_uint
-    ) -> Result<T, i32>;
-    unsafe fn vbios_info(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<bindings::drm_amdgpu_info_vbios, i32>;
-    unsafe fn vbios_size(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<u32, i32>;
 }
-
-pub type DEVICE = bindings::amdgpu_device;
-pub type DEVICE_HANDLE = bindings::amdgpu_device_handle;
 
 impl HANDLE for DEVICE_HANDLE {
     fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> {
@@ -88,6 +72,7 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok(amdgpu_dev.assume_init());
         }
     }
+
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error> {
         unsafe {
             let c_str = CStr::from_ptr(bindings::amdgpu_get_marketing_name(self));
@@ -98,6 +83,7 @@ impl HANDLE for DEVICE_HANDLE {
             }
         }
     }
+
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32> {
         unsafe {
             let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
@@ -112,6 +98,7 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok(gpu_info.assume_init());
         }
     }
+
     fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32> {
         unsafe {
             let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
@@ -147,6 +134,7 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok(hw_ip_info.assume_init());
         }
     }
+
     fn query_firmware_version(
         self,
         fw_type: ::std::os::raw::c_uint,
@@ -171,6 +159,7 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok((version.assume_init(), feature.assume_init()));
         }
     }
+
     /*
     fn query_heap_info(self) -> Result<amdgpu_heap_info, i32> {
         unsafe {
@@ -187,6 +176,7 @@ impl HANDLE for DEVICE_HANDLE {
         }
     }
     */
+
     fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32> {
         unsafe {
             let mut device_info: MaybeUninit<T> = MaybeUninit::uninit();
@@ -203,90 +193,21 @@ impl HANDLE for DEVICE_HANDLE {
             return Ok(device_info.assume_init());
         }
     }
+
     fn device_info(self) -> Result<drm_amdgpu_info_device, i32> {
         Self::query(self, AMDGPU_INFO_DEV_INFO)
     }
+
     fn memory_info(self) -> Result<drm_amdgpu_memory_info, i32> {
         Self::query(self, AMDGPU_INFO_MEMORY)
     }
+
     fn vram_usage_info(self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_VRAM_USAGE)
     }
+
     fn gds_info(self) -> Result<drm_amdgpu_info_gds, i32> {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
-    }
-    unsafe fn query_vbios<T>(
-        self,
-        fd: ::std::os::raw::c_int,
-        info_id: ::std::os::raw::c_uint,
-    ) -> Result<T, i32> {
-        use bindings::{
-            drmCommandWrite,
-            drm_amdgpu_info,
-            AMDGPU_INFO_VBIOS,
-        };
-
-        let mut vbios: MaybeUninit<T> = MaybeUninit::uninit();
-
-        // std::ptr::write_bytes(device_info.as_mut_ptr(), 0x0, 1);
-        let mut device_info: drm_amdgpu_info = std::mem::zeroed();
-
-        device_info.return_pointer = vbios.as_mut_ptr() as u64;
-        device_info.return_size = size_of::<T>() as u32;
-        device_info.query = AMDGPU_INFO_VBIOS;
-
-        device_info.__bindgen_anon_1.vbios_info.type_ = info_id;
-
-        // println!("vbios type: {}", device_info.__bindgen_anon_1.vbios_info.type_);
-
-        let mut device_info = MaybeUninit::new(device_info);
-
-        let r = drmCommandWrite(
-            fd,
-            bindings::DRM_AMDGPU_INFO as u64,
-            device_info.as_mut_ptr() as *mut ::std::os::raw::c_void,
-            size_of::<drm_amdgpu_info> as u64, 
-        );
-
-        query_error!(r);
-
-        let _ = device_info.assume_init();
-        let vbios = vbios.assume_init();
-
-        return Ok(vbios);
-    }
-    unsafe fn vbios_info(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
-        use bindings::{
-            drm_amdgpu_info_vbios,
-            AMDGPU_INFO_VBIOS_INFO,
-        };
-
-        let vbios: drm_amdgpu_info_vbios = Self::query_vbios(
-            self,
-            fd,
-            AMDGPU_INFO_VBIOS_INFO
-        )?;
-
-        return Ok(vbios);
-    }
-    unsafe fn vbios_size(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<u32, i32> {
-        use bindings::{
-            AMDGPU_INFO_VBIOS_SIZE,
-        };
-
-        let vbios_size: u32 = Self::query_vbios(
-            self,
-            fd,
-            AMDGPU_INFO_VBIOS_SIZE
-        )?;
-
-        return Ok(vbios_size);
     }
 }
 

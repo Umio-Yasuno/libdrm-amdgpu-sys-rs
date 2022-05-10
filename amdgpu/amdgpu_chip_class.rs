@@ -91,7 +91,7 @@ impl fmt::Display for CHIP_CLASS {
             Self::R500 => write!(f, "R500"),
             Self::R600 => write!(f, "R600"),
             Self::R700 => write!(f, "R700"),
-            Self::EVERGREEN => write!(f, "EverGreen"),
+            Self::EVERGREEN => write!(f, "Evergreen"),
             Self::CAYMAN => write!(f, "Cayman"),
             Self::GFX6 => write!(f, "GFX6"),
             Self::GFX7 => write!(f, "GFX7"),

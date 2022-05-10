@@ -8,14 +8,11 @@ fn main() {
     let v = File::open("/dev/dri/renderD128").unwrap();
     let fd = v.into_raw_fd();
 
-    // let amdgpu_dev = AMDGPU::device_initialize(fd).unwrap();
     let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
 
-    // let gpu_info = AMDGPU::query_gpu_info(amdgpu_dev).unwrap();
     let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
     println!("{gpu_info:?}");
 
-    // let mark_name = AMDGPU::get_marketing_name(amdgpu_dev).unwrap();
     let mark_name = amdgpu_dev.get_marketing_name().unwrap();
 
     println!();
@@ -49,14 +46,20 @@ fn main() {
     println!("VCE FW: {:X}", fw_ver.0);
 
     unsafe {
+        let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
+        println!();
+        println!("{:?}", bus_info);
+        println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
+
         println!();
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();
         let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
+        let ver_str = null_control_to_space(vbios.vbios_ver_str.to_vec());
 
         // println!("{:?}", vbios);
         println!("name: {}", String::from_utf8(vbios.name.to_vec()).unwrap());
         println!("pn: {}", String::from_utf8(vbios.vbios_pn.to_vec()).unwrap());
-        println!("ver: {}", String::from_utf8(vbios.vbios_ver_str.to_vec()).unwrap());
+        println!("ver_str: {}", String::from_utf8(ver_str.to_vec()).unwrap());
         println!("date: {}", String::from_utf8(vbios.date.to_vec()).unwrap());
 
         println!("vbios size: {vbios_size}");
