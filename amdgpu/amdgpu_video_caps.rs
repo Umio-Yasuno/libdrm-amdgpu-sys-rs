@@ -1,7 +1,8 @@
 /* TODO: WIP */
 
 use crate::*;
-use super::*;
+use crate::AMDGPU::*;
+// use super::*;
 use std::mem::{MaybeUninit, size_of};
 
 use bindings::{

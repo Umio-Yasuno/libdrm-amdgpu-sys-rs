@@ -1,5 +1,5 @@
 use crate::*;
-use super::*;
+use crate::AMDGPU::*;
 
 use std::mem::{MaybeUninit, size_of};
 

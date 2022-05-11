@@ -12,7 +12,6 @@ use bindings::{
     drm_amdgpu_info_device,
     drm_amdgpu_memory_info,
     drm_amdgpu_info_gds,
-    drm_amdgpu_info_hw_ip,
 };
 use bindings::{
     AMDGPU_INFO_DEV_INFO,
@@ -27,18 +26,6 @@ pub trait HANDLE {
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
     fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32>;
     // fn query_heap_info(self) -> Result<amdgpu_heap_info, i32>;
-
-    fn query_hw_ip_info(self,
-        type_: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
-    ) -> Result<drm_amdgpu_info_hw_ip, i32>;
-
-    fn query_firmware_version(
-        self,
-        fw_type: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
-        index: ::std::os::raw::c_uint,
-    ) -> Result<(u32, u32), i32>;
 
     fn device_info(self) -> Result<drm_amdgpu_info_device, i32>;
     fn memory_info(self) -> Result<drm_amdgpu_memory_info, i32>;
@@ -114,52 +101,6 @@ impl HANDLE for DEVICE_HANDLE {
         }
     }
 
-    fn query_hw_ip_info(
-        self,
-        type_: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
-    ) -> Result<drm_amdgpu_info_hw_ip, i32> {
-        unsafe {
-            let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::uninit();
-
-            let r = bindings::amdgpu_query_hw_ip_info(
-                self,
-                type_,
-                ip_instance,
-                hw_ip_info.as_mut_ptr(),
-            );
-
-            query_error!(r);
-
-            return Ok(hw_ip_info.assume_init());
-        }
-    }
-
-    fn query_firmware_version(
-        self,
-        fw_type: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
-        index: ::std::os::raw::c_uint,
-    ) -> Result<(u32, u32), i32> {
-        unsafe {
-            let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
-            let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
-
-            let r = bindings::amdgpu_query_firmware_version(
-                self,
-                fw_type,
-                ip_instance,
-                index,
-                version.as_mut_ptr(),
-                feature.as_mut_ptr(),
-            );
-
-            query_error!(r);
-
-            return Ok((version.assume_init(), feature.assume_init()));
-        }
-    }
-
     /*
     fn query_heap_info(self) -> Result<amdgpu_heap_info, i32> {
         unsafe {
@@ -209,47 +150,6 @@ impl HANDLE for DEVICE_HANDLE {
     fn gds_info(self) -> Result<drm_amdgpu_info_gds, i32> {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
     }
-}
-
-pub mod FW {
-    pub use crate::bindings::{
-        AMDGPU_INFO_FW_VCE as VCE,
-        AMDGPU_INFO_FW_UVD as UVD,
-        AMDGPU_INFO_FW_GMC as GMC,
-        AMDGPU_INFO_FW_GFX_ME as GFX_ME,
-        AMDGPU_INFO_FW_GFX_PFP as GFX_PFP,
-        AMDGPU_INFO_FW_GFX_CE as GFX_CE,
-        AMDGPU_INFO_FW_GFX_RLC as GFX_RLC,
-        AMDGPU_INFO_FW_GFX_MEC as GFX_MEC,
-        AMDGPU_INFO_FW_SMC as SMC,
-        AMDGPU_INFO_FW_SDMA as SDMA,
-        AMDGPU_INFO_FW_SOS as SOS,
-        AMDGPU_INFO_FW_ASD as ASD,
-        AMDGPU_INFO_FW_VCN as VCN,
-        AMDGPU_INFO_FW_GFX_RLC_RESTORE_LIST_CNTL as GFX_RLC_RESTORE_LIST_CNTL,
-        AMDGPU_INFO_FW_GFX_RLC_RESTORE_LIST_GPM_MEM as GFX_RLC_RESTORE_LIST_GPM_MEM,
-        AMDGPU_INFO_FW_GFX_RLC_RESTORE_LIST_SRM_MEM as GFX_RLC_RESTORE_LIST_SRM_MEM,
-        AMDGPU_INFO_FW_DMCU as DMCU,
-        AMDGPU_INFO_FW_TA as TA,
-        AMDGPU_INFO_FW_DMCUB as DMCUB,
-        AMDGPU_INFO_FW_TOC as TOC,
-    };
-}
-
-pub mod HW_IP {
-    pub use crate::bindings::{
-        AMDGPU_HW_IP_GFX as GFX,
-        AMDGPU_HW_IP_COMPUTE as COMPUTE,
-        AMDGPU_HW_IP_DMA as DMA,
-        AMDGPU_HW_IP_UVD as UVD,
-        AMDGPU_HW_IP_VCE as VCE,
-        AMDGPU_HW_IP_UVD_ENC as UVD_ENC,
-        AMDGPU_HW_IP_VCN_DEC as VCN_DEC,
-        AMDGPU_HW_IP_VCN_ENC as VCN_ENC,
-        AMDGPU_HW_IP_VCN_JPEG as VCN_JPEG,
-        // AMDGPU_HW_IP_NUM as NUM,
-        // AMDGPU_HW_IP_INSTANCE_MAX_COUNT as INSTANCE_MAX_COUNT,
-    };
 }
 
 pub mod GEM {

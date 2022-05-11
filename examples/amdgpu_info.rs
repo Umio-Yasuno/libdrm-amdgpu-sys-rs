@@ -41,9 +41,13 @@ fn main() {
     // let info = AMDGPU::INFO::device_info(amdgpu_dev).unwrap();
     // println!("{:?}", info);
 
-    let hw_ip = amdgpu_dev.query_hw_ip_info(AMDGPU::HW_IP::GFX, 0).unwrap();
+    use libdrm_amdgpu_sys::AMDGPU::HW_IP::*;
+
+    let hw_ip = amdgpu_dev.query_hw_ip_info(HW_IP_TYPE::GFX, 0).unwrap();
     println!("GFX: {hw_ip:?}");
-    let fw_ver = amdgpu_dev.query_firmware_version(AMDGPU::FW::VCE, 0, 0).unwrap();
+    
+    use libdrm_amdgpu_sys::AMDGPU::FW_VERSION::*;
+    let fw_ver = amdgpu_dev.query_firmware_version(FW_TYPE::VCE, 0, 0).unwrap();
     println!("VCE FW: {:X}", fw_ver.0);
 
     unsafe {
@@ -52,12 +56,12 @@ fn main() {
         println!("{:?}", bus_info);
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
 
-        use libdrm_amdgpu_sys::AMDGPU::VBIOS_QUERY;
-        use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS;
+        use libdrm_amdgpu_sys::AMDGPU::VBIOS::*;
+        use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS::*;
 
         println!();
-        let dec_caps = amdgpu_dev.get_video_caps(AMDGPU::CAP_TYPE::DECODE).unwrap();
-        let dec_mpeg4 = dec_caps.get_codec_info(AMDGPU::CODEC::MPEG4).is_supported();
+        let dec_caps = amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap();
+        let dec_mpeg4 = dec_caps.get_codec_info(CODEC::MPEG4).is_supported();
         println!("MPEG4 Decode: {}", dec_mpeg4);
 
         println!();
