@@ -55,8 +55,10 @@ fn main() {
         use libdrm_amdgpu_sys::AMDGPU::VBIOS_QUERY;
         use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS;
 
+        println!();
         let dec_caps = amdgpu_dev.get_video_caps(AMDGPU::CAP_TYPE::DECODE).unwrap();
-        println!("{}", dec_caps.get_codec_info(AMDGPU::CODEC::MPEG2).is_supported());
+        let dec_mpeg4 = dec_caps.get_codec_info(AMDGPU::CODEC::MPEG4).is_supported();
+        println!("MPEG4 Decode: {}", dec_mpeg4);
 
         println!();
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();

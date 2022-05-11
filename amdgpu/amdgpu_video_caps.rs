@@ -47,8 +47,6 @@ impl VIDEO_CAPS for DEVICE_HANDLE {
 
             let video_caps = video_caps.assume_init();
 
-            println!("{:?}", video_caps);
-
             return Ok(video_caps);
         }
     }
@@ -56,11 +54,7 @@ impl VIDEO_CAPS for DEVICE_HANDLE {
 
 impl drm_amdgpu_info_video_caps {
     pub fn get_codec_info(&self, codec: CODEC) -> drm_amdgpu_info_video_codec_info {
-        let info = self.codec_info[codec as usize];
-
-        println!("\n{}: {:?}", codec, info);
-
-        info
+        self.codec_info[codec as usize]
     }
 }
 
