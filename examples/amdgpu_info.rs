@@ -53,6 +53,10 @@ fn main() {
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
 
         use libdrm_amdgpu_sys::AMDGPU::VBIOS_QUERY;
+        use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS;
+
+        let dec_caps = amdgpu_dev.get_video_caps(AMDGPU::CAP_TYPE::DECODE).unwrap();
+        println!("{}", dec_caps.get_codec_info(AMDGPU::CODEC::MPEG2).is_supported());
 
         println!();
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();

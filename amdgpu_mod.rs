@@ -31,6 +31,10 @@ pub use gpu_info::*;
 mod amdgpu_vbios;
 pub use amdgpu_vbios::*;
 
+#[path = "amdgpu/amdgpu_video_caps.rs"]
+mod amdgpu_video_caps;
+pub use amdgpu_video_caps::*;
+
 #[macro_export]
 macro_rules! query_error {
     ($r: expr) => {
