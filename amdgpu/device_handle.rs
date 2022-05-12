@@ -21,7 +21,9 @@ use bindings::{
 };
 
 pub trait HANDLE {
-    fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> where Self: Sized;
+    fn init(fd: i32) -> Result<Self, i32> where Self: Sized;
+    fn deinit(self) -> Result<i32, i32>;
+    fn get_fd(self) -> i32;
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
     fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32>;
@@ -37,7 +39,7 @@ pub trait HANDLE {
 }
 
 impl HANDLE for DEVICE_HANDLE {
-    fn init(fd: ::std::os::raw::c_int) -> Result<Self, i32> {
+    fn init(fd: i32) -> Result<Self, i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
             let mut _major: MaybeUninit<u32> = MaybeUninit::zeroed();
@@ -57,6 +59,22 @@ impl HANDLE for DEVICE_HANDLE {
             );
 
             return Ok(amdgpu_dev.assume_init());
+        }
+    }
+
+    fn deinit(self) -> Result<i32, i32> {
+        unsafe {
+            let r = bindings::amdgpu_device_deinitialize(self);
+
+            query_error!(r);
+
+            return Ok(r);
+        }
+    }
+
+    fn get_fd(self) -> i32 {
+        unsafe {
+            bindings::amdgpu_device_get_fd(self)
         }
     }
 

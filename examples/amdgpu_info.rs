@@ -77,4 +77,6 @@ fn main() {
 
         println!("vbios size: {vbios_size}");
     }
+
+    amdgpu_dev.deinit().unwrap();
 }
