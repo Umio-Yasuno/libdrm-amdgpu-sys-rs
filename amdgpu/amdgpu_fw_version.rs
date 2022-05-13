@@ -3,13 +3,18 @@ use crate::AMDGPU::*;
 
 use std::mem::MaybeUninit;
 
+pub struct FwVer {
+    pub version: u32,
+    pub feature: u32,
+}
+
 pub trait QUERY_FW_VERSION {
     fn query_firmware_version(
         self,
         fw_type: FW_TYPE,
         ip_instance: ::std::os::raw::c_uint,
         index: ::std::os::raw::c_uint,
-    ) -> Result<(u32, u32), i32>;
+    ) -> Result<FwVer, i32>;
 }
 
 impl QUERY_FW_VERSION for DEVICE_HANDLE {
@@ -18,7 +23,7 @@ impl QUERY_FW_VERSION for DEVICE_HANDLE {
         fw_type: FW_TYPE,
         ip_instance: ::std::os::raw::c_uint,
         index: ::std::os::raw::c_uint,
-    ) -> Result<(u32, u32), i32> {
+    ) -> Result<FwVer, i32> {
         unsafe {
             let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
@@ -34,7 +39,12 @@ impl QUERY_FW_VERSION for DEVICE_HANDLE {
 
             query_error!(r);
 
-            return Ok((version.assume_init(), feature.assume_init()));
+            let fw_ver = FwVer {
+                version: version.assume_init(),
+                feature: feature.assume_init(),
+            };
+
+            return Ok(fw_ver);
         }
     }
 }

@@ -48,7 +48,7 @@ fn main() {
     
     use libdrm_amdgpu_sys::AMDGPU::FW_VERSION::*;
     let fw_ver = amdgpu_dev.query_firmware_version(FW_TYPE::VCE, 0, 0).unwrap();
-    println!("VCE FW: {:X}", fw_ver.0);
+    println!("VCE FW: {:X}", fw_ver.version);
 
     unsafe {
         let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
