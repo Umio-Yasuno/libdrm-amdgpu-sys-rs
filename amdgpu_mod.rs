@@ -59,3 +59,15 @@ pub mod FW_VERSION {
     mod amdgpu_fw_version;
     pub use amdgpu_fw_version::*;
 }
+
+#[path = "amdgpu/"]
+pub mod CS {
+    mod amdgpu_cs;
+    pub use amdgpu_cs::*;
+}
+
+#[path = "amdgpu/"]
+pub mod SENSOR_INFO {
+    mod amdgpu_sensor_info;
+    pub use amdgpu_sensor_info::*;
+}

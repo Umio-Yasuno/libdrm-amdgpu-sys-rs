@@ -170,6 +170,7 @@ impl HANDLE for DEVICE_HANDLE {
     }
 }
 
+/*
 pub mod GEM {
     pub mod DOMAIN {
         pub use crate::bindings::{
@@ -198,3 +199,4 @@ pub mod GEM {
         };
     }
 }
+*/
