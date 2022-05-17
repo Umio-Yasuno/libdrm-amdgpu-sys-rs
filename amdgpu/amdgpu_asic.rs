@@ -251,6 +251,183 @@ impl ASIC_NAME {
         *self == Self::CHIP_ARCTURUS || *self == Self::CHIP_ALDEBARAN ||
         *self == Self::CHIP_VEGA20 || *self >= Self::CHIP_NAVI12
     }
+    pub fn max_wave64_per_simd(&self) -> u8 {
+        if *self >= Self::CHIP_SIENNA_CICHLID {
+            16
+        } else if *self >= Self::CHIP_NAVI10 {
+            20
+        } else if *self >= Self::CHIP_POLARIS10 && *self <= Self::CHIP_VEGAM {
+            8
+        } else {
+            10
+        }
+    }
+    pub fn num_simd_per_cu(&self) -> u8 {
+        if *self >= Self::CHIP_NAVI10 {
+            2
+        } else {
+            4
+        }
+    }
+    pub fn l1_cache_size() -> u32 {
+        16 * 1024
+    }
+    pub fn l2_cache_size_per_block(&self) -> u32 {
+        match self {
+            Self::CHIP_TAHITI |
+            Self::CHIP_PITCAIRN |
+            Self::CHIP_OLAND |
+            Self::CHIP_HAWAII |
+            Self::CHIP_KABINI |
+            Self::CHIP_TONGA |
+            Self::CHIP_STONEY |
+            Self::CHIP_RAVEN2 =>
+                64 * 1024,
+            Self::CHIP_VERDE |
+            Self::CHIP_HAINAN |
+            Self::CHIP_BONAIRE |
+            Self::CHIP_KAVERI |
+            Self::CHIP_ICELAND |
+            Self::CHIP_CARRIZO |
+            Self::CHIP_FIJI |
+            Self::CHIP_POLARIS12 |
+            Self::CHIP_VEGAM =>
+                128 * 1024,
+            Self::CHIP_YELLOW_CARP =>
+                512 * 1024,
+            _ =>
+                256 * 1024,
+        }
+    }
+
+    pub fn get_llvm_processor_name(&self) -> String {
+        match self {
+    Self::CHIP_TAHITI =>
+        "tahiti",
+    Self::CHIP_PITCAIRN =>
+        "pitcairn",
+    Self::CHIP_VERDE =>
+        "verde",
+    Self::CHIP_OLAND =>
+        "oland",
+    Self::CHIP_HAINAN =>
+        "hainan",
+    Self::CHIP_BONAIRE =>
+        "bonaire",
+    Self::CHIP_KABINI =>
+        "kabini",
+    Self::CHIP_KAVERI =>
+        "kaveri",
+    Self::CHIP_HAWAII =>
+        "hawaii",
+    Self::CHIP_TONGA =>
+        "tonga",
+    Self::CHIP_ICELAND =>
+        "iceland",
+    Self::CHIP_CARRIZO =>
+        "carrizo",
+    Self::CHIP_FIJI =>
+        "fiji",
+    Self::CHIP_STONEY =>
+        "stoney",
+    Self::CHIP_POLARIS10 =>
+        "polaris10",
+    Self::CHIP_POLARIS11 |
+    Self::CHIP_POLARIS12 |
+    Self::CHIP_VEGAM =>
+        "polaris11",
+    Self::CHIP_VEGA10 =>
+        "gfx900",
+    Self::CHIP_RAVEN =>
+        "gfx902",
+    Self::CHIP_VEGA12 =>
+        "gfx904",
+    Self::CHIP_VEGA20 =>
+        "gfx906",
+    Self::CHIP_RAVEN2 |
+    Self::CHIP_RENOIR =>
+        "gfx909",
+    Self::CHIP_ARCTURUS =>
+        "gfx908",
+    Self::CHIP_ALDEBARAN =>
+        "gfx90a",
+    Self::CHIP_NAVI10 =>
+        "gfx1010",
+    Self::CHIP_NAVI12 =>
+        "gfx1011",
+    Self::CHIP_NAVI14 =>
+        "gfx1012",
+    Self::CHIP_SIENNA_CICHLID =>
+        "gfx1030",
+    Self::CHIP_NAVY_FLOUNDER =>
+        "gfx1030",
+    /*
+        if cfg!(version("1.52")) { // LLVM 12
+            "gfx1031"
+        } else {
+            "gfx1030"
+        },
+    */
+    Self::CHIP_DIMGREY_CAVEFISH =>
+        "gfx1030",
+    /*
+        if cfg!(version("1.52")) { // LLVM 12
+            "gfx1032"
+        } else {
+            "gfx1030"
+        },
+    */
+    Self::CHIP_VANGOGH =>
+        "gfx1030",
+    /*
+        if cfg!(version("1.52")) { // LLVM 12
+            "gfx1033"
+        } else {
+            "gfx1030"
+        },
+    */
+    Self::CHIP_BEIGE_GOBY =>
+        "gfx1030",
+    /*
+        if cfg!(version("1.56")) { // LLVM 13
+            "gfx1034"
+        } else {
+            "gfx1030"
+        },
+    */
+    Self::CHIP_YELLOW_CARP =>
+        "gfx1030",
+    /*
+        if cfg!(version("1.56")) { // LLVM 13
+            "gfx1035"
+        } else {
+            "gfx1030"
+        },
+    */
+    Self::CHIP_GFX1036 =>
+        "gfx1030",
+    /*
+    Self::CHIP_GFX1100 =>
+        "gfx1100",
+    Self::CHIP_GFX1101 =>
+        "gfx1101",
+    Self::CHIP_GFX1102 =>
+        "gfx1102",
+    Self::CHIP_GFX1103 =>
+        "gfx1103",
+    */
+    _ => "",
+        }.to_string()
+    }
+
+
+    pub fn l2_cache_line_size(&self) -> u32 {
+        if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
+            128
+        } else {
+            64
+        }
+    }
 }
 
 #[test]
@@ -262,7 +439,6 @@ fn test_asic_name_get() {
 }
 
 use std::fmt;
-
 impl fmt::Display for ASIC_NAME {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
