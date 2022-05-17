@@ -50,23 +50,23 @@ fn main() {
     let fw_ver = amdgpu_dev.query_firmware_version(FW_TYPE::VCE, 0, 0).unwrap();
     println!("VCE FW: {:X}", fw_ver.version);
 
+    let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
+    println!();
+    println!("{:?}", bus_info);
+    println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
+
+    use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS::*;
+    let dec_caps = amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap();
+    let dec_mpeg4 = dec_caps.get_codec_info(CODEC::MPEG4).is_supported();
+
+    println!();
+    println!("MPEG4 Decode: {}", dec_mpeg4);
+
     unsafe {
-        let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
-        println!();
-        println!("{:?}", bus_info);
-        println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
-
         use libdrm_amdgpu_sys::AMDGPU::VBIOS::*;
-        use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS::*;
-
-        println!();
-        let dec_caps = amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap();
-        let dec_mpeg4 = dec_caps.get_codec_info(CODEC::MPEG4).is_supported();
-        println!("MPEG4 Decode: {}", dec_mpeg4);
 
         println!();
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();
-        let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
         let ver_str = null_control_to_space(vbios.vbios_ver_str.to_vec());
 
         // println!("{:?}", vbios);
@@ -75,6 +75,7 @@ fn main() {
         println!("ver_str: {}", String::from_utf8(ver_str.to_vec()).unwrap());
         println!("date: {}", String::from_utf8(vbios.date.to_vec()).unwrap());
 
+        let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
         println!("vbios size: {vbios_size}");
     }
 
