@@ -97,3 +97,31 @@ pub enum FW_TYPE {
     DMCUB = AMDGPU_INFO_FW_DMCUB,
     TOC = AMDGPU_INFO_FW_TOC,
 }
+
+use std::fmt;
+impl fmt::Display for FW_TYPE {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Self::VCE => write!(f, "VCE"),
+            Self::UVD => write!(f, "UVD"),
+            Self::GMC => write!(f, "GMC"),
+            Self::GFX_ME => write!(f, "GFX_ME"),
+            Self::GFX_PFP => write!(f, "GFX_PFP"),
+            Self::GFX_CE => write!(f, "GFX_CE"),
+            Self::GFX_RLC => write!(f, "GFX_RLC"),
+            Self::GFX_MEC => write!(f, "GFX_MEC"),
+            Self::SMC => write!(f, "SMC"),
+            Self::SDMA => write!(f, "SDMA"),
+            Self::SOS => write!(f, "SOS"),
+            Self::ASD => write!(f, "ASD"),
+            Self::VCN => write!(f, "VCN"),
+            Self::GFX_RLC_RESTORE_LIST_CNTL => write!(f, "GFX_RLC_RESTORE_LIST_CNTL"),
+            Self::GFX_RLC_RESTORE_LIST_GPM_MEM => write!(f, "GFX_RLC_RESTORE_LIST_GPM_MEM"),
+            Self::GFX_RLC_RESTORE_LIST_SRM_MEM => write!(f, "GFX_RLC_RESTORE_LIST_SRM_MEM"),
+            Self::DMCU => write!(f, "DMCU"),
+            Self::TA => write!(f, "TA"),
+            Self::DMCUB => write!(f, "DMCUB"),
+            Self::TOC => write!(f, "TOC"),
+        }
+    }
+}

@@ -37,6 +37,15 @@ impl QUERY_HW_IP for DEVICE_HANDLE {
     }
 }
 
+impl drm_amdgpu_info_hw_ip {
+    pub fn num_queues(&self) -> u32 {
+        self.available_rings.count_ones()
+    }
+    pub fn version(&self) -> (u32, u32) {
+        (self.hw_ip_version_major, self.hw_ip_version_minor)
+    }
+}
+
 use crate::bindings::{
     AMDGPU_HW_IP_GFX,
     AMDGPU_HW_IP_COMPUTE,
@@ -63,4 +72,21 @@ pub enum HW_IP_TYPE {
     VCN_DEC = AMDGPU_HW_IP_VCN_DEC,
     VCN_ENC = AMDGPU_HW_IP_VCN_ENC,
     VCN_JPEG = AMDGPU_HW_IP_VCN_JPEG,
+}
+
+use std::fmt;
+impl fmt::Display for HW_IP_TYPE {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Self::GFX => write!(f, "GFX"),
+            Self::COMPUTE => write!(f, "COMPUTE"),
+            Self::DMA => write!(f, "DMA"),
+            Self::UVD => write!(f, "UVD"),
+            Self::VCE => write!(f, "VCE"),
+            Self::UVD_ENC => write!(f, "UVD_ENC"),
+            Self::VCN_DEC => write!(f, "VCN_DEC"),
+            Self::VCN_ENC => write!(f, "VCN_ENC"),
+            Self::VCN_JPEG => write!(f, "VCN_JPEG"),
+        }
+    }
 }
