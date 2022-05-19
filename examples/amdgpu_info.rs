@@ -69,7 +69,7 @@ fn main() {
 
             if major == 0 || queues == 0 { continue; }
 
-            println!("{ip_type}: {major}.{minor}, queues: {queues}", );
+            println!("{ip_type} IP: ver {major}.{minor}, queues: {queues}", );
         }
     }
     
@@ -145,7 +145,7 @@ fn main() {
     {
         let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
         println!();
-        println!("{:?}", bus_info);
+        println!("PCI: {bus_info}");
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
     }
 
@@ -157,6 +157,7 @@ fn main() {
 
         println!();
         // println!("{:?}", vbios);
+        println!("VBIOS info");
         println!("name: {}", String::from_utf8(vbios.name.to_vec()).unwrap());
         println!("pn: {}", String::from_utf8(vbios.vbios_pn.to_vec()).unwrap());
         println!("ver_str: {}", String::from_utf8(ver_str.to_vec()).unwrap());
