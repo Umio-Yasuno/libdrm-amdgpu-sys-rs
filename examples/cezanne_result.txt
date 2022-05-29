@@ -1,0 +1,52 @@
+libdrm_amdgpu_sys: ASIC not found in amdgpu.ids
+
+Marketing Name: []
+DeviceID.RevID: 0x1638.0xC9
+
+Family: Raven (RV)
+ASIC Name: Renoir
+Chip class: GFX9
+
+VRAM Type: DDR4
+VRAM Bit Width: 128-bit
+Peak Memory BW: 25 GB/s
+
+GFX IP: ver 9.0, queues: 1
+COMPUTE IP: ver 9.0, queues: 4
+DMA IP: ver 4.0, queues: 1
+VCN_DEC IP: ver 2.0, queues: 1
+VCN_ENC IP: ver 2.0, queues: 1
+VCN_JPEG IP: ver 2.0, queues: 1
+
+GFX_ME FW ver: 166, feature: 53
+GFX_PFP FW ver: 194, feature: 53
+GFX_CE FW ver: 79, feature: 53
+GFX_RLC FW ver: 60, feature: 1
+GFX_MEC FW ver: 464, feature: 53
+SMC FW ver: 4209920, feature: 0
+SDMA FW ver: 40, feature: 41
+ASD FW ver: 553648242, feature: 0
+VCN FW ver: 85004290, feature: 0
+GFX_RLC_RESTORE_LIST_CNTL FW ver: 1, feature: 1
+GFX_RLC_RESTORE_LIST_GPM_MEM FW ver: 1, feature: 1
+GFX_RLC_RESTORE_LIST_SRM_MEM FW ver: 1, feature: 1
+DMCUB FW ver: 16842783, feature: 0
+
+MPEG2 decode: true, encode: false
+MPEG4 decode: true, encode: false
+VC1 decode: true, encode: false
+MPEG4_AVC decode: true, encode: true
+HEVC decode: true, encode: true
+JPEG decode: true, encode: false
+VP9 decode: true, encode: false
+AV1 decode: false, encode: false
+
+PCI: 0000:05:00.0
+LINK { gen: 4, gts: "16.0 GT/s PCIe", width: 16 }
+
+VBIOS info
+name: Cezanne Generic VBIOS                                           
+pn: 13-CEZANNE-019                                                  
+ver_str: 017.010.000.030.000000          
+date: 2021/09/24 11:21                
+vbios size: 55296
