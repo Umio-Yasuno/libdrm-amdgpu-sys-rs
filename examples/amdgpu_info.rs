@@ -153,15 +153,21 @@ fn main() {
         use libdrm_amdgpu_sys::AMDGPU::VBIOS::*;
 
         let vbios = amdgpu_dev.vbios_info(fd).unwrap();
-        let ver_str = null_control_to_space(vbios.vbios_ver_str.to_vec());
+
+        let [name, pn, ver_str, date] = [
+            vbios.name.to_vec(),
+            vbios.vbios_pn.to_vec(),
+            vbios.vbios_ver_str.to_vec(),
+            vbios.date.to_vec(),
+        ].map(|v| v.null_ctrl_to_space());
 
         println!();
         // println!("{:?}", vbios);
         println!("VBIOS info");
-        println!("name: {}", String::from_utf8(vbios.name.to_vec()).unwrap());
-        println!("pn: {}", String::from_utf8(vbios.vbios_pn.to_vec()).unwrap());
-        println!("ver_str: {}", String::from_utf8(ver_str.to_vec()).unwrap());
-        println!("date: {}", String::from_utf8(vbios.date.to_vec()).unwrap());
+        println!("name: {}", String::from_utf8(name).unwrap());
+        println!("pn: {}", String::from_utf8(pn).unwrap());
+        println!("ver_str: {}", String::from_utf8(ver_str).unwrap());
+        println!("date: {}", String::from_utf8(date).unwrap());
 
         let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
         println!("vbios size: {vbios_size}");

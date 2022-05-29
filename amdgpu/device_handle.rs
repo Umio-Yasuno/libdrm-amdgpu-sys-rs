@@ -83,7 +83,7 @@ impl HANDLE for DEVICE_HANDLE {
             let mark_name = bindings::amdgpu_get_marketing_name(self);
 
             if mark_name.is_null() {
-                eprintln!("ASIC not found in amdgpu.ids");
+                eprintln!("libdrm_amdgpu_sys: ASIC not found in amdgpu.ids");
                 return Ok("".to_string());
             }
 

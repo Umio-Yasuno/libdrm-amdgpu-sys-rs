@@ -18,22 +18,28 @@ pub mod AMDGPU {
 mod pci_bus_info;
 pub use pci_bus_info::*;
 
-pub fn null_control_to_space(src: Vec<u8>) -> Vec<u8> {
-    let mut null_char_flag = false;
+pub trait BindingsStr {
+    fn null_ctrl_to_space(&self) -> Vec<u8>;
+}
 
-    let tmp: Vec<u8> = src.iter().map(|&v| {
-        /* '\0' */
-        if v == 0 { null_char_flag = true; }
+impl BindingsStr for Vec<u8> {
+    fn null_ctrl_to_space(&self) -> Vec<u8> {
+        let mut null_char_flag = false;
 
-        /* replace from \u0000..\u001F (<Control>) to \u0020 (<Space>) */
-        if null_char_flag || v < 0x20 {
-            0x20
-        } else {
-            v
-        }
-    }).collect();
+        let tmp: Vec<u8> = self.iter().map(|&v| {
+            /* '\0' */
+            if v == 0 { null_char_flag = true; }
 
-    return tmp;
+            /* replace from \u0000..\u001F (<Control>) to \u0020 (<Space>) */
+            if null_char_flag || v < 0x20 {
+                0x20
+            } else {
+                v
+            }
+        }).collect();
+
+        return tmp;
+    }
 }
 
 pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
