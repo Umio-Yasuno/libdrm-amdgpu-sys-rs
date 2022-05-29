@@ -58,6 +58,9 @@ impl VRAM_TYPE {
     }
     fn date_rate(&self) -> u64 {
         match self {
+            Self::DDR2 |
+            Self::DDR3 |
+            Self::DDR4 |
             Self::HBM => 2,
             Self::GDDR5 => 4,
             Self::GDDR6 => 8,
