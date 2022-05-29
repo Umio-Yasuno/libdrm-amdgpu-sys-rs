@@ -80,7 +80,14 @@ impl HANDLE for DEVICE_HANDLE {
 
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error> {
         unsafe {
-            let c_str = CStr::from_ptr(bindings::amdgpu_get_marketing_name(self));
+            let mark_name = bindings::amdgpu_get_marketing_name(self);
+
+            if mark_name.is_null() {
+                eprintln!("ASIC not found in amdgpu.ids");
+                return Ok("".to_string());
+            }
+
+            let c_str = CStr::from_ptr(mark_name);
 
             match c_str.to_str() {
                 Ok(v) => Ok(v.to_string()),
