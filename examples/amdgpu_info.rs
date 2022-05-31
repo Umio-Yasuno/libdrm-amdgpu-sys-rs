@@ -69,7 +69,7 @@ fn main() {
 
             if major == 0 || queues == 0 { continue; }
 
-            println!("{ip_type} IP: ver {major}.{minor}, queues: {queues}", );
+            println!("{:8} IP ver: {major}.{minor}, queues: {queues}", ip_type.to_string());
         }
     }
     
@@ -112,7 +112,7 @@ fn main() {
 
             if ver == 0 { continue; }
 
-            println!("{fw_type} FW ver: {ver}, feature: {ftr}");
+            println!("{fw_type} FW:\n   ver: {ver:>10}, feature: {ftr:>3}");
         }
     }
 
@@ -138,7 +138,7 @@ fn main() {
             let dec_cap = dec.get_codec_info(*codec).is_supported();
             let enc_cap = enc.get_codec_info(*codec).is_supported();
 
-            println!("{codec} decode: {dec_cap}, encode: {enc_cap}");
+            println!("{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}", codec.to_string());
         }
     }
 
@@ -159,15 +159,20 @@ fn main() {
             vbios.vbios_pn.to_vec(),
             vbios.vbios_ver_str.to_vec(),
             vbios.date.to_vec(),
-        ].map(|v| v.null_ctrl_to_space());
+        ].map(|v| {
+            let vec = v.null_ctrl_to_space();
+            let tmp = String::from_utf8(vec).unwrap();
+
+            tmp.trim_end().to_string()
+        });
 
         println!();
         // println!("{:?}", vbios);
         println!("VBIOS info");
-        println!("name: {}", String::from_utf8(name).unwrap());
-        println!("pn: {}", String::from_utf8(pn).unwrap());
-        println!("ver_str: {}", String::from_utf8(ver_str).unwrap());
-        println!("date: {}", String::from_utf8(date).unwrap());
+        println!("name: [{name}]");
+        println!("pn: [{pn}]");
+        println!("ver_str: [{ver_str}]");
+        println!("date: [{date}]");
 
         let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
         println!("vbios size: {vbios_size}");

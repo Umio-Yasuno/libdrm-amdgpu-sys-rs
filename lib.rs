@@ -30,8 +30,8 @@ impl BindingsStr for Vec<u8> {
             /* '\0' */
             if v == 0 { null_char_flag = true; }
 
-            /* replace from \u0000..\u001F (<Control>) to \u0020 (<Space>) */
-            if null_char_flag || v < 0x20 {
+            /* replace from <Control> \u0020 (<Space>) */
+            if null_char_flag || char::from(v).is_control() {
                 0x20
             } else {
                 v
