@@ -85,7 +85,6 @@ impl PCI::BUS_INFO {
 }
 
 use std::fmt;
-
 impl fmt::Display for PCI::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:04x}:{:02x}:{:02x}.{:01x}",

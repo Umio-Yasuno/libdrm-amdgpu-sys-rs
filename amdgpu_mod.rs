@@ -1,6 +1,6 @@
 use crate::*;
 
-pub type DEVICE = bindings::amdgpu_device;
+// pub type DEVICE = bindings::amdgpu_device;
 pub type DEVICE_HANDLE = bindings::amdgpu_device_handle;
 
 #[macro_export]

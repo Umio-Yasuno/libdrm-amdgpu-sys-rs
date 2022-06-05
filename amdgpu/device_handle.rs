@@ -1,5 +1,5 @@
 use crate::*;
-use super::*;
+use crate::AMDGPU::DEVICE_HANDLE;
 
 use std::mem::{MaybeUninit, size_of};
 use std::ffi::CStr;
@@ -54,9 +54,11 @@ impl HANDLE for DEVICE_HANDLE {
 
             query_error!(r);
 
+            /*
             let [_major, _minor] = [_major, _minor].map(
                 |v| v.assume_init()
             );
+            */
 
             return Ok(amdgpu_dev.assume_init());
         }

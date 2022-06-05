@@ -14,13 +14,15 @@ fn main() {
     let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
     let _ext_info = amdgpu_dev.device_info().unwrap();
 
-    /*
     println!("{gpu_info:?}");
     println!();
-    println!("{ext_info:?}");
+    println!("{_ext_info:?}");
+    /*
     */
 
     {
+        use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
+
         let mark_name = amdgpu_dev.get_marketing_name().unwrap();
 
         println!();
@@ -67,7 +69,7 @@ fn main() {
             let (major, minor) = ip_info.version();
             let queues = ip_info.num_queues();
 
-            if major == 0 || queues == 0 { continue; }
+            if queues == 0 { continue; }
 
             println!("{:8} IP ver: {major}.{minor}, queues: {queues}", ip_type.to_string());
         }
@@ -130,13 +132,17 @@ fn main() {
             CODEC::AV1,
         ];
 
-        let dec = amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap();
-        let enc = amdgpu_dev.get_video_caps(CAP_TYPE::ENCODE).unwrap();
+        let [dec, enc] = [
+            CAP_TYPE::DECODE,
+            CAP_TYPE::ENCODE,
+        ].map(|type_| amdgpu_dev.get_video_caps(type_).unwrap() );
 
         println!();
         for codec in &codec_list {
-            let dec_cap = dec.get_codec_info(*codec).is_supported();
-            let enc_cap = enc.get_codec_info(*codec).is_supported();
+            let [dec_cap, enc_cap] = [
+                dec,
+                enc,
+            ].map(|type_| type_.get_codec_info(*codec).is_supported());
 
             println!("{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}", codec.to_string());
         }

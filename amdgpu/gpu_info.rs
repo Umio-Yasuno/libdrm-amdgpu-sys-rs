@@ -1,44 +1,107 @@
 use crate::*;
 use crate::bindings::amdgpu_gpu_info;
+use crate::bindings::drm_amdgpu_info_device;
 
-impl amdgpu_gpu_info {
-    pub fn get_family_name(&self) -> AMDGPU::FAMILY_NAME {
-        AMDGPU::FAMILY_NAME::from_id(self.family_id)
+pub trait GPU_INFO {
+    fn family_id(&self) -> u32;
+    fn chip_external_rev(&self) -> u32;
+    fn vram_type(&self) -> u32;
+    fn vram_bit_width(&self) -> u32;
+    fn max_memory_clock(&self) -> u64;
+    fn ids_flags(&self) -> u64;
+    fn rb_pipes(&self) -> u32;
+    fn cu_active_number(&self) -> u32;
+
+    fn get_family_name(&self) -> AMDGPU::FAMILY_NAME {
+        AMDGPU::FAMILY_NAME::from_id(self.family_id())
     }
-    pub fn get_asic_name(&self) -> AMDGPU::ASIC_NAME {
-        self.get_family_name().asic_name(self.chip_external_rev)
+    fn get_asic_name(&self) -> AMDGPU::ASIC_NAME {
+        self.get_family_name().asic_name(self.chip_external_rev())
     }
-    pub fn get_chip_class(&self) -> AMDGPU::CHIP_CLASS {
+    fn get_chip_class(&self) -> AMDGPU::CHIP_CLASS {
         self.get_asic_name().chip_class()
     }
-    pub fn get_vram_type(&self) -> AMDGPU::VRAM_TYPE {
-        AMDGPU::VRAM_TYPE::from_type_id(self.vram_type)
+    fn get_vram_type(&self) -> AMDGPU::VRAM_TYPE {
+        AMDGPU::VRAM_TYPE::from_type_id(self.vram_type())
     }
-    pub fn is_apu(&self) -> bool {
+    fn is_apu(&self) -> bool {
         use crate::bindings::{
             AMDGPU_IDS_FLAGS_FUSION,
             // AMDGPU_IDS_FLAGS_PREEMPTION,
             // AMDGPU_IDS_FLAGS_TMZ,
         };
 
-        return (self.ids_flags & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
+        return (self.ids_flags() & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
     }
-    pub fn peak_memory_bw(&self) -> u64 {
+    fn peak_memory_bw(&self) -> u64 {
         let vram_type = self.get_vram_type();
 
-        vram_type.peak_bw(self.max_memory_clk, self.vram_bit_width)
+        vram_type.peak_bw(self.max_memory_clock(), self.vram_bit_width())
     }
-    pub fn peak_memory_bw_gb(&self) -> u64 {
+    fn peak_memory_bw_gb(&self) -> u64 {
         self.peak_memory_bw() / 1000
     }
-    pub fn calc_rop_count(&self) -> u64 {
-        let asic_name = self.get_asic_name();
-        let rop_per_rb = if asic_name.rbplus_allowed() {
+    fn calc_rop_count(&self) -> u32 {
+        let rop_per_rb = if self.get_asic_name().rbplus_allowed() {
             8
         } else {
             4
         };
 
-        return (self.rb_pipes as u64) * rop_per_rb;
+        return self.rb_pipes() * rop_per_rb;
+    }
+}
+
+impl GPU_INFO for amdgpu_gpu_info {
+    fn family_id(&self) -> u32 {
+        self.family_id
+    }
+    fn chip_external_rev(&self) -> u32 {
+        self.chip_external_rev
+    }
+    fn vram_type(&self) -> u32 {
+        self.vram_type
+    }
+    fn vram_bit_width(&self) -> u32 {
+        self.vram_bit_width
+    }
+    fn max_memory_clock(&self) -> u64 {
+        self.max_memory_clk
+    }
+    fn ids_flags(&self) -> u64 {
+        self.ids_flags
+    }
+    fn rb_pipes(&self) -> u32 {
+        self.rb_pipes
+    }
+    fn cu_active_number(&self) -> u32 {
+        self.cu_active_number
+    }
+}
+
+impl GPU_INFO for drm_amdgpu_info_device {
+    fn family_id(&self) -> u32 {
+        self.family
+    }
+    fn chip_external_rev(&self) -> u32 {
+        self.external_rev
+    }
+    fn vram_type(&self) -> u32 {
+        self.vram_type
+    }
+    fn vram_bit_width(&self) -> u32 {
+        self.vram_bit_width
+    }
+    fn max_memory_clock(&self) -> u64 {
+        self.max_memory_clock
+    }
+    fn ids_flags(&self) -> u64 {
+        self.ids_flags
+    }
+    fn rb_pipes(&self) -> u32 {
+        self.num_rb_pipes
+    }
+    fn cu_active_number(&self) -> u32 {
+        self.cu_active_number
     }
 }
