@@ -1,0 +1,61 @@
+amdgpu_gpu_info { asic_id: 26623, chip_rev: 1, chip_external_rev: 91, family_id: 130, ids_flags: 0, max_engine_clk: 1196000, max_memory_clk: 1750000, num_shader_engines: 2, num_shader_arrays_per_engine: 1, avail_quad_shader_pipes: 0, max_quad_shader_pipes: 0, cache_entries_per_quad_pipe: 0, num_hw_gfx_contexts: 8, rb_pipes: 4, enabled_rb_pipes_mask: 15, gpu_counter_freq: 25000, backend_disable: [0, 0, 0, 0], mc_arb_ramcfg: 24738, gb_addr_cfg: 570494978, gb_tile_mode: [8388944, 8390992, 8393040, 8395088, 8399184, 8399176, 8399188, 8399188, 324, 33554760, 33554768, 100663636, 100663636, 37749064, 37749072, 37749104, 104857940, 104857940, 4194636, 16777548, 16777564, 16777588, 16777572, 16777572, 4194652, 16777568, 16777592, 46137672, 46137680, 113246548, 113246548, 0], gb_macro_tile_mode: [232, 232, 232, 228, 208, 208, 208, 0, 237, 233, 232, 228, 208, 144, 64, 0], pa_sc_raster_cfg: [369098770, 369098770, 0, 0], pa_sc_raster_cfg1: [0, 0, 0, 0], cu_active_number: 16, cu_ao_mask: 16711935, cu_bitmap: [[255, 0, 0, 0], [255, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], vram_type: 5, vram_bit_width: 128, ce_ram_size: 32768, vce_harvest_config: 2, pci_rev_id: 207 }
+
+drm_amdgpu_info_device { device_id: 26623, chip_rev: 1, external_rev: 91, pci_rev: 207, family: 130, num_shader_engines: 2, num_shader_arrays_per_engine: 1, gpu_counter_freq: 25000, max_engine_clock: 1196000, max_memory_clock: 1750000, cu_active_number: 16, cu_ao_mask: 16711935, cu_bitmap: [[255, 0, 0, 0], [255, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], enabled_rb_pipes_mask: 15, num_rb_pipes: 4, num_hw_gfx_contexts: 8, _pad: 0, ids_flags: 0, virtual_address_offset: 2097152, virtual_address_max: 68717379584, virtual_address_alignment: 4096, pte_fragment_size: 2097152, gart_page_size: 4096, ce_ram_size: 32768, vram_type: 5, vram_bit_width: 128, vce_harvest_config: 2, gc_double_offchip_lds_buf: 1, prim_buf_gpu_addr: 0, pos_buf_gpu_addr: 0, cntl_sb_buf_gpu_addr: 0, param_buf_gpu_addr: 0, prim_buf_size: 0, pos_buf_size: 0, cntl_sb_buf_size: 0, param_buf_size: 0, wave_front_size: 64, num_shader_visible_vgprs: 256, num_cu_per_sh: 8, num_tcc_blocks: 4, gs_vgt_table_depth: 0, gs_prim_buffer_depth: 0, max_gs_waves_per_vgt: 32, _pad1: 0, cu_ao_bitmap: [[255, 0, 0, 0], [255, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], high_va_offset: 0, high_va_max: 0, pa_sc_tile_steering_override: 0, tcc_disabled_mask: 0 }
+
+Marketing Name: [AMD Radeon RX 560 Series]
+DeviceID.RevID: 0x67FF.0xCF
+
+Family: Volcanic Islands/Polaris (VI)
+ASIC Name: Polaris11
+Chip class: GFX8
+
+VRAM Type: GDDR5
+VRAM Bit Width: 128-bit
+Peak Memory BW: 112 GB/s
+
+GFX      IP ver: 8.0, queues: 1
+COMPUTE  IP ver: 8.0, queues: 4
+DMA      IP ver: 3.1, queues: 2
+UVD      IP ver: 6.3, queues: 1
+VCE      IP ver: 3.4, queues: 1
+UVD_ENC  IP ver: 6.3, queues: 1
+
+VCE FW:
+   ver:  890897152, feature:   0
+UVD FW:
+   ver:   25300992, feature:   0
+GMC FW:
+   ver:   28630912, feature:   0
+GFX_ME FW:
+   ver:        167, feature:  49
+GFX_PFP FW:
+   ver:        254, feature:  49
+GFX_CE FW:
+   ver:        140, feature:  49
+GFX_RLC FW:
+   ver:         63, feature:   1
+GFX_MEC FW:
+   ver:        730, feature:  49
+SMC FW:
+   ver:    1906688, feature:   0
+SDMA FW:
+   ver:         58, feature:  31
+
+MPEG2        decode:  true, encode: false
+MPEG4        decode:  true, encode: false
+VC1          decode:  true, encode: false
+MPEG4_AVC    decode:  true, encode:  true
+HEVC         decode:  true, encode:  true
+JPEG         decode:  true, encode: false
+VP9          decode: false, encode: false
+AV1          decode: false, encode: false
+
+PCI: 0000:01:00.0
+LINK { gen: 3, gts: "8.0 GT/s PCIe", width: 8 }
+
+VBIOS info
+name: [113-MSITV809MH.M00]
+pn: [113-C98121-H01]
+ver_str: [015.050.002.001.000000]
+date: [2017/05/05 01:14]
+vbios size: 59392
