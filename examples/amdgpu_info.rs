@@ -114,7 +114,7 @@ fn main() {
 
             if ver == 0 { continue; }
 
-            println!("{fw_type} FW:\n   ver: {ver:>10}, feature: {ftr:>3}");
+            println!("{fw_type} FW:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
         }
     }
 
@@ -155,10 +155,10 @@ fn main() {
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
     }
 
-    unsafe {
+    {
         use libdrm_amdgpu_sys::AMDGPU::VBIOS::*;
 
-        let vbios = amdgpu_dev.vbios_info(fd).unwrap();
+        let vbios = unsafe { amdgpu_dev.vbios_info(fd).unwrap() };
 
         let [name, pn, ver_str, date] = [
             vbios.name.to_vec(),
@@ -180,7 +180,7 @@ fn main() {
         println!("ver_str: [{ver_str}]");
         println!("date: [{date}]");
 
-        let vbios_size = amdgpu_dev.vbios_size(fd).unwrap();
+        let vbios_size = unsafe { amdgpu_dev.vbios_size(fd).unwrap() };
         println!("vbios size: {vbios_size}");
     }
 

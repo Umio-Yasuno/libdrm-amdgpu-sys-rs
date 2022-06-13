@@ -23,7 +23,7 @@ use bindings::{
 pub trait HANDLE {
     fn init(fd: i32) -> Result<Self, i32> where Self: Sized;
     fn deinit(self) -> Result<i32, i32>;
-    fn get_fd(self) -> i32;
+    fn get_fd(&self) -> i32;
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
     fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32>;
@@ -65,23 +65,21 @@ impl HANDLE for DEVICE_HANDLE {
     }
 
     fn deinit(self) -> Result<i32, i32> {
-        unsafe {
-            let r = bindings::amdgpu_device_deinitialize(self);
+        let r = unsafe { bindings::amdgpu_device_deinitialize(self) };
 
-            query_error!(r);
+        query_error!(r);
 
-            return Ok(r);
-        }
+        return Ok(r);
     }
 
-    fn get_fd(self) -> i32 {
+    fn get_fd(&self) -> i32 {
         unsafe {
-            bindings::amdgpu_device_get_fd(self)
+            bindings::amdgpu_device_get_fd(*self)
         }
     }
 
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error> {
-        unsafe {
+        let c_str = unsafe {
             let mark_name = bindings::amdgpu_get_marketing_name(self);
 
             if mark_name.is_null() {
@@ -89,12 +87,12 @@ impl HANDLE for DEVICE_HANDLE {
                 return Ok("".to_string());
             }
 
-            let c_str = CStr::from_ptr(mark_name);
+            CStr::from_ptr(mark_name)
+        };
 
-            match c_str.to_str() {
-                Ok(v) => Ok(v.to_string()),
-                Err(e) => Err(e),
-            }
+        match c_str.to_str() {
+            Ok(v) => Ok(v.to_string()),
+            Err(e) => Err(e),
         }
     }
 

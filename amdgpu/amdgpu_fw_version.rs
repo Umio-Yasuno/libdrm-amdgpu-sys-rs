@@ -24,7 +24,7 @@ impl QUERY_FW_VERSION for DEVICE_HANDLE {
         ip_instance: ::std::os::raw::c_uint,
         index: ::std::os::raw::c_uint,
     ) -> Result<FwVer, i32> {
-        unsafe {
+        let fw_ver = unsafe {
             let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
 
@@ -39,13 +39,13 @@ impl QUERY_FW_VERSION for DEVICE_HANDLE {
 
             query_error!(r);
 
-            let fw_ver = FwVer {
+            FwVer {
                 version: version.assume_init(),
                 feature: feature.assume_init(),
-            };
+            }
+        };
 
-            return Ok(fw_ver);
-        }
+        return Ok(fw_ver);
     }
 }
 

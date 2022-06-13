@@ -23,19 +23,20 @@ impl PCI::BUS_INFO {
         fd: ::std::os::raw::c_int,
         //  flags: u32,
     ) -> Result<Self, i32> {
-        unsafe {
+        let bus_info = unsafe {
             let dev_info = __drmGetDevice2(fd, 0)?;
 
-            let bus_info = PCI::BUS_INFO {
+            PCI::BUS_INFO {
                 domain: (*(*dev_info).businfo.pci).domain,
                 bus: (*(*dev_info).businfo.pci).bus,
                 dev: (*(*dev_info).businfo.pci).dev,
                 func: (*(*dev_info).businfo.pci).func,
-            };
+            }
+        };
 
-            return Ok(bus_info);
-        }
+        return Ok(bus_info);
     }
+
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
         /* TODO: use buffer */
         let (speed, width) = {
