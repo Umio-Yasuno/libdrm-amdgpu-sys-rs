@@ -64,7 +64,7 @@ impl fmt::Display for FAMILY_NAME {
             Self::AI => write!(f, "Arctic Islands (AI)"),
             Self::RV => write!(f, "Raven (RV)"),
             Self::NV => write!(f, "Navi (NV)"),
-            Self::VGH => write!(f, "Van Gogh (VGH)"),
+            Self::VGH => write!(f, "VanGogh (VGH)"),
             Self::YC => write!(f, "Yellow Carp (YC)"),
             Self::UNKNOWN => write!(f, "Unknown"),
         }

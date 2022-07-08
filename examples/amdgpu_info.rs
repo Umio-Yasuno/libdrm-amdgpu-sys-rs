@@ -1,24 +1,25 @@
 use libdrm_amdgpu_sys::*;
 
-use std::fs::File;
-use std::os::unix::io::IntoRawFd;
-
 fn main() {
-    let v = File::open("/dev/dri/renderD128").unwrap();
-    let fd = v.into_raw_fd();
+    let fd = {
+        use std::fs::File;
+        use std::os::unix::io::IntoRawFd;
+
+        let v = File::open("/dev/dri/renderD128").unwrap();
+
+        v.into_raw_fd()
+    };
 
     use libdrm_amdgpu_sys::AMDGPU::HANDLE;
 
     let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
 
-    let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
-    let _ext_info = amdgpu_dev.device_info().unwrap();
+    // let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
+    let ext_info = amdgpu_dev.device_info().unwrap();
 
-    println!("{gpu_info:?}");
+    // println!("{gpu_info:?}");
     println!();
-    println!("{_ext_info:?}");
-    /*
-    */
+    println!("{ext_info:?}");
 
     {
         use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
@@ -27,24 +28,35 @@ fn main() {
 
         println!();
         println!("Marketing Name: [{mark_name}]");
-        println!("DeviceID.RevID: {:#0X}.{:#0X}", gpu_info.asic_id, gpu_info.pci_rev_id);
+        println!("DeviceID.RevID: {:#0X}.{:#0X}", ext_info.device_id(), ext_info.pci_rev_id());
 
-        let family = gpu_info.get_family_name();
-        let asic_name = gpu_info.get_asic_name();
-        let chip_class = gpu_info.get_chip_class();
+        let family = ext_info.get_family_name();
+        let asic_name = ext_info.get_asic_name();
+        let chip_class = ext_info.get_chip_class();
 
         println!();
         println!("Family: {family}");
         println!("ASIC Name: {asic_name}");
         println!("Chip class: {chip_class}");
 
-        let vram_type = gpu_info.get_vram_type();
-        let peak_bw = gpu_info.peak_memory_bw_gb();
+        let cu = ext_info.cu_active_number();
+        let max_engine_clock = ext_info.max_engine_clock();
+        let peak_gflops = ext_info.peak_gflops();
+
+        println!();
+        println!("CU: {cu}");
+        println!("Max Engine Clock: {} MHz", max_engine_clock / 1000);
+        println!("Peak FP32: {peak_gflops} GFLOPS");
+
+        let vram_type = ext_info.get_vram_type();
+        let peak_bw = ext_info.peak_memory_bw_gb();
+        let l2c_size = ext_info.calc_l2_cache_size() / 1024;
 
         println!();
         println!("VRAM Type: {vram_type}");
-        println!("VRAM Bit Width: {}-bit", gpu_info.vram_bit_width);
+        println!("VRAM Bit Width: {}-bit", ext_info.vram_bit_width);
         println!("Peak Memory BW: {peak_bw} GB/s");
+        println!("L2cache: {l2c_size} KiB");
     }
 
     {
@@ -69,9 +81,9 @@ fn main() {
             let (major, minor) = ip_info.version();
             let queues = ip_info.num_queues();
 
-            if queues == 0 { continue; }
+            if queues == 0 { continue }
 
-            println!("{:8} IP ver: {major}.{minor}, queues: {queues}", ip_type.to_string());
+            println!("{:8} IP ver: {major:2}.{minor}, queues: {queues}", ip_type.to_string());
         }
     }
     
@@ -112,7 +124,7 @@ fn main() {
 
             let (ver, ftr) = (fw_info.version, fw_info.feature);
 
-            if ver == 0 { continue; }
+            if ver == 0 { continue }
 
             println!("{fw_type} FW:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
         }
@@ -142,7 +154,7 @@ fn main() {
             let [dec_cap, enc_cap] = [
                 dec,
                 enc,
-            ].map(|type_| type_.get_codec_info(*codec).is_supported());
+            ].map(|type_| type_.get_codec_info(*codec).is_supported() );
 
             println!("{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}", codec.to_string());
         }

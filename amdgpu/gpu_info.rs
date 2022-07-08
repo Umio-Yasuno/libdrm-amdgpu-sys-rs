@@ -1,13 +1,15 @@
 use crate::*;
-use crate::bindings::amdgpu_gpu_info;
-use crate::bindings::drm_amdgpu_info_device;
+use crate::bindings::{amdgpu_gpu_info, drm_amdgpu_info_device};
 
 pub trait GPU_INFO {
     fn family_id(&self) -> u32;
     fn chip_external_rev(&self) -> u32;
+    fn device_id(&self) -> u32;
+    fn pci_rev_id(&self) -> u32;
     fn vram_type(&self) -> u32;
     fn vram_bit_width(&self) -> u32;
     fn max_memory_clock(&self) -> u64;
+    fn max_engine_clock(&self) -> u64;
     fn ids_flags(&self) -> u64;
     fn rb_pipes(&self) -> u32;
     fn cu_active_number(&self) -> u32;
@@ -50,6 +52,10 @@ pub trait GPU_INFO {
 
         return self.rb_pipes() * rop_per_rb;
     }
+    fn peak_gflops(&self) -> u32 {
+        /* [CU] * 64 [Lane] * 2 [ops] * [GHz] */
+        (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
+    }
 }
 
 impl GPU_INFO for amdgpu_gpu_info {
@@ -59,6 +65,12 @@ impl GPU_INFO for amdgpu_gpu_info {
     fn chip_external_rev(&self) -> u32 {
         self.chip_external_rev
     }
+    fn device_id(&self) -> u32 {
+        self.asic_id
+    }
+    fn pci_rev_id(&self) -> u32 {
+        self.pci_rev_id
+    }
     fn vram_type(&self) -> u32 {
         self.vram_type
     }
@@ -67,6 +79,9 @@ impl GPU_INFO for amdgpu_gpu_info {
     }
     fn max_memory_clock(&self) -> u64 {
         self.max_memory_clk
+    }
+    fn max_engine_clock(&self) -> u64 {
+        self.max_engine_clk
     }
     fn ids_flags(&self) -> u64 {
         self.ids_flags
@@ -86,6 +101,12 @@ impl GPU_INFO for drm_amdgpu_info_device {
     fn chip_external_rev(&self) -> u32 {
         self.external_rev
     }
+    fn device_id(&self) -> u32 {
+        self.device_id
+    }
+    fn pci_rev_id(&self) -> u32 {
+        self.pci_rev
+    }
     fn vram_type(&self) -> u32 {
         self.vram_type
     }
@@ -95,6 +116,9 @@ impl GPU_INFO for drm_amdgpu_info_device {
     fn max_memory_clock(&self) -> u64 {
         self.max_memory_clock
     }
+    fn max_engine_clock(&self) -> u64 {
+        self.max_engine_clock
+    }
     fn ids_flags(&self) -> u64 {
         self.ids_flags
     }
@@ -103,5 +127,11 @@ impl GPU_INFO for drm_amdgpu_info_device {
     }
     fn cu_active_number(&self) -> u32 {
         self.cu_active_number
+    }
+}
+
+impl drm_amdgpu_info_device {
+    pub fn calc_l2_cache_size(&self) -> u32 {
+        self.num_tcc_blocks * self.get_asic_name().l2_cache_size_per_block()
     }
 }

@@ -226,9 +226,11 @@ impl ASIC_NAME {
             _ => Self::CHIP_UNKNOWN,
         }
     }
+    /*
     pub fn to_u32(&self) -> u32 {
         *self as u32
     }
+    */
     pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
         AMDGPU::CHIP_CLASS::from_asic_name(*self)
     }
@@ -299,134 +301,140 @@ impl ASIC_NAME {
                 256 * 1024,
         }
     }
-
-    pub fn get_llvm_processor_name(&self) -> String {
-        match self {
-    Self::CHIP_TAHITI =>
-        "tahiti",
-    Self::CHIP_PITCAIRN =>
-        "pitcairn",
-    Self::CHIP_VERDE =>
-        "verde",
-    Self::CHIP_OLAND =>
-        "oland",
-    Self::CHIP_HAINAN =>
-        "hainan",
-    Self::CHIP_BONAIRE =>
-        "bonaire",
-    Self::CHIP_KABINI =>
-        "kabini",
-    Self::CHIP_KAVERI =>
-        "kaveri",
-    Self::CHIP_HAWAII =>
-        "hawaii",
-    Self::CHIP_TONGA =>
-        "tonga",
-    Self::CHIP_ICELAND =>
-        "iceland",
-    Self::CHIP_CARRIZO =>
-        "carrizo",
-    Self::CHIP_FIJI =>
-        "fiji",
-    Self::CHIP_STONEY =>
-        "stoney",
-    Self::CHIP_POLARIS10 =>
-        "polaris10",
-    Self::CHIP_POLARIS11 |
-    Self::CHIP_POLARIS12 |
-    Self::CHIP_VEGAM =>
-        "polaris11",
-    Self::CHIP_VEGA10 =>
-        "gfx900",
-    Self::CHIP_RAVEN =>
-        "gfx902",
-    Self::CHIP_VEGA12 =>
-        "gfx904",
-    Self::CHIP_VEGA20 =>
-        "gfx906",
-    Self::CHIP_RAVEN2 |
-    Self::CHIP_RENOIR =>
-        "gfx909",
-    Self::CHIP_ARCTURUS =>
-        "gfx908",
-    Self::CHIP_ALDEBARAN =>
-        "gfx90a",
-    Self::CHIP_NAVI10 =>
-        "gfx1010",
-    Self::CHIP_NAVI12 =>
-        "gfx1011",
-    Self::CHIP_NAVI14 =>
-        "gfx1012",
-    Self::CHIP_SIENNA_CICHLID =>
-        "gfx1030",
-    Self::CHIP_NAVY_FLOUNDER =>
-        "gfx1030",
-    /*
-        if cfg!(version("1.52")) { // LLVM 12
-            "gfx1031"
-        } else {
-            "gfx1030"
-        },
-    */
-    Self::CHIP_DIMGREY_CAVEFISH =>
-        "gfx1030",
-    /*
-        if cfg!(version("1.52")) { // LLVM 12
-            "gfx1032"
-        } else {
-            "gfx1030"
-        },
-    */
-    Self::CHIP_VANGOGH =>
-        "gfx1030",
-    /*
-        if cfg!(version("1.52")) { // LLVM 12
-            "gfx1033"
-        } else {
-            "gfx1030"
-        },
-    */
-    Self::CHIP_BEIGE_GOBY =>
-        "gfx1030",
-    /*
-        if cfg!(version("1.56")) { // LLVM 13
-            "gfx1034"
-        } else {
-            "gfx1030"
-        },
-    */
-    Self::CHIP_YELLOW_CARP =>
-        "gfx1030",
-    /*
-        if cfg!(version("1.56")) { // LLVM 13
-            "gfx1035"
-        } else {
-            "gfx1030"
-        },
-    */
-    Self::CHIP_GFX1036 =>
-        "gfx1030",
-    /*
-    Self::CHIP_GFX1100 =>
-        "gfx1100",
-    Self::CHIP_GFX1101 =>
-        "gfx1101",
-    Self::CHIP_GFX1102 =>
-        "gfx1102",
-    Self::CHIP_GFX1103 =>
-        "gfx1103",
-    */
-    _ => "",
-        }.to_string()
-    }
-
-
     pub fn l2_cache_line_size(&self) -> u32 {
         if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
             128
         } else {
             64
         }
+    }
+    pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
+        match self {
+            Self::CHIP_SIENNA_CICHLID |
+            Self::CHIP_NAVY_FLOUNDER => 8,
+            Self::CHIP_DIMGREY_CAVEFISH |
+            Self::CHIP_BEIGE_GOBY => 4,
+            _ => 0,
+        }
+    }
+    pub fn get_llvm_processor_name(&self) -> String {
+        match self {
+            Self::CHIP_TAHITI =>
+                "tahiti",
+            Self::CHIP_PITCAIRN =>
+                "pitcairn",
+            Self::CHIP_VERDE =>
+                "verde",
+            Self::CHIP_OLAND =>
+                "oland",
+            Self::CHIP_HAINAN =>
+                "hainan",
+            Self::CHIP_BONAIRE =>
+                "bonaire",
+            Self::CHIP_KABINI =>
+                "kabini",
+            Self::CHIP_KAVERI =>
+                "kaveri",
+            Self::CHIP_HAWAII =>
+                "hawaii",
+            Self::CHIP_TONGA =>
+                "tonga",
+            Self::CHIP_ICELAND =>
+                "iceland",
+            Self::CHIP_CARRIZO =>
+                "carrizo",
+            Self::CHIP_FIJI =>
+                "fiji",
+            Self::CHIP_STONEY =>
+                "stoney",
+            Self::CHIP_POLARIS10 =>
+                "polaris10",
+            Self::CHIP_POLARIS11 |
+            Self::CHIP_POLARIS12 |
+            Self::CHIP_VEGAM =>
+                "polaris11",
+            Self::CHIP_VEGA10 =>
+                "gfx900",
+            Self::CHIP_RAVEN =>
+                "gfx902",
+            Self::CHIP_VEGA12 =>
+                "gfx904",
+            Self::CHIP_VEGA20 =>
+                "gfx906",
+            Self::CHIP_RAVEN2 |
+            Self::CHIP_RENOIR =>
+                "gfx909",
+            Self::CHIP_ARCTURUS =>
+                "gfx908",
+            Self::CHIP_ALDEBARAN =>
+                "gfx90a",
+            Self::CHIP_NAVI10 =>
+                "gfx1010",
+            Self::CHIP_NAVI12 =>
+                "gfx1011",
+            Self::CHIP_NAVI14 =>
+                "gfx1012",
+            Self::CHIP_SIENNA_CICHLID =>
+                "gfx1030",
+            Self::CHIP_NAVY_FLOUNDER =>
+                "gfx1030",
+            /*
+                if cfg!(version("1.52")) { // LLVM 12
+                    "gfx1031"
+                } else {
+                    "gfx1030"
+                },
+            */
+            Self::CHIP_DIMGREY_CAVEFISH =>
+                "gfx1030",
+            /*
+                if cfg!(version("1.52")) { // LLVM 12
+                    "gfx1032"
+                } else {
+                    "gfx1030"
+                },
+            */
+            Self::CHIP_VANGOGH =>
+                "gfx1030",
+            /*
+                if cfg!(version("1.52")) { // LLVM 12
+                    "gfx1033"
+                } else {
+                    "gfx1030"
+                },
+            */
+            Self::CHIP_BEIGE_GOBY =>
+                "gfx1030",
+            /*
+                if cfg!(version("1.56")) { // LLVM 13
+                    "gfx1034"
+                } else {
+                    "gfx1030"
+                },
+            */
+            Self::CHIP_YELLOW_CARP =>
+                "gfx1030",
+            /*
+                if cfg!(version("1.56")) { // LLVM 13
+                    "gfx1035"
+                } else {
+                    "gfx1030"
+                },
+            */
+            Self::CHIP_GFX1036 =>
+                "gfx1030",
+            /*
+            Self::CHIP_GFX1100 =>
+                "gfx1100",
+            Self::CHIP_GFX1101 =>
+                "gfx1101",
+            Self::CHIP_GFX1102 =>
+                "gfx1102",
+            Self::CHIP_GFX1103 =>
+                "gfx1103",
+            */
+            _ => "",
+        }.to_string()
     }
 }
 

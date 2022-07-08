@@ -46,10 +46,8 @@ impl VRAM_TYPE {
             AMDGPU_VRAM_TYPE_UNKNOWN | _ => Self::UNKNOWN,
         }
     }
-    pub fn to_u32(&self) -> u32 {
-        *self as u32
-    }
     /* https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-od-clk-voltage */
+    /*
     fn clk_rate(&self) -> u64 {
         match self {
             Self::GDDR6 => 2,
@@ -67,13 +65,27 @@ impl VRAM_TYPE {
             _ => 1,
         }
     }
-    pub fn peak_bw(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u64 {
-        let eff_mem_clk_mhz = (max_mem_clk_khz / 1000) * self.clk_rate();
-        
-        eff_mem_clk_mhz * self.date_rate() * (vram_bit_width as u64) / 8
+    */
+    /* https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp */
+    fn memory_ops_per_clock(&self) -> u64 {
+        match self {
+            Self::DDR2 |
+            Self::DDR3 |
+            Self::DDR4 |
+            Self::HBM => 2,
+            Self::GDDR5 |
+            Self::DDR5 => 4,
+            Self::GDDR6 => 16,
+            _ => 1,
+        }
     }
-    pub fn peak_bw_gb(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u64 {
-        self.peak_bw(max_mem_clk_khz, vram_bit_width) / 1000
+    pub fn peak_bw(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u64 {
+        let eff_mem_clk_mhz = (max_mem_clk_khz / 1000) * self.memory_ops_per_clock();
+        
+        eff_mem_clk_mhz * (vram_bit_width as u64) / 8
+    }
+    pub fn peak_bw_gb(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u32 {
+        (self.peak_bw(max_mem_clk_khz, vram_bit_width) / 1000) as u32
     }
 }
 
