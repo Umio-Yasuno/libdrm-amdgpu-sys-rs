@@ -14,14 +14,14 @@ fn main() {
 
     let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
 
-    // let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
-    let ext_info = amdgpu_dev.device_info().unwrap();
-
-    // println!("{gpu_info:?}");
-    println!();
-    println!("{ext_info:?}");
-
     {
+        // let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
+        let ext_info = amdgpu_dev.device_info().unwrap();
+
+        // println!("{gpu_info:?}");
+        println!();
+        println!("{ext_info:?}");
+
         use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
         let mark_name = amdgpu_dev.get_marketing_name().unwrap();
@@ -57,6 +57,12 @@ fn main() {
         println!("VRAM Bit Width: {}-bit", ext_info.vram_bit_width);
         println!("Peak Memory BW: {peak_bw} GB/s");
         println!("L2cache: {l2c_size} KiB");
+    }
+
+    {
+        let memory_info = amdgpu_dev.memory_info().unwrap();
+        let vram_size_mb = memory_info.vram.total_heap_size / 1024 / 1024;
+        println!("VRAM size: {vram_size_mb} MiB");
     }
 
     {
