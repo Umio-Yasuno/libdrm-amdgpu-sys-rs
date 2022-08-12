@@ -37,28 +37,24 @@ impl PCI::BUS_INFO {
         return Ok(bus_info);
     }
 
-    pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
-        /* TODO: use buffer */
-        let (speed, width) = {
-            use std::fs;
-            use std::path::PathBuf;
+    pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [std::path::PathBuf; 2] {
+        use std::path::PathBuf;
 
-            let status = match status {
-                PCI::STATUS::Current => "current",
-                PCI::STATUS::Max => "max",
-            };
-            let path = PathBuf::from(format!("/sys/bus/pci/devices/{}/", self));
-
-            let file_name = [
-                &format!("{status}_link_speed"),
-                &format!("{status}_link_width"),
-            ];
-
-            (
-                fs::read_to_string(path.join(file_name[0])).unwrap(),
-                fs::read_to_string(path.join(file_name[1])).unwrap(),
-            )
+        let status = match status {
+            PCI::STATUS::Current => "current",
+            PCI::STATUS::Max => "max",
         };
+        let path = PathBuf::from(format!("/sys/bus/pci/devices/{}/", self));
+
+        return [
+            format!("{status}_link_speed"),
+            format!("{status}_link_width"),
+        ].map(|file_name| path.join(file_name) );
+    }
+
+    pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
+        let [speed, width] = Self::get_link_sysfs_path(&self, status)
+            .map(|path| std::fs::read_to_string(path).unwrap() );
 
         let speed = speed.trim();
         let width: u8 = width.trim().parse().unwrap();
