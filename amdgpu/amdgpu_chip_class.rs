@@ -51,7 +51,7 @@ pub enum CHIP_CLASS {
 
 impl CHIP_CLASS {
     pub fn from_asic_name(asic_name: ASIC_NAME) -> Self {
-        if asic_name >= ASIC_NAME::CHIP_SIENNA_CICHLID {
+        if asic_name >= ASIC_NAME::CHIP_NAVI21 {
             Self::GFX10_3
         } else if asic_name >= ASIC_NAME::CHIP_NAVI10 {
             Self::GFX10

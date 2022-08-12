@@ -126,12 +126,12 @@ pub enum ASIC_NAME {
    CHIP_NAVI12,         /* Radeon Pro 5600M */
    CHIP_NAVI14,         /* Radeon 5300, 5500 */
    /* GFX10.3 (RDNA 2) */
-   CHIP_SIENNA_CICHLID, /* Radeon 6800, 6900 */
-   CHIP_NAVY_FLOUNDER,  /* Radeon 6700 */
+   CHIP_NAVI21, /* Radeon 6800, 6900 */
+   CHIP_NAVI22,  /* Radeon 6700 */
    CHIP_VANGOGH,        /* Steam Deck */
-   CHIP_DIMGREY_CAVEFISH, /* Radeon 6600 */
-   CHIP_BEIGE_GOBY,     /* Radeon 6400, 6500 */
-   CHIP_YELLOW_CARP,    /* Ryzen 6000 */
+   CHIP_NAVI23, /* Radeon 6600 */
+   CHIP_NAVI24,     /* Radeon 6400, 6500 */
+   CHIP_REMBRANDT,    /* Ryzen 6000 */
    CHIP_GFX1036,
 }
 
@@ -211,14 +211,14 @@ impl ASIC_NAME {
                 if range!(r, 0x01, 0x0A) { return Self::CHIP_NAVI10; }
                 if range!(r, 0x0A, 0x14) { return Self::CHIP_NAVI12; }
                 if range!(r, 0x14, 0x28) { return Self::CHIP_NAVI14; }
-                if range!(r, 0x28, 0x32) { return Self::CHIP_SIENNA_CICHLID; }
-                if range!(r, 0x3C, 0x46) { return Self::CHIP_NAVY_FLOUNDER; }
-                if range!(r, 0x46, 0x50) { return Self::CHIP_BEIGE_GOBY; }
+                if range!(r, 0x28, 0x32) { return Self::CHIP_NAVI21; }
+                if range!(r, 0x3C, 0x46) { return Self::CHIP_NAVI22; }
+                if range!(r, 0x46, 0x50) { return Self::CHIP_NAVI24; }
 
                 return Self::CHIP_UNKNOWN;
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
-            FAMILY_NAME::YC => Self::CHIP_YELLOW_CARP,
+            FAMILY_NAME::YC => Self::CHIP_REMBRANDT,
             /*
             FAMILY_NAME::GFX1036 => Self::GFX1036,
             FAMILY_NAME::GFX1037 => Self::GFX1037,
@@ -244,7 +244,7 @@ impl ASIC_NAME {
         self.has_rbplus() &&
             (*self == Self::CHIP_STONEY || *self == Self::CHIP_VEGA12 ||
             *self == Self::CHIP_RAVEN || *self == Self::CHIP_RAVEN2 ||
-            *self == Self::CHIP_RENOIR || *self >= Self::CHIP_SIENNA_CICHLID)
+            *self == Self::CHIP_RENOIR || *self >= Self::CHIP_NAVI21)
     }
     pub fn has_packed_math_16bit(&self) -> bool {
         *self >= Self::CHIP_VEGA10
@@ -254,7 +254,7 @@ impl ASIC_NAME {
         *self == Self::CHIP_VEGA20 || *self >= Self::CHIP_NAVI12
     }
     pub fn max_wave64_per_simd(&self) -> u8 {
-        if *self >= Self::CHIP_SIENNA_CICHLID {
+        if *self >= Self::CHIP_NAVI21 {
             16
         } else if *self >= Self::CHIP_NAVI10 {
             20
@@ -295,7 +295,7 @@ impl ASIC_NAME {
             Self::CHIP_POLARIS12 |
             Self::CHIP_VEGAM =>
                 128 * 1024,
-            Self::CHIP_YELLOW_CARP =>
+            Self::CHIP_REMBRANDT =>
                 512 * 1024,
             _ =>
                 256 * 1024,
@@ -310,10 +310,10 @@ impl ASIC_NAME {
     }
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
         match self {
-            Self::CHIP_SIENNA_CICHLID |
-            Self::CHIP_NAVY_FLOUNDER => 8,
-            Self::CHIP_DIMGREY_CAVEFISH |
-            Self::CHIP_BEIGE_GOBY => 4,
+            Self::CHIP_NAVI21 |
+            Self::CHIP_NAVI22 => 8,
+            Self::CHIP_NAVI23 |
+            Self::CHIP_NAVI24 => 4,
             _ => 0,
         }
     }
@@ -374,9 +374,9 @@ impl ASIC_NAME {
                 "gfx1011",
             Self::CHIP_NAVI14 =>
                 "gfx1012",
-            Self::CHIP_SIENNA_CICHLID =>
+            Self::CHIP_NAVI21 =>
                 "gfx1030",
-            Self::CHIP_NAVY_FLOUNDER =>
+            Self::CHIP_NAVI22 =>
                 "gfx1030",
             /*
                 if cfg!(version("1.52")) { // LLVM 12
@@ -385,7 +385,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_DIMGREY_CAVEFISH =>
+            Self::CHIP_NAVI23 =>
                 "gfx1030",
             /*
                 if cfg!(version("1.52")) { // LLVM 12
@@ -403,7 +403,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_BEIGE_GOBY =>
+            Self::CHIP_NAVI24 =>
                 "gfx1030",
             /*
                 if cfg!(version("1.56")) { // LLVM 13
@@ -412,7 +412,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_YELLOW_CARP =>
+            Self::CHIP_REMBRANDT =>
                 "gfx1030",
             /*
                 if cfg!(version("1.56")) { // LLVM 13
@@ -541,12 +541,12 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI12 => write!(f, "Navi12"),
             Self::CHIP_NAVI14 => write!(f, "Navi14"),
             /* GFX10.3 (RDNA 2) */
-            Self::CHIP_SIENNA_CICHLID => write!(f, "Sienna Cichlid/Navi21"),
-            Self::CHIP_NAVY_FLOUNDER => write!(f, "Navy Flounder/Navi22"),
+            Self::CHIP_NAVI21 => write!(f, "Sienna Cichlid/Navi21"),
+            Self::CHIP_NAVI22 => write!(f, "Navy Flounder/Navi22"),
             Self::CHIP_VANGOGH => write!(f, "VanGogh"),
-            Self::CHIP_DIMGREY_CAVEFISH => write!(f, "Dimgrey Cavefish/Navi23"),
-            Self::CHIP_BEIGE_GOBY => write!(f, "Beige Goby/Navi24"),
-            Self::CHIP_YELLOW_CARP => write!(f, "Yellow Carp/Rembrandt"),
+            Self::CHIP_NAVI23 => write!(f, "Dimgrey Cavefish/Navi23"),
+            Self::CHIP_NAVI24 => write!(f, "Beige Goby/Navi24"),
+            Self::CHIP_REMBRANDT => write!(f, "Yellow Carp/Rembrandt"),
             Self::CHIP_GFX1036 => write!(f, "GFX1036"),
         }
     }
