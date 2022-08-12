@@ -212,7 +212,8 @@ impl ASIC_NAME {
                 if range!(r, 0x0A, 0x14) { return Self::CHIP_NAVI12; }
                 if range!(r, 0x14, 0x28) { return Self::CHIP_NAVI14; }
                 if range!(r, 0x28, 0x32) { return Self::CHIP_NAVI21; }
-                if range!(r, 0x3C, 0x46) { return Self::CHIP_NAVI22; }
+                if range!(r, 0x32, 0x3C) { return Self::CHIP_NAVI22; }
+                if range!(r, 0x3C, 0x46) { return Self::CHIP_NAVI23; }
                 if range!(r, 0x46, 0x50) { return Self::CHIP_NAVI24; }
 
                 return Self::CHIP_UNKNOWN;
