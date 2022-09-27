@@ -57,8 +57,7 @@ pub trait GPU_INFO {
         (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
     }
     fn parse_amdgpu_ids(&self) -> std::io::Result<String> {
-        use std::fs::File;
-        use std::io::{BufRead, BufReader};
+        const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
 
         let did = self.device_id();
         let rid = self.pci_rev_id();
