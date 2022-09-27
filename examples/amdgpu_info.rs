@@ -25,6 +25,7 @@ fn main() {
         use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
         let mark_name = amdgpu_dev.get_marketing_name().unwrap();
+        // let mark_name = ext_info.parse_amdgpu_ids("/usr/local/share/libdrm/amdgpu.ids").unwrap();
 
         println!();
         println!("Marketing Name: [{mark_name}]");

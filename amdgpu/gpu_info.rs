@@ -56,6 +56,41 @@ pub trait GPU_INFO {
         /* [CU] * 64 [Lane] * 2 [ops] * [GHz] */
         (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
     }
+    fn parse_amdgpu_ids(&self, ids_path: &str) -> std::io::Result<String> {
+        use std::fs::File;
+        use std::io::{BufRead, BufReader};
+
+        let ids = File::open(ids_path)?;
+        let reader = BufReader::new(ids);
+
+        let did = self.device_id();
+        let rid = self.pci_rev_id();
+
+        for line in reader.lines() {
+            let line = line.unwrap();
+            if line.is_empty() || line.starts_with("#") {
+                continue;
+            }
+
+            let s: Vec<&str> = line.splitn(3, ",\t").collect();
+
+            if s.len() < 3 {
+                continue;
+            }
+
+            let s_did = match u32::from_str_radix(s[0], 16) {
+                Ok(did) => did,
+                Err(_) => continue,
+            };
+            let s_rid = u32::from_str_radix(s[1], 16).expect("Parse error: {s:?}");
+
+            if did == s_did && rid == s_rid {
+                return Ok(s[2].to_string());
+            }
+        }
+
+        Ok("AMD Radeon Graphics".to_string())
+    }
 }
 
 impl GPU_INFO for amdgpu_gpu_info {
