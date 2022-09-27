@@ -7,6 +7,8 @@ mod bindings {
     include!("./bindings/drm.rs");
 }
 
+pub(crate) const amdgpu_ids: &str = include_str!("./bindings/amdgpu.ids");
+
 #[path = "./"]
 pub mod AMDGPU {
     #[path = "amdgpu_mod.rs"]
