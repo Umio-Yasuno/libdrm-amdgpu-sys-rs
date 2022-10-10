@@ -90,10 +90,7 @@ impl HANDLE for DEVICE_HANDLE {
             CStr::from_ptr(mark_name)
         };
 
-        match c_str.to_str() {
-            Ok(v) => Ok(v.to_string()),
-            Err(e) => Err(e),
-        }
+        Ok(c_str.to_str()?.to_string())
     }
 
     fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32> {

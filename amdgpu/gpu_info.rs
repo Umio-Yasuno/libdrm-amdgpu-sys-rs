@@ -56,7 +56,7 @@ pub trait GPU_INFO {
         /* [CU] * 64 [Lane] * 2 [ops] * [GHz] */
         (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
     }
-    fn parse_amdgpu_ids(&self) -> std::io::Result<String> {
+    fn parse_amdgpu_ids(&self) -> Result<String, std::num::ParseIntError> {
         const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
 
         let did = self.device_id();
@@ -73,11 +73,8 @@ pub trait GPU_INFO {
                 continue;
             }
 
-            let s_did = match u32::from_str_radix(s[0], 16) {
-                Ok(did) => did,
-                Err(_) => continue,
-            };
-            let s_rid = u32::from_str_radix(s[1], 16).expect("Parse error: {s:?}");
+            let s_did = u32::from_str_radix(s[0], 16)?;
+            let s_rid = u32::from_str_radix(s[1], 16)?;
 
             if did == s_did && rid == s_rid {
                 return Ok(s[2].trim_end().to_string());
