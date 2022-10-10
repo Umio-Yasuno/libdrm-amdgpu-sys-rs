@@ -20,11 +20,11 @@ fn main() {
 
         // println!("{gpu_info:?}");
         println!();
-        println!("{ext_info:?}");
+        println!("{ext_info:#?}");
 
         use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
-        let mark_name = amdgpu_dev.get_marketing_name().unwrap();
+        // let mark_name = amdgpu_dev.get_marketing_name().unwrap();
         let mark_name = ext_info.parse_amdgpu_ids().unwrap();
 
         println!();
