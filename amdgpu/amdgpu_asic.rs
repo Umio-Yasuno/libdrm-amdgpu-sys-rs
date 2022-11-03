@@ -31,192 +31,175 @@
 use crate::*;
 
 #[allow(dead_code)]
-
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum ASIC_NAME {
-   CHIP_UNKNOWN = 0,
-   /* R3xx-based cores. (GFX2) */
-   CHIP_R300,
-   CHIP_R350,
-   CHIP_RV350,
-   CHIP_RV370,
-   CHIP_RV380,
-   CHIP_RS400,
-   CHIP_RC410,
-   CHIP_RS480,
-   /* R4xx-based cores. (GFX2) */
-   CHIP_R420,
-   CHIP_R423,
-   CHIP_R430,
-   CHIP_R480,
-   CHIP_R481,
-   CHIP_RV410,
-   CHIP_RS600,
-   CHIP_RS690,
-   CHIP_RS740,
-   /* R5xx-based cores. (GFX2) */
-   CHIP_RV515,
-   CHIP_R520,
-   CHIP_RV530,
-   CHIP_R580,
-   CHIP_RV560,
-   CHIP_RV570,
-   /* GFX3 (R6xx) */
-   CHIP_R600,
-   CHIP_RV610,
-   CHIP_RV630,
-   CHIP_RV670,
-   CHIP_RV620,
-   CHIP_RV635,
-   CHIP_RS780,
-   CHIP_RS880,
-   /* GFX3 (R7xx) */
-   CHIP_RV770,
-   CHIP_RV730,
-   CHIP_RV710,
-   CHIP_RV740,
-   /* GFX4 (Evergreen) */
-   CHIP_CEDAR,
-   CHIP_REDWOOD,
-   CHIP_JUNIPER,
-   CHIP_CYPRESS,
-   CHIP_HEMLOCK,
-   CHIP_PALM,
-   CHIP_SUMO,
-   CHIP_SUMO2,
-   CHIP_BARTS,
-   CHIP_TURKS,
-   CHIP_CAICOS,
-   /* GFX5 (Northern Islands) */
-   CHIP_CAYMAN,
-   CHIP_ARUBA,
-   /* GFX6 (Southern Islands) */
-   CHIP_TAHITI,
-   CHIP_PITCAIRN,
-   CHIP_VERDE,
-   CHIP_OLAND,
-   CHIP_HAINAN,
-   /* GFX7 (Sea Islands) */
-   CHIP_BONAIRE,
-   CHIP_KAVERI,
-   CHIP_KABINI,
-   CHIP_HAWAII,         /* Radeon 290, 390 */
-   /* GFX8 (Volcanic Islands & Polaris) */
-   CHIP_TONGA,          /* Radeon 285, 380 */
-   CHIP_ICELAND,
-   CHIP_CARRIZO,
-   CHIP_FIJI,           /* Radeon Fury */
-   CHIP_STONEY,
-   CHIP_POLARIS10,      /* Radeon 470, 480, 570, 580, 590 */
-   CHIP_POLARIS11,      /* Radeon 460, 560 */
-   CHIP_POLARIS12,      /* Radeon 540, 550 */
-   CHIP_VEGAM,
-   /* GFX9 (Vega) */
-   CHIP_VEGA10,         /* Vega 56, 64 */
-   CHIP_VEGA12,
-   CHIP_VEGA20,         /* Radeon VII, MI50 */
-   CHIP_RAVEN,          /* Ryzen 2000, 3000 */
-   CHIP_RAVEN2,         /* Ryzen 2200U, 3200U */
-   CHIP_RENOIR,         /* Ryzen 4000, 5000 */
-   CHIP_ARCTURUS,       /* MI100 */
-   CHIP_ALDEBARAN,      /* MI200 */
-   /* GFX10.1 (RDNA 1) */
-   CHIP_NAVI10,         /* Radeon 5600, 5700 */
-   CHIP_NAVI12,         /* Radeon Pro 5600M */
-   CHIP_NAVI14,         /* Radeon 5300, 5500 */
-   /* GFX10.3 (RDNA 2) */
-   CHIP_NAVI21, /* Radeon 6800, 6900 */
-   CHIP_NAVI22,  /* Radeon 6700 */
-   CHIP_VANGOGH,        /* Steam Deck */
-   CHIP_NAVI23, /* Radeon 6600 */
-   CHIP_NAVI24,     /* Radeon 6400, 6500 */
-   CHIP_REMBRANDT,    /* Ryzen 6000 */
-   CHIP_GFX1036,
+    CHIP_UNKNOWN = 0,
+    /* R3xx-based cores. (GFX2) */
+    CHIP_R300,
+    CHIP_R350,
+    CHIP_RV350,
+    CHIP_RV370,
+    CHIP_RV380,
+    CHIP_RS400,
+    CHIP_RC410,
+    CHIP_RS480,
+    /* R4xx-based cores. (GFX2) */
+    CHIP_R420,
+    CHIP_R423,
+    CHIP_R430,
+    CHIP_R480,
+    CHIP_R481,
+    CHIP_RV410,
+    CHIP_RS600,
+    CHIP_RS690,
+    CHIP_RS740,
+    /* R5xx-based cores. (GFX2) */
+    CHIP_RV515,
+    CHIP_R520,
+    CHIP_RV530,
+    CHIP_R580,
+    CHIP_RV560,
+    CHIP_RV570,
+    /* GFX3 (R6xx) */
+    CHIP_R600,
+    CHIP_RV610,
+    CHIP_RV630,
+    CHIP_RV670,
+    CHIP_RV620,
+    CHIP_RV635,
+    CHIP_RS780,
+    CHIP_RS880,
+    /* GFX3 (R7xx) */
+    CHIP_RV770,
+    CHIP_RV730,
+    CHIP_RV710,
+    CHIP_RV740,
+    /* GFX4 (Evergreen) */
+    CHIP_CEDAR,
+    CHIP_REDWOOD,
+    CHIP_JUNIPER,
+    CHIP_CYPRESS,
+    CHIP_HEMLOCK,
+    CHIP_PALM,
+    CHIP_SUMO,
+    CHIP_SUMO2,
+    CHIP_BARTS,
+    CHIP_TURKS,
+    CHIP_CAICOS,
+    /* GFX5 (Northern Islands) */
+    CHIP_CAYMAN,
+    CHIP_ARUBA,
+    /* GFX6 (Southern Islands) */
+    CHIP_TAHITI,
+    CHIP_PITCAIRN,
+    CHIP_VERDE,
+    CHIP_OLAND,
+    CHIP_HAINAN,
+    /* GFX7 (Sea Islands) */
+    CHIP_BONAIRE,
+    CHIP_KAVERI,
+    CHIP_KABINI,
+    CHIP_HAWAII, /* Radeon 290, 390 */
+    /* GFX8 (Volcanic Islands & Polaris) */
+    CHIP_TONGA, /* Radeon 285, 380 */
+    CHIP_ICELAND,
+    CHIP_CARRIZO,
+    CHIP_FIJI, /* Radeon Fury */
+    CHIP_STONEY,
+    CHIP_POLARIS10, /* Radeon 470, 480, 570, 580, 590 */
+    CHIP_POLARIS11, /* Radeon 460, 560 */
+    CHIP_POLARIS12, /* Radeon 540, 550 */
+    CHIP_VEGAM,
+    /* GFX9 (Vega) */
+    CHIP_VEGA10, /* Vega 56, 64 */
+    CHIP_VEGA12,
+    CHIP_VEGA20,    /* Radeon VII, MI50 */
+    CHIP_RAVEN,     /* Ryzen 2000, 3000 */
+    CHIP_RAVEN2,    /* Ryzen 2200U, 3200U */
+    CHIP_RENOIR,    /* Ryzen 4000, 5000 */
+    CHIP_ARCTURUS,  /* MI100 */
+    CHIP_ALDEBARAN, /* MI200 */
+    /* GFX10.1 (RDNA 1) */
+    CHIP_NAVI10, /* Radeon 5600, 5700 */
+    CHIP_NAVI12, /* Radeon Pro 5600M */
+    CHIP_NAVI14, /* Radeon 5300, 5500 */
+    /* GFX10.3 (RDNA 2) */
+    CHIP_NAVI21,    /* Radeon 6800, 6900 */
+    CHIP_NAVI22,    /* Radeon 6700 */
+    CHIP_VANGOGH,   /* Steam Deck */
+    CHIP_NAVI23,    /* Radeon 6600 */
+    CHIP_NAVI24,    /* Radeon 6400, 6500 */
+    CHIP_REMBRANDT, /* Ryzen 6000 */
+    CHIP_GFX1036,
 }
 
 use crate::AMDGPU::FAMILY_NAME;
 
-macro_rules! range {
-    ($rev: expr, $start: expr, $end: expr) => {
-        (($start <= $rev) && ($rev < $end))
-    };
-    /*
-    ($rev: expr, $range: expr) => {
-        ($range.0 <= $rev) && ($rev < $range.1)
-    };
-    */
-}
-
 impl ASIC_NAME {
     pub fn get(family: FAMILY_NAME, chip_external_rev: u32) -> Self {
-    /*
-        https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/addrlib/src/amdgpu_asic_addr.h
-        Commit: fd3451babd6cded6794561d74c8919576ba1f97d
-    */
-        let r = chip_external_rev;
+        /*
+            https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/addrlib/src/amdgpu_asic_addr.h
+            Commit: fd3451babd6cded6794561d74c8919576ba1f97d
+        */
+        let rev = chip_external_rev;
 
         match family {
-            FAMILY_NAME::SI => {
-                if range!(r, 0x05, 0x15) { return Self::CHIP_TAHITI; }
-                if range!(r, 0x15, 0x29) { return Self::CHIP_PITCAIRN; }
-                if range!(r, 0x29, 0x3C) { return Self::CHIP_VERDE; }
-                if range!(r, 0x3C, 0x46) { return Self::CHIP_OLAND; }
-                if range!(r, 0x46, 0xFF) { return Self::CHIP_HAINAN; }
-
-                return Self::CHIP_UNKNOWN;
+            FAMILY_NAME::SI => match rev {
+                0x05..=0x14 => Self::CHIP_TAHITI,
+                0x15..=0x28 => Self::CHIP_PITCAIRN,
+                0x29..=0x3B => Self::CHIP_VERDE,
+                0x3C..=0x45 => Self::CHIP_OLAND,
+                0x46..=0xFF => Self::CHIP_HAINAN,
+                _ => Self::CHIP_UNKNOWN,
             },
-            FAMILY_NAME::CI => {
-                if range!(r, 0x14, 0x28) { return Self::CHIP_BONAIRE; }
-                if range!(r, 0x28, 0x3C) { return Self::CHIP_HAWAII; }
-
-                return Self::CHIP_UNKNOWN;
+            FAMILY_NAME::CI => match rev {
+                0x14..=0x27 => Self::CHIP_BONAIRE,
+                0x28..=0x3B => Self::CHIP_HAWAII,
+                _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::KV => {
-                /* Spectre, Spooky */
-                if range!(r, 0x01, 0x41) || range!(r, 0x41, 0x81) { return Self::CHIP_KAVERI; }
-                /* Kalindi, Godavari */
-                if range!(r, 0x81, 0xA1) || range!(r, 0xA1, 0xFF) { return Self::CHIP_KABINI; }
-                
-                return Self::CHIP_UNKNOWN;
+                match rev {
+                    /* Spectre, Spooky */
+                    0x01..=0x40 | 0x41..=0x80 => Self::CHIP_KAVERI,
+                    /* Kalindi, Godavari */
+                    0x81..=0xA0 | 0xA1..=0xFF => Self::CHIP_KABINI,
+                    _ => Self::CHIP_UNKNOWN,
+                }
+            }
+            FAMILY_NAME::VI => match rev {
+                0x01..=0x13 => Self::CHIP_ICELAND,
+                0x14..=0x3B => Self::CHIP_TONGA,
+                0x3C..=0x4F => Self::CHIP_FIJI,
+                0x50..=0x59 => Self::CHIP_POLARIS10,
+                0x5A..=0x63 => Self::CHIP_POLARIS11,
+                0x64..=0x6D => Self::CHIP_POLARIS12,
+                0x6E..=0xFF => Self::CHIP_VEGAM,
+                _ => Self::CHIP_UNKNOWN,
             },
-            FAMILY_NAME::VI => {
-                if range!(r, 0x01, 0x14) { return Self::CHIP_ICELAND; }
-                if range!(r, 0x14, 0x3C) { return Self::CHIP_TONGA; }
-                if range!(r, 0x3C, 0x50) { return Self::CHIP_FIJI; }
-                if range!(r, 0x50, 0x5A) { return Self::CHIP_POLARIS10; }
-                if range!(r, 0x5A, 0x64) { return Self::CHIP_POLARIS11; }
-                if range!(r, 0x64, 0x6E) { return Self::CHIP_POLARIS12; }
-                if range!(r, 0x6E, 0xFF) { return Self::CHIP_VEGAM; }
-
-                return Self::CHIP_UNKNOWN;
+            FAMILY_NAME::AI => match rev {
+                0x01..=0x13 => Self::CHIP_VEGA10,
+                0x14..=0x27 => Self::CHIP_VEGA12,
+                0x28..=0x31 => Self::CHIP_VEGA20,
+                0x32..=0x3B => Self::CHIP_ARCTURUS,
+                0x3C..=0xFF => Self::CHIP_ALDEBARAN,
+                _ => Self::CHIP_UNKNOWN,
             },
-            FAMILY_NAME::AI => {
-                if range!(r, 0x01, 0x14) { return Self::CHIP_VEGA10; }
-                if range!(r, 0x14, 0x28) { return Self::CHIP_VEGA12; }
-                if range!(r, 0x28, 0x32) { return Self::CHIP_VEGA20; }
-                if range!(r, 0x32, 0x3C) { return Self::CHIP_ARCTURUS; }
-                if range!(r, 0x3C, 0xFF) { return Self::CHIP_ALDEBARAN; }
-
-                return Self::CHIP_UNKNOWN;
+            FAMILY_NAME::RV => match rev {
+                0x01..=0x80 => Self::CHIP_RAVEN,
+                0x81..=0x90 => Self::CHIP_RAVEN2,
+                0x91..=0xFF => Self::CHIP_RENOIR,
+                _ => Self::CHIP_UNKNOWN,
             },
-            FAMILY_NAME::RV => {
-                if range!(r, 0x01, 0x81) { return Self::CHIP_RAVEN; }
-                if range!(r, 0x81, 0x91) { return Self::CHIP_RAVEN2; }
-                if range!(r, 0x91, 0xFF) { return Self::CHIP_RENOIR; }
-
-                return Self::CHIP_UNKNOWN;
-            },
-            FAMILY_NAME::NV => {
-                if range!(r, 0x01, 0x0A) { return Self::CHIP_NAVI10; }
-                if range!(r, 0x0A, 0x14) { return Self::CHIP_NAVI12; }
-                if range!(r, 0x14, 0x28) { return Self::CHIP_NAVI14; }
-                if range!(r, 0x28, 0x32) { return Self::CHIP_NAVI21; }
-                if range!(r, 0x32, 0x3C) { return Self::CHIP_NAVI22; }
-                if range!(r, 0x3C, 0x46) { return Self::CHIP_NAVI23; }
-                if range!(r, 0x46, 0x50) { return Self::CHIP_NAVI24; }
-
-                return Self::CHIP_UNKNOWN;
+            FAMILY_NAME::NV => match rev {
+                0x01..=0x09 => Self::CHIP_NAVI10,
+                0x0A..=0x13 => Self::CHIP_NAVI12,
+                0x14..=0x27 => Self::CHIP_NAVI14,
+                0x28..=0x31 => Self::CHIP_NAVI21,
+                0x32..=0x3B => Self::CHIP_NAVI22,
+                0x3C..=0x45 => Self::CHIP_NAVI23,
+                0x46..=0x4F => Self::CHIP_NAVI24,
+                _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
             FAMILY_NAME::YC => Self::CHIP_REMBRANDT,
@@ -227,11 +210,7 @@ impl ASIC_NAME {
             _ => Self::CHIP_UNKNOWN,
         }
     }
-    /*
-    pub fn to_u32(&self) -> u32 {
-        *self as u32
-    }
-    */
+
     pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
         AMDGPU::CHIP_CLASS::from_asic_name(*self)
     }
@@ -241,19 +220,28 @@ impl ASIC_NAME {
     fn has_rbplus(&self) -> bool {
         *self == Self::CHIP_STONEY || *self >= Self::CHIP_VEGA10
     }
+
     pub fn rbplus_allowed(&self) -> bool {
-        self.has_rbplus() &&
-            (*self == Self::CHIP_STONEY || *self == Self::CHIP_VEGA12 ||
-            *self == Self::CHIP_RAVEN || *self == Self::CHIP_RAVEN2 ||
-            *self == Self::CHIP_RENOIR || *self >= Self::CHIP_NAVI21)
+        self.has_rbplus()
+            && (*self == Self::CHIP_STONEY
+                || *self == Self::CHIP_VEGA12
+                || *self == Self::CHIP_RAVEN
+                || *self == Self::CHIP_RAVEN2
+                || *self == Self::CHIP_RENOIR
+                || *self >= Self::CHIP_NAVI21)
     }
+
     pub fn has_packed_math_16bit(&self) -> bool {
         *self >= Self::CHIP_VEGA10
     }
+
     pub fn has_accelerated_dot_product(&self) -> bool {
-        *self == Self::CHIP_ARCTURUS || *self == Self::CHIP_ALDEBARAN ||
-        *self == Self::CHIP_VEGA20 || *self >= Self::CHIP_NAVI12
+        *self == Self::CHIP_ARCTURUS
+            || *self == Self::CHIP_ALDEBARAN
+            || *self == Self::CHIP_VEGA20
+            || *self >= Self::CHIP_NAVI12
     }
+
     pub fn max_wave64_per_simd(&self) -> u8 {
         if *self >= Self::CHIP_NAVI21 {
             16
@@ -265,6 +253,7 @@ impl ASIC_NAME {
             10
         }
     }
+
     pub fn num_simd_per_cu(&self) -> u8 {
         if *self >= Self::CHIP_NAVI10 {
             2
@@ -272,36 +261,35 @@ impl ASIC_NAME {
             4
         }
     }
+
     pub fn l1_cache_size() -> u32 {
         16 * 1024
     }
+
     pub fn l2_cache_size_per_block(&self) -> u32 {
         match self {
-            Self::CHIP_TAHITI |
-            Self::CHIP_PITCAIRN |
-            Self::CHIP_OLAND |
-            Self::CHIP_HAWAII |
-            Self::CHIP_KABINI |
-            Self::CHIP_TONGA |
-            Self::CHIP_STONEY |
-            Self::CHIP_RAVEN2 =>
-                64 * 1024,
-            Self::CHIP_VERDE |
-            Self::CHIP_HAINAN |
-            Self::CHIP_BONAIRE |
-            Self::CHIP_KAVERI |
-            Self::CHIP_ICELAND |
-            Self::CHIP_CARRIZO |
-            Self::CHIP_FIJI |
-            Self::CHIP_POLARIS12 |
-            Self::CHIP_VEGAM =>
-                128 * 1024,
-            Self::CHIP_REMBRANDT =>
-                512 * 1024,
-            _ =>
-                256 * 1024,
+            Self::CHIP_TAHITI
+            | Self::CHIP_PITCAIRN
+            | Self::CHIP_OLAND
+            | Self::CHIP_HAWAII
+            | Self::CHIP_KABINI
+            | Self::CHIP_TONGA
+            | Self::CHIP_STONEY
+            | Self::CHIP_RAVEN2 => 64 * 1024,
+            Self::CHIP_VERDE
+            | Self::CHIP_HAINAN
+            | Self::CHIP_BONAIRE
+            | Self::CHIP_KAVERI
+            | Self::CHIP_ICELAND
+            | Self::CHIP_CARRIZO
+            | Self::CHIP_FIJI
+            | Self::CHIP_POLARIS12
+            | Self::CHIP_VEGAM => 128 * 1024,
+            Self::CHIP_REMBRANDT => 512 * 1024,
+            _ => 256 * 1024,
         }
     }
+
     pub fn l2_cache_line_size(&self) -> u32 {
         if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
             128
@@ -309,76 +297,45 @@ impl ASIC_NAME {
             64
         }
     }
+
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
         match self {
-            Self::CHIP_NAVI21 |
-            Self::CHIP_NAVI22 => 8,
-            Self::CHIP_NAVI23 |
-            Self::CHIP_NAVI24 => 4,
+            Self::CHIP_NAVI21 | Self::CHIP_NAVI22 => 8,
+            Self::CHIP_NAVI23 | Self::CHIP_NAVI24 => 4,
             _ => 0,
         }
     }
+
     pub fn get_llvm_processor_name(&self) -> String {
         match self {
-            Self::CHIP_TAHITI =>
-                "tahiti",
-            Self::CHIP_PITCAIRN =>
-                "pitcairn",
-            Self::CHIP_VERDE =>
-                "verde",
-            Self::CHIP_OLAND =>
-                "oland",
-            Self::CHIP_HAINAN =>
-                "hainan",
-            Self::CHIP_BONAIRE =>
-                "bonaire",
-            Self::CHIP_KABINI =>
-                "kabini",
-            Self::CHIP_KAVERI =>
-                "kaveri",
-            Self::CHIP_HAWAII =>
-                "hawaii",
-            Self::CHIP_TONGA =>
-                "tonga",
-            Self::CHIP_ICELAND =>
-                "iceland",
-            Self::CHIP_CARRIZO =>
-                "carrizo",
-            Self::CHIP_FIJI =>
-                "fiji",
-            Self::CHIP_STONEY =>
-                "stoney",
-            Self::CHIP_POLARIS10 =>
-                "polaris10",
-            Self::CHIP_POLARIS11 |
-            Self::CHIP_POLARIS12 |
-            Self::CHIP_VEGAM =>
-                "polaris11",
-            Self::CHIP_VEGA10 =>
-                "gfx900",
-            Self::CHIP_RAVEN =>
-                "gfx902",
-            Self::CHIP_VEGA12 =>
-                "gfx904",
-            Self::CHIP_VEGA20 =>
-                "gfx906",
-            Self::CHIP_RAVEN2 |
-            Self::CHIP_RENOIR =>
-                "gfx909",
-            Self::CHIP_ARCTURUS =>
-                "gfx908",
-            Self::CHIP_ALDEBARAN =>
-                "gfx90a",
-            Self::CHIP_NAVI10 =>
-                "gfx1010",
-            Self::CHIP_NAVI12 =>
-                "gfx1011",
-            Self::CHIP_NAVI14 =>
-                "gfx1012",
-            Self::CHIP_NAVI21 =>
-                "gfx1030",
-            Self::CHIP_NAVI22 =>
-                "gfx1030",
+            Self::CHIP_TAHITI => "tahiti",
+            Self::CHIP_PITCAIRN => "pitcairn",
+            Self::CHIP_VERDE => "verde",
+            Self::CHIP_OLAND => "oland",
+            Self::CHIP_HAINAN => "hainan",
+            Self::CHIP_BONAIRE => "bonaire",
+            Self::CHIP_KABINI => "kabini",
+            Self::CHIP_KAVERI => "kaveri",
+            Self::CHIP_HAWAII => "hawaii",
+            Self::CHIP_TONGA => "tonga",
+            Self::CHIP_ICELAND => "iceland",
+            Self::CHIP_CARRIZO => "carrizo",
+            Self::CHIP_FIJI => "fiji",
+            Self::CHIP_STONEY => "stoney",
+            Self::CHIP_POLARIS10 => "polaris10",
+            Self::CHIP_POLARIS11 | Self::CHIP_POLARIS12 | Self::CHIP_VEGAM => "polaris11",
+            Self::CHIP_VEGA10 => "gfx900",
+            Self::CHIP_RAVEN => "gfx902",
+            Self::CHIP_VEGA12 => "gfx904",
+            Self::CHIP_VEGA20 => "gfx906",
+            Self::CHIP_RAVEN2 | Self::CHIP_RENOIR => "gfx909",
+            Self::CHIP_ARCTURUS => "gfx908",
+            Self::CHIP_ALDEBARAN => "gfx90a",
+            Self::CHIP_NAVI10 => "gfx1010",
+            Self::CHIP_NAVI12 => "gfx1011",
+            Self::CHIP_NAVI14 => "gfx1012",
+            Self::CHIP_NAVI21 => "gfx1030",
+            Self::CHIP_NAVI22 => "gfx1030",
             /*
                 if cfg!(version("1.52")) { // LLVM 12
                     "gfx1031"
@@ -386,8 +343,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_NAVI23 =>
-                "gfx1030",
+            Self::CHIP_NAVI23 => "gfx1030",
             /*
                 if cfg!(version("1.52")) { // LLVM 12
                     "gfx1032"
@@ -395,8 +351,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_VANGOGH =>
-                "gfx1030",
+            Self::CHIP_VANGOGH => "gfx1030",
             /*
                 if cfg!(version("1.52")) { // LLVM 12
                     "gfx1033"
@@ -404,8 +359,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_NAVI24 =>
-                "gfx1030",
+            Self::CHIP_NAVI24 => "gfx1030",
             /*
                 if cfg!(version("1.56")) { // LLVM 13
                     "gfx1034"
@@ -413,8 +367,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_REMBRANDT =>
-                "gfx1030",
+            Self::CHIP_REMBRANDT => "gfx1030",
             /*
                 if cfg!(version("1.56")) { // LLVM 13
                     "gfx1035"
@@ -422,8 +375,7 @@ impl ASIC_NAME {
                     "gfx1030"
                 },
             */
-            Self::CHIP_GFX1036 =>
-                "gfx1030",
+            Self::CHIP_GFX1036 => "gfx1030",
             /*
             Self::CHIP_GFX1100 =>
                 "gfx1100",
@@ -435,7 +387,8 @@ impl ASIC_NAME {
                 "gfx1103",
             */
             _ => "",
-        }.to_string()
+        }
+        .to_string()
     }
 }
 

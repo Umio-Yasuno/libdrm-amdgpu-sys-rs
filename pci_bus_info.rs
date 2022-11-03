@@ -49,12 +49,13 @@ impl PCI::BUS_INFO {
         return [
             format!("{status}_link_speed"),
             format!("{status}_link_width"),
-        ].map(|file_name| path.join(file_name) );
+        ]
+        .map(|file_name| path.join(file_name));
     }
 
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
         let [speed, width] = Self::get_link_sysfs_path(&self, status)
-            .map(|path| std::fs::read_to_string(path).unwrap() );
+            .map(|path| std::fs::read_to_string(path).unwrap());
 
         let speed = speed.trim();
         let width: u8 = width.trim().parse().unwrap();
@@ -62,11 +63,7 @@ impl PCI::BUS_INFO {
         let gen = Self::speed_to_gen(speed);
         let gts = speed.to_string();
 
-        return PCI::LINK {
-            gen,
-            gts,
-            width,
-        };
+        return PCI::LINK { gen, gts, width };
     }
     fn speed_to_gen(speed: &str) -> u8 {
         match speed {
@@ -84,31 +81,24 @@ impl PCI::BUS_INFO {
 use std::fmt;
 impl fmt::Display for PCI::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "{:04x}:{:02x}:{:02x}.{:01x}",
-            self.domain, self.bus, self.dev, self.func)
+        write!(
+            f,
+            "{:04x}:{:02x}:{:02x}.{:01x}",
+            self.domain, self.bus, self.dev, self.func
+        )
     }
 }
 
-use std::mem::MaybeUninit;
 use crate::{
-    bindings::{
-        drmDevicePtr,
-        drmGetDevice2,
-    },
+    bindings::{drmDevicePtr, drmGetDevice2},
     query_error,
 };
+use std::mem::MaybeUninit;
 
-unsafe fn __drmGetDevice2(
-    fd: ::std::os::raw::c_int,
-    flags: u32,
-) -> Result<drmDevicePtr, i32> {
+unsafe fn __drmGetDevice2(fd: ::std::os::raw::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
     let mut drm_dev_info: MaybeUninit<drmDevicePtr> = MaybeUninit::uninit();
-    
-    let r = drmGetDevice2(
-        fd,
-        flags,
-        drm_dev_info.as_mut_ptr(),
-    );
+
+    let r = drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
 
     query_error!(r);
 

@@ -1,5 +1,5 @@
-use crate::*;
 use crate::bindings::{amdgpu_gpu_info, drm_amdgpu_info_device};
+use crate::*;
 
 pub trait GPU_INFO {
     fn family_id(&self) -> u32;
@@ -17,32 +17,35 @@ pub trait GPU_INFO {
     fn get_family_name(&self) -> AMDGPU::FAMILY_NAME {
         AMDGPU::FAMILY_NAME::from_id(self.family_id())
     }
+
     fn get_asic_name(&self) -> AMDGPU::ASIC_NAME {
         self.get_family_name().asic_name(self.chip_external_rev())
     }
+
     fn get_chip_class(&self) -> AMDGPU::CHIP_CLASS {
         self.get_asic_name().chip_class()
     }
+
     fn get_vram_type(&self) -> AMDGPU::VRAM_TYPE {
         AMDGPU::VRAM_TYPE::from_type_id(self.vram_type())
     }
+
     fn is_apu(&self) -> bool {
-        use crate::bindings::{
-            AMDGPU_IDS_FLAGS_FUSION,
-            // AMDGPU_IDS_FLAGS_PREEMPTION,
-            // AMDGPU_IDS_FLAGS_TMZ,
-        };
+        use crate::bindings::AMDGPU_IDS_FLAGS_FUSION;
 
         return (self.ids_flags() & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
     }
+
     fn peak_memory_bw(&self) -> u64 {
         let vram_type = self.get_vram_type();
 
         vram_type.peak_bw(self.max_memory_clock(), self.vram_bit_width())
     }
+
     fn peak_memory_bw_gb(&self) -> u64 {
         self.peak_memory_bw() / 1000
     }
+
     fn calc_rop_count(&self) -> u32 {
         let rop_per_rb = if self.get_asic_name().rbplus_allowed() {
             8
@@ -52,10 +55,12 @@ pub trait GPU_INFO {
 
         return self.rb_pipes() * rop_per_rb;
     }
+
     fn peak_gflops(&self) -> u32 {
         /* [CU] * 64 [Lane] * 2 [ops] * [GHz] */
         (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
     }
+
     fn parse_amdgpu_ids(&self) -> Result<String, std::num::ParseIntError> {
         const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
 

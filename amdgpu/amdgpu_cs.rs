@@ -1,34 +1,22 @@
 /* WIP */
-use crate::*;
 use crate::AMDGPU::*;
+use crate::*;
 // use super::*;
 use std::mem::MaybeUninit;
 
-use bindings::{
-    amdgpu_context_handle,
-};
+use bindings::amdgpu_context_handle;
 
 pub trait CS {
-    fn ctx_create2(
-        self,
-        priority: CTX_PRIORITY,
-    ) -> Result<amdgpu_context_handle, i32>;
+    fn ctx_create2(self, priority: CTX_PRIORITY) -> Result<amdgpu_context_handle, i32>;
     fn ctx_create(self) -> Result<amdgpu_context_handle, i32>;
 }
 
 impl CS for DEVICE_HANDLE {
-    fn ctx_create2(
-        self,
-        priority: CTX_PRIORITY,
-    ) -> Result<amdgpu_context_handle, i32> {
+    fn ctx_create2(self, priority: CTX_PRIORITY) -> Result<amdgpu_context_handle, i32> {
         unsafe {
             let mut ctx_handle: MaybeUninit<amdgpu_context_handle> = MaybeUninit::uninit();
 
-            let r = bindings::amdgpu_cs_ctx_create2(
-                self,
-                priority as u32,
-                ctx_handle.as_mut_ptr(),
-            );
+            let r = bindings::amdgpu_cs_ctx_create2(self, priority as u32, ctx_handle.as_mut_ptr());
 
             query_error!(r);
 
@@ -40,10 +28,7 @@ impl CS for DEVICE_HANDLE {
         unsafe {
             let mut ctx_handle: MaybeUninit<amdgpu_context_handle> = MaybeUninit::uninit();
 
-            let r = bindings::amdgpu_cs_ctx_create(
-                self,
-                ctx_handle.as_mut_ptr(),
-            );
+            let r = bindings::amdgpu_cs_ctx_create(self, ctx_handle.as_mut_ptr());
 
             query_error!(r);
 
@@ -53,12 +38,8 @@ impl CS for DEVICE_HANDLE {
 }
 
 use bindings::{
-    AMDGPU_CTX_PRIORITY_UNSET,
-    AMDGPU_CTX_PRIORITY_VERY_LOW,
-    AMDGPU_CTX_PRIORITY_LOW,
-    AMDGPU_CTX_PRIORITY_NORMAL,
-    AMDGPU_CTX_PRIORITY_HIGH,
-    AMDGPU_CTX_PRIORITY_VERY_HIGH,
+    AMDGPU_CTX_PRIORITY_HIGH, AMDGPU_CTX_PRIORITY_LOW, AMDGPU_CTX_PRIORITY_NORMAL,
+    AMDGPU_CTX_PRIORITY_UNSET, AMDGPU_CTX_PRIORITY_VERY_HIGH, AMDGPU_CTX_PRIORITY_VERY_LOW,
 };
 
 #[derive(Debug, Clone, Copy)]

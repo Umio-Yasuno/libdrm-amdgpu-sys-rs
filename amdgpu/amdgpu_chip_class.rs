@@ -33,20 +33,20 @@ use crate::AMDGPU::ASIC_NAME;
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum CHIP_CLASS {
-   CLASS_UNKNOWN = 0,
-   R300,
-   R400,
-   R500,
-   R600,
-   R700,
-   EVERGREEN,
-   CAYMAN,
-   GFX6,
-   GFX7,
-   GFX8,
-   GFX9,
-   GFX10,
-   GFX10_3,
+    CLASS_UNKNOWN = 0,
+    R300,
+    R400,
+    R500,
+    R600,
+    R700,
+    EVERGREEN,
+    CAYMAN,
+    GFX6,
+    GFX7,
+    GFX8,
+    GFX9,
+    GFX10,
+    GFX10_3,
 }
 
 impl CHIP_CLASS {
@@ -67,6 +67,7 @@ impl CHIP_CLASS {
             Self::CLASS_UNKNOWN
         }
     }
+
     pub fn has_packed_math_16bit(&self) -> bool {
         *self >= Self::GFX9
     }
@@ -74,10 +75,7 @@ impl CHIP_CLASS {
 
 #[test]
 fn test_amdgpu_chip_class() {
-    assert_eq!(
-        ASIC_NAME::CHIP_POLARIS11.chip_class(),
-        CHIP_CLASS::GFX8,
-    )
+    assert_eq!(ASIC_NAME::CHIP_POLARIS11.chip_class(), CHIP_CLASS::GFX8,)
 }
 
 use std::fmt;

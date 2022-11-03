@@ -1,14 +1,12 @@
-use crate::*;
 use crate::AMDGPU::*;
+use crate::*;
 
-use crate::bindings::{
-    drm_amdgpu_info_hw_ip,
-    amdgpu_query_hw_ip_info,
-};
+use crate::bindings::{amdgpu_query_hw_ip_info, drm_amdgpu_info_hw_ip};
 use std::mem::MaybeUninit;
 
 pub trait QUERY_HW_IP {
-    fn query_hw_ip_info(self,
+    fn query_hw_ip_info(
+        self,
         type_: HW_IP_TYPE,
         ip_instance: ::std::os::raw::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32>;
@@ -47,12 +45,12 @@ impl drm_amdgpu_info_hw_ip {
 }
 
 use crate::bindings::{
-    AMDGPU_HW_IP_GFX,
     AMDGPU_HW_IP_COMPUTE,
     AMDGPU_HW_IP_DMA,
+    AMDGPU_HW_IP_GFX,
     AMDGPU_HW_IP_UVD,
-    AMDGPU_HW_IP_VCE,
     AMDGPU_HW_IP_UVD_ENC,
+    AMDGPU_HW_IP_VCE,
     AMDGPU_HW_IP_VCN_DEC,
     AMDGPU_HW_IP_VCN_ENC,
     AMDGPU_HW_IP_VCN_JPEG,
@@ -77,16 +75,6 @@ pub enum HW_IP_TYPE {
 use std::fmt;
 impl fmt::Display for HW_IP_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Self::GFX => write!(f, "GFX"),
-            Self::COMPUTE => write!(f, "COMPUTE"),
-            Self::DMA => write!(f, "DMA"),
-            Self::UVD => write!(f, "UVD"),
-            Self::VCE => write!(f, "VCE"),
-            Self::UVD_ENC => write!(f, "UVD_ENC"),
-            Self::VCN_DEC => write!(f, "VCN_DEC"),
-            Self::VCN_ENC => write!(f, "VCN_ENC"),
-            Self::VCN_JPEG => write!(f, "VCN_JPEG"),
-        }
+        write!(f, "{:?}", self)
     }
 }

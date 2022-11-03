@@ -1,14 +1,14 @@
-use crate::*;
 use crate::AMDGPU::*;
+use crate::*;
 
-use std::mem::{MaybeUninit, size_of};
+use std::mem::{size_of, MaybeUninit};
 
 pub trait VBIOS_QUERY {
     #[doc(hidden)]
     unsafe fn query_vbios<T>(
         self,
         fd: ::std::os::raw::c_int,
-        info_id: ::std::os::raw::c_uint
+        info_id: ::std::os::raw::c_uint,
     ) -> Result<T, i32>;
 
     unsafe fn vbios_info(
@@ -16,10 +16,7 @@ pub trait VBIOS_QUERY {
         fd: ::std::os::raw::c_int,
     ) -> Result<bindings::drm_amdgpu_info_vbios, i32>;
 
-    unsafe fn vbios_size(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<u32, i32>;
+    unsafe fn vbios_size(self, fd: ::std::os::raw::c_int) -> Result<u32, i32>;
 }
 
 impl VBIOS_QUERY for DEVICE_HANDLE {
@@ -28,11 +25,7 @@ impl VBIOS_QUERY for DEVICE_HANDLE {
         fd: ::std::os::raw::c_int,
         info_id: ::std::os::raw::c_uint,
     ) -> Result<T, i32> {
-        use bindings::{
-            drmCommandWrite,
-            drm_amdgpu_info,
-            AMDGPU_INFO_VBIOS,
-        };
+        use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
 
         let mut vbios: MaybeUninit<T> = MaybeUninit::uninit();
 
@@ -53,7 +46,7 @@ impl VBIOS_QUERY for DEVICE_HANDLE {
             fd,
             bindings::DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::std::os::raw::c_void,
-            size_of::<drm_amdgpu_info> as u64, 
+            size_of::<drm_amdgpu_info> as u64,
         );
 
         query_error!(r);
@@ -68,33 +61,17 @@ impl VBIOS_QUERY for DEVICE_HANDLE {
         self,
         fd: ::std::os::raw::c_int,
     ) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
-        use bindings::{
-            drm_amdgpu_info_vbios,
-            AMDGPU_INFO_VBIOS_INFO,
-        };
+        use bindings::{drm_amdgpu_info_vbios, AMDGPU_INFO_VBIOS_INFO};
 
-        let vbios: drm_amdgpu_info_vbios = Self::query_vbios(
-            self,
-            fd,
-            AMDGPU_INFO_VBIOS_INFO
-        )?;
+        let vbios: drm_amdgpu_info_vbios = Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_INFO)?;
 
         return Ok(vbios);
     }
 
-    unsafe fn vbios_size(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<u32, i32> {
-        use bindings::{
-            AMDGPU_INFO_VBIOS_SIZE,
-        };
+    unsafe fn vbios_size(self, fd: ::std::os::raw::c_int) -> Result<u32, i32> {
+        use bindings::AMDGPU_INFO_VBIOS_SIZE;
 
-        let vbios_size: u32 = Self::query_vbios(
-            self,
-            fd,
-            AMDGPU_INFO_VBIOS_SIZE
-        )?;
+        let vbios_size: u32 = Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_SIZE)?;
 
         return Ok(vbios_size);
     }

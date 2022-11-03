@@ -9,9 +9,10 @@ fn main() {
         .unwrap()
         .include_paths;
 
-    let config: Vec<String> = config.iter().map(
-        |path| format!("-I{}", path.to_str().unwrap())
-    ).collect();
+    let config: Vec<String> = config
+        .iter()
+        .map(|path| format!("-I{}", path.to_str().unwrap()))
+        .collect();
 
     println!("cargo:rustc-link-lib=drm");
     println!("cargo:rustc-link-lib=drm_amdgpu");

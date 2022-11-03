@@ -1,19 +1,13 @@
-use crate::*;
 use crate::AMDGPU::*;
-use std::mem::{MaybeUninit, size_of};
+use crate::*;
+use std::mem::{size_of, MaybeUninit};
 
 pub trait QUERY_SENSOR_INFO {
-    fn sensor_info(
-        self,
-        sensor_type: SENSOR_TYPE,
-    ) -> Result<u32, i32>;
+    fn sensor_info(self, sensor_type: SENSOR_TYPE) -> Result<u32, i32>;
 }
 
 impl QUERY_SENSOR_INFO for DEVICE_HANDLE {
-    fn sensor_info(
-        self,
-        sensor_type: SENSOR_TYPE,
-    ) -> Result<u32, i32> {
+    fn sensor_info(self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
         unsafe {
             let mut val: MaybeUninit<u32> = MaybeUninit::zeroed();
 
@@ -32,15 +26,10 @@ impl QUERY_SENSOR_INFO for DEVICE_HANDLE {
 }
 
 use bindings::{
-    AMDGPU_INFO_SENSOR_GFX_SCLK,
-    AMDGPU_INFO_SENSOR_GFX_MCLK,
-    AMDGPU_INFO_SENSOR_GPU_TEMP,
-    AMDGPU_INFO_SENSOR_GPU_LOAD,
-    AMDGPU_INFO_SENSOR_GPU_AVG_POWER,
-    AMDGPU_INFO_SENSOR_VDDNB,
-    AMDGPU_INFO_SENSOR_VDDGFX,
-    AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK,
-    AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK,
+    AMDGPU_INFO_SENSOR_GFX_MCLK, AMDGPU_INFO_SENSOR_GFX_SCLK, AMDGPU_INFO_SENSOR_GPU_AVG_POWER,
+    AMDGPU_INFO_SENSOR_GPU_LOAD, AMDGPU_INFO_SENSOR_GPU_TEMP,
+    AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK, AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK,
+    AMDGPU_INFO_SENSOR_VDDGFX, AMDGPU_INFO_SENSOR_VDDNB,
 };
 
 #[derive(Debug, Clone, Copy)]

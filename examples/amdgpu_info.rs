@@ -29,7 +29,11 @@ fn main() {
 
         println!();
         println!("Marketing Name: [{mark_name}]");
-        println!("DeviceID.RevID: {:#0X}.{:#0X}", ext_info.device_id(), ext_info.pci_rev_id());
+        println!(
+            "DeviceID.RevID: {:#0X}.{:#0X}",
+            ext_info.device_id(),
+            ext_info.pci_rev_id()
+        );
 
         let family = ext_info.get_family_name();
         let asic_name = ext_info.get_asic_name();
@@ -88,12 +92,17 @@ fn main() {
             let (major, minor) = ip_info.version();
             let queues = ip_info.num_queues();
 
-            if queues == 0 { continue }
+            if queues == 0 {
+                continue;
+            }
 
-            println!("{:8} IP ver: {major:2}.{minor}, queues: {queues}", ip_type.to_string());
+            println!(
+                "{:8} IP ver: {major:2}.{minor}, queues: {queues}",
+                ip_type.to_string()
+            );
         }
     }
-    
+
     {
         use libdrm_amdgpu_sys::AMDGPU::FW_VERSION::*;
 
@@ -131,7 +140,9 @@ fn main() {
 
             let (ver, ftr) = (fw_info.version, fw_info.feature);
 
-            if ver == 0 { continue }
+            if ver == 0 {
+                continue;
+            }
 
             println!("{fw_type} FW:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
         }
@@ -151,19 +162,18 @@ fn main() {
             CODEC::AV1,
         ];
 
-        let [dec, enc] = [
-            CAP_TYPE::DECODE,
-            CAP_TYPE::ENCODE,
-        ].map(|type_| amdgpu_dev.get_video_caps(type_).unwrap() );
+        let [dec, enc] = [CAP_TYPE::DECODE, CAP_TYPE::ENCODE]
+            .map(|type_| amdgpu_dev.get_video_caps(type_).unwrap());
 
         println!();
         for codec in &codec_list {
-            let [dec_cap, enc_cap] = [
-                dec,
-                enc,
-            ].map(|type_| type_.get_codec_info(*codec).is_supported() );
+            let [dec_cap, enc_cap] =
+                [dec, enc].map(|type_| type_.get_codec_info(*codec).is_supported());
 
-            println!("{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}", codec.to_string());
+            println!(
+                "{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}",
+                codec.to_string()
+            );
         }
     }
 
@@ -184,7 +194,8 @@ fn main() {
             vbios.vbios_pn.to_vec(),
             vbios.vbios_ver_str.to_vec(),
             vbios.date.to_vec(),
-        ].map(|v| {
+        ]
+        .map(|v| {
             let vec = v.null_ctrl_to_space();
             let tmp = String::from_utf8(vec).unwrap();
 

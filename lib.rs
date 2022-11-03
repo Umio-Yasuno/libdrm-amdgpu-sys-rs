@@ -26,17 +26,22 @@ impl BindingsStr for Vec<u8> {
     fn null_ctrl_to_space(&self) -> Vec<u8> {
         let mut null_char_flag = false;
 
-        let tmp: Vec<u8> = self.iter().map(|&v| {
-            /* '\0' */
-            if v == 0 { null_char_flag = true; }
+        let tmp: Vec<u8> = self
+            .iter()
+            .map(|&v| {
+                /* '\0' */
+                if v == 0 {
+                    null_char_flag = true;
+                }
 
-            /* replace from <Control> \u0020 (<Space>) */
-            if null_char_flag || char::from(v).is_control() {
-                0x20
-            } else {
-                v
-            }
-        }).collect();
+                /* replace from <Control> \u0020 (<Space>) */
+                if null_char_flag || char::from(v).is_control() {
+                    0x20
+                } else {
+                    v
+                }
+            })
+            .collect();
 
         return tmp;
     }

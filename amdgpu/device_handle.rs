@@ -1,27 +1,26 @@
-use crate::*;
 use crate::AMDGPU::DEVICE_HANDLE;
+use crate::*;
 
-use std::mem::{MaybeUninit, size_of};
-use std::ffi::CStr;
 use bindings::{
     amdgpu_device_handle,
     amdgpu_device_initialize,
-    amdgpu_gpu_info,
     amdgpu_gds_resource_info,
+    amdgpu_gpu_info,
     // amdgpu_heap_info,
     drm_amdgpu_info_device,
-    drm_amdgpu_memory_info,
     drm_amdgpu_info_gds,
+    drm_amdgpu_memory_info,
 };
 use bindings::{
-    AMDGPU_INFO_DEV_INFO,
-    AMDGPU_INFO_MEMORY,
-    AMDGPU_INFO_VRAM_USAGE,
-    AMDGPU_INFO_GDS_CONFIG,
+    AMDGPU_INFO_DEV_INFO, AMDGPU_INFO_GDS_CONFIG, AMDGPU_INFO_MEMORY, AMDGPU_INFO_VRAM_USAGE,
 };
+use std::ffi::CStr;
+use std::mem::{size_of, MaybeUninit};
 
 pub trait HANDLE {
-    fn init(fd: i32) -> Result<Self, i32> where Self: Sized;
+    fn init(fd: i32) -> Result<Self, i32>
+    where
+        Self: Sized;
     fn deinit(self) -> Result<i32, i32>;
     fn get_fd(&self) -> i32;
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
@@ -73,9 +72,7 @@ impl HANDLE for DEVICE_HANDLE {
     }
 
     fn get_fd(&self) -> i32 {
-        unsafe {
-            bindings::amdgpu_device_get_fd(*self)
-        }
+        unsafe { bindings::amdgpu_device_get_fd(*self) }
     }
 
     fn get_marketing_name(self) -> Result<String, std::str::Utf8Error> {
@@ -97,10 +94,7 @@ impl HANDLE for DEVICE_HANDLE {
         unsafe {
             let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gpu_info(
-                self,
-                gpu_info.as_mut_ptr()
-            );
+            let r = bindings::amdgpu_query_gpu_info(self, gpu_info.as_mut_ptr());
 
             query_error!(r);
 
@@ -112,10 +106,7 @@ impl HANDLE for DEVICE_HANDLE {
         unsafe {
             let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gds_info(
-                self,
-                gds_info.as_mut_ptr(),
-            );
+            let r = bindings::amdgpu_query_gds_info(self, gds_info.as_mut_ptr());
 
             query_error!(r);
 
