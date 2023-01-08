@@ -12,14 +12,14 @@ fn main() {
 
     let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
+    if let Ok(mark_name) = amdgpu_dev.get_marketing_name() {
+        println!("Marketing Name: [{mark_name}]");
+    }
+
     if let Ok(ext_info) = amdgpu_dev.device_info() {
         use AMDGPU::GPU_INFO;
 
-        println!("\n{ext_info:#?}\n");
-
-        if let Ok(mark_name) = ext_info.parse_amdgpu_ids() {
-            println!("Marketing Name: [{mark_name}]");
-        }
+        // println!("\n{ext_info:#?}\n");
 
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
