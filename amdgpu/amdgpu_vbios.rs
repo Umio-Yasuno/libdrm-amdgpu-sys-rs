@@ -3,25 +3,9 @@ use crate::*;
 
 use std::mem::{size_of, MaybeUninit};
 
-pub trait VBIOS_QUERY {
-    #[doc(hidden)]
+impl DeviceHandle {
     unsafe fn query_vbios<T>(
-        self,
-        fd: ::std::os::raw::c_int,
-        info_id: ::std::os::raw::c_uint,
-    ) -> Result<T, i32>;
-
-    unsafe fn vbios_info(
-        self,
-        fd: ::std::os::raw::c_int,
-    ) -> Result<bindings::drm_amdgpu_info_vbios, i32>;
-
-    unsafe fn vbios_size(self, fd: ::std::os::raw::c_int) -> Result<u32, i32>;
-}
-
-impl VBIOS_QUERY for DEVICE_HANDLE {
-    unsafe fn query_vbios<T>(
-        self,
+        &self,
         fd: ::std::os::raw::c_int,
         info_id: ::std::os::raw::c_uint,
     ) -> Result<T, i32> {
@@ -57,8 +41,8 @@ impl VBIOS_QUERY for DEVICE_HANDLE {
         return Ok(vbios);
     }
 
-    unsafe fn vbios_info(
-        self,
+    pub unsafe fn vbios_info(
+        &self,
         fd: ::std::os::raw::c_int,
     ) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
         use bindings::{drm_amdgpu_info_vbios, AMDGPU_INFO_VBIOS_INFO};
@@ -68,7 +52,7 @@ impl VBIOS_QUERY for DEVICE_HANDLE {
         return Ok(vbios);
     }
 
-    unsafe fn vbios_size(self, fd: ::std::os::raw::c_int) -> Result<u32, i32> {
+    pub unsafe fn vbios_size(&self, fd: ::std::os::raw::c_int) -> Result<u32, i32> {
         use bindings::AMDGPU_INFO_VBIOS_SIZE;
 
         let vbios_size: u32 = Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_SIZE)?;

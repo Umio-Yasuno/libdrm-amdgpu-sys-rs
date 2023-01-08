@@ -17,28 +17,10 @@ use bindings::{
 use std::ffi::CStr;
 use std::mem::{size_of, MaybeUninit};
 
-pub trait HANDLE {
-    fn init(fd: i32) -> Result<Self, i32>
-    where
-        Self: Sized;
-    fn deinit(self) -> Result<i32, i32>;
-    fn get_fd(&self) -> i32;
-    fn get_marketing_name(self) -> Result<String, std::str::Utf8Error>;
-    fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32>;
-    fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32>;
-    // fn query_heap_info(self) -> Result<amdgpu_heap_info, i32>;
+pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
 
-    fn device_info(self) -> Result<drm_amdgpu_info_device, i32>;
-    fn memory_info(self) -> Result<drm_amdgpu_memory_info, i32>;
-    fn vram_usage_info(self) -> Result<u64, i32>;
-    fn gds_info(self) -> Result<drm_amdgpu_info_gds, i32>;
-
-    #[doc(hidden)]
-    fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32>;
-}
-
-impl HANDLE for DEVICE_HANDLE {
-    fn init(fd: i32) -> Result<Self, i32> {
+impl DeviceHandle {
+    pub fn init(fd: i32) -> Result<Self, i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
             let mut _major: MaybeUninit<u32> = MaybeUninit::zeroed();
@@ -59,25 +41,25 @@ impl HANDLE for DEVICE_HANDLE {
             );
             */
 
-            return Ok(amdgpu_dev.assume_init());
+            return Ok(Self(amdgpu_dev.assume_init()));
         }
     }
 
-    fn deinit(self) -> Result<i32, i32> {
-        let r = unsafe { bindings::amdgpu_device_deinitialize(self) };
+    pub fn deinit(&self) -> Result<i32, i32> {
+        let r = unsafe { bindings::amdgpu_device_deinitialize(self.0) };
 
         query_error!(r);
 
         return Ok(r);
     }
 
-    fn get_fd(&self) -> i32 {
-        unsafe { bindings::amdgpu_device_get_fd(*self) }
+    pub fn get_fd(&self) -> i32 {
+        unsafe { bindings::amdgpu_device_get_fd(self.0) }
     }
 
-    fn get_marketing_name(self) -> Result<String, std::str::Utf8Error> {
+    pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         let c_str = unsafe {
-            let mark_name = bindings::amdgpu_get_marketing_name(self);
+            let mark_name = bindings::amdgpu_get_marketing_name(self.0);
 
             if mark_name.is_null() {
                 eprintln!("libdrm_amdgpu_sys: ASIC not found in amdgpu.ids");
@@ -90,11 +72,11 @@ impl HANDLE for DEVICE_HANDLE {
         Ok(c_str.to_str()?.to_string())
     }
 
-    fn query_gpu_info(self) -> Result<amdgpu_gpu_info, i32> {
+    pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
         unsafe {
             let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gpu_info(self, gpu_info.as_mut_ptr());
+            let r = bindings::amdgpu_query_gpu_info(self.0, gpu_info.as_mut_ptr());
 
             query_error!(r);
 
@@ -102,11 +84,11 @@ impl HANDLE for DEVICE_HANDLE {
         }
     }
 
-    fn query_gds_info(self) -> Result<amdgpu_gds_resource_info, i32> {
+    pub fn query_gds_info(&self) -> Result<amdgpu_gds_resource_info, i32> {
         unsafe {
             let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gds_info(self, gds_info.as_mut_ptr());
+            let r = bindings::amdgpu_query_gds_info(self.0, gds_info.as_mut_ptr());
 
             query_error!(r);
 
@@ -131,12 +113,12 @@ impl HANDLE for DEVICE_HANDLE {
     }
     */
 
-    fn query<T>(self, info_id: ::std::os::raw::c_uint) -> Result<T, i32> {
+    fn query<T>(&self, info_id: ::std::os::raw::c_uint) -> Result<T, i32> {
         unsafe {
             let mut device_info: MaybeUninit<T> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_info(
-                self,
+                self.0,
                 info_id,
                 size_of::<T>() as u32,
                 device_info.as_mut_ptr() as *mut ::std::os::raw::c_void,
@@ -148,50 +130,19 @@ impl HANDLE for DEVICE_HANDLE {
         }
     }
 
-    fn device_info(self) -> Result<drm_amdgpu_info_device, i32> {
+    pub fn device_info(&self) -> Result<drm_amdgpu_info_device, i32> {
         Self::query(self, AMDGPU_INFO_DEV_INFO)
     }
 
-    fn memory_info(self) -> Result<drm_amdgpu_memory_info, i32> {
+    pub fn memory_info(&self) -> Result<drm_amdgpu_memory_info, i32> {
         Self::query(self, AMDGPU_INFO_MEMORY)
     }
 
-    fn vram_usage_info(self) -> Result<u64, i32> {
+    pub fn vram_usage_info(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_VRAM_USAGE)
     }
 
-    fn gds_info(self) -> Result<drm_amdgpu_info_gds, i32> {
+    pub fn gds_info(&self) -> Result<drm_amdgpu_info_gds, i32> {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
     }
 }
-
-/*
-pub mod GEM {
-    pub mod DOMAIN {
-        pub use crate::bindings::{
-            AMDGPU_GEM_DOMAIN_CPU as CPU,
-            AMDGPU_GEM_DOMAIN_GTT as GTT,
-            AMDGPU_GEM_DOMAIN_VRAM as VRAM,
-            AMDGPU_GEM_DOMAIN_GDS as GDS,
-            AMDGPU_GEM_DOMAIN_GWS as GWS,
-            AMDGPU_GEM_DOMAIN_OA as OA,
-            AMDGPU_GEM_DOMAIN_MASK as MASK,
-        };
-    }
-    pub mod CREATE {
-        pub use crate::bindings::{
-            AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED as CPU_ACCESS_REQUIRED,
-            AMDGPU_GEM_CREATE_NO_CPU_ACCESS as NO_CPU_ACCESS,
-            AMDGPU_GEM_CREATE_CPU_GTT_USWC as CPU_GTT_USWC,
-            AMDGPU_GEM_CREATE_VRAM_CLEARED as VRAM_CLEARED,
-            AMDGPU_GEM_CREATE_VRAM_CONTIGUOUS as VRAM_CONTIGUOUS,
-            AMDGPU_GEM_CREATE_VM_ALWAYS_VALID as VM_ALWAYS_VALID,
-            AMDGPU_GEM_CREATE_EXPLICIT_SYNC as EXPLICIT_SYNC,
-            AMDGPU_GEM_CREATE_CP_MQD_GFX9 as CP_MQD_GFX9,
-            AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE as VRAM_WIPE_ON_RELEASE,
-            AMDGPU_GEM_CREATE_ENCRYPTED as ENCRYPTED,
-            AMDGPU_GEM_CREATE_PREEMPTIBLE as PREEMPTIBLE,
-        };
-    }
-}
-*/

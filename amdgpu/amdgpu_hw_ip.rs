@@ -1,28 +1,20 @@
 use crate::AMDGPU::*;
 use crate::*;
 
-use crate::bindings::{amdgpu_query_hw_ip_info, drm_amdgpu_info_hw_ip};
+use crate::bindings::drm_amdgpu_info_hw_ip;
 use std::mem::MaybeUninit;
 
-pub trait QUERY_HW_IP {
-    fn query_hw_ip_info(
-        self,
-        type_: HW_IP_TYPE,
-        ip_instance: ::std::os::raw::c_uint,
-    ) -> Result<drm_amdgpu_info_hw_ip, i32>;
-}
-
-impl QUERY_HW_IP for DEVICE_HANDLE {
-    fn query_hw_ip_info(
-        self,
+impl DeviceHandle {
+    pub fn query_hw_ip_info(
+        &self,
         type_: HW_IP_TYPE,
         ip_instance: ::std::os::raw::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32> {
         unsafe {
             let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::uninit();
 
-            let r = amdgpu_query_hw_ip_info(
-                self,
+            let r = bindings::amdgpu_query_hw_ip_info(
+                self.0,
                 type_ as ::std::os::raw::c_uint,
                 ip_instance as ::std::os::raw::c_uint,
                 hw_ip_info.as_mut_ptr(),

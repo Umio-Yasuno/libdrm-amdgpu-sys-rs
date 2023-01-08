@@ -8,18 +8,9 @@ pub struct FwVer {
     pub feature: u32,
 }
 
-pub trait QUERY_FW_VERSION {
-    fn query_firmware_version(
-        self,
-        fw_type: FW_TYPE,
-        ip_instance: ::std::os::raw::c_uint,
-        index: ::std::os::raw::c_uint,
-    ) -> Result<FwVer, i32>;
-}
-
-impl QUERY_FW_VERSION for DEVICE_HANDLE {
-    fn query_firmware_version(
-        self,
+impl DeviceHandle {
+    pub fn query_firmware_version(
+        &self,
         fw_type: FW_TYPE,
         ip_instance: ::std::os::raw::c_uint,
         index: ::std::os::raw::c_uint,
@@ -29,7 +20,7 @@ impl QUERY_FW_VERSION for DEVICE_HANDLE {
             let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_firmware_version(
-                self,
+                self.0,
                 fw_type as u32,
                 ip_instance,
                 index,
@@ -86,27 +77,6 @@ pub enum FW_TYPE {
 use std::fmt;
 impl fmt::Display for FW_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Self::VCE => write!(f, "VCE"),
-            Self::UVD => write!(f, "UVD"),
-            Self::GMC => write!(f, "GMC"),
-            Self::GFX_ME => write!(f, "GFX_ME"),
-            Self::GFX_PFP => write!(f, "GFX_PFP"),
-            Self::GFX_CE => write!(f, "GFX_CE"),
-            Self::GFX_RLC => write!(f, "GFX_RLC"),
-            Self::GFX_MEC => write!(f, "GFX_MEC"),
-            Self::SMC => write!(f, "SMC"),
-            Self::SDMA => write!(f, "SDMA"),
-            Self::SOS => write!(f, "SOS"),
-            Self::ASD => write!(f, "ASD"),
-            Self::VCN => write!(f, "VCN"),
-            Self::GFX_RLC_RESTORE_LIST_CNTL => write!(f, "GFX_RLC_RESTORE_LIST_CNTL"),
-            Self::GFX_RLC_RESTORE_LIST_GPM_MEM => write!(f, "GFX_RLC_RESTORE_LIST_GPM_MEM"),
-            Self::GFX_RLC_RESTORE_LIST_SRM_MEM => write!(f, "GFX_RLC_RESTORE_LIST_SRM_MEM"),
-            Self::DMCU => write!(f, "DMCU"),
-            Self::TA => write!(f, "TA"),
-            Self::DMCUB => write!(f, "DMCUB"),
-            Self::TOC => write!(f, "TOC"),
-        }
+        write!(f, "{:?}", self)
     }
 }

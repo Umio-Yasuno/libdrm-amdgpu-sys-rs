@@ -21,17 +21,13 @@ pub enum CAP_TYPE {
     ENCODE = AMDGPU_INFO_VIDEO_CAPS_ENCODE,
 }
 
-pub trait VIDEO_CAPS {
-    fn get_video_caps(self, type_: CAP_TYPE) -> Result<drm_amdgpu_info_video_caps, i32>;
-}
-
-impl VIDEO_CAPS for DEVICE_HANDLE {
-    fn get_video_caps(self, type_: CAP_TYPE) -> Result<drm_amdgpu_info_video_caps, i32> {
+impl DeviceHandle {
+    pub fn get_video_caps(&self, type_: CAP_TYPE) -> Result<drm_amdgpu_info_video_caps, i32> {
         unsafe {
             let mut video_caps: MaybeUninit<drm_amdgpu_info_video_caps> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_video_caps_info(
-                self,
+                self.0,
                 type_ as u32,
                 size_of::<drm_amdgpu_info_video_caps> as u32,
                 video_caps.as_mut_ptr() as *mut ::std::os::raw::c_void,
@@ -68,16 +64,7 @@ pub enum CODEC {
 use std::fmt;
 impl fmt::Display for CODEC {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        match self {
-            Self::MPEG2 => write!(f, "MPEG2"),
-            Self::MPEG4 => write!(f, "MPEG4"),
-            Self::VC1 => write!(f, "VC1"),
-            Self::MPEG4_AVC => write!(f, "MPEG4_AVC"),
-            Self::HEVC => write!(f, "HEVC"),
-            Self::JPEG => write!(f, "JPEG"),
-            Self::VP9 => write!(f, "VP9"),
-            Self::AV1 => write!(f, "AV1"),
-        }
+        write!(f, "{:?}", self)
     }
 }
 

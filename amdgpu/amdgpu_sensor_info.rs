@@ -2,17 +2,13 @@ use crate::AMDGPU::*;
 use crate::*;
 use std::mem::{size_of, MaybeUninit};
 
-pub trait QUERY_SENSOR_INFO {
-    fn sensor_info(self, sensor_type: SENSOR_TYPE) -> Result<u32, i32>;
-}
-
-impl QUERY_SENSOR_INFO for DEVICE_HANDLE {
-    fn sensor_info(self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
+impl DeviceHandle {
+    pub fn sensor_info(&self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
         unsafe {
             let mut val: MaybeUninit<u32> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_sensor_info(
-                self,
+                self.0,
                 sensor_type as u32,
                 size_of::<u32>() as u32,
                 val.as_mut_ptr() as *mut ::std::os::raw::c_void,

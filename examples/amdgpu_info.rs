@@ -10,9 +10,7 @@ fn main() {
         v.into_raw_fd()
     };
 
-    use libdrm_amdgpu_sys::AMDGPU::HANDLE;
-
-    let amdgpu_dev = AMDGPU::DEVICE_HANDLE::init(fd).unwrap();
+    let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
     {
         // let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
@@ -24,7 +22,6 @@ fn main() {
 
         use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
-        // let mark_name = amdgpu_dev.get_marketing_name().unwrap();
         let mark_name = ext_info.parse_amdgpu_ids().unwrap();
 
         println!();
@@ -166,6 +163,7 @@ fn main() {
             .map(|type_| amdgpu_dev.get_video_caps(type_).unwrap());
 
         println!();
+
         for codec in &codec_list {
             let [dec_cap, enc_cap] =
                 [dec, enc].map(|type_| type_.get_codec_info(*codec).is_supported());
@@ -185,8 +183,6 @@ fn main() {
     }
 
     {
-        use libdrm_amdgpu_sys::AMDGPU::VBIOS::*;
-
         let vbios = unsafe { amdgpu_dev.vbios_info(fd).unwrap() };
 
         let [name, pn, ver_str, date] = [
@@ -212,6 +208,36 @@ fn main() {
 
         let vbios_size = unsafe { amdgpu_dev.vbios_size(fd).unwrap() };
         println!("vbios size: {vbios_size}");
+    }
+
+    {
+        use libdrm_amdgpu_sys::AMDGPU::SENSOR_INFO::SENSOR_TYPE::*;
+
+        let sensors = [
+            GFX_SCLK,
+            GFX_MCLK,
+            GPU_TEMP,
+            GPU_LOAD,
+            GPU_AVG_POWER,
+            VDDNB,
+            VDDGFX,
+            STABLE_PSTATE_GFX_SCLK,
+            STABLE_PSTATE_GFX_MCLK,
+        ];
+
+        println!();
+
+        for s in &sensors {
+            let val = match amdgpu_dev.sensor_info(*s) {
+                Ok(val) => val,
+                Err(_) => {
+                    println!("{s:?}: not supported");
+                    continue;
+                },
+            };
+
+            println!("{s:?}: {val}");
+        }
     }
 
     amdgpu_dev.deinit().unwrap();
