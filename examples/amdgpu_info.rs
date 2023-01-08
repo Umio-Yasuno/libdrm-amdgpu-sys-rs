@@ -12,63 +12,45 @@ fn main() {
 
     let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
-    {
-        // let gpu_info = amdgpu_dev.query_gpu_info().unwrap();
-        let ext_info = amdgpu_dev.device_info().unwrap();
+    if let Ok(ext_info) = amdgpu_dev.device_info() {
+        use AMDGPU::GPU_INFO;
 
-        // println!("{gpu_info:?}");
-        println!();
-        println!("{ext_info:#?}");
+        println!("\n{ext_info:#?}\n");
 
-        use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
+        if let Ok(mark_name) = ext_info.parse_amdgpu_ids() {
+            println!("Marketing Name: [{mark_name}]");
+        }
 
-        let mark_name = ext_info.parse_amdgpu_ids().unwrap();
-
-        println!();
-        println!("Marketing Name: [{mark_name}]");
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
             ext_info.device_id(),
             ext_info.pci_rev_id()
         );
 
-        let family = ext_info.get_family_name();
-        let asic_name = ext_info.get_asic_name();
-        let chip_class = ext_info.get_chip_class();
+        println!();
+        println!("Family: {}", ext_info.get_family_name());
+        println!("ASIC Name: {}", ext_info.get_asic_name());
+        println!("Chip class: {}", ext_info.get_chip_class());
 
         println!();
-        println!("Family: {family}");
-        println!("ASIC Name: {asic_name}");
-        println!("Chip class: {chip_class}");
-
-        let cu = ext_info.cu_active_number();
-        let max_engine_clock = ext_info.max_engine_clock();
-        let peak_gflops = ext_info.peak_gflops();
+        println!("CU: {}", ext_info.cu_active_number());
+        println!("Max Engine Clock: {} MHz", ext_info.max_engine_clock() / 1000);
+        println!("Peak FP32: {} GFLOPS", ext_info.peak_gflops());
 
         println!();
-        println!("CU: {cu}");
-        println!("Max Engine Clock: {} MHz", max_engine_clock / 1000);
-        println!("Peak FP32: {peak_gflops} GFLOPS");
-
-        let vram_type = ext_info.get_vram_type();
-        let peak_bw = ext_info.peak_memory_bw_gb();
-        let l2c_size = ext_info.calc_l2_cache_size() / 1024;
-
-        println!();
-        println!("VRAM Type: {vram_type}");
+        println!("VRAM Type: {}", ext_info.get_vram_type());
         println!("VRAM Bit Width: {}-bit", ext_info.vram_bit_width);
-        println!("Peak Memory BW: {peak_bw} GB/s");
-        println!("L2cache: {l2c_size} KiB");
+        println!("Peak Memory BW: {} GB/s", ext_info.peak_memory_bw_gb());
+        println!("L2cache: {} KiB", ext_info.calc_l2_cache_size() / 1024);
     }
 
-    {
-        let memory_info = amdgpu_dev.memory_info().unwrap();
+    if let Ok(memory_info) = amdgpu_dev.memory_info() {
         let vram_size_mb = memory_info.vram.total_heap_size / 1024 / 1024;
         println!("VRAM size: {vram_size_mb} MiB");
     }
 
     {
-        use libdrm_amdgpu_sys::AMDGPU::HW_IP::*;
+        use AMDGPU::HW_IP::*;
 
         let ip_list = [
             HW_IP_TYPE::GFX,
@@ -83,8 +65,12 @@ fn main() {
         ];
 
         println!();
+
         for ip_type in &ip_list {
-            let ip_info = amdgpu_dev.query_hw_ip_info(*ip_type, 0).unwrap();
+            let ip_info = match amdgpu_dev.query_hw_ip_info(*ip_type, 0) {
+                Ok(v) => v,
+                Err(_) => continue,
+            };
 
             let (major, minor) = ip_info.version();
             let queues = ip_info.num_queues();
@@ -101,7 +87,7 @@ fn main() {
     }
 
     {
-        use libdrm_amdgpu_sys::AMDGPU::FW_VERSION::*;
+        use AMDGPU::FW_VERSION::*;
 
         let fw_list = [
             FW_TYPE::VCE,
@@ -127,10 +113,9 @@ fn main() {
         ];
 
         println!();
-        for fw_type in &fw_list {
-            let query = amdgpu_dev.query_firmware_version(*fw_type, 0, 0);
 
-            let fw_info = match query {
+        for fw_type in &fw_list {
+            let fw_info = match amdgpu_dev.query_firmware_version(*fw_type, 0, 0) {
                 Ok(v) => v,
                 Err(_) => continue,
             };
@@ -145,8 +130,11 @@ fn main() {
         }
     }
 
-    {
-        use libdrm_amdgpu_sys::AMDGPU::VIDEO_CAPS::*;
+    if let [Ok(dec), Ok(enc)] = [
+        amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::DECODE),
+        amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::ENCODE),
+    ] {
+        use AMDGPU::VIDEO_CAPS::*;
 
         let codec_list = [
             CODEC::MPEG2,
@@ -159,32 +147,25 @@ fn main() {
             CODEC::AV1,
         ];
 
-        let [dec, enc] = [CAP_TYPE::DECODE, CAP_TYPE::ENCODE]
-            .map(|type_| amdgpu_dev.get_video_caps(type_).unwrap());
-
         println!();
+        println!("Video caps:");
 
         for codec in &codec_list {
-            let [dec_cap, enc_cap] =
-                [dec, enc].map(|type_| type_.get_codec_info(*codec).is_supported());
+            let [dec_cap, enc_cap] = [dec, enc].map(|type_| type_.get_codec_info(*codec));
 
-            println!(
-                "{:<12} decode: {dec_cap:>5}, encode: {enc_cap:>5}",
-                codec.to_string()
-            );
+            println!("{codec}:");
+            println!("    Decode: w {:>5}, h {:>5}", dec_cap.max_width, dec_cap.max_height);
+            println!("    Encode: w {:>5}, h {:>5}", enc_cap.max_width, enc_cap.max_height);
         }
     }
 
-    {
-        let bus_info = PCI::BUS_INFO::drm_get_device2(fd).unwrap();
+    if let Ok(bus_info) = PCI::BUS_INFO::drm_get_device2(fd) {
         println!();
         println!("PCI: {bus_info}");
         println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
     }
 
-    {
-        let vbios = unsafe { amdgpu_dev.vbios_info(fd).unwrap() };
-
+    if let Ok(vbios) = unsafe { amdgpu_dev.vbios_info(fd) } {
         let [name, pn, ver_str, date] = [
             vbios.name.to_vec(),
             vbios.vbios_pn.to_vec(),
@@ -205,38 +186,35 @@ fn main() {
         println!("pn: [{pn}]");
         println!("ver_str: [{ver_str}]");
         println!("date: [{date}]");
+    }
 
-        let vbios_size = unsafe { amdgpu_dev.vbios_size(fd).unwrap() };
+    if let Ok(vbios_size) = unsafe { amdgpu_dev.vbios_size(fd) } {
         println!("vbios size: {vbios_size}");
     }
 
     {
-        use libdrm_amdgpu_sys::AMDGPU::SENSOR_INFO::SENSOR_TYPE::*;
+        use AMDGPU::SENSOR_INFO::*;
 
         let sensors = [
-            GFX_SCLK,
-            GFX_MCLK,
-            GPU_TEMP,
-            GPU_LOAD,
-            GPU_AVG_POWER,
-            VDDNB,
-            VDDGFX,
-            STABLE_PSTATE_GFX_SCLK,
-            STABLE_PSTATE_GFX_MCLK,
+            SENSOR_TYPE::GFX_SCLK,
+            SENSOR_TYPE::GFX_MCLK,
+            SENSOR_TYPE::GPU_TEMP,
+            SENSOR_TYPE::GPU_LOAD,
+            SENSOR_TYPE::GPU_AVG_POWER,
+            SENSOR_TYPE::VDDNB,
+            SENSOR_TYPE::VDDGFX,
+            SENSOR_TYPE::STABLE_PSTATE_GFX_SCLK,
+            SENSOR_TYPE::STABLE_PSTATE_GFX_MCLK,
         ];
 
         println!();
 
         for s in &sensors {
-            let val = match amdgpu_dev.sensor_info(*s) {
-                Ok(val) => val,
-                Err(_) => {
-                    println!("{s:?}: not supported");
-                    continue;
-                },
-            };
-
-            println!("{s:?}: {val}");
+            if let Ok(val) = amdgpu_dev.sensor_info(*s) {
+                println!("{s:?}: {val}");
+            } else {
+                println!("{s:?}: not supported");
+            }
         }
     }
 
