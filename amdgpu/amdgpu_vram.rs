@@ -22,8 +22,8 @@ pub enum VRAM_TYPE {
     DDR5,
 }
 
-impl VRAM_TYPE {
-    pub fn from_type_id(type_id: u32) -> Self {
+impl From<u32> for VRAM_TYPE {
+    fn from(type_id: u32) -> Self {
         match type_id {
             AMDGPU_VRAM_TYPE_GDDR1 => Self::GDDR1,
             AMDGPU_VRAM_TYPE_DDR2 => Self::DDR2,
@@ -38,6 +38,9 @@ impl VRAM_TYPE {
             AMDGPU_VRAM_TYPE_UNKNOWN | _ => Self::UNKNOWN,
         }
     }
+}
+
+impl VRAM_TYPE {
     /* https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-od-clk-voltage */
     /*
     fn clk_rate(&self) -> u64 {

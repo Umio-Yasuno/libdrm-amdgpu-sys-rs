@@ -3,7 +3,7 @@ use crate::*;
 
 use bindings::{
     amdgpu_device_handle,
-    amdgpu_device_initialize,
+    // amdgpu_device_initialize,
     amdgpu_gds_resource_info,
     amdgpu_gpu_info,
     // amdgpu_heap_info,
@@ -26,7 +26,7 @@ impl DeviceHandle {
             let mut _major: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut _minor: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = amdgpu_device_initialize(
+            let r = bindings::amdgpu_device_initialize(
                 fd,
                 _major.as_mut_ptr(),
                 _minor.as_mut_ptr(),
@@ -96,6 +96,10 @@ impl DeviceHandle {
         }
     }
 
+/*
+    pub fn query_sw_info(&self) -> Result<> {
+    }
+*/
     /*
     fn query_heap_info(self) -> Result<amdgpu_heap_info, i32> {
         unsafe {

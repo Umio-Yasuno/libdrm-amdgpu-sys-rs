@@ -15,7 +15,7 @@ pub trait GPU_INFO {
     fn cu_active_number(&self) -> u32;
 
     fn get_family_name(&self) -> AMDGPU::FAMILY_NAME {
-        AMDGPU::FAMILY_NAME::from_id(self.family_id())
+        AMDGPU::FAMILY_NAME::from(self.family_id())
     }
 
     fn get_asic_name(&self) -> AMDGPU::ASIC_NAME {
@@ -27,7 +27,7 @@ pub trait GPU_INFO {
     }
 
     fn get_vram_type(&self) -> AMDGPU::VRAM_TYPE {
-        AMDGPU::VRAM_TYPE::from_type_id(self.vram_type())
+        AMDGPU::VRAM_TYPE::from(self.vram_type())
     }
 
     fn is_apu(&self) -> bool {
