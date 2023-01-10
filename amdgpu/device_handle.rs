@@ -74,7 +74,7 @@ impl DeviceHandle {
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
         unsafe {
-            let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
+            let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_gpu_info(self.0, gpu_info.as_mut_ptr());
 
@@ -86,7 +86,7 @@ impl DeviceHandle {
 
     pub fn query_gds_info(&self) -> Result<amdgpu_gds_resource_info, i32> {
         unsafe {
-            let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
+            let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_gds_info(self.0, gds_info.as_mut_ptr());
 
@@ -96,10 +96,22 @@ impl DeviceHandle {
         }
     }
 
-/*
-    pub fn query_sw_info(&self) -> Result<> {
+    pub fn query_sw_info(&self, info: amdgpu_sw_info) -> Result<u32, i32> {
+        unsafe {
+            let mut val: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = bindings::amdgpu_query_sw_info(
+                self.0,
+                info as u32,
+                val.as_mut_ptr() as *mut ::std::os::raw::c_void,
+            );
+
+            query_error!(r);
+
+            return Ok(val.assume_init());
+        }
     }
-*/
+
     /*
     fn query_heap_info(self) -> Result<amdgpu_heap_info, i32> {
         unsafe {
@@ -149,4 +161,9 @@ impl DeviceHandle {
     pub fn gds_info(&self) -> Result<drm_amdgpu_info_gds, i32> {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
     }
+}
+
+#[repr(u32)]
+pub enum amdgpu_sw_info {
+    address32_hi = 0,
 }
