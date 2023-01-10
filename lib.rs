@@ -18,6 +18,7 @@ pub mod AMDGPU {
 mod pci_bus_info;
 pub use pci_bus_info::*;
 
+/* TODO: CStr::from_bytes_until_nul */
 pub trait BindingsStr {
     fn null_ctrl_to_space(&self) -> Vec<u8>;
 }
