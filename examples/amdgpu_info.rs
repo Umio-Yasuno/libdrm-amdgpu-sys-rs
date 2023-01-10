@@ -64,25 +64,25 @@ fn main() {
             HW_IP_TYPE::VCN_JPEG,
         ];
 
-        println!();
+        println!("\nHardware IP info:");
 
         for ip_type in &ip_list {
-            let ip_info = match amdgpu_dev.query_hw_ip_info(*ip_type, 0) {
-                Ok(v) => v,
-                Err(_) => continue,
-            };
+            if let (Ok(ip_info), Ok(ip_count)) = (
+                amdgpu_dev.query_hw_ip_info(*ip_type, 0),
+                amdgpu_dev.query_hw_ip_count(*ip_type),
+            ) {
+                let (major, minor) = ip_info.version();
+                let queues = ip_info.num_queues();
 
-            let (major, minor) = ip_info.version();
-            let queues = ip_info.num_queues();
+                if queues == 0 {
+                    continue;
+                }
 
-            if queues == 0 {
-                continue;
+                println!(
+                    "{:8} count: {ip_count}, ver: {major:2}.{minor}, queues: {queues}",
+                    ip_type.to_string()
+                );
             }
-
-            println!(
-                "{:8} IP ver: {major:2}.{minor}, queues: {queues}",
-                ip_type.to_string()
-            );
         }
     }
 
@@ -112,7 +112,7 @@ fn main() {
             FW_TYPE::TOC,
         ];
 
-        println!();
+        println!("\nFirmware info:");
 
         for fw_type in &fw_list {
             let fw_info = match amdgpu_dev.query_firmware_version(*fw_type, 0, 0) {
@@ -126,7 +126,7 @@ fn main() {
                 continue;
             }
 
-            println!("{fw_type} FW:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
+            println!("{fw_type}:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
         }
     }
 
@@ -179,9 +179,7 @@ fn main() {
             tmp.trim_end().to_string()
         });
 
-        println!();
-        // println!("{:?}", vbios);
-        println!("VBIOS info");
+        println!("\nVBIOS info:");
         println!("name: [{name}]");
         println!("pn: [{pn}]");
         println!("ver_str: [{ver_str}]");
@@ -207,7 +205,7 @@ fn main() {
             SENSOR_TYPE::STABLE_PSTATE_GFX_MCLK,
         ];
 
-        println!();
+        println!("\nSensors:");
 
         for s in &sensors {
             if let Ok(val) = amdgpu_dev.sensor_info(*s) {

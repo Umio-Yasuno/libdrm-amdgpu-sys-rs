@@ -5,6 +5,25 @@ use crate::bindings::drm_amdgpu_info_hw_ip;
 use std::mem::MaybeUninit;
 
 impl DeviceHandle {
+    pub fn query_hw_ip_count(
+        &self,
+        type_: HW_IP_TYPE,
+    ) -> Result<u32, i32> {
+        unsafe {
+            let mut hw_ip_count: MaybeUninit<u32> = MaybeUninit::uninit();
+
+            let r = bindings::amdgpu_query_hw_ip_count(
+                self.0,
+                type_ as ::std::os::raw::c_uint,
+                hw_ip_count.as_mut_ptr(),
+            );
+
+            query_error!(r);
+
+            return Ok(hw_ip_count.assume_init());
+        }
+    }
+
     pub fn query_hw_ip_info(
         &self,
         type_: HW_IP_TYPE,
