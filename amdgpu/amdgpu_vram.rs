@@ -6,6 +6,9 @@ use bindings::{
     AMDGPU_VRAM_TYPE_GDDR6, AMDGPU_VRAM_TYPE_HBM, AMDGPU_VRAM_TYPE_UNKNOWN,
 };
 
+const AMDGPU_VRAM_TYPE_LPDDR4: u32 = 11;
+const AMDGPU_VRAM_TYPE_LPDDR5: u32 = 12;
+
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum VRAM_TYPE {
@@ -20,6 +23,8 @@ pub enum VRAM_TYPE {
     DDR4,
     GDDR6,
     DDR5,
+    LPDDR4,
+    LPDDR5,
 }
 
 impl From<u32> for VRAM_TYPE {
@@ -35,6 +40,8 @@ impl From<u32> for VRAM_TYPE {
             AMDGPU_VRAM_TYPE_DDR4 => Self::DDR4,
             AMDGPU_VRAM_TYPE_GDDR6 => Self::GDDR6,
             AMDGPU_VRAM_TYPE_DDR5 => Self::DDR5,
+            AMDGPU_VRAM_TYPE_LPDDR4 => Self::LPDDR4,
+            AMDGPU_VRAM_TYPE_LPDDR5 => Self::LPDDR5,
             AMDGPU_VRAM_TYPE_UNKNOWN | _ => Self::UNKNOWN,
         }
     }
@@ -64,8 +71,8 @@ impl VRAM_TYPE {
     /* https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp */
     fn memory_ops_per_clock(&self) -> u64 {
         match self {
-            Self::DDR2 | Self::DDR3 | Self::DDR4 | Self::HBM => 2,
-            Self::GDDR5 | Self::DDR5 => 4,
+            Self::DDR2 | Self::DDR3 | Self::DDR4 | Self::HBM | Self::LPDDR4 => 2,
+            Self::GDDR5 | Self::DDR5 | Self::LPDDR5 => 4,
             Self::GDDR6 => 16,
             _ => 1,
         }
