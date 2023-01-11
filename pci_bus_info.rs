@@ -6,14 +6,15 @@ pub mod PCI {
         pub dev: u8,
         pub func: u8,
     }
+
     pub enum STATUS {
         Current,
         Max,
     }
+
     #[derive(Debug, Clone)]
     pub struct LINK {
         pub gen: u8,
-        pub gts: String,
         pub width: u8,
     }
 }
@@ -23,18 +24,20 @@ impl PCI::BUS_INFO {
         fd: ::std::os::raw::c_int,
         //  flags: u32,
     ) -> Result<Self, i32> {
-        let bus_info = unsafe {
-            let dev_info = __drmGetDevice2(fd, 0)?;
+        unsafe {
+            let mut dev_info = __drmGetDevice2(fd, 0)?;
 
-            PCI::BUS_INFO {
+            let bus_info = PCI::BUS_INFO {
                 domain: (*(*dev_info).businfo.pci).domain,
                 bus: (*(*dev_info).businfo.pci).bus,
                 dev: (*(*dev_info).businfo.pci).dev,
                 func: (*(*dev_info).businfo.pci).func,
-            }
-        };
+            };
 
-        return Ok(bus_info);
+            __drmFreeDevice(&mut dev_info);
+
+            return Ok(bus_info);
+        }
     }
 
     pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [std::path::PathBuf; 2] {
@@ -57,14 +60,12 @@ impl PCI::BUS_INFO {
         let [speed, width] = Self::get_link_sysfs_path(&self, status)
             .map(|path| std::fs::read_to_string(path).unwrap());
 
-        let speed = speed.trim();
+        let gen = Self::speed_to_gen(speed.trim());
         let width: u8 = width.trim().parse().unwrap();
 
-        let gen = Self::speed_to_gen(speed);
-        let gts = speed.to_string();
-
-        return PCI::LINK { gen, gts, width };
+        return PCI::LINK { gen, width };
     }
+
     fn speed_to_gen(speed: &str) -> u8 {
         match speed {
             "2.5 GT/s PCIe" => 1,
@@ -81,8 +82,7 @@ impl PCI::BUS_INFO {
 use std::fmt;
 impl fmt::Display for PCI::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(
-            f,
+        write!(f,
             "{:04x}:{:02x}:{:02x}.{:01x}",
             self.domain, self.bus, self.dev, self.func
         )
@@ -90,7 +90,7 @@ impl fmt::Display for PCI::BUS_INFO {
 }
 
 use crate::{
-    bindings::{drmDevicePtr, drmGetDevice2},
+    bindings::{drmDevicePtr, drmGetDevice2, drmFreeDevice},
     query_error,
 };
 use std::mem::MaybeUninit;
@@ -103,4 +103,8 @@ unsafe fn __drmGetDevice2(fd: ::std::os::raw::c_int, flags: u32) -> Result<drmDe
     query_error!(r);
 
     return Ok(drm_dev_info.assume_init());
+}
+
+unsafe fn __drmFreeDevice(device: *mut drmDevicePtr) {
+    drmFreeDevice(device)
 }

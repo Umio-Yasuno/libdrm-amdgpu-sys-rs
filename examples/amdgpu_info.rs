@@ -160,9 +160,12 @@ fn main() {
     }
 
     if let Ok(bus_info) = PCI::BUS_INFO::drm_get_device2(fd) {
-        println!();
-        println!("PCI: {bus_info}");
-        println!("{:?}", bus_info.get_link_info(PCI::STATUS::Max));
+        let cur = bus_info.get_link_info(PCI::STATUS::Current);
+        let max = bus_info.get_link_info(PCI::STATUS::Max);
+
+        println!("\nPCI (domain:bus:dev.func): {bus_info}");
+        println!("Current Link: Gen{}x{}", cur.gen, cur.width);
+        println!("Max     Link: Gen{}x{}", max.gen, max.width);
     }
 
     if let Ok(vbios) = unsafe { amdgpu_dev.vbios_info(fd) } {
