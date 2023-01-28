@@ -1,6 +1,6 @@
 use crate::AMDGPU::*;
 use crate::*;
-use std::mem::{size_of, MaybeUninit};
+use core::mem::{size_of, MaybeUninit};
 
 impl DeviceHandle {
     pub fn sensor_info(&self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
@@ -11,7 +11,7 @@ impl DeviceHandle {
                 self.0,
                 sensor_type as u32,
                 size_of::<u32>() as u32,
-                val.as_mut_ptr() as *mut ::std::os::raw::c_void,
+                val.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
             query_error!(r);

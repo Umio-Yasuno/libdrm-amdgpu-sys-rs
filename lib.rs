@@ -1,3 +1,5 @@
+#![cfg_attr(not(feature = "std"), no_std)]
+
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
@@ -14,20 +16,23 @@ pub mod AMDGPU {
     pub use amdgpu_mod::*;
 }
 
-#[path = "./pci_bus_info.rs"]
+#[cfg(feature = "std")]
 mod pci_bus_info;
+#[cfg(feature = "std")]
 pub use pci_bus_info::*;
 
 /* TODO: CStr::from_bytes_until_nul */
+#[cfg(feature = "std")]
 pub trait BindingsStr {
     fn null_ctrl_to_space(&self) -> Vec<u8>;
 }
 
+#[cfg(feature = "std")]
 impl BindingsStr for Vec<u8> {
     fn null_ctrl_to_space(&self) -> Vec<u8> {
         let mut null_char_flag = false;
 
-        let tmp: Vec<u8> = self
+        self
             .iter()
             .map(|&v| {
                 /* '\0' */
@@ -42,13 +47,11 @@ impl BindingsStr for Vec<u8> {
                     v
                 }
             })
-            .collect();
-
-        return tmp;
+            .collect()
     }
 }
 
-pub unsafe fn drmGetVersion(fd: ::std::os::raw::c_int) -> bindings::_drmVersion {
+pub unsafe fn drmGetVersion(fd: ::core::ffi::c_int) -> bindings::_drmVersion {
     let drm_ver = bindings::drmGetVersion(fd);
 
     return *drm_ver;

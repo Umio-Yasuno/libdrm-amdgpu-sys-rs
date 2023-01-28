@@ -3,7 +3,7 @@
 use crate::AMDGPU::*;
 use crate::*;
 // use super::*;
-use std::mem::{size_of, MaybeUninit};
+use core::mem::{size_of, MaybeUninit};
 
 use bindings::{
     drm_amdgpu_info_video_caps, drm_amdgpu_info_video_codec_info,
@@ -30,7 +30,7 @@ impl DeviceHandle {
                 self.0,
                 type_ as u32,
                 size_of::<drm_amdgpu_info_video_caps> as u32,
-                video_caps.as_mut_ptr() as *mut ::std::os::raw::c_void,
+                video_caps.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
             query_error!(r);
@@ -61,7 +61,9 @@ pub enum CODEC {
     AV1 = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1,
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
+#[cfg(feature = "std")]
 impl fmt::Display for CODEC {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

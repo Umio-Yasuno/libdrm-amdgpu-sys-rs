@@ -61,6 +61,7 @@ pub trait GPU_INFO {
         (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
     }
 
+    #[cfg(feature = "std")]
     fn parse_amdgpu_ids(&self) -> Result<String, std::num::ParseIntError> {
         const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
 

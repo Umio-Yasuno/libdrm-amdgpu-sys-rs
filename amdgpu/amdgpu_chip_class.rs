@@ -78,8 +78,9 @@ fn test_amdgpu_chip_class() {
     assert_eq!(ASIC_NAME::CHIP_POLARIS11.chip_class(), CHIP_CLASS::GFX8,)
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
-
+#[cfg(feature = "std")]
 impl fmt::Display for CHIP_CLASS {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {

@@ -14,8 +14,7 @@ use bindings::{
 use bindings::{
     AMDGPU_INFO_DEV_INFO, AMDGPU_INFO_GDS_CONFIG, AMDGPU_INFO_MEMORY, AMDGPU_INFO_VRAM_USAGE,
 };
-use std::ffi::CStr;
-use std::mem::{size_of, MaybeUninit};
+use core::mem::{size_of, MaybeUninit};
 
 pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
 
@@ -57,7 +56,10 @@ impl DeviceHandle {
         unsafe { bindings::amdgpu_device_get_fd(self.0) }
     }
 
+    #[cfg(feature = "std")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
+        use core::ffi::CStr;
+
         let c_str = unsafe {
             let mark_name = bindings::amdgpu_get_marketing_name(self.0);
 
@@ -103,7 +105,7 @@ impl DeviceHandle {
             let r = bindings::amdgpu_query_sw_info(
                 self.0,
                 info as u32,
-                val.as_mut_ptr() as *mut ::std::os::raw::c_void,
+                val.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
             query_error!(r);
@@ -129,7 +131,7 @@ impl DeviceHandle {
     }
     */
 
-    fn query<T>(&self, info_id: ::std::os::raw::c_uint) -> Result<T, i32> {
+    fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
         unsafe {
             let mut device_info: MaybeUninit<T> = MaybeUninit::uninit();
 
@@ -137,7 +139,7 @@ impl DeviceHandle {
                 self.0,
                 info_id,
                 size_of::<T>() as u32,
-                device_info.as_mut_ptr() as *mut ::std::os::raw::c_void,
+                device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
             query_error!(r);

@@ -1,7 +1,7 @@
 use crate::AMDGPU::*;
 use crate::*;
 
-use std::mem::MaybeUninit;
+use core::mem::MaybeUninit;
 
 pub struct FwVer {
     pub version: u32,
@@ -12,8 +12,8 @@ impl DeviceHandle {
     pub fn query_firmware_version(
         &self,
         fw_type: FW_TYPE,
-        ip_instance: ::std::os::raw::c_uint,
-        index: ::std::os::raw::c_uint,
+        ip_instance: ::core::ffi::c_uint,
+        index: ::core::ffi::c_uint,
     ) -> Result<FwVer, i32> {
         let fw_ver = unsafe {
             let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
@@ -74,7 +74,9 @@ pub enum FW_TYPE {
     TOC = AMDGPU_INFO_FW_TOC,
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
+#[cfg(feature = "std")]
 impl fmt::Display for FW_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

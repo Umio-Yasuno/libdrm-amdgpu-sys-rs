@@ -659,18 +659,18 @@ pub const AMDGPU_FAMILY_VGH: u32 = 144;
 pub const AMDGPU_FAMILY_YC: u32 = 146;
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
-pub type __u_char = ::std::os::raw::c_uchar;
-pub type __u_short = ::std::os::raw::c_ushort;
-pub type __u_int = ::std::os::raw::c_uint;
-pub type __u_long = ::std::os::raw::c_ulong;
-pub type __int8_t = ::std::os::raw::c_schar;
-pub type __uint8_t = ::std::os::raw::c_uchar;
-pub type __int16_t = ::std::os::raw::c_short;
-pub type __uint16_t = ::std::os::raw::c_ushort;
-pub type __int32_t = ::std::os::raw::c_int;
-pub type __uint32_t = ::std::os::raw::c_uint;
-pub type __int64_t = ::std::os::raw::c_long;
-pub type __uint64_t = ::std::os::raw::c_ulong;
+pub type __u_char = ::core::ffi::c_uchar;
+pub type __u_short = ::core::ffi::c_ushort;
+pub type __u_int = ::core::ffi::c_uint;
+pub type __u_long = ::core::ffi::c_ulong;
+pub type __int8_t = ::core::ffi::c_schar;
+pub type __uint8_t = ::core::ffi::c_uchar;
+pub type __int16_t = ::core::ffi::c_short;
+pub type __uint16_t = ::core::ffi::c_ushort;
+pub type __int32_t = ::core::ffi::c_int;
+pub type __uint32_t = ::core::ffi::c_uint;
+pub type __int64_t = ::core::ffi::c_long;
+pub type __uint64_t = ::core::ffi::c_ulong;
 pub type __int_least8_t = __int8_t;
 pub type __uint_least8_t = __uint8_t;
 pub type __int_least16_t = __int16_t;
@@ -679,39 +679,39 @@ pub type __int_least32_t = __int32_t;
 pub type __uint_least32_t = __uint32_t;
 pub type __int_least64_t = __int64_t;
 pub type __uint_least64_t = __uint64_t;
-pub type __quad_t = ::std::os::raw::c_long;
-pub type __u_quad_t = ::std::os::raw::c_ulong;
-pub type __intmax_t = ::std::os::raw::c_long;
-pub type __uintmax_t = ::std::os::raw::c_ulong;
-pub type __dev_t = ::std::os::raw::c_ulong;
-pub type __uid_t = ::std::os::raw::c_uint;
-pub type __gid_t = ::std::os::raw::c_uint;
-pub type __ino_t = ::std::os::raw::c_ulong;
-pub type __ino64_t = ::std::os::raw::c_ulong;
-pub type __mode_t = ::std::os::raw::c_uint;
-pub type __nlink_t = ::std::os::raw::c_ulong;
-pub type __off_t = ::std::os::raw::c_long;
-pub type __off64_t = ::std::os::raw::c_long;
-pub type __pid_t = ::std::os::raw::c_int;
+pub type __quad_t = ::core::ffi::c_long;
+pub type __u_quad_t = ::core::ffi::c_ulong;
+pub type __intmax_t = ::core::ffi::c_long;
+pub type __uintmax_t = ::core::ffi::c_ulong;
+pub type __dev_t = ::core::ffi::c_ulong;
+pub type __uid_t = ::core::ffi::c_uint;
+pub type __gid_t = ::core::ffi::c_uint;
+pub type __ino_t = ::core::ffi::c_ulong;
+pub type __ino64_t = ::core::ffi::c_ulong;
+pub type __mode_t = ::core::ffi::c_uint;
+pub type __nlink_t = ::core::ffi::c_ulong;
+pub type __off_t = ::core::ffi::c_long;
+pub type __off64_t = ::core::ffi::c_long;
+pub type __pid_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __fsid_t {
-    pub __val: [::std::os::raw::c_int; 2usize],
+    pub __val: [::core::ffi::c_int; 2usize],
 }
 #[test]
 fn bindgen_test_layout___fsid_t() {
     assert_eq!(
-        ::std::mem::size_of::<__fsid_t>(),
+        ::core::mem::size_of::<__fsid_t>(),
         8usize,
         concat!("Size of: ", stringify!(__fsid_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__fsid_t>(),
+        ::core::mem::align_of::<__fsid_t>(),
         4usize,
         concat!("Alignment of ", stringify!(__fsid_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__fsid_t>())).__val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__fsid_t>())).__val as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -721,34 +721,34 @@ fn bindgen_test_layout___fsid_t() {
         )
     );
 }
-pub type __clock_t = ::std::os::raw::c_long;
-pub type __rlim_t = ::std::os::raw::c_ulong;
-pub type __rlim64_t = ::std::os::raw::c_ulong;
-pub type __id_t = ::std::os::raw::c_uint;
-pub type __time_t = ::std::os::raw::c_long;
-pub type __useconds_t = ::std::os::raw::c_uint;
-pub type __suseconds_t = ::std::os::raw::c_long;
-pub type __suseconds64_t = ::std::os::raw::c_long;
-pub type __daddr_t = ::std::os::raw::c_int;
-pub type __key_t = ::std::os::raw::c_int;
-pub type __clockid_t = ::std::os::raw::c_int;
-pub type __timer_t = *mut ::std::os::raw::c_void;
-pub type __blksize_t = ::std::os::raw::c_long;
-pub type __blkcnt_t = ::std::os::raw::c_long;
-pub type __blkcnt64_t = ::std::os::raw::c_long;
-pub type __fsblkcnt_t = ::std::os::raw::c_ulong;
-pub type __fsblkcnt64_t = ::std::os::raw::c_ulong;
-pub type __fsfilcnt_t = ::std::os::raw::c_ulong;
-pub type __fsfilcnt64_t = ::std::os::raw::c_ulong;
-pub type __fsword_t = ::std::os::raw::c_long;
-pub type __ssize_t = ::std::os::raw::c_long;
-pub type __syscall_slong_t = ::std::os::raw::c_long;
-pub type __syscall_ulong_t = ::std::os::raw::c_ulong;
+pub type __clock_t = ::core::ffi::c_long;
+pub type __rlim_t = ::core::ffi::c_ulong;
+pub type __rlim64_t = ::core::ffi::c_ulong;
+pub type __id_t = ::core::ffi::c_uint;
+pub type __time_t = ::core::ffi::c_long;
+pub type __useconds_t = ::core::ffi::c_uint;
+pub type __suseconds_t = ::core::ffi::c_long;
+pub type __suseconds64_t = ::core::ffi::c_long;
+pub type __daddr_t = ::core::ffi::c_int;
+pub type __key_t = ::core::ffi::c_int;
+pub type __clockid_t = ::core::ffi::c_int;
+pub type __timer_t = *mut ::core::ffi::c_void;
+pub type __blksize_t = ::core::ffi::c_long;
+pub type __blkcnt_t = ::core::ffi::c_long;
+pub type __blkcnt64_t = ::core::ffi::c_long;
+pub type __fsblkcnt_t = ::core::ffi::c_ulong;
+pub type __fsblkcnt64_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt_t = ::core::ffi::c_ulong;
+pub type __fsfilcnt64_t = ::core::ffi::c_ulong;
+pub type __fsword_t = ::core::ffi::c_long;
+pub type __ssize_t = ::core::ffi::c_long;
+pub type __syscall_slong_t = ::core::ffi::c_long;
+pub type __syscall_ulong_t = ::core::ffi::c_ulong;
 pub type __loff_t = __off64_t;
-pub type __caddr_t = *mut ::std::os::raw::c_char;
-pub type __intptr_t = ::std::os::raw::c_long;
-pub type __socklen_t = ::std::os::raw::c_uint;
-pub type __sig_atomic_t = ::std::os::raw::c_int;
+pub type __caddr_t = *mut ::core::ffi::c_char;
+pub type __intptr_t = ::core::ffi::c_long;
+pub type __socklen_t = ::core::ffi::c_uint;
+pub type __sig_atomic_t = ::core::ffi::c_int;
 pub type u_char = __u_char;
 pub type u_short = __u_short;
 pub type u_int = __u_int;
@@ -774,34 +774,34 @@ pub type clock_t = __clock_t;
 pub type clockid_t = __clockid_t;
 pub type time_t = __time_t;
 pub type timer_t = __timer_t;
-pub type size_t = ::std::os::raw::c_ulong;
-pub type ulong = ::std::os::raw::c_ulong;
-pub type ushort = ::std::os::raw::c_ushort;
-pub type uint = ::std::os::raw::c_uint;
+pub type size_t = ::core::ffi::c_ulong;
+pub type ulong = ::core::ffi::c_ulong;
+pub type ushort = ::core::ffi::c_ushort;
+pub type uint = ::core::ffi::c_uint;
 pub type u_int8_t = __uint8_t;
 pub type u_int16_t = __uint16_t;
 pub type u_int32_t = __uint32_t;
 pub type u_int64_t = __uint64_t;
-pub type register_t = ::std::os::raw::c_long;
+pub type register_t = ::core::ffi::c_long;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __sigset_t {
-    pub __val: [::std::os::raw::c_ulong; 16usize],
+    pub __val: [::core::ffi::c_ulong; 16usize],
 }
 #[test]
 fn bindgen_test_layout___sigset_t() {
     assert_eq!(
-        ::std::mem::size_of::<__sigset_t>(),
+        ::core::mem::size_of::<__sigset_t>(),
         128usize,
         concat!("Size of: ", stringify!(__sigset_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__sigset_t>(),
+        ::core::mem::align_of::<__sigset_t>(),
         8usize,
         concat!("Alignment of ", stringify!(__sigset_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__sigset_t>())).__val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__sigset_t>())).__val as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -821,17 +821,17 @@ pub struct timeval {
 #[test]
 fn bindgen_test_layout_timeval() {
     assert_eq!(
-        ::std::mem::size_of::<timeval>(),
+        ::core::mem::size_of::<timeval>(),
         16usize,
         concat!("Size of: ", stringify!(timeval))
     );
     assert_eq!(
-        ::std::mem::align_of::<timeval>(),
+        ::core::mem::align_of::<timeval>(),
         8usize,
         concat!("Alignment of ", stringify!(timeval))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timeval>())).tv_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timeval>())).tv_sec as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -841,7 +841,7 @@ fn bindgen_test_layout_timeval() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timeval>())).tv_usec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timeval>())).tv_usec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -860,17 +860,17 @@ pub struct timespec {
 #[test]
 fn bindgen_test_layout_timespec() {
     assert_eq!(
-        ::std::mem::size_of::<timespec>(),
+        ::core::mem::size_of::<timespec>(),
         16usize,
         concat!("Size of: ", stringify!(timespec))
     );
     assert_eq!(
-        ::std::mem::align_of::<timespec>(),
+        ::core::mem::align_of::<timespec>(),
         8usize,
         concat!("Alignment of ", stringify!(timespec))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timespec>())).tv_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timespec>())).tv_sec as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -880,7 +880,7 @@ fn bindgen_test_layout_timespec() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<timespec>())).tv_nsec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<timespec>())).tv_nsec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -891,7 +891,7 @@ fn bindgen_test_layout_timespec() {
     );
 }
 pub type suseconds_t = __suseconds_t;
-pub type __fd_mask = ::std::os::raw::c_long;
+pub type __fd_mask = ::core::ffi::c_long;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct fd_set {
@@ -900,17 +900,17 @@ pub struct fd_set {
 #[test]
 fn bindgen_test_layout_fd_set() {
     assert_eq!(
-        ::std::mem::size_of::<fd_set>(),
+        ::core::mem::size_of::<fd_set>(),
         128usize,
         concat!("Size of: ", stringify!(fd_set))
     );
     assert_eq!(
-        ::std::mem::align_of::<fd_set>(),
+        ::core::mem::align_of::<fd_set>(),
         8usize,
         concat!("Alignment of ", stringify!(fd_set))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<fd_set>())).__fds_bits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<fd_set>())).__fds_bits as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -923,22 +923,22 @@ fn bindgen_test_layout_fd_set() {
 pub type fd_mask = __fd_mask;
 extern "C" {
     pub fn select(
-        __nfds: ::std::os::raw::c_int,
+        __nfds: ::core::ffi::c_int,
         __readfds: *mut fd_set,
         __writefds: *mut fd_set,
         __exceptfds: *mut fd_set,
         __timeout: *mut timeval,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn pselect(
-        __nfds: ::std::os::raw::c_int,
+        __nfds: ::core::ffi::c_int,
         __readfds: *mut fd_set,
         __writefds: *mut fd_set,
         __exceptfds: *mut fd_set,
         __timeout: *const timespec,
         __sigmask: *const __sigset_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 pub type blksize_t = __blksize_t;
 pub type blkcnt_t = __blkcnt_t;
@@ -947,24 +947,24 @@ pub type fsfilcnt_t = __fsfilcnt_t;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union __atomic_wide_counter {
-    pub __value64: ::std::os::raw::c_ulonglong,
+    pub __value64: ::core::ffi::c_ulonglong,
     pub __value32: __atomic_wide_counter__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __atomic_wide_counter__bindgen_ty_1 {
-    pub __low: ::std::os::raw::c_uint,
-    pub __high: ::std::os::raw::c_uint,
+    pub __low: ::core::ffi::c_uint,
+    pub __high: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout___atomic_wide_counter__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<__atomic_wide_counter__bindgen_ty_1>(),
+        ::core::mem::size_of::<__atomic_wide_counter__bindgen_ty_1>(),
         8usize,
         concat!("Size of: ", stringify!(__atomic_wide_counter__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<__atomic_wide_counter__bindgen_ty_1>(),
+        ::core::mem::align_of::<__atomic_wide_counter__bindgen_ty_1>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -973,7 +973,7 @@ fn bindgen_test_layout___atomic_wide_counter__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__atomic_wide_counter__bindgen_ty_1>())).__low as *const _
+            &(*(::core::ptr::null::<__atomic_wide_counter__bindgen_ty_1>())).__low as *const _
                 as usize
         },
         0usize,
@@ -986,7 +986,7 @@ fn bindgen_test_layout___atomic_wide_counter__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__atomic_wide_counter__bindgen_ty_1>())).__high as *const _
+            &(*(::core::ptr::null::<__atomic_wide_counter__bindgen_ty_1>())).__high as *const _
                 as usize
         },
         4usize,
@@ -1001,17 +1001,19 @@ fn bindgen_test_layout___atomic_wide_counter__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout___atomic_wide_counter() {
     assert_eq!(
-        ::std::mem::size_of::<__atomic_wide_counter>(),
+        ::core::mem::size_of::<__atomic_wide_counter>(),
         8usize,
         concat!("Size of: ", stringify!(__atomic_wide_counter))
     );
     assert_eq!(
-        ::std::mem::align_of::<__atomic_wide_counter>(),
+        ::core::mem::align_of::<__atomic_wide_counter>(),
         8usize,
         concat!("Alignment of ", stringify!(__atomic_wide_counter))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__atomic_wide_counter>())).__value64 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__atomic_wide_counter>())).__value64 as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1021,7 +1023,9 @@ fn bindgen_test_layout___atomic_wide_counter() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__atomic_wide_counter>())).__value32 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__atomic_wide_counter>())).__value32 as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1040,17 +1044,17 @@ pub struct __pthread_internal_list {
 #[test]
 fn bindgen_test_layout___pthread_internal_list() {
     assert_eq!(
-        ::std::mem::size_of::<__pthread_internal_list>(),
+        ::core::mem::size_of::<__pthread_internal_list>(),
         16usize,
         concat!("Size of: ", stringify!(__pthread_internal_list))
     );
     assert_eq!(
-        ::std::mem::align_of::<__pthread_internal_list>(),
+        ::core::mem::align_of::<__pthread_internal_list>(),
         8usize,
         concat!("Alignment of ", stringify!(__pthread_internal_list))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__prev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_internal_list>())).__prev as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1060,7 +1064,7 @@ fn bindgen_test_layout___pthread_internal_list() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_internal_list>())).__next as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_internal_list>())).__next as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1079,17 +1083,19 @@ pub struct __pthread_internal_slist {
 #[test]
 fn bindgen_test_layout___pthread_internal_slist() {
     assert_eq!(
-        ::std::mem::size_of::<__pthread_internal_slist>(),
+        ::core::mem::size_of::<__pthread_internal_slist>(),
         8usize,
         concat!("Size of: ", stringify!(__pthread_internal_slist))
     );
     assert_eq!(
-        ::std::mem::align_of::<__pthread_internal_slist>(),
+        ::core::mem::align_of::<__pthread_internal_slist>(),
         8usize,
         concat!("Alignment of ", stringify!(__pthread_internal_slist))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_internal_slist>())).__next as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__pthread_internal_slist>())).__next as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1103,29 +1109,29 @@ pub type __pthread_slist_t = __pthread_internal_slist;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __pthread_mutex_s {
-    pub __lock: ::std::os::raw::c_int,
-    pub __count: ::std::os::raw::c_uint,
-    pub __owner: ::std::os::raw::c_int,
-    pub __nusers: ::std::os::raw::c_uint,
-    pub __kind: ::std::os::raw::c_int,
-    pub __spins: ::std::os::raw::c_short,
-    pub __elision: ::std::os::raw::c_short,
+    pub __lock: ::core::ffi::c_int,
+    pub __count: ::core::ffi::c_uint,
+    pub __owner: ::core::ffi::c_int,
+    pub __nusers: ::core::ffi::c_uint,
+    pub __kind: ::core::ffi::c_int,
+    pub __spins: ::core::ffi::c_short,
+    pub __elision: ::core::ffi::c_short,
     pub __list: __pthread_list_t,
 }
 #[test]
 fn bindgen_test_layout___pthread_mutex_s() {
     assert_eq!(
-        ::std::mem::size_of::<__pthread_mutex_s>(),
+        ::core::mem::size_of::<__pthread_mutex_s>(),
         40usize,
         concat!("Size of: ", stringify!(__pthread_mutex_s))
     );
     assert_eq!(
-        ::std::mem::align_of::<__pthread_mutex_s>(),
+        ::core::mem::align_of::<__pthread_mutex_s>(),
         8usize,
         concat!("Alignment of ", stringify!(__pthread_mutex_s))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__lock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__lock as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1135,7 +1141,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__count as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -1145,7 +1151,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__owner as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__owner as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1155,7 +1161,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__nusers as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__nusers as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -1165,7 +1171,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__kind as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__kind as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1175,7 +1181,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__spins as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__spins as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -1185,7 +1191,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__elision as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__elision as *const _ as usize },
         22usize,
         concat!(
             "Offset of field: ",
@@ -1195,7 +1201,7 @@ fn bindgen_test_layout___pthread_mutex_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_mutex_s>())).__list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_mutex_s>())).__list as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -1208,34 +1214,34 @@ fn bindgen_test_layout___pthread_mutex_s() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __pthread_rwlock_arch_t {
-    pub __readers: ::std::os::raw::c_uint,
-    pub __writers: ::std::os::raw::c_uint,
-    pub __wrphase_futex: ::std::os::raw::c_uint,
-    pub __writers_futex: ::std::os::raw::c_uint,
-    pub __pad3: ::std::os::raw::c_uint,
-    pub __pad4: ::std::os::raw::c_uint,
-    pub __cur_writer: ::std::os::raw::c_int,
-    pub __shared: ::std::os::raw::c_int,
-    pub __rwelision: ::std::os::raw::c_schar,
-    pub __pad1: [::std::os::raw::c_uchar; 7usize],
-    pub __pad2: ::std::os::raw::c_ulong,
-    pub __flags: ::std::os::raw::c_uint,
+    pub __readers: ::core::ffi::c_uint,
+    pub __writers: ::core::ffi::c_uint,
+    pub __wrphase_futex: ::core::ffi::c_uint,
+    pub __writers_futex: ::core::ffi::c_uint,
+    pub __pad3: ::core::ffi::c_uint,
+    pub __pad4: ::core::ffi::c_uint,
+    pub __cur_writer: ::core::ffi::c_int,
+    pub __shared: ::core::ffi::c_int,
+    pub __rwelision: ::core::ffi::c_schar,
+    pub __pad1: [::core::ffi::c_uchar; 7usize],
+    pub __pad2: ::core::ffi::c_ulong,
+    pub __flags: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout___pthread_rwlock_arch_t() {
     assert_eq!(
-        ::std::mem::size_of::<__pthread_rwlock_arch_t>(),
+        ::core::mem::size_of::<__pthread_rwlock_arch_t>(),
         56usize,
         concat!("Size of: ", stringify!(__pthread_rwlock_arch_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__pthread_rwlock_arch_t>(),
+        ::core::mem::align_of::<__pthread_rwlock_arch_t>(),
         8usize,
         concat!("Alignment of ", stringify!(__pthread_rwlock_arch_t))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__readers as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__readers as *const _ as usize
         },
         0usize,
         concat!(
@@ -1247,7 +1253,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__writers as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__writers as *const _ as usize
         },
         4usize,
         concat!(
@@ -1259,7 +1265,8 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__wrphase_futex as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__wrphase_futex as *const _
+                as usize
         },
         8usize,
         concat!(
@@ -1271,7 +1278,8 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__writers_futex as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__writers_futex as *const _
+                as usize
         },
         12usize,
         concat!(
@@ -1282,7 +1290,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__pad3 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__pad3 as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1292,7 +1300,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__pad4 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__pad4 as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -1303,7 +1311,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__cur_writer as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__cur_writer as *const _ as usize
         },
         24usize,
         concat!(
@@ -1315,7 +1323,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__shared as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__shared as *const _ as usize
         },
         28usize,
         concat!(
@@ -1327,7 +1335,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__rwelision as *const _ as usize
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__rwelision as *const _ as usize
         },
         32usize,
         concat!(
@@ -1338,7 +1346,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__pad1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__pad1 as *const _ as usize },
         33usize,
         concat!(
             "Offset of field: ",
@@ -1348,7 +1356,7 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__pad2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__pad2 as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -1358,7 +1366,9 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_rwlock_arch_t>())).__flags as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__pthread_rwlock_arch_t>())).__flags as *const _ as usize
+        },
         48usize,
         concat!(
             "Offset of field: ",
@@ -1373,26 +1383,26 @@ fn bindgen_test_layout___pthread_rwlock_arch_t() {
 pub struct __pthread_cond_s {
     pub __wseq: __atomic_wide_counter,
     pub __g1_start: __atomic_wide_counter,
-    pub __g_refs: [::std::os::raw::c_uint; 2usize],
-    pub __g_size: [::std::os::raw::c_uint; 2usize],
-    pub __g1_orig_size: ::std::os::raw::c_uint,
-    pub __wrefs: ::std::os::raw::c_uint,
-    pub __g_signals: [::std::os::raw::c_uint; 2usize],
+    pub __g_refs: [::core::ffi::c_uint; 2usize],
+    pub __g_size: [::core::ffi::c_uint; 2usize],
+    pub __g1_orig_size: ::core::ffi::c_uint,
+    pub __wrefs: ::core::ffi::c_uint,
+    pub __g_signals: [::core::ffi::c_uint; 2usize],
 }
 #[test]
 fn bindgen_test_layout___pthread_cond_s() {
     assert_eq!(
-        ::std::mem::size_of::<__pthread_cond_s>(),
+        ::core::mem::size_of::<__pthread_cond_s>(),
         48usize,
         concat!("Size of: ", stringify!(__pthread_cond_s))
     );
     assert_eq!(
-        ::std::mem::align_of::<__pthread_cond_s>(),
+        ::core::mem::align_of::<__pthread_cond_s>(),
         8usize,
         concat!("Alignment of ", stringify!(__pthread_cond_s))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__wseq as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__wseq as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1402,7 +1412,7 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__g1_start as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__g1_start as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -1412,7 +1422,7 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__g_refs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__g_refs as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -1422,7 +1432,7 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__g_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__g_size as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -1432,7 +1442,9 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__g1_orig_size as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__pthread_cond_s>())).__g1_orig_size as *const _ as usize
+        },
         32usize,
         concat!(
             "Offset of field: ",
@@ -1442,7 +1454,7 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__wrefs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__wrefs as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -1452,7 +1464,7 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__pthread_cond_s>())).__g_signals as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__pthread_cond_s>())).__g_signals as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -1462,27 +1474,27 @@ fn bindgen_test_layout___pthread_cond_s() {
         )
     );
 }
-pub type __tss_t = ::std::os::raw::c_uint;
-pub type __thrd_t = ::std::os::raw::c_ulong;
+pub type __tss_t = ::core::ffi::c_uint;
+pub type __thrd_t = ::core::ffi::c_ulong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __once_flag {
-    pub __data: ::std::os::raw::c_int,
+    pub __data: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout___once_flag() {
     assert_eq!(
-        ::std::mem::size_of::<__once_flag>(),
+        ::core::mem::size_of::<__once_flag>(),
         4usize,
         concat!("Size of: ", stringify!(__once_flag))
     );
     assert_eq!(
-        ::std::mem::align_of::<__once_flag>(),
+        ::core::mem::align_of::<__once_flag>(),
         4usize,
         concat!("Alignment of ", stringify!(__once_flag))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__once_flag>())).__data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__once_flag>())).__data as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1492,27 +1504,27 @@ fn bindgen_test_layout___once_flag() {
         )
     );
 }
-pub type pthread_t = ::std::os::raw::c_ulong;
+pub type pthread_t = ::core::ffi::c_ulong;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_mutexattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
+    pub __size: [::core::ffi::c_char; 4usize],
+    pub __align: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_pthread_mutexattr_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_mutexattr_t>(),
+        ::core::mem::size_of::<pthread_mutexattr_t>(),
         4usize,
         concat!("Size of: ", stringify!(pthread_mutexattr_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_mutexattr_t>(),
+        ::core::mem::align_of::<pthread_mutexattr_t>(),
         4usize,
         concat!("Alignment of ", stringify!(pthread_mutexattr_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_mutexattr_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_mutexattr_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1522,7 +1534,7 @@ fn bindgen_test_layout_pthread_mutexattr_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_mutexattr_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_mutexattr_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1535,23 +1547,23 @@ fn bindgen_test_layout_pthread_mutexattr_t() {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_condattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
+    pub __size: [::core::ffi::c_char; 4usize],
+    pub __align: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_pthread_condattr_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_condattr_t>(),
+        ::core::mem::size_of::<pthread_condattr_t>(),
         4usize,
         concat!("Size of: ", stringify!(pthread_condattr_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_condattr_t>(),
+        ::core::mem::align_of::<pthread_condattr_t>(),
         4usize,
         concat!("Alignment of ", stringify!(pthread_condattr_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_condattr_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_condattr_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1561,7 +1573,7 @@ fn bindgen_test_layout_pthread_condattr_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_condattr_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_condattr_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1571,28 +1583,28 @@ fn bindgen_test_layout_pthread_condattr_t() {
         )
     );
 }
-pub type pthread_key_t = ::std::os::raw::c_uint;
-pub type pthread_once_t = ::std::os::raw::c_int;
+pub type pthread_key_t = ::core::ffi::c_uint;
+pub type pthread_once_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_attr_t {
-    pub __size: [::std::os::raw::c_char; 56usize],
-    pub __align: ::std::os::raw::c_long,
+    pub __size: [::core::ffi::c_char; 56usize],
+    pub __align: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_pthread_attr_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_attr_t>(),
+        ::core::mem::size_of::<pthread_attr_t>(),
         56usize,
         concat!("Size of: ", stringify!(pthread_attr_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_attr_t>(),
+        ::core::mem::align_of::<pthread_attr_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_attr_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_attr_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_attr_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1602,7 +1614,7 @@ fn bindgen_test_layout_pthread_attr_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_attr_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_attr_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1616,23 +1628,23 @@ fn bindgen_test_layout_pthread_attr_t() {
 #[derive(Copy, Clone)]
 pub union pthread_mutex_t {
     pub __data: __pthread_mutex_s,
-    pub __size: [::std::os::raw::c_char; 40usize],
-    pub __align: ::std::os::raw::c_long,
+    pub __size: [::core::ffi::c_char; 40usize],
+    pub __align: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_pthread_mutex_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_mutex_t>(),
+        ::core::mem::size_of::<pthread_mutex_t>(),
         40usize,
         concat!("Size of: ", stringify!(pthread_mutex_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_mutex_t>(),
+        ::core::mem::align_of::<pthread_mutex_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_mutex_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_mutex_t>())).__data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_mutex_t>())).__data as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1642,7 +1654,7 @@ fn bindgen_test_layout_pthread_mutex_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_mutex_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_mutex_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1652,7 +1664,7 @@ fn bindgen_test_layout_pthread_mutex_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_mutex_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_mutex_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1666,23 +1678,23 @@ fn bindgen_test_layout_pthread_mutex_t() {
 #[derive(Copy, Clone)]
 pub union pthread_cond_t {
     pub __data: __pthread_cond_s,
-    pub __size: [::std::os::raw::c_char; 48usize],
-    pub __align: ::std::os::raw::c_longlong,
+    pub __size: [::core::ffi::c_char; 48usize],
+    pub __align: ::core::ffi::c_longlong,
 }
 #[test]
 fn bindgen_test_layout_pthread_cond_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_cond_t>(),
+        ::core::mem::size_of::<pthread_cond_t>(),
         48usize,
         concat!("Size of: ", stringify!(pthread_cond_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_cond_t>(),
+        ::core::mem::align_of::<pthread_cond_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_cond_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_cond_t>())).__data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_cond_t>())).__data as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1692,7 +1704,7 @@ fn bindgen_test_layout_pthread_cond_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_cond_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_cond_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1702,7 +1714,7 @@ fn bindgen_test_layout_pthread_cond_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_cond_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_cond_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1716,23 +1728,23 @@ fn bindgen_test_layout_pthread_cond_t() {
 #[derive(Copy, Clone)]
 pub union pthread_rwlock_t {
     pub __data: __pthread_rwlock_arch_t,
-    pub __size: [::std::os::raw::c_char; 56usize],
-    pub __align: ::std::os::raw::c_long,
+    pub __size: [::core::ffi::c_char; 56usize],
+    pub __align: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlock_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_rwlock_t>(),
+        ::core::mem::size_of::<pthread_rwlock_t>(),
         56usize,
         concat!("Size of: ", stringify!(pthread_rwlock_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_rwlock_t>(),
+        ::core::mem::align_of::<pthread_rwlock_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_rwlock_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_rwlock_t>())).__data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_rwlock_t>())).__data as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1742,7 +1754,7 @@ fn bindgen_test_layout_pthread_rwlock_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_rwlock_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_rwlock_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1752,7 +1764,7 @@ fn bindgen_test_layout_pthread_rwlock_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_rwlock_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_rwlock_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1765,23 +1777,23 @@ fn bindgen_test_layout_pthread_rwlock_t() {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_rwlockattr_t {
-    pub __size: [::std::os::raw::c_char; 8usize],
-    pub __align: ::std::os::raw::c_long,
+    pub __size: [::core::ffi::c_char; 8usize],
+    pub __align: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlockattr_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_rwlockattr_t>(),
+        ::core::mem::size_of::<pthread_rwlockattr_t>(),
         8usize,
         concat!("Size of: ", stringify!(pthread_rwlockattr_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_rwlockattr_t>(),
+        ::core::mem::align_of::<pthread_rwlockattr_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_rwlockattr_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_rwlockattr_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_rwlockattr_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1791,7 +1803,7 @@ fn bindgen_test_layout_pthread_rwlockattr_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_rwlockattr_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_rwlockattr_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1801,27 +1813,27 @@ fn bindgen_test_layout_pthread_rwlockattr_t() {
         )
     );
 }
-pub type pthread_spinlock_t = ::std::os::raw::c_int;
+pub type pthread_spinlock_t = ::core::ffi::c_int;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_barrier_t {
-    pub __size: [::std::os::raw::c_char; 32usize],
-    pub __align: ::std::os::raw::c_long,
+    pub __size: [::core::ffi::c_char; 32usize],
+    pub __align: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_pthread_barrier_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_barrier_t>(),
+        ::core::mem::size_of::<pthread_barrier_t>(),
         32usize,
         concat!("Size of: ", stringify!(pthread_barrier_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_barrier_t>(),
+        ::core::mem::align_of::<pthread_barrier_t>(),
         8usize,
         concat!("Alignment of ", stringify!(pthread_barrier_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_barrier_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_barrier_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1831,7 +1843,7 @@ fn bindgen_test_layout_pthread_barrier_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_barrier_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_barrier_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1844,23 +1856,23 @@ fn bindgen_test_layout_pthread_barrier_t() {
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union pthread_barrierattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
+    pub __size: [::core::ffi::c_char; 4usize],
+    pub __align: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_pthread_barrierattr_t() {
     assert_eq!(
-        ::std::mem::size_of::<pthread_barrierattr_t>(),
+        ::core::mem::size_of::<pthread_barrierattr_t>(),
         4usize,
         concat!("Size of: ", stringify!(pthread_barrierattr_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<pthread_barrierattr_t>(),
+        ::core::mem::align_of::<pthread_barrierattr_t>(),
         4usize,
         concat!("Alignment of ", stringify!(pthread_barrierattr_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_barrierattr_t>())).__size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_barrierattr_t>())).__size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1870,7 +1882,7 @@ fn bindgen_test_layout_pthread_barrierattr_t() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<pthread_barrierattr_t>())).__align as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<pthread_barrierattr_t>())).__align as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1888,43 +1900,43 @@ pub type uint_least8_t = __uint_least8_t;
 pub type uint_least16_t = __uint_least16_t;
 pub type uint_least32_t = __uint_least32_t;
 pub type uint_least64_t = __uint_least64_t;
-pub type int_fast8_t = ::std::os::raw::c_schar;
-pub type int_fast16_t = ::std::os::raw::c_long;
-pub type int_fast32_t = ::std::os::raw::c_long;
-pub type int_fast64_t = ::std::os::raw::c_long;
-pub type uint_fast8_t = ::std::os::raw::c_uchar;
-pub type uint_fast16_t = ::std::os::raw::c_ulong;
-pub type uint_fast32_t = ::std::os::raw::c_ulong;
-pub type uint_fast64_t = ::std::os::raw::c_ulong;
+pub type int_fast8_t = ::core::ffi::c_schar;
+pub type int_fast16_t = ::core::ffi::c_long;
+pub type int_fast32_t = ::core::ffi::c_long;
+pub type int_fast64_t = ::core::ffi::c_long;
+pub type uint_fast8_t = ::core::ffi::c_uchar;
+pub type uint_fast16_t = ::core::ffi::c_ulong;
+pub type uint_fast32_t = ::core::ffi::c_ulong;
+pub type uint_fast64_t = ::core::ffi::c_ulong;
 pub type intmax_t = __intmax_t;
 pub type uintmax_t = __uintmax_t;
-pub type __s8 = ::std::os::raw::c_schar;
-pub type __u8 = ::std::os::raw::c_uchar;
-pub type __s16 = ::std::os::raw::c_short;
-pub type __u16 = ::std::os::raw::c_ushort;
-pub type __s32 = ::std::os::raw::c_int;
-pub type __u32 = ::std::os::raw::c_uint;
-pub type __s64 = ::std::os::raw::c_longlong;
-pub type __u64 = ::std::os::raw::c_ulonglong;
+pub type __s8 = ::core::ffi::c_schar;
+pub type __u8 = ::core::ffi::c_uchar;
+pub type __s16 = ::core::ffi::c_short;
+pub type __u16 = ::core::ffi::c_ushort;
+pub type __s32 = ::core::ffi::c_int;
+pub type __u32 = ::core::ffi::c_uint;
+pub type __s64 = ::core::ffi::c_longlong;
+pub type __u64 = ::core::ffi::c_ulonglong;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fd_set {
-    pub fds_bits: [::std::os::raw::c_ulong; 16usize],
+    pub fds_bits: [::core::ffi::c_ulong; 16usize],
 }
 #[test]
 fn bindgen_test_layout___kernel_fd_set() {
     assert_eq!(
-        ::std::mem::size_of::<__kernel_fd_set>(),
+        ::core::mem::size_of::<__kernel_fd_set>(),
         128usize,
         concat!("Size of: ", stringify!(__kernel_fd_set))
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_fd_set>(),
+        ::core::mem::align_of::<__kernel_fd_set>(),
         8usize,
         concat!("Alignment of ", stringify!(__kernel_fd_set))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__kernel_fd_set>())).fds_bits as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__kernel_fd_set>())).fds_bits as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1935,46 +1947,46 @@ fn bindgen_test_layout___kernel_fd_set() {
     );
 }
 pub type __kernel_sighandler_t =
-    ::std::option::Option<unsafe extern "C" fn(arg1: ::std::os::raw::c_int)>;
-pub type __kernel_key_t = ::std::os::raw::c_int;
-pub type __kernel_mqd_t = ::std::os::raw::c_int;
-pub type __kernel_old_uid_t = ::std::os::raw::c_ushort;
-pub type __kernel_old_gid_t = ::std::os::raw::c_ushort;
-pub type __kernel_old_dev_t = ::std::os::raw::c_ulong;
-pub type __kernel_long_t = ::std::os::raw::c_long;
-pub type __kernel_ulong_t = ::std::os::raw::c_ulong;
+    ::core::option::Option<unsafe extern "C" fn(arg1: ::core::ffi::c_int)>;
+pub type __kernel_key_t = ::core::ffi::c_int;
+pub type __kernel_mqd_t = ::core::ffi::c_int;
+pub type __kernel_old_uid_t = ::core::ffi::c_ushort;
+pub type __kernel_old_gid_t = ::core::ffi::c_ushort;
+pub type __kernel_old_dev_t = ::core::ffi::c_ulong;
+pub type __kernel_long_t = ::core::ffi::c_long;
+pub type __kernel_ulong_t = ::core::ffi::c_ulong;
 pub type __kernel_ino_t = __kernel_ulong_t;
-pub type __kernel_mode_t = ::std::os::raw::c_uint;
-pub type __kernel_pid_t = ::std::os::raw::c_int;
-pub type __kernel_ipc_pid_t = ::std::os::raw::c_int;
-pub type __kernel_uid_t = ::std::os::raw::c_uint;
-pub type __kernel_gid_t = ::std::os::raw::c_uint;
+pub type __kernel_mode_t = ::core::ffi::c_uint;
+pub type __kernel_pid_t = ::core::ffi::c_int;
+pub type __kernel_ipc_pid_t = ::core::ffi::c_int;
+pub type __kernel_uid_t = ::core::ffi::c_uint;
+pub type __kernel_gid_t = ::core::ffi::c_uint;
 pub type __kernel_suseconds_t = __kernel_long_t;
-pub type __kernel_daddr_t = ::std::os::raw::c_int;
-pub type __kernel_uid32_t = ::std::os::raw::c_uint;
-pub type __kernel_gid32_t = ::std::os::raw::c_uint;
+pub type __kernel_daddr_t = ::core::ffi::c_int;
+pub type __kernel_uid32_t = ::core::ffi::c_uint;
+pub type __kernel_gid32_t = ::core::ffi::c_uint;
 pub type __kernel_size_t = __kernel_ulong_t;
 pub type __kernel_ssize_t = __kernel_long_t;
 pub type __kernel_ptrdiff_t = __kernel_long_t;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __kernel_fsid_t {
-    pub val: [::std::os::raw::c_int; 2usize],
+    pub val: [::core::ffi::c_int; 2usize],
 }
 #[test]
 fn bindgen_test_layout___kernel_fsid_t() {
     assert_eq!(
-        ::std::mem::size_of::<__kernel_fsid_t>(),
+        ::core::mem::size_of::<__kernel_fsid_t>(),
         8usize,
         concat!("Size of: ", stringify!(__kernel_fsid_t))
     );
     assert_eq!(
-        ::std::mem::align_of::<__kernel_fsid_t>(),
+        ::core::mem::align_of::<__kernel_fsid_t>(),
         4usize,
         concat!("Alignment of ", stringify!(__kernel_fsid_t))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__kernel_fsid_t>())).val as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__kernel_fsid_t>())).val as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -1985,16 +1997,16 @@ fn bindgen_test_layout___kernel_fsid_t() {
     );
 }
 pub type __kernel_off_t = __kernel_long_t;
-pub type __kernel_loff_t = ::std::os::raw::c_longlong;
+pub type __kernel_loff_t = ::core::ffi::c_longlong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
-pub type __kernel_time64_t = ::std::os::raw::c_longlong;
+pub type __kernel_time64_t = ::core::ffi::c_longlong;
 pub type __kernel_clock_t = __kernel_long_t;
-pub type __kernel_timer_t = ::std::os::raw::c_int;
-pub type __kernel_clockid_t = ::std::os::raw::c_int;
-pub type __kernel_caddr_t = *mut ::std::os::raw::c_char;
-pub type __kernel_uid16_t = ::std::os::raw::c_ushort;
-pub type __kernel_gid16_t = ::std::os::raw::c_ushort;
+pub type __kernel_timer_t = ::core::ffi::c_int;
+pub type __kernel_clockid_t = ::core::ffi::c_int;
+pub type __kernel_caddr_t = *mut ::core::ffi::c_char;
+pub type __kernel_uid16_t = ::core::ffi::c_ushort;
+pub type __kernel_gid16_t = ::core::ffi::c_ushort;
 pub type __le16 = __u16;
 pub type __be16 = __u16;
 pub type __le32 = __u32;
@@ -2003,33 +2015,33 @@ pub type __le64 = __u64;
 pub type __be64 = __u64;
 pub type __sum16 = __u16;
 pub type __wsum = __u32;
-pub type __poll_t = ::std::os::raw::c_uint;
-pub type drm_handle_t = ::std::os::raw::c_uint;
-pub type drm_context_t = ::std::os::raw::c_uint;
-pub type drm_drawable_t = ::std::os::raw::c_uint;
-pub type drm_magic_t = ::std::os::raw::c_uint;
+pub type __poll_t = ::core::ffi::c_uint;
+pub type drm_handle_t = ::core::ffi::c_uint;
+pub type drm_context_t = ::core::ffi::c_uint;
+pub type drm_drawable_t = ::core::ffi::c_uint;
+pub type drm_magic_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_clip_rect {
-    pub x1: ::std::os::raw::c_ushort,
-    pub y1: ::std::os::raw::c_ushort,
-    pub x2: ::std::os::raw::c_ushort,
-    pub y2: ::std::os::raw::c_ushort,
+    pub x1: ::core::ffi::c_ushort,
+    pub y1: ::core::ffi::c_ushort,
+    pub x2: ::core::ffi::c_ushort,
+    pub y2: ::core::ffi::c_ushort,
 }
 #[test]
 fn bindgen_test_layout_drm_clip_rect() {
     assert_eq!(
-        ::std::mem::size_of::<drm_clip_rect>(),
+        ::core::mem::size_of::<drm_clip_rect>(),
         8usize,
         concat!("Size of: ", stringify!(drm_clip_rect))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_clip_rect>(),
+        ::core::mem::align_of::<drm_clip_rect>(),
         2usize,
         concat!("Alignment of ", stringify!(drm_clip_rect))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_clip_rect>())).x1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_clip_rect>())).x1 as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2039,7 +2051,7 @@ fn bindgen_test_layout_drm_clip_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_clip_rect>())).y1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_clip_rect>())).y1 as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -2049,7 +2061,7 @@ fn bindgen_test_layout_drm_clip_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_clip_rect>())).x2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_clip_rect>())).x2 as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2059,7 +2071,7 @@ fn bindgen_test_layout_drm_clip_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_clip_rect>())).y2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_clip_rect>())).y2 as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -2072,23 +2084,23 @@ fn bindgen_test_layout_drm_clip_rect() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_drawable_info {
-    pub num_rects: ::std::os::raw::c_uint,
+    pub num_rects: ::core::ffi::c_uint,
     pub rects: *mut drm_clip_rect,
 }
 #[test]
 fn bindgen_test_layout_drm_drawable_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_drawable_info>(),
+        ::core::mem::size_of::<drm_drawable_info>(),
         16usize,
         concat!("Size of: ", stringify!(drm_drawable_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_drawable_info>(),
+        ::core::mem::align_of::<drm_drawable_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_drawable_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_drawable_info>())).num_rects as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_drawable_info>())).num_rects as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2098,7 +2110,7 @@ fn bindgen_test_layout_drm_drawable_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_drawable_info>())).rects as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_drawable_info>())).rects as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2111,26 +2123,26 @@ fn bindgen_test_layout_drm_drawable_info() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_tex_region {
-    pub next: ::std::os::raw::c_uchar,
-    pub prev: ::std::os::raw::c_uchar,
-    pub in_use: ::std::os::raw::c_uchar,
-    pub padding: ::std::os::raw::c_uchar,
-    pub age: ::std::os::raw::c_uint,
+    pub next: ::core::ffi::c_uchar,
+    pub prev: ::core::ffi::c_uchar,
+    pub in_use: ::core::ffi::c_uchar,
+    pub padding: ::core::ffi::c_uchar,
+    pub age: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout_drm_tex_region() {
     assert_eq!(
-        ::std::mem::size_of::<drm_tex_region>(),
+        ::core::mem::size_of::<drm_tex_region>(),
         8usize,
         concat!("Size of: ", stringify!(drm_tex_region))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_tex_region>(),
+        ::core::mem::align_of::<drm_tex_region>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_tex_region))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_tex_region>())).next as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_tex_region>())).next as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2140,7 +2152,7 @@ fn bindgen_test_layout_drm_tex_region() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_tex_region>())).prev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_tex_region>())).prev as *const _ as usize },
         1usize,
         concat!(
             "Offset of field: ",
@@ -2150,7 +2162,7 @@ fn bindgen_test_layout_drm_tex_region() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_tex_region>())).in_use as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_tex_region>())).in_use as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -2160,7 +2172,7 @@ fn bindgen_test_layout_drm_tex_region() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_tex_region>())).padding as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_tex_region>())).padding as *const _ as usize },
         3usize,
         concat!(
             "Offset of field: ",
@@ -2170,7 +2182,7 @@ fn bindgen_test_layout_drm_tex_region() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_tex_region>())).age as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_tex_region>())).age as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2183,23 +2195,23 @@ fn bindgen_test_layout_drm_tex_region() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_hw_lock {
-    pub lock: ::std::os::raw::c_uint,
-    pub padding: [::std::os::raw::c_char; 60usize],
+    pub lock: ::core::ffi::c_uint,
+    pub padding: [::core::ffi::c_char; 60usize],
 }
 #[test]
 fn bindgen_test_layout_drm_hw_lock() {
     assert_eq!(
-        ::std::mem::size_of::<drm_hw_lock>(),
+        ::core::mem::size_of::<drm_hw_lock>(),
         64usize,
         concat!("Size of: ", stringify!(drm_hw_lock))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_hw_lock>(),
+        ::core::mem::align_of::<drm_hw_lock>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_hw_lock))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_hw_lock>())).lock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_hw_lock>())).lock as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2209,7 +2221,7 @@ fn bindgen_test_layout_drm_hw_lock() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_hw_lock>())).padding as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_hw_lock>())).padding as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2222,30 +2234,30 @@ fn bindgen_test_layout_drm_hw_lock() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_version {
-    pub version_major: ::std::os::raw::c_int,
-    pub version_minor: ::std::os::raw::c_int,
-    pub version_patchlevel: ::std::os::raw::c_int,
+    pub version_major: ::core::ffi::c_int,
+    pub version_minor: ::core::ffi::c_int,
+    pub version_patchlevel: ::core::ffi::c_int,
     pub name_len: __kernel_size_t,
-    pub name: *mut ::std::os::raw::c_char,
+    pub name: *mut ::core::ffi::c_char,
     pub date_len: __kernel_size_t,
-    pub date: *mut ::std::os::raw::c_char,
+    pub date: *mut ::core::ffi::c_char,
     pub desc_len: __kernel_size_t,
-    pub desc: *mut ::std::os::raw::c_char,
+    pub desc: *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_drm_version() {
     assert_eq!(
-        ::std::mem::size_of::<drm_version>(),
+        ::core::mem::size_of::<drm_version>(),
         64usize,
         concat!("Size of: ", stringify!(drm_version))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_version>(),
+        ::core::mem::align_of::<drm_version>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_version))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).version_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).version_major as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2255,7 +2267,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).version_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).version_minor as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2265,7 +2277,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).version_patchlevel as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).version_patchlevel as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2275,7 +2287,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).name_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).name_len as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2285,7 +2297,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).name as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -2295,7 +2307,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).date_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).date_len as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -2305,7 +2317,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).date as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).date as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -2315,7 +2327,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).desc_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).desc_len as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -2325,7 +2337,7 @@ fn bindgen_test_layout_drm_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_version>())).desc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_version>())).desc as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -2339,22 +2351,22 @@ fn bindgen_test_layout_drm_version() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_unique {
     pub unique_len: __kernel_size_t,
-    pub unique: *mut ::std::os::raw::c_char,
+    pub unique: *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout_drm_unique() {
     assert_eq!(
-        ::std::mem::size_of::<drm_unique>(),
+        ::core::mem::size_of::<drm_unique>(),
         16usize,
         concat!("Size of: ", stringify!(drm_unique))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_unique>(),
+        ::core::mem::align_of::<drm_unique>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_unique))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_unique>())).unique_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_unique>())).unique_len as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2364,7 +2376,7 @@ fn bindgen_test_layout_drm_unique() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_unique>())).unique as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_unique>())).unique as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2377,23 +2389,23 @@ fn bindgen_test_layout_drm_unique() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_list {
-    pub count: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
     pub version: *mut drm_version,
 }
 #[test]
 fn bindgen_test_layout_drm_list() {
     assert_eq!(
-        ::std::mem::size_of::<drm_list>(),
+        ::core::mem::size_of::<drm_list>(),
         16usize,
         concat!("Size of: ", stringify!(drm_list))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_list>(),
+        ::core::mem::align_of::<drm_list>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_list))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_list>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_list>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2403,7 +2415,7 @@ fn bindgen_test_layout_drm_list() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_list>())).version as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_list>())).version as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2416,22 +2428,22 @@ fn bindgen_test_layout_drm_list() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_block {
-    pub unused: ::std::os::raw::c_int,
+    pub unused: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_block() {
     assert_eq!(
-        ::std::mem::size_of::<drm_block>(),
+        ::core::mem::size_of::<drm_block>(),
         4usize,
         concat!("Size of: ", stringify!(drm_block))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_block>(),
+        ::core::mem::align_of::<drm_block>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_block))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_block>())).unused as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_block>())).unused as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2445,27 +2457,27 @@ fn bindgen_test_layout_drm_block() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_control {
     pub func: drm_control__bindgen_ty_1,
-    pub irq: ::std::os::raw::c_int,
+    pub irq: ::core::ffi::c_int,
 }
-pub const drm_control_DRM_ADD_COMMAND: ::std::os::raw::c_uint = 0;
-pub const drm_control_DRM_RM_COMMAND: ::std::os::raw::c_uint = 1;
-pub const drm_control_DRM_INST_HANDLER: ::std::os::raw::c_uint = 2;
-pub const drm_control_DRM_UNINST_HANDLER: ::std::os::raw::c_uint = 3;
-pub type drm_control__bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const drm_control_DRM_ADD_COMMAND: ::core::ffi::c_uint = 0;
+pub const drm_control_DRM_RM_COMMAND: ::core::ffi::c_uint = 1;
+pub const drm_control_DRM_INST_HANDLER: ::core::ffi::c_uint = 2;
+pub const drm_control_DRM_UNINST_HANDLER: ::core::ffi::c_uint = 3;
+pub type drm_control__bindgen_ty_1 = ::core::ffi::c_uint;
 #[test]
 fn bindgen_test_layout_drm_control() {
     assert_eq!(
-        ::std::mem::size_of::<drm_control>(),
+        ::core::mem::size_of::<drm_control>(),
         8usize,
         concat!("Size of: ", stringify!(drm_control))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_control>(),
+        ::core::mem::align_of::<drm_control>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_control))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_control>())).func as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_control>())).func as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2475,7 +2487,7 @@ fn bindgen_test_layout_drm_control() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_control>())).irq as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_control>())).irq as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2491,7 +2503,7 @@ pub const drm_map_type__DRM_SHM: drm_map_type = 2;
 pub const drm_map_type__DRM_AGP: drm_map_type = 3;
 pub const drm_map_type__DRM_SCATTER_GATHER: drm_map_type = 4;
 pub const drm_map_type__DRM_CONSISTENT: drm_map_type = 5;
-pub type drm_map_type = ::std::os::raw::c_uint;
+pub type drm_map_type = ::core::ffi::c_uint;
 pub const drm_map_flags__DRM_RESTRICTED: drm_map_flags = 1;
 pub const drm_map_flags__DRM_READ_ONLY: drm_map_flags = 2;
 pub const drm_map_flags__DRM_LOCKED: drm_map_flags = 4;
@@ -2500,27 +2512,27 @@ pub const drm_map_flags__DRM_WRITE_COMBINING: drm_map_flags = 16;
 pub const drm_map_flags__DRM_CONTAINS_LOCK: drm_map_flags = 32;
 pub const drm_map_flags__DRM_REMOVABLE: drm_map_flags = 64;
 pub const drm_map_flags__DRM_DRIVER: drm_map_flags = 128;
-pub type drm_map_flags = ::std::os::raw::c_uint;
+pub type drm_map_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_ctx_priv_map {
-    pub ctx_id: ::std::os::raw::c_uint,
-    pub handle: *mut ::std::os::raw::c_void,
+    pub ctx_id: ::core::ffi::c_uint,
+    pub handle: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_drm_ctx_priv_map() {
     assert_eq!(
-        ::std::mem::size_of::<drm_ctx_priv_map>(),
+        ::core::mem::size_of::<drm_ctx_priv_map>(),
         16usize,
         concat!("Size of: ", stringify!(drm_ctx_priv_map))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_ctx_priv_map>(),
+        ::core::mem::align_of::<drm_ctx_priv_map>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_ctx_priv_map))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx_priv_map>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx_priv_map>())).ctx_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2530,7 +2542,7 @@ fn bindgen_test_layout_drm_ctx_priv_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx_priv_map>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx_priv_map>())).handle as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2543,27 +2555,27 @@ fn bindgen_test_layout_drm_ctx_priv_map() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_map {
-    pub offset: ::std::os::raw::c_ulong,
-    pub size: ::std::os::raw::c_ulong,
+    pub offset: ::core::ffi::c_ulong,
+    pub size: ::core::ffi::c_ulong,
     pub type_: drm_map_type,
     pub flags: drm_map_flags,
-    pub handle: *mut ::std::os::raw::c_void,
-    pub mtrr: ::std::os::raw::c_int,
+    pub handle: *mut ::core::ffi::c_void,
+    pub mtrr: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_map() {
     assert_eq!(
-        ::std::mem::size_of::<drm_map>(),
+        ::core::mem::size_of::<drm_map>(),
         40usize,
         concat!("Size of: ", stringify!(drm_map))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_map>(),
+        ::core::mem::align_of::<drm_map>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_map))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).offset as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2573,7 +2585,7 @@ fn bindgen_test_layout_drm_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2583,7 +2595,7 @@ fn bindgen_test_layout_drm_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).type_ as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2593,7 +2605,7 @@ fn bindgen_test_layout_drm_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).flags as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -2603,7 +2615,7 @@ fn bindgen_test_layout_drm_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).handle as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -2613,7 +2625,7 @@ fn bindgen_test_layout_drm_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_map>())).mtrr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_map>())).mtrr as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -2626,27 +2638,27 @@ fn bindgen_test_layout_drm_map() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_client {
-    pub idx: ::std::os::raw::c_int,
-    pub auth: ::std::os::raw::c_int,
-    pub pid: ::std::os::raw::c_ulong,
-    pub uid: ::std::os::raw::c_ulong,
-    pub magic: ::std::os::raw::c_ulong,
-    pub iocs: ::std::os::raw::c_ulong,
+    pub idx: ::core::ffi::c_int,
+    pub auth: ::core::ffi::c_int,
+    pub pid: ::core::ffi::c_ulong,
+    pub uid: ::core::ffi::c_ulong,
+    pub magic: ::core::ffi::c_ulong,
+    pub iocs: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_client() {
     assert_eq!(
-        ::std::mem::size_of::<drm_client>(),
+        ::core::mem::size_of::<drm_client>(),
         40usize,
         concat!("Size of: ", stringify!(drm_client))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_client>(),
+        ::core::mem::align_of::<drm_client>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_client))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).idx as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).idx as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2656,7 +2668,7 @@ fn bindgen_test_layout_drm_client() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).auth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).auth as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2666,7 +2678,7 @@ fn bindgen_test_layout_drm_client() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).pid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).pid as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2676,7 +2688,7 @@ fn bindgen_test_layout_drm_client() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).uid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).uid as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2686,7 +2698,7 @@ fn bindgen_test_layout_drm_client() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).magic as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).magic as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -2696,7 +2708,7 @@ fn bindgen_test_layout_drm_client() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_client>())).iocs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_client>())).iocs as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -2721,33 +2733,33 @@ pub const drm_stat_type__DRM_STAT_SECONDARY: drm_stat_type = 11;
 pub const drm_stat_type__DRM_STAT_DMA: drm_stat_type = 12;
 pub const drm_stat_type__DRM_STAT_SPECIAL: drm_stat_type = 13;
 pub const drm_stat_type__DRM_STAT_MISSED: drm_stat_type = 14;
-pub type drm_stat_type = ::std::os::raw::c_uint;
+pub type drm_stat_type = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_stats {
-    pub count: ::std::os::raw::c_ulong,
+    pub count: ::core::ffi::c_ulong,
     pub data: [drm_stats__bindgen_ty_1; 15usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_stats__bindgen_ty_1 {
-    pub value: ::std::os::raw::c_ulong,
+    pub value: ::core::ffi::c_ulong,
     pub type_: drm_stat_type,
 }
 #[test]
 fn bindgen_test_layout_drm_stats__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_stats__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_stats__bindgen_ty_1>(),
         16usize,
         concat!("Size of: ", stringify!(drm_stats__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_stats__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_stats__bindgen_ty_1>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_stats__bindgen_ty_1))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_stats__bindgen_ty_1>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_stats__bindgen_ty_1>())).value as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2757,7 +2769,7 @@ fn bindgen_test_layout_drm_stats__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_stats__bindgen_ty_1>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_stats__bindgen_ty_1>())).type_ as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2770,17 +2782,17 @@ fn bindgen_test_layout_drm_stats__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_drm_stats() {
     assert_eq!(
-        ::std::mem::size_of::<drm_stats>(),
+        ::core::mem::size_of::<drm_stats>(),
         248usize,
         concat!("Size of: ", stringify!(drm_stats))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_stats>(),
+        ::core::mem::align_of::<drm_stats>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_stats))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_stats>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_stats>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2790,7 +2802,7 @@ fn bindgen_test_layout_drm_stats() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_stats>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_stats>())).data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2806,27 +2818,27 @@ pub const drm_lock_flags__DRM_LOCK_FLUSH: drm_lock_flags = 4;
 pub const drm_lock_flags__DRM_LOCK_FLUSH_ALL: drm_lock_flags = 8;
 pub const drm_lock_flags__DRM_HALT_ALL_QUEUES: drm_lock_flags = 16;
 pub const drm_lock_flags__DRM_HALT_CUR_QUEUES: drm_lock_flags = 32;
-pub type drm_lock_flags = ::std::os::raw::c_uint;
+pub type drm_lock_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_lock {
-    pub context: ::std::os::raw::c_int,
+    pub context: ::core::ffi::c_int,
     pub flags: drm_lock_flags,
 }
 #[test]
 fn bindgen_test_layout_drm_lock() {
     assert_eq!(
-        ::std::mem::size_of::<drm_lock>(),
+        ::core::mem::size_of::<drm_lock>(),
         8usize,
         concat!("Size of: ", stringify!(drm_lock))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_lock>(),
+        ::core::mem::align_of::<drm_lock>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_lock))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_lock>())).context as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_lock>())).context as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2836,7 +2848,7 @@ fn bindgen_test_layout_drm_lock() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_lock>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_lock>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2852,37 +2864,37 @@ pub const drm_dma_flags__DRM_DMA_PRIORITY: drm_dma_flags = 4;
 pub const drm_dma_flags__DRM_DMA_WAIT: drm_dma_flags = 16;
 pub const drm_dma_flags__DRM_DMA_SMALLER_OK: drm_dma_flags = 32;
 pub const drm_dma_flags__DRM_DMA_LARGER_OK: drm_dma_flags = 64;
-pub type drm_dma_flags = ::std::os::raw::c_uint;
+pub type drm_dma_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_desc {
-    pub count: ::std::os::raw::c_int,
-    pub size: ::std::os::raw::c_int,
-    pub low_mark: ::std::os::raw::c_int,
-    pub high_mark: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
+    pub size: ::core::ffi::c_int,
+    pub low_mark: ::core::ffi::c_int,
+    pub high_mark: ::core::ffi::c_int,
     pub flags: drm_buf_desc__bindgen_ty_1,
-    pub agp_start: ::std::os::raw::c_ulong,
+    pub agp_start: ::core::ffi::c_ulong,
 }
-pub const drm_buf_desc__DRM_PAGE_ALIGN: ::std::os::raw::c_uint = 1;
-pub const drm_buf_desc__DRM_AGP_BUFFER: ::std::os::raw::c_uint = 2;
-pub const drm_buf_desc__DRM_SG_BUFFER: ::std::os::raw::c_uint = 4;
-pub const drm_buf_desc__DRM_FB_BUFFER: ::std::os::raw::c_uint = 8;
-pub const drm_buf_desc__DRM_PCI_BUFFER_RO: ::std::os::raw::c_uint = 16;
-pub type drm_buf_desc__bindgen_ty_1 = ::std::os::raw::c_uint;
+pub const drm_buf_desc__DRM_PAGE_ALIGN: ::core::ffi::c_uint = 1;
+pub const drm_buf_desc__DRM_AGP_BUFFER: ::core::ffi::c_uint = 2;
+pub const drm_buf_desc__DRM_SG_BUFFER: ::core::ffi::c_uint = 4;
+pub const drm_buf_desc__DRM_FB_BUFFER: ::core::ffi::c_uint = 8;
+pub const drm_buf_desc__DRM_PCI_BUFFER_RO: ::core::ffi::c_uint = 16;
+pub type drm_buf_desc__bindgen_ty_1 = ::core::ffi::c_uint;
 #[test]
 fn bindgen_test_layout_drm_buf_desc() {
     assert_eq!(
-        ::std::mem::size_of::<drm_buf_desc>(),
+        ::core::mem::size_of::<drm_buf_desc>(),
         32usize,
         concat!("Size of: ", stringify!(drm_buf_desc))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_buf_desc>(),
+        ::core::mem::align_of::<drm_buf_desc>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_buf_desc))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2892,7 +2904,7 @@ fn bindgen_test_layout_drm_buf_desc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).size as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -2902,7 +2914,7 @@ fn bindgen_test_layout_drm_buf_desc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).low_mark as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).low_mark as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2912,7 +2924,7 @@ fn bindgen_test_layout_drm_buf_desc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).high_mark as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).high_mark as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -2922,7 +2934,7 @@ fn bindgen_test_layout_drm_buf_desc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).flags as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -2932,7 +2944,7 @@ fn bindgen_test_layout_drm_buf_desc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_desc>())).agp_start as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_desc>())).agp_start as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -2945,23 +2957,23 @@ fn bindgen_test_layout_drm_buf_desc() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_info {
-    pub count: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
     pub list: *mut drm_buf_desc,
 }
 #[test]
 fn bindgen_test_layout_drm_buf_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_buf_info>(),
+        ::core::mem::size_of::<drm_buf_info>(),
         16usize,
         concat!("Size of: ", stringify!(drm_buf_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_buf_info>(),
+        ::core::mem::align_of::<drm_buf_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_buf_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_info>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_info>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -2971,7 +2983,7 @@ fn bindgen_test_layout_drm_buf_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_info>())).list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_info>())).list as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -2984,23 +2996,23 @@ fn bindgen_test_layout_drm_buf_info() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_free {
-    pub count: ::std::os::raw::c_int,
-    pub list: *mut ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
+    pub list: *mut ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_buf_free() {
     assert_eq!(
-        ::std::mem::size_of::<drm_buf_free>(),
+        ::core::mem::size_of::<drm_buf_free>(),
         16usize,
         concat!("Size of: ", stringify!(drm_buf_free))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_buf_free>(),
+        ::core::mem::align_of::<drm_buf_free>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_buf_free))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_free>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_free>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3010,7 +3022,7 @@ fn bindgen_test_layout_drm_buf_free() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_free>())).list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_free>())).list as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3023,25 +3035,25 @@ fn bindgen_test_layout_drm_buf_free() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_pub {
-    pub idx: ::std::os::raw::c_int,
-    pub total: ::std::os::raw::c_int,
-    pub used: ::std::os::raw::c_int,
-    pub address: *mut ::std::os::raw::c_void,
+    pub idx: ::core::ffi::c_int,
+    pub total: ::core::ffi::c_int,
+    pub used: ::core::ffi::c_int,
+    pub address: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_drm_buf_pub() {
     assert_eq!(
-        ::std::mem::size_of::<drm_buf_pub>(),
+        ::core::mem::size_of::<drm_buf_pub>(),
         24usize,
         concat!("Size of: ", stringify!(drm_buf_pub))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_buf_pub>(),
+        ::core::mem::align_of::<drm_buf_pub>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_buf_pub))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_pub>())).idx as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_pub>())).idx as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3051,7 +3063,7 @@ fn bindgen_test_layout_drm_buf_pub() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_pub>())).total as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_pub>())).total as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3061,7 +3073,7 @@ fn bindgen_test_layout_drm_buf_pub() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_pub>())).used as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_pub>())).used as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3071,7 +3083,7 @@ fn bindgen_test_layout_drm_buf_pub() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_pub>())).address as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_pub>())).address as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3084,24 +3096,24 @@ fn bindgen_test_layout_drm_buf_pub() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_map {
-    pub count: ::std::os::raw::c_int,
-    pub virtual_: *mut ::std::os::raw::c_void,
+    pub count: ::core::ffi::c_int,
+    pub virtual_: *mut ::core::ffi::c_void,
     pub list: *mut drm_buf_pub,
 }
 #[test]
 fn bindgen_test_layout_drm_buf_map() {
     assert_eq!(
-        ::std::mem::size_of::<drm_buf_map>(),
+        ::core::mem::size_of::<drm_buf_map>(),
         24usize,
         concat!("Size of: ", stringify!(drm_buf_map))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_buf_map>(),
+        ::core::mem::align_of::<drm_buf_map>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_buf_map))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_map>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_map>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3111,7 +3123,7 @@ fn bindgen_test_layout_drm_buf_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_map>())).virtual_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_map>())).virtual_ as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3121,7 +3133,7 @@ fn bindgen_test_layout_drm_buf_map() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_buf_map>())).list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_buf_map>())).list as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3134,31 +3146,31 @@ fn bindgen_test_layout_drm_buf_map() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_dma {
-    pub context: ::std::os::raw::c_int,
-    pub send_count: ::std::os::raw::c_int,
-    pub send_indices: *mut ::std::os::raw::c_int,
-    pub send_sizes: *mut ::std::os::raw::c_int,
+    pub context: ::core::ffi::c_int,
+    pub send_count: ::core::ffi::c_int,
+    pub send_indices: *mut ::core::ffi::c_int,
+    pub send_sizes: *mut ::core::ffi::c_int,
     pub flags: drm_dma_flags,
-    pub request_count: ::std::os::raw::c_int,
-    pub request_size: ::std::os::raw::c_int,
-    pub request_indices: *mut ::std::os::raw::c_int,
-    pub request_sizes: *mut ::std::os::raw::c_int,
-    pub granted_count: ::std::os::raw::c_int,
+    pub request_count: ::core::ffi::c_int,
+    pub request_size: ::core::ffi::c_int,
+    pub request_indices: *mut ::core::ffi::c_int,
+    pub request_sizes: *mut ::core::ffi::c_int,
+    pub granted_count: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_dma() {
     assert_eq!(
-        ::std::mem::size_of::<drm_dma>(),
+        ::core::mem::size_of::<drm_dma>(),
         64usize,
         concat!("Size of: ", stringify!(drm_dma))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_dma>(),
+        ::core::mem::align_of::<drm_dma>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_dma))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).context as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).context as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3168,7 +3180,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).send_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).send_count as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3178,7 +3190,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).send_indices as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).send_indices as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3188,7 +3200,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).send_sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).send_sizes as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3198,7 +3210,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).flags as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -3208,7 +3220,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).request_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).request_count as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -3218,7 +3230,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).request_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).request_size as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -3228,7 +3240,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).request_indices as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).request_indices as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -3238,7 +3250,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).request_sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).request_sizes as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -3248,7 +3260,7 @@ fn bindgen_test_layout_drm_dma() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_dma>())).granted_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_dma>())).granted_count as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -3260,7 +3272,7 @@ fn bindgen_test_layout_drm_dma() {
 }
 pub const drm_ctx_flags__DRM_CONTEXT_PRESERVED: drm_ctx_flags = 1;
 pub const drm_ctx_flags__DRM_CONTEXT_2DONLY: drm_ctx_flags = 2;
-pub type drm_ctx_flags = ::std::os::raw::c_uint;
+pub type drm_ctx_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_ctx {
@@ -3270,17 +3282,17 @@ pub struct drm_ctx {
 #[test]
 fn bindgen_test_layout_drm_ctx() {
     assert_eq!(
-        ::std::mem::size_of::<drm_ctx>(),
+        ::core::mem::size_of::<drm_ctx>(),
         8usize,
         concat!("Size of: ", stringify!(drm_ctx))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_ctx>(),
+        ::core::mem::align_of::<drm_ctx>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_ctx))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3290,7 +3302,7 @@ fn bindgen_test_layout_drm_ctx() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3303,23 +3315,23 @@ fn bindgen_test_layout_drm_ctx() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_ctx_res {
-    pub count: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
     pub contexts: *mut drm_ctx,
 }
 #[test]
 fn bindgen_test_layout_drm_ctx_res() {
     assert_eq!(
-        ::std::mem::size_of::<drm_ctx_res>(),
+        ::core::mem::size_of::<drm_ctx_res>(),
         16usize,
         concat!("Size of: ", stringify!(drm_ctx_res))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_ctx_res>(),
+        ::core::mem::align_of::<drm_ctx_res>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_ctx_res))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx_res>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx_res>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3329,7 +3341,7 @@ fn bindgen_test_layout_drm_ctx_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_ctx_res>())).contexts as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_ctx_res>())).contexts as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3347,17 +3359,17 @@ pub struct drm_draw {
 #[test]
 fn bindgen_test_layout_drm_draw() {
     assert_eq!(
-        ::std::mem::size_of::<drm_draw>(),
+        ::core::mem::size_of::<drm_draw>(),
         4usize,
         concat!("Size of: ", stringify!(drm_draw))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_draw>(),
+        ::core::mem::align_of::<drm_draw>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_draw))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_draw>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_draw>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3368,29 +3380,29 @@ fn bindgen_test_layout_drm_draw() {
     );
 }
 pub const drm_drawable_info_type_t_DRM_DRAWABLE_CLIPRECTS: drm_drawable_info_type_t = 0;
-pub type drm_drawable_info_type_t = ::std::os::raw::c_uint;
+pub type drm_drawable_info_type_t = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_update_draw {
     pub handle: drm_drawable_t,
-    pub type_: ::std::os::raw::c_uint,
-    pub num: ::std::os::raw::c_uint,
-    pub data: ::std::os::raw::c_ulonglong,
+    pub type_: ::core::ffi::c_uint,
+    pub num: ::core::ffi::c_uint,
+    pub data: ::core::ffi::c_ulonglong,
 }
 #[test]
 fn bindgen_test_layout_drm_update_draw() {
     assert_eq!(
-        ::std::mem::size_of::<drm_update_draw>(),
+        ::core::mem::size_of::<drm_update_draw>(),
         24usize,
         concat!("Size of: ", stringify!(drm_update_draw))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_update_draw>(),
+        ::core::mem::align_of::<drm_update_draw>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_update_draw))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_update_draw>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_update_draw>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3400,7 +3412,7 @@ fn bindgen_test_layout_drm_update_draw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_update_draw>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_update_draw>())).type_ as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3410,7 +3422,7 @@ fn bindgen_test_layout_drm_update_draw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_update_draw>())).num as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_update_draw>())).num as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3420,7 +3432,7 @@ fn bindgen_test_layout_drm_update_draw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_update_draw>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_update_draw>())).data as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3438,17 +3450,17 @@ pub struct drm_auth {
 #[test]
 fn bindgen_test_layout_drm_auth() {
     assert_eq!(
-        ::std::mem::size_of::<drm_auth>(),
+        ::core::mem::size_of::<drm_auth>(),
         4usize,
         concat!("Size of: ", stringify!(drm_auth))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_auth>(),
+        ::core::mem::align_of::<drm_auth>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_auth))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_auth>())).magic as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_auth>())).magic as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3461,25 +3473,25 @@ fn bindgen_test_layout_drm_auth() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_irq_busid {
-    pub irq: ::std::os::raw::c_int,
-    pub busnum: ::std::os::raw::c_int,
-    pub devnum: ::std::os::raw::c_int,
-    pub funcnum: ::std::os::raw::c_int,
+    pub irq: ::core::ffi::c_int,
+    pub busnum: ::core::ffi::c_int,
+    pub devnum: ::core::ffi::c_int,
+    pub funcnum: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_irq_busid() {
     assert_eq!(
-        ::std::mem::size_of::<drm_irq_busid>(),
+        ::core::mem::size_of::<drm_irq_busid>(),
         16usize,
         concat!("Size of: ", stringify!(drm_irq_busid))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_irq_busid>(),
+        ::core::mem::align_of::<drm_irq_busid>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_irq_busid))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_irq_busid>())).irq as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_irq_busid>())).irq as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3489,7 +3501,7 @@ fn bindgen_test_layout_drm_irq_busid() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_irq_busid>())).busnum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_irq_busid>())).busnum as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3499,7 +3511,7 @@ fn bindgen_test_layout_drm_irq_busid() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_irq_busid>())).devnum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_irq_busid>())).devnum as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3509,7 +3521,7 @@ fn bindgen_test_layout_drm_irq_busid() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_irq_busid>())).funcnum as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_irq_busid>())).funcnum as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -3527,28 +3539,28 @@ pub const drm_vblank_seq_type__DRM_VBLANK_FLIP: drm_vblank_seq_type = 134217728;
 pub const drm_vblank_seq_type__DRM_VBLANK_NEXTONMISS: drm_vblank_seq_type = 268435456;
 pub const drm_vblank_seq_type__DRM_VBLANK_SECONDARY: drm_vblank_seq_type = 536870912;
 pub const drm_vblank_seq_type__DRM_VBLANK_SIGNAL: drm_vblank_seq_type = 1073741824;
-pub type drm_vblank_seq_type = ::std::os::raw::c_uint;
+pub type drm_vblank_seq_type = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_wait_vblank_request {
     pub type_: drm_vblank_seq_type,
-    pub sequence: ::std::os::raw::c_uint,
-    pub signal: ::std::os::raw::c_ulong,
+    pub sequence: ::core::ffi::c_uint,
+    pub signal: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_wait_vblank_request() {
     assert_eq!(
-        ::std::mem::size_of::<drm_wait_vblank_request>(),
+        ::core::mem::size_of::<drm_wait_vblank_request>(),
         16usize,
         concat!("Size of: ", stringify!(drm_wait_vblank_request))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_wait_vblank_request>(),
+        ::core::mem::align_of::<drm_wait_vblank_request>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_wait_vblank_request))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_request>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank_request>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3559,7 +3571,7 @@ fn bindgen_test_layout_drm_wait_vblank_request() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_wait_vblank_request>())).sequence as *const _ as usize
+            &(*(::core::ptr::null::<drm_wait_vblank_request>())).sequence as *const _ as usize
         },
         4usize,
         concat!(
@@ -3570,7 +3582,7 @@ fn bindgen_test_layout_drm_wait_vblank_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_request>())).signal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank_request>())).signal as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3584,24 +3596,24 @@ fn bindgen_test_layout_drm_wait_vblank_request() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_wait_vblank_reply {
     pub type_: drm_vblank_seq_type,
-    pub sequence: ::std::os::raw::c_uint,
-    pub tval_sec: ::std::os::raw::c_long,
-    pub tval_usec: ::std::os::raw::c_long,
+    pub sequence: ::core::ffi::c_uint,
+    pub tval_sec: ::core::ffi::c_long,
+    pub tval_usec: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout_drm_wait_vblank_reply() {
     assert_eq!(
-        ::std::mem::size_of::<drm_wait_vblank_reply>(),
+        ::core::mem::size_of::<drm_wait_vblank_reply>(),
         24usize,
         concat!("Size of: ", stringify!(drm_wait_vblank_reply))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_wait_vblank_reply>(),
+        ::core::mem::align_of::<drm_wait_vblank_reply>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_wait_vblank_reply))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_reply>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank_reply>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3611,7 +3623,7 @@ fn bindgen_test_layout_drm_wait_vblank_reply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_reply>())).sequence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank_reply>())).sequence as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3621,7 +3633,7 @@ fn bindgen_test_layout_drm_wait_vblank_reply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_reply>())).tval_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank_reply>())).tval_sec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3631,7 +3643,9 @@ fn bindgen_test_layout_drm_wait_vblank_reply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank_reply>())).tval_usec as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_wait_vblank_reply>())).tval_usec as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3650,17 +3664,17 @@ pub union drm_wait_vblank {
 #[test]
 fn bindgen_test_layout_drm_wait_vblank() {
     assert_eq!(
-        ::std::mem::size_of::<drm_wait_vblank>(),
+        ::core::mem::size_of::<drm_wait_vblank>(),
         24usize,
         concat!("Size of: ", stringify!(drm_wait_vblank))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_wait_vblank>(),
+        ::core::mem::align_of::<drm_wait_vblank>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_wait_vblank))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank>())).request as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank>())).request as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3670,7 +3684,7 @@ fn bindgen_test_layout_drm_wait_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_wait_vblank>())).reply as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_wait_vblank>())).reply as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3689,17 +3703,17 @@ pub struct drm_modeset_ctl {
 #[test]
 fn bindgen_test_layout_drm_modeset_ctl() {
     assert_eq!(
-        ::std::mem::size_of::<drm_modeset_ctl>(),
+        ::core::mem::size_of::<drm_modeset_ctl>(),
         8usize,
         concat!("Size of: ", stringify!(drm_modeset_ctl))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_modeset_ctl>(),
+        ::core::mem::align_of::<drm_modeset_ctl>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_modeset_ctl))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_modeset_ctl>())).crtc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_modeset_ctl>())).crtc as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3709,7 +3723,7 @@ fn bindgen_test_layout_drm_modeset_ctl() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_modeset_ctl>())).cmd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_modeset_ctl>())).cmd as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3722,22 +3736,22 @@ fn bindgen_test_layout_drm_modeset_ctl() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_mode {
-    pub mode: ::std::os::raw::c_ulong,
+    pub mode: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_agp_mode() {
     assert_eq!(
-        ::std::mem::size_of::<drm_agp_mode>(),
+        ::core::mem::size_of::<drm_agp_mode>(),
         8usize,
         concat!("Size of: ", stringify!(drm_agp_mode))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_agp_mode>(),
+        ::core::mem::align_of::<drm_agp_mode>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_agp_mode))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_mode>())).mode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_mode>())).mode as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3750,25 +3764,25 @@ fn bindgen_test_layout_drm_agp_mode() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_buffer {
-    pub size: ::std::os::raw::c_ulong,
-    pub handle: ::std::os::raw::c_ulong,
-    pub type_: ::std::os::raw::c_ulong,
-    pub physical: ::std::os::raw::c_ulong,
+    pub size: ::core::ffi::c_ulong,
+    pub handle: ::core::ffi::c_ulong,
+    pub type_: ::core::ffi::c_ulong,
+    pub physical: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_agp_buffer() {
     assert_eq!(
-        ::std::mem::size_of::<drm_agp_buffer>(),
+        ::core::mem::size_of::<drm_agp_buffer>(),
         32usize,
         concat!("Size of: ", stringify!(drm_agp_buffer))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_agp_buffer>(),
+        ::core::mem::align_of::<drm_agp_buffer>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_agp_buffer))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_buffer>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_buffer>())).size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3778,7 +3792,7 @@ fn bindgen_test_layout_drm_agp_buffer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_buffer>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_buffer>())).handle as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3788,7 +3802,7 @@ fn bindgen_test_layout_drm_agp_buffer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_buffer>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_buffer>())).type_ as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3798,7 +3812,7 @@ fn bindgen_test_layout_drm_agp_buffer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_buffer>())).physical as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_buffer>())).physical as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -3811,23 +3825,23 @@ fn bindgen_test_layout_drm_agp_buffer() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_binding {
-    pub handle: ::std::os::raw::c_ulong,
-    pub offset: ::std::os::raw::c_ulong,
+    pub handle: ::core::ffi::c_ulong,
+    pub offset: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_agp_binding() {
     assert_eq!(
-        ::std::mem::size_of::<drm_agp_binding>(),
+        ::core::mem::size_of::<drm_agp_binding>(),
         16usize,
         concat!("Size of: ", stringify!(drm_agp_binding))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_agp_binding>(),
+        ::core::mem::align_of::<drm_agp_binding>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_agp_binding))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_binding>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_binding>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3837,7 +3851,7 @@ fn bindgen_test_layout_drm_agp_binding() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_binding>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_binding>())).offset as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3850,30 +3864,30 @@ fn bindgen_test_layout_drm_agp_binding() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_info {
-    pub agp_version_major: ::std::os::raw::c_int,
-    pub agp_version_minor: ::std::os::raw::c_int,
-    pub mode: ::std::os::raw::c_ulong,
-    pub aperture_base: ::std::os::raw::c_ulong,
-    pub aperture_size: ::std::os::raw::c_ulong,
-    pub memory_allowed: ::std::os::raw::c_ulong,
-    pub memory_used: ::std::os::raw::c_ulong,
-    pub id_vendor: ::std::os::raw::c_ushort,
-    pub id_device: ::std::os::raw::c_ushort,
+    pub agp_version_major: ::core::ffi::c_int,
+    pub agp_version_minor: ::core::ffi::c_int,
+    pub mode: ::core::ffi::c_ulong,
+    pub aperture_base: ::core::ffi::c_ulong,
+    pub aperture_size: ::core::ffi::c_ulong,
+    pub memory_allowed: ::core::ffi::c_ulong,
+    pub memory_used: ::core::ffi::c_ulong,
+    pub id_vendor: ::core::ffi::c_ushort,
+    pub id_device: ::core::ffi::c_ushort,
 }
 #[test]
 fn bindgen_test_layout_drm_agp_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_agp_info>(),
+        ::core::mem::size_of::<drm_agp_info>(),
         56usize,
         concat!("Size of: ", stringify!(drm_agp_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_agp_info>(),
+        ::core::mem::align_of::<drm_agp_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_agp_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).agp_version_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).agp_version_major as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3883,7 +3897,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).agp_version_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).agp_version_minor as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -3893,7 +3907,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).mode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).mode as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -3903,7 +3917,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).aperture_base as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).aperture_base as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -3913,7 +3927,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).aperture_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).aperture_size as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -3923,7 +3937,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).memory_allowed as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).memory_allowed as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -3933,7 +3947,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).memory_used as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).memory_used as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -3943,7 +3957,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).id_vendor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).id_vendor as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -3953,7 +3967,7 @@ fn bindgen_test_layout_drm_agp_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_agp_info>())).id_device as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_agp_info>())).id_device as *const _ as usize },
         50usize,
         concat!(
             "Offset of field: ",
@@ -3966,23 +3980,23 @@ fn bindgen_test_layout_drm_agp_info() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_scatter_gather {
-    pub size: ::std::os::raw::c_ulong,
-    pub handle: ::std::os::raw::c_ulong,
+    pub size: ::core::ffi::c_ulong,
+    pub handle: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout_drm_scatter_gather() {
     assert_eq!(
-        ::std::mem::size_of::<drm_scatter_gather>(),
+        ::core::mem::size_of::<drm_scatter_gather>(),
         16usize,
         concat!("Size of: ", stringify!(drm_scatter_gather))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_scatter_gather>(),
+        ::core::mem::align_of::<drm_scatter_gather>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_scatter_gather))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_scatter_gather>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_scatter_gather>())).size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -3992,7 +4006,7 @@ fn bindgen_test_layout_drm_scatter_gather() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_scatter_gather>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_scatter_gather>())).handle as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4005,25 +4019,25 @@ fn bindgen_test_layout_drm_scatter_gather() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_set_version {
-    pub drm_di_major: ::std::os::raw::c_int,
-    pub drm_di_minor: ::std::os::raw::c_int,
-    pub drm_dd_major: ::std::os::raw::c_int,
-    pub drm_dd_minor: ::std::os::raw::c_int,
+    pub drm_di_major: ::core::ffi::c_int,
+    pub drm_di_minor: ::core::ffi::c_int,
+    pub drm_dd_major: ::core::ffi::c_int,
+    pub drm_dd_minor: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout_drm_set_version() {
     assert_eq!(
-        ::std::mem::size_of::<drm_set_version>(),
+        ::core::mem::size_of::<drm_set_version>(),
         16usize,
         concat!("Size of: ", stringify!(drm_set_version))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_set_version>(),
+        ::core::mem::align_of::<drm_set_version>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_set_version))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_version>())).drm_di_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_version>())).drm_di_major as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4033,7 +4047,7 @@ fn bindgen_test_layout_drm_set_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_version>())).drm_di_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_version>())).drm_di_minor as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4043,7 +4057,7 @@ fn bindgen_test_layout_drm_set_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_version>())).drm_dd_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_version>())).drm_dd_major as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4053,7 +4067,7 @@ fn bindgen_test_layout_drm_set_version() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_version>())).drm_dd_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_version>())).drm_dd_minor as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -4072,17 +4086,17 @@ pub struct drm_gem_close {
 #[test]
 fn bindgen_test_layout_drm_gem_close() {
     assert_eq!(
-        ::std::mem::size_of::<drm_gem_close>(),
+        ::core::mem::size_of::<drm_gem_close>(),
         8usize,
         concat!("Size of: ", stringify!(drm_gem_close))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_gem_close>(),
+        ::core::mem::align_of::<drm_gem_close>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_gem_close))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_close>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_close>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4092,7 +4106,7 @@ fn bindgen_test_layout_drm_gem_close() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_close>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_close>())).pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4111,17 +4125,17 @@ pub struct drm_gem_flink {
 #[test]
 fn bindgen_test_layout_drm_gem_flink() {
     assert_eq!(
-        ::std::mem::size_of::<drm_gem_flink>(),
+        ::core::mem::size_of::<drm_gem_flink>(),
         8usize,
         concat!("Size of: ", stringify!(drm_gem_flink))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_gem_flink>(),
+        ::core::mem::align_of::<drm_gem_flink>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_gem_flink))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_flink>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_flink>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4131,7 +4145,7 @@ fn bindgen_test_layout_drm_gem_flink() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_flink>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_flink>())).name as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4151,17 +4165,17 @@ pub struct drm_gem_open {
 #[test]
 fn bindgen_test_layout_drm_gem_open() {
     assert_eq!(
-        ::std::mem::size_of::<drm_gem_open>(),
+        ::core::mem::size_of::<drm_gem_open>(),
         16usize,
         concat!("Size of: ", stringify!(drm_gem_open))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_gem_open>(),
+        ::core::mem::align_of::<drm_gem_open>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_gem_open))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_open>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_open>())).name as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4171,7 +4185,7 @@ fn bindgen_test_layout_drm_gem_open() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_open>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_open>())).handle as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4181,7 +4195,7 @@ fn bindgen_test_layout_drm_gem_open() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_gem_open>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_gem_open>())).size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4200,17 +4214,17 @@ pub struct drm_get_cap {
 #[test]
 fn bindgen_test_layout_drm_get_cap() {
     assert_eq!(
-        ::std::mem::size_of::<drm_get_cap>(),
+        ::core::mem::size_of::<drm_get_cap>(),
         16usize,
         concat!("Size of: ", stringify!(drm_get_cap))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_get_cap>(),
+        ::core::mem::align_of::<drm_get_cap>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_get_cap))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_get_cap>())).capability as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_get_cap>())).capability as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4220,7 +4234,7 @@ fn bindgen_test_layout_drm_get_cap() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_get_cap>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_get_cap>())).value as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4239,17 +4253,17 @@ pub struct drm_set_client_cap {
 #[test]
 fn bindgen_test_layout_drm_set_client_cap() {
     assert_eq!(
-        ::std::mem::size_of::<drm_set_client_cap>(),
+        ::core::mem::size_of::<drm_set_client_cap>(),
         16usize,
         concat!("Size of: ", stringify!(drm_set_client_cap))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_set_client_cap>(),
+        ::core::mem::align_of::<drm_set_client_cap>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_set_client_cap))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_client_cap>())).capability as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_client_cap>())).capability as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4259,7 +4273,7 @@ fn bindgen_test_layout_drm_set_client_cap() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_set_client_cap>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_set_client_cap>())).value as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4279,17 +4293,17 @@ pub struct drm_prime_handle {
 #[test]
 fn bindgen_test_layout_drm_prime_handle() {
     assert_eq!(
-        ::std::mem::size_of::<drm_prime_handle>(),
+        ::core::mem::size_of::<drm_prime_handle>(),
         12usize,
         concat!("Size of: ", stringify!(drm_prime_handle))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_prime_handle>(),
+        ::core::mem::align_of::<drm_prime_handle>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_prime_handle))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_prime_handle>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_prime_handle>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4299,7 +4313,7 @@ fn bindgen_test_layout_drm_prime_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_prime_handle>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_prime_handle>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4309,7 +4323,7 @@ fn bindgen_test_layout_drm_prime_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_prime_handle>())).fd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_prime_handle>())).fd as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4328,17 +4342,17 @@ pub struct drm_syncobj_create {
 #[test]
 fn bindgen_test_layout_drm_syncobj_create() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_create>(),
+        ::core::mem::size_of::<drm_syncobj_create>(),
         8usize,
         concat!("Size of: ", stringify!(drm_syncobj_create))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_create>(),
+        ::core::mem::align_of::<drm_syncobj_create>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_syncobj_create))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_create>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_create>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4348,7 +4362,7 @@ fn bindgen_test_layout_drm_syncobj_create() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_create>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_create>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4367,17 +4381,17 @@ pub struct drm_syncobj_destroy {
 #[test]
 fn bindgen_test_layout_drm_syncobj_destroy() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_destroy>(),
+        ::core::mem::size_of::<drm_syncobj_destroy>(),
         8usize,
         concat!("Size of: ", stringify!(drm_syncobj_destroy))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_destroy>(),
+        ::core::mem::align_of::<drm_syncobj_destroy>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_syncobj_destroy))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_destroy>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_destroy>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4387,7 +4401,7 @@ fn bindgen_test_layout_drm_syncobj_destroy() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_destroy>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_destroy>())).pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4408,17 +4422,17 @@ pub struct drm_syncobj_handle {
 #[test]
 fn bindgen_test_layout_drm_syncobj_handle() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_handle>(),
+        ::core::mem::size_of::<drm_syncobj_handle>(),
         16usize,
         concat!("Size of: ", stringify!(drm_syncobj_handle))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_handle>(),
+        ::core::mem::align_of::<drm_syncobj_handle>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_syncobj_handle))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_handle>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_handle>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4428,7 +4442,7 @@ fn bindgen_test_layout_drm_syncobj_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_handle>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_handle>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4438,7 +4452,7 @@ fn bindgen_test_layout_drm_syncobj_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_handle>())).fd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_handle>())).fd as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4448,7 +4462,7 @@ fn bindgen_test_layout_drm_syncobj_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_handle>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_handle>())).pad as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -4471,17 +4485,19 @@ pub struct drm_syncobj_transfer {
 #[test]
 fn bindgen_test_layout_drm_syncobj_transfer() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_transfer>(),
+        ::core::mem::size_of::<drm_syncobj_transfer>(),
         32usize,
         concat!("Size of: ", stringify!(drm_syncobj_transfer))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_transfer>(),
+        ::core::mem::align_of::<drm_syncobj_transfer>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_syncobj_transfer))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).src_handle as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_syncobj_transfer>())).src_handle as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4491,7 +4507,9 @@ fn bindgen_test_layout_drm_syncobj_transfer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).dst_handle as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_syncobj_transfer>())).dst_handle as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4501,7 +4519,7 @@ fn bindgen_test_layout_drm_syncobj_transfer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).src_point as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_transfer>())).src_point as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4511,7 +4529,7 @@ fn bindgen_test_layout_drm_syncobj_transfer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).dst_point as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_transfer>())).dst_point as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4521,7 +4539,7 @@ fn bindgen_test_layout_drm_syncobj_transfer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_transfer>())).flags as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4531,7 +4549,7 @@ fn bindgen_test_layout_drm_syncobj_transfer() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_transfer>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_transfer>())).pad as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -4554,17 +4572,17 @@ pub struct drm_syncobj_wait {
 #[test]
 fn bindgen_test_layout_drm_syncobj_wait() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_wait>(),
+        ::core::mem::size_of::<drm_syncobj_wait>(),
         32usize,
         concat!("Size of: ", stringify!(drm_syncobj_wait))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_wait>(),
+        ::core::mem::align_of::<drm_syncobj_wait>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_syncobj_wait))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).handles as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_wait>())).handles as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4574,7 +4592,7 @@ fn bindgen_test_layout_drm_syncobj_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).timeout_nsec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_wait>())).timeout_nsec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4584,7 +4602,7 @@ fn bindgen_test_layout_drm_syncobj_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).count_handles as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_wait>())).count_handles as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -4594,7 +4612,7 @@ fn bindgen_test_layout_drm_syncobj_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_wait>())).flags as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -4604,7 +4622,9 @@ fn bindgen_test_layout_drm_syncobj_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).first_signaled as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_syncobj_wait>())).first_signaled as *const _ as usize
+        },
         24usize,
         concat!(
             "Offset of field: ",
@@ -4614,7 +4634,7 @@ fn bindgen_test_layout_drm_syncobj_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_wait>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_wait>())).pad as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -4638,18 +4658,18 @@ pub struct drm_syncobj_timeline_wait {
 #[test]
 fn bindgen_test_layout_drm_syncobj_timeline_wait() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_timeline_wait>(),
+        ::core::mem::size_of::<drm_syncobj_timeline_wait>(),
         40usize,
         concat!("Size of: ", stringify!(drm_syncobj_timeline_wait))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_timeline_wait>(),
+        ::core::mem::align_of::<drm_syncobj_timeline_wait>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_syncobj_timeline_wait))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).handles as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).handles as *const _ as usize
         },
         0usize,
         concat!(
@@ -4661,7 +4681,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).points as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).points as *const _ as usize
         },
         8usize,
         concat!(
@@ -4673,7 +4693,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).timeout_nsec as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).timeout_nsec as *const _ as usize
         },
         16usize,
         concat!(
@@ -4685,7 +4705,8 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).count_handles as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).count_handles as *const _
+                as usize
         },
         24usize,
         concat!(
@@ -4696,7 +4717,9 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).flags as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).flags as *const _ as usize
+        },
         28usize,
         concat!(
             "Offset of field: ",
@@ -4707,7 +4730,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).first_signaled as *const _
+            &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).first_signaled as *const _
                 as usize
         },
         32usize,
@@ -4719,7 +4742,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_wait() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_timeline_wait>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_timeline_wait>())).pad as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -4739,17 +4762,17 @@ pub struct drm_syncobj_array {
 #[test]
 fn bindgen_test_layout_drm_syncobj_array() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_array>(),
+        ::core::mem::size_of::<drm_syncobj_array>(),
         16usize,
         concat!("Size of: ", stringify!(drm_syncobj_array))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_array>(),
+        ::core::mem::align_of::<drm_syncobj_array>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_syncobj_array))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_array>())).handles as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_array>())).handles as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4759,7 +4782,9 @@ fn bindgen_test_layout_drm_syncobj_array() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_array>())).count_handles as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_syncobj_array>())).count_handles as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4769,7 +4794,7 @@ fn bindgen_test_layout_drm_syncobj_array() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_syncobj_array>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_syncobj_array>())).pad as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -4790,18 +4815,18 @@ pub struct drm_syncobj_timeline_array {
 #[test]
 fn bindgen_test_layout_drm_syncobj_timeline_array() {
     assert_eq!(
-        ::std::mem::size_of::<drm_syncobj_timeline_array>(),
+        ::core::mem::size_of::<drm_syncobj_timeline_array>(),
         24usize,
         concat!("Size of: ", stringify!(drm_syncobj_timeline_array))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_syncobj_timeline_array>(),
+        ::core::mem::align_of::<drm_syncobj_timeline_array>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_syncobj_timeline_array))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_array>())).handles as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_array>())).handles as *const _ as usize
         },
         0usize,
         concat!(
@@ -4813,7 +4838,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_array() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_array>())).points as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_array>())).points as *const _ as usize
         },
         8usize,
         concat!(
@@ -4825,7 +4850,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_array() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_array>())).count_handles as *const _
+            &(*(::core::ptr::null::<drm_syncobj_timeline_array>())).count_handles as *const _
                 as usize
         },
         16usize,
@@ -4838,7 +4863,7 @@ fn bindgen_test_layout_drm_syncobj_timeline_array() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_syncobj_timeline_array>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_syncobj_timeline_array>())).flags as *const _ as usize
         },
         20usize,
         concat!(
@@ -4860,17 +4885,17 @@ pub struct drm_crtc_get_sequence {
 #[test]
 fn bindgen_test_layout_drm_crtc_get_sequence() {
     assert_eq!(
-        ::std::mem::size_of::<drm_crtc_get_sequence>(),
+        ::core::mem::size_of::<drm_crtc_get_sequence>(),
         24usize,
         concat!("Size of: ", stringify!(drm_crtc_get_sequence))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_crtc_get_sequence>(),
+        ::core::mem::align_of::<drm_crtc_get_sequence>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_crtc_get_sequence))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_crtc_get_sequence>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_crtc_get_sequence>())).crtc_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4880,7 +4905,7 @@ fn bindgen_test_layout_drm_crtc_get_sequence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_crtc_get_sequence>())).active as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_crtc_get_sequence>())).active as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4890,7 +4915,7 @@ fn bindgen_test_layout_drm_crtc_get_sequence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_crtc_get_sequence>())).sequence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_crtc_get_sequence>())).sequence as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -4901,7 +4926,7 @@ fn bindgen_test_layout_drm_crtc_get_sequence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_crtc_get_sequence>())).sequence_ns as *const _ as usize
+            &(*(::core::ptr::null::<drm_crtc_get_sequence>())).sequence_ns as *const _ as usize
         },
         16usize,
         concat!(
@@ -4923,17 +4948,19 @@ pub struct drm_crtc_queue_sequence {
 #[test]
 fn bindgen_test_layout_drm_crtc_queue_sequence() {
     assert_eq!(
-        ::std::mem::size_of::<drm_crtc_queue_sequence>(),
+        ::core::mem::size_of::<drm_crtc_queue_sequence>(),
         24usize,
         concat!("Size of: ", stringify!(drm_crtc_queue_sequence))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_crtc_queue_sequence>(),
+        ::core::mem::align_of::<drm_crtc_queue_sequence>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_crtc_queue_sequence))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_crtc_queue_sequence>())).crtc_id as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_crtc_queue_sequence>())).crtc_id as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -4943,7 +4970,7 @@ fn bindgen_test_layout_drm_crtc_queue_sequence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_crtc_queue_sequence>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_crtc_queue_sequence>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -4954,7 +4981,7 @@ fn bindgen_test_layout_drm_crtc_queue_sequence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_crtc_queue_sequence>())).sequence as *const _ as usize
+            &(*(::core::ptr::null::<drm_crtc_queue_sequence>())).sequence as *const _ as usize
         },
         8usize,
         concat!(
@@ -4966,7 +4993,7 @@ fn bindgen_test_layout_drm_crtc_queue_sequence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_crtc_queue_sequence>())).user_data as *const _ as usize
+            &(*(::core::ptr::null::<drm_crtc_queue_sequence>())).user_data as *const _ as usize
         },
         16usize,
         concat!(
@@ -4994,22 +5021,22 @@ pub struct drm_mode_modeinfo {
     pub vrefresh: __u32,
     pub flags: __u32,
     pub type_: __u32,
-    pub name: [::std::os::raw::c_char; 32usize],
+    pub name: [::core::ffi::c_char; 32usize],
 }
 #[test]
 fn bindgen_test_layout_drm_mode_modeinfo() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_modeinfo>(),
+        ::core::mem::size_of::<drm_mode_modeinfo>(),
         68usize,
         concat!("Size of: ", stringify!(drm_mode_modeinfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_modeinfo>(),
+        ::core::mem::align_of::<drm_mode_modeinfo>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_modeinfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).clock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).clock as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5019,7 +5046,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).hdisplay as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).hdisplay as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -5029,7 +5056,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).hsync_start as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).hsync_start as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -5039,7 +5066,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).hsync_end as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).hsync_end as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5049,7 +5076,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).htotal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).htotal as *const _ as usize },
         10usize,
         concat!(
             "Offset of field: ",
@@ -5059,7 +5086,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).hskew as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).hskew as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -5069,7 +5096,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vdisplay as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vdisplay as *const _ as usize },
         14usize,
         concat!(
             "Offset of field: ",
@@ -5079,7 +5106,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vsync_start as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vsync_start as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5089,7 +5116,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vsync_end as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vsync_end as *const _ as usize },
         18usize,
         concat!(
             "Offset of field: ",
@@ -5099,7 +5126,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vtotal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vtotal as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -5109,7 +5136,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vscan as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vscan as *const _ as usize },
         22usize,
         concat!(
             "Offset of field: ",
@@ -5119,7 +5146,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).vrefresh as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).vrefresh as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -5129,7 +5156,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).flags as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -5139,7 +5166,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).type_ as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -5149,7 +5176,7 @@ fn bindgen_test_layout_drm_mode_modeinfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_modeinfo>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_modeinfo>())).name as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -5178,17 +5205,17 @@ pub struct drm_mode_card_res {
 #[test]
 fn bindgen_test_layout_drm_mode_card_res() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_card_res>(),
+        ::core::mem::size_of::<drm_mode_card_res>(),
         64usize,
         concat!("Size of: ", stringify!(drm_mode_card_res))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_card_res>(),
+        ::core::mem::align_of::<drm_mode_card_res>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_card_res))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).fb_id_ptr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).fb_id_ptr as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5198,7 +5225,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).crtc_id_ptr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).crtc_id_ptr as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5209,7 +5236,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_card_res>())).connector_id_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_card_res>())).connector_id_ptr as *const _ as usize
         },
         16usize,
         concat!(
@@ -5221,7 +5248,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_card_res>())).encoder_id_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_card_res>())).encoder_id_ptr as *const _ as usize
         },
         24usize,
         concat!(
@@ -5232,7 +5259,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).count_fbs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).count_fbs as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -5242,7 +5269,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).count_crtcs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).count_crtcs as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -5253,7 +5280,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_card_res>())).count_connectors as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_card_res>())).count_connectors as *const _ as usize
         },
         40usize,
         concat!(
@@ -5265,7 +5292,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_card_res>())).count_encoders as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_card_res>())).count_encoders as *const _ as usize
         },
         44usize,
         concat!(
@@ -5276,7 +5303,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).min_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).min_width as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -5286,7 +5313,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).max_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).max_width as *const _ as usize },
         52usize,
         concat!(
             "Offset of field: ",
@@ -5296,7 +5323,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).min_height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).min_height as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -5306,7 +5333,7 @@ fn bindgen_test_layout_drm_mode_card_res() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_card_res>())).max_height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_card_res>())).max_height as *const _ as usize },
         60usize,
         concat!(
             "Offset of field: ",
@@ -5332,18 +5359,18 @@ pub struct drm_mode_crtc {
 #[test]
 fn bindgen_test_layout_drm_mode_crtc() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_crtc>(),
+        ::core::mem::size_of::<drm_mode_crtc>(),
         104usize,
         concat!("Size of: ", stringify!(drm_mode_crtc))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_crtc>(),
+        ::core::mem::align_of::<drm_mode_crtc>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_crtc))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc>())).set_connectors_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc>())).set_connectors_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -5354,7 +5381,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).count_connectors as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).count_connectors as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5364,7 +5391,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).crtc_id as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -5374,7 +5401,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).fb_id as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5384,7 +5411,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).x as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -5394,7 +5421,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).y as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -5404,7 +5431,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).gamma_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).gamma_size as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -5414,7 +5441,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).mode_valid as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).mode_valid as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -5424,7 +5451,7 @@ fn bindgen_test_layout_drm_mode_crtc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc>())).mode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc>())).mode as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -5453,17 +5480,17 @@ pub struct drm_mode_set_plane {
 #[test]
 fn bindgen_test_layout_drm_mode_set_plane() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_set_plane>(),
+        ::core::mem::size_of::<drm_mode_set_plane>(),
         48usize,
         concat!("Size of: ", stringify!(drm_mode_set_plane))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_set_plane>(),
+        ::core::mem::align_of::<drm_mode_set_plane>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_set_plane))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).plane_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).plane_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5473,7 +5500,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).crtc_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -5483,7 +5510,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).fb_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5493,7 +5520,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).flags as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -5503,7 +5530,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).crtc_x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).crtc_x as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5513,7 +5540,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).crtc_y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).crtc_y as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -5523,7 +5550,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).crtc_w as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).crtc_w as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -5533,7 +5560,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).crtc_h as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).crtc_h as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -5543,7 +5570,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).src_x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).src_x as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -5553,7 +5580,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).src_y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).src_y as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -5563,7 +5590,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).src_h as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).src_h as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -5573,7 +5600,7 @@ fn bindgen_test_layout_drm_mode_set_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_set_plane>())).src_w as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_set_plane>())).src_w as *const _ as usize },
         44usize,
         concat!(
             "Offset of field: ",
@@ -5597,17 +5624,17 @@ pub struct drm_mode_get_plane {
 #[test]
 fn bindgen_test_layout_drm_mode_get_plane() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_plane>(),
+        ::core::mem::size_of::<drm_mode_get_plane>(),
         32usize,
         concat!("Size of: ", stringify!(drm_mode_get_plane))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_plane>(),
+        ::core::mem::align_of::<drm_mode_get_plane>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_plane))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_plane>())).plane_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_plane>())).plane_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5617,7 +5644,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_plane>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_plane>())).crtc_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -5627,7 +5654,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_plane>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_plane>())).fb_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5638,7 +5665,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_plane>())).possible_crtcs as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_plane>())).possible_crtcs as *const _ as usize
         },
         12usize,
         concat!(
@@ -5649,7 +5676,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_plane>())).gamma_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_plane>())).gamma_size as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -5660,7 +5687,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_plane>())).count_format_types as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_plane>())).count_format_types as *const _ as usize
         },
         20usize,
         concat!(
@@ -5672,7 +5699,7 @@ fn bindgen_test_layout_drm_mode_get_plane() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_plane>())).format_type_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_plane>())).format_type_ptr as *const _ as usize
         },
         24usize,
         concat!(
@@ -5692,18 +5719,18 @@ pub struct drm_mode_get_plane_res {
 #[test]
 fn bindgen_test_layout_drm_mode_get_plane_res() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_plane_res>(),
+        ::core::mem::size_of::<drm_mode_get_plane_res>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_get_plane_res))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_plane_res>(),
+        ::core::mem::align_of::<drm_mode_get_plane_res>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_plane_res))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_plane_res>())).plane_id_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_plane_res>())).plane_id_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -5715,7 +5742,7 @@ fn bindgen_test_layout_drm_mode_get_plane_res() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_plane_res>())).count_planes as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_plane_res>())).count_planes as *const _ as usize
         },
         8usize,
         concat!(
@@ -5738,17 +5765,19 @@ pub struct drm_mode_get_encoder {
 #[test]
 fn bindgen_test_layout_drm_mode_get_encoder() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_encoder>(),
+        ::core::mem::size_of::<drm_mode_get_encoder>(),
         20usize,
         concat!("Size of: ", stringify!(drm_mode_get_encoder))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_encoder>(),
+        ::core::mem::align_of::<drm_mode_get_encoder>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_get_encoder))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_encoder>())).encoder_id as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_get_encoder>())).encoder_id as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -5759,7 +5788,7 @@ fn bindgen_test_layout_drm_mode_get_encoder() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_encoder>())).encoder_type as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_encoder>())).encoder_type as *const _ as usize
         },
         4usize,
         concat!(
@@ -5770,7 +5799,7 @@ fn bindgen_test_layout_drm_mode_get_encoder() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_encoder>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_encoder>())).crtc_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -5781,7 +5810,7 @@ fn bindgen_test_layout_drm_mode_get_encoder() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_encoder>())).possible_crtcs as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_encoder>())).possible_crtcs as *const _ as usize
         },
         12usize,
         concat!(
@@ -5793,7 +5822,7 @@ fn bindgen_test_layout_drm_mode_get_encoder() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_encoder>())).possible_clones as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_encoder>())).possible_clones as *const _ as usize
         },
         16usize,
         concat!(
@@ -5817,7 +5846,7 @@ pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_DisplayPort: drm_mode_subc
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_HDMIA: drm_mode_subconnector = 11;
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Native: drm_mode_subconnector = 15;
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Wireless: drm_mode_subconnector = 18;
-pub type drm_mode_subconnector = ::std::os::raw::c_uint;
+pub type drm_mode_subconnector = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_connector {
@@ -5841,18 +5870,18 @@ pub struct drm_mode_get_connector {
 #[test]
 fn bindgen_test_layout_drm_mode_get_connector() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_connector>(),
+        ::core::mem::size_of::<drm_mode_get_connector>(),
         80usize,
         concat!("Size of: ", stringify!(drm_mode_get_connector))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_connector>(),
+        ::core::mem::align_of::<drm_mode_get_connector>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_connector))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).encoders_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).encoders_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -5864,7 +5893,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).modes_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).modes_ptr as *const _ as usize
         },
         8usize,
         concat!(
@@ -5876,7 +5905,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).props_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).props_ptr as *const _ as usize
         },
         16usize,
         concat!(
@@ -5888,7 +5917,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).prop_values_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).prop_values_ptr as *const _ as usize
         },
         24usize,
         concat!(
@@ -5900,7 +5929,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).count_modes as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).count_modes as *const _ as usize
         },
         32usize,
         concat!(
@@ -5912,7 +5941,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).count_props as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).count_props as *const _ as usize
         },
         36usize,
         concat!(
@@ -5924,7 +5953,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).count_encoders as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).count_encoders as *const _ as usize
         },
         40usize,
         concat!(
@@ -5936,7 +5965,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).encoder_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).encoder_id as *const _ as usize
         },
         44usize,
         concat!(
@@ -5948,7 +5977,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).connector_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).connector_id as *const _ as usize
         },
         48usize,
         concat!(
@@ -5960,7 +5989,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).connector_type as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).connector_type as *const _ as usize
         },
         52usize,
         concat!(
@@ -5972,7 +6001,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).connector_type_id as *const _
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).connector_type_id as *const _
                 as usize
         },
         56usize,
@@ -5985,7 +6014,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).connection as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).connection as *const _ as usize
         },
         60usize,
         concat!(
@@ -5996,7 +6025,9 @@ fn bindgen_test_layout_drm_mode_get_connector() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_connector>())).mm_width as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).mm_width as *const _ as usize
+        },
         64usize,
         concat!(
             "Offset of field: ",
@@ -6007,7 +6038,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_connector>())).mm_height as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).mm_height as *const _ as usize
         },
         68usize,
         concat!(
@@ -6018,7 +6049,9 @@ fn bindgen_test_layout_drm_mode_get_connector() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_connector>())).subpixel as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_get_connector>())).subpixel as *const _ as usize
+        },
         72usize,
         concat!(
             "Offset of field: ",
@@ -6028,7 +6061,7 @@ fn bindgen_test_layout_drm_mode_get_connector() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_connector>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_connector>())).pad as *const _ as usize },
         76usize,
         concat!(
             "Offset of field: ",
@@ -6042,22 +6075,22 @@ fn bindgen_test_layout_drm_mode_get_connector() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_property_enum {
     pub value: __u64,
-    pub name: [::std::os::raw::c_char; 32usize],
+    pub name: [::core::ffi::c_char; 32usize],
 }
 #[test]
 fn bindgen_test_layout_drm_mode_property_enum() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_property_enum>(),
+        ::core::mem::size_of::<drm_mode_property_enum>(),
         40usize,
         concat!("Size of: ", stringify!(drm_mode_property_enum))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_property_enum>(),
+        ::core::mem::align_of::<drm_mode_property_enum>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_property_enum))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_property_enum>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_property_enum>())).value as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6067,7 +6100,7 @@ fn bindgen_test_layout_drm_mode_property_enum() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_property_enum>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_property_enum>())).name as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6084,25 +6117,25 @@ pub struct drm_mode_get_property {
     pub enum_blob_ptr: __u64,
     pub prop_id: __u32,
     pub flags: __u32,
-    pub name: [::std::os::raw::c_char; 32usize],
+    pub name: [::core::ffi::c_char; 32usize],
     pub count_values: __u32,
     pub count_enum_blobs: __u32,
 }
 #[test]
 fn bindgen_test_layout_drm_mode_get_property() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_property>(),
+        ::core::mem::size_of::<drm_mode_get_property>(),
         64usize,
         concat!("Size of: ", stringify!(drm_mode_get_property))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_property>(),
+        ::core::mem::align_of::<drm_mode_get_property>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_property))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_property>())).values_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_property>())).values_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -6114,7 +6147,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_property>())).enum_blob_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_property>())).enum_blob_ptr as *const _ as usize
         },
         8usize,
         concat!(
@@ -6125,7 +6158,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_property>())).prop_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_property>())).prop_id as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6135,7 +6168,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_property>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_property>())).flags as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -6145,7 +6178,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_property>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_property>())).name as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -6156,7 +6189,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_property>())).count_values as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_property>())).count_values as *const _ as usize
         },
         56usize,
         concat!(
@@ -6168,7 +6201,7 @@ fn bindgen_test_layout_drm_mode_get_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_property>())).count_enum_blobs as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_property>())).count_enum_blobs as *const _ as usize
         },
         60usize,
         concat!(
@@ -6189,18 +6222,18 @@ pub struct drm_mode_connector_set_property {
 #[test]
 fn bindgen_test_layout_drm_mode_connector_set_property() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_connector_set_property>(),
+        ::core::mem::size_of::<drm_mode_connector_set_property>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_connector_set_property))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_connector_set_property>(),
+        ::core::mem::align_of::<drm_mode_connector_set_property>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_connector_set_property))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_connector_set_property>())).value as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_connector_set_property>())).value as *const _ as usize
         },
         0usize,
         concat!(
@@ -6212,7 +6245,8 @@ fn bindgen_test_layout_drm_mode_connector_set_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_connector_set_property>())).prop_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_connector_set_property>())).prop_id as *const _
+                as usize
         },
         8usize,
         concat!(
@@ -6224,7 +6258,7 @@ fn bindgen_test_layout_drm_mode_connector_set_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_connector_set_property>())).connector_id as *const _
+            &(*(::core::ptr::null::<drm_mode_connector_set_property>())).connector_id as *const _
                 as usize
         },
         12usize,
@@ -6248,18 +6282,18 @@ pub struct drm_mode_obj_get_properties {
 #[test]
 fn bindgen_test_layout_drm_mode_obj_get_properties() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_obj_get_properties>(),
+        ::core::mem::size_of::<drm_mode_obj_get_properties>(),
         32usize,
         concat!("Size of: ", stringify!(drm_mode_obj_get_properties))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_obj_get_properties>(),
+        ::core::mem::align_of::<drm_mode_obj_get_properties>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_obj_get_properties))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_get_properties>())).props_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_get_properties>())).props_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -6271,7 +6305,7 @@ fn bindgen_test_layout_drm_mode_obj_get_properties() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_get_properties>())).prop_values_ptr as *const _
+            &(*(::core::ptr::null::<drm_mode_obj_get_properties>())).prop_values_ptr as *const _
                 as usize
         },
         8usize,
@@ -6284,7 +6318,8 @@ fn bindgen_test_layout_drm_mode_obj_get_properties() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_get_properties>())).count_props as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_get_properties>())).count_props as *const _
+                as usize
         },
         16usize,
         concat!(
@@ -6296,7 +6331,7 @@ fn bindgen_test_layout_drm_mode_obj_get_properties() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_get_properties>())).obj_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_get_properties>())).obj_id as *const _ as usize
         },
         20usize,
         concat!(
@@ -6308,7 +6343,7 @@ fn bindgen_test_layout_drm_mode_obj_get_properties() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_get_properties>())).obj_type as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_get_properties>())).obj_type as *const _ as usize
         },
         24usize,
         concat!(
@@ -6330,17 +6365,19 @@ pub struct drm_mode_obj_set_property {
 #[test]
 fn bindgen_test_layout_drm_mode_obj_set_property() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_obj_set_property>(),
+        ::core::mem::size_of::<drm_mode_obj_set_property>(),
         24usize,
         concat!("Size of: ", stringify!(drm_mode_obj_set_property))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_obj_set_property>(),
+        ::core::mem::align_of::<drm_mode_obj_set_property>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_obj_set_property))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_obj_set_property>())).value as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_obj_set_property>())).value as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6351,7 +6388,7 @@ fn bindgen_test_layout_drm_mode_obj_set_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_set_property>())).prop_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_set_property>())).prop_id as *const _ as usize
         },
         8usize,
         concat!(
@@ -6363,7 +6400,7 @@ fn bindgen_test_layout_drm_mode_obj_set_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_set_property>())).obj_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_set_property>())).obj_id as *const _ as usize
         },
         12usize,
         concat!(
@@ -6375,7 +6412,7 @@ fn bindgen_test_layout_drm_mode_obj_set_property() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_obj_set_property>())).obj_type as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_obj_set_property>())).obj_type as *const _ as usize
         },
         16usize,
         concat!(
@@ -6396,17 +6433,17 @@ pub struct drm_mode_get_blob {
 #[test]
 fn bindgen_test_layout_drm_mode_get_blob() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_blob>(),
+        ::core::mem::size_of::<drm_mode_get_blob>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_get_blob))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_blob>(),
+        ::core::mem::align_of::<drm_mode_get_blob>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_blob))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_blob>())).blob_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_blob>())).blob_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6416,7 +6453,7 @@ fn bindgen_test_layout_drm_mode_get_blob() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_blob>())).length as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_blob>())).length as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6426,7 +6463,7 @@ fn bindgen_test_layout_drm_mode_get_blob() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_blob>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_blob>())).data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6450,17 +6487,17 @@ pub struct drm_mode_fb_cmd {
 #[test]
 fn bindgen_test_layout_drm_mode_fb_cmd() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_fb_cmd>(),
+        ::core::mem::size_of::<drm_mode_fb_cmd>(),
         28usize,
         concat!("Size of: ", stringify!(drm_mode_fb_cmd))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_fb_cmd>(),
+        ::core::mem::align_of::<drm_mode_fb_cmd>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_fb_cmd))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).fb_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6470,7 +6507,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).width as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6480,7 +6517,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).height as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6490,7 +6527,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).pitch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).pitch as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -6500,7 +6537,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).bpp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).bpp as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6510,7 +6547,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).depth as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).depth as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -6520,7 +6557,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd>())).handle as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -6546,17 +6583,17 @@ pub struct drm_mode_fb_cmd2 {
 #[test]
 fn bindgen_test_layout_drm_mode_fb_cmd2() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_fb_cmd2>(),
+        ::core::mem::size_of::<drm_mode_fb_cmd2>(),
         104usize,
         concat!("Size of: ", stringify!(drm_mode_fb_cmd2))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_fb_cmd2>(),
+        ::core::mem::align_of::<drm_mode_fb_cmd2>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_fb_cmd2))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).fb_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6566,7 +6603,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).width as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6576,7 +6613,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).height as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6586,7 +6623,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).pixel_format as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).pixel_format as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -6596,7 +6633,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).flags as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6606,7 +6643,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).handles as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).handles as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -6616,7 +6653,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).pitches as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).pitches as *const _ as usize },
         36usize,
         concat!(
             "Offset of field: ",
@@ -6626,7 +6663,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).offsets as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).offsets as *const _ as usize },
         52usize,
         concat!(
             "Offset of field: ",
@@ -6636,7 +6673,7 @@ fn bindgen_test_layout_drm_mode_fb_cmd2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_cmd2>())).modifier as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_cmd2>())).modifier as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -6658,17 +6695,17 @@ pub struct drm_mode_fb_dirty_cmd {
 #[test]
 fn bindgen_test_layout_drm_mode_fb_dirty_cmd() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_fb_dirty_cmd>(),
+        ::core::mem::size_of::<drm_mode_fb_dirty_cmd>(),
         24usize,
         concat!("Size of: ", stringify!(drm_mode_fb_dirty_cmd))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_fb_dirty_cmd>(),
+        ::core::mem::align_of::<drm_mode_fb_dirty_cmd>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_fb_dirty_cmd))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_dirty_cmd>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_dirty_cmd>())).fb_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6678,7 +6715,7 @@ fn bindgen_test_layout_drm_mode_fb_dirty_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_dirty_cmd>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_dirty_cmd>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6688,7 +6725,7 @@ fn bindgen_test_layout_drm_mode_fb_dirty_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_dirty_cmd>())).color as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_fb_dirty_cmd>())).color as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6698,7 +6735,9 @@ fn bindgen_test_layout_drm_mode_fb_dirty_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_dirty_cmd>())).num_clips as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_fb_dirty_cmd>())).num_clips as *const _ as usize
+        },
         12usize,
         concat!(
             "Offset of field: ",
@@ -6708,7 +6747,9 @@ fn bindgen_test_layout_drm_mode_fb_dirty_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_fb_dirty_cmd>())).clips_ptr as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_fb_dirty_cmd>())).clips_ptr as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6727,17 +6768,17 @@ pub struct drm_mode_mode_cmd {
 #[test]
 fn bindgen_test_layout_drm_mode_mode_cmd() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_mode_cmd>(),
+        ::core::mem::size_of::<drm_mode_mode_cmd>(),
         72usize,
         concat!("Size of: ", stringify!(drm_mode_mode_cmd))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_mode_cmd>(),
+        ::core::mem::align_of::<drm_mode_mode_cmd>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_mode_cmd))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_mode_cmd>())).connector_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_mode_cmd>())).connector_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6747,7 +6788,7 @@ fn bindgen_test_layout_drm_mode_mode_cmd() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_mode_cmd>())).mode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_mode_cmd>())).mode as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6771,17 +6812,17 @@ pub struct drm_mode_cursor {
 #[test]
 fn bindgen_test_layout_drm_mode_cursor() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_cursor>(),
+        ::core::mem::size_of::<drm_mode_cursor>(),
         28usize,
         concat!("Size of: ", stringify!(drm_mode_cursor))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_cursor>(),
+        ::core::mem::align_of::<drm_mode_cursor>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_cursor))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6791,7 +6832,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).crtc_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6801,7 +6842,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).x as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6811,7 +6852,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).y as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -6821,7 +6862,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).width as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6831,7 +6872,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).height as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -6841,7 +6882,7 @@ fn bindgen_test_layout_drm_mode_cursor() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor>())).handle as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -6867,17 +6908,17 @@ pub struct drm_mode_cursor2 {
 #[test]
 fn bindgen_test_layout_drm_mode_cursor2() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_cursor2>(),
+        ::core::mem::size_of::<drm_mode_cursor2>(),
         36usize,
         concat!("Size of: ", stringify!(drm_mode_cursor2))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_cursor2>(),
+        ::core::mem::align_of::<drm_mode_cursor2>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_cursor2))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6887,7 +6928,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).crtc_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -6897,7 +6938,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).x as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -6907,7 +6948,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).y as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -6917,7 +6958,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).width as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -6927,7 +6968,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).height as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -6937,7 +6978,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).handle as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -6947,7 +6988,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).hot_x as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).hot_x as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -6957,7 +6998,7 @@ fn bindgen_test_layout_drm_mode_cursor2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_cursor2>())).hot_y as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_cursor2>())).hot_y as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -6979,17 +7020,17 @@ pub struct drm_mode_crtc_lut {
 #[test]
 fn bindgen_test_layout_drm_mode_crtc_lut() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_crtc_lut>(),
+        ::core::mem::size_of::<drm_mode_crtc_lut>(),
         32usize,
         concat!("Size of: ", stringify!(drm_mode_crtc_lut))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_crtc_lut>(),
+        ::core::mem::align_of::<drm_mode_crtc_lut>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_crtc_lut))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_lut>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_lut>())).crtc_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -6999,7 +7040,7 @@ fn bindgen_test_layout_drm_mode_crtc_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_lut>())).gamma_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_lut>())).gamma_size as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7009,7 +7050,7 @@ fn bindgen_test_layout_drm_mode_crtc_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_lut>())).red as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_lut>())).red as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7019,7 +7060,7 @@ fn bindgen_test_layout_drm_mode_crtc_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_lut>())).green as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_lut>())).green as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -7029,7 +7070,7 @@ fn bindgen_test_layout_drm_mode_crtc_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_lut>())).blue as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_lut>())).blue as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -7047,17 +7088,17 @@ pub struct drm_color_ctm {
 #[test]
 fn bindgen_test_layout_drm_color_ctm() {
     assert_eq!(
-        ::std::mem::size_of::<drm_color_ctm>(),
+        ::core::mem::size_of::<drm_color_ctm>(),
         72usize,
         concat!("Size of: ", stringify!(drm_color_ctm))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_color_ctm>(),
+        ::core::mem::align_of::<drm_color_ctm>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_color_ctm))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_color_ctm>())).matrix as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_color_ctm>())).matrix as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7078,17 +7119,17 @@ pub struct drm_color_lut {
 #[test]
 fn bindgen_test_layout_drm_color_lut() {
     assert_eq!(
-        ::std::mem::size_of::<drm_color_lut>(),
+        ::core::mem::size_of::<drm_color_lut>(),
         8usize,
         concat!("Size of: ", stringify!(drm_color_lut))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_color_lut>(),
+        ::core::mem::align_of::<drm_color_lut>(),
         2usize,
         concat!("Alignment of ", stringify!(drm_color_lut))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_color_lut>())).red as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_color_lut>())).red as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7098,7 +7139,7 @@ fn bindgen_test_layout_drm_color_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_color_lut>())).green as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_color_lut>())).green as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -7108,7 +7149,7 @@ fn bindgen_test_layout_drm_color_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_color_lut>())).blue as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_color_lut>())).blue as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7118,7 +7159,7 @@ fn bindgen_test_layout_drm_color_lut() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_color_lut>())).reserved as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_color_lut>())).reserved as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -7149,7 +7190,7 @@ pub struct hdr_metadata_infoframe__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<hdr_metadata_infoframe__bindgen_ty_1>(),
+        ::core::mem::size_of::<hdr_metadata_infoframe__bindgen_ty_1>(),
         4usize,
         concat!(
             "Size of: ",
@@ -7157,7 +7198,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<hdr_metadata_infoframe__bindgen_ty_1>(),
+        ::core::mem::align_of::<hdr_metadata_infoframe__bindgen_ty_1>(),
         2usize,
         concat!(
             "Alignment of ",
@@ -7166,7 +7207,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe__bindgen_ty_1>())).x as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe__bindgen_ty_1>())).x as *const _ as usize
         },
         0usize,
         concat!(
@@ -7178,7 +7219,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe__bindgen_ty_1>())).y as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe__bindgen_ty_1>())).y as *const _ as usize
         },
         2usize,
         concat!(
@@ -7198,7 +7239,7 @@ pub struct hdr_metadata_infoframe__bindgen_ty_2 {
 #[test]
 fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_2() {
     assert_eq!(
-        ::std::mem::size_of::<hdr_metadata_infoframe__bindgen_ty_2>(),
+        ::core::mem::size_of::<hdr_metadata_infoframe__bindgen_ty_2>(),
         4usize,
         concat!(
             "Size of: ",
@@ -7206,7 +7247,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_2() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<hdr_metadata_infoframe__bindgen_ty_2>(),
+        ::core::mem::align_of::<hdr_metadata_infoframe__bindgen_ty_2>(),
         2usize,
         concat!(
             "Alignment of ",
@@ -7215,7 +7256,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe__bindgen_ty_2>())).x as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe__bindgen_ty_2>())).x as *const _ as usize
         },
         0usize,
         concat!(
@@ -7227,7 +7268,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe__bindgen_ty_2>())).y as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe__bindgen_ty_2>())).y as *const _ as usize
         },
         2usize,
         concat!(
@@ -7241,17 +7282,17 @@ fn bindgen_test_layout_hdr_metadata_infoframe__bindgen_ty_2() {
 #[test]
 fn bindgen_test_layout_hdr_metadata_infoframe() {
     assert_eq!(
-        ::std::mem::size_of::<hdr_metadata_infoframe>(),
+        ::core::mem::size_of::<hdr_metadata_infoframe>(),
         26usize,
         concat!("Size of: ", stringify!(hdr_metadata_infoframe))
     );
     assert_eq!(
-        ::std::mem::align_of::<hdr_metadata_infoframe>(),
+        ::core::mem::align_of::<hdr_metadata_infoframe>(),
         2usize,
         concat!("Alignment of ", stringify!(hdr_metadata_infoframe))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<hdr_metadata_infoframe>())).eotf as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<hdr_metadata_infoframe>())).eotf as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7262,7 +7303,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe>())).metadata_type as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).metadata_type as *const _ as usize
         },
         1usize,
         concat!(
@@ -7274,7 +7315,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe>())).display_primaries as *const _
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).display_primaries as *const _
                 as usize
         },
         2usize,
@@ -7287,7 +7328,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe>())).white_point as *const _ as usize
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).white_point as *const _ as usize
         },
         14usize,
         concat!(
@@ -7299,7 +7340,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe>())).max_display_mastering_luminance
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).max_display_mastering_luminance
                 as *const _ as usize
         },
         18usize,
@@ -7312,7 +7353,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_metadata_infoframe>())).min_display_mastering_luminance
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).min_display_mastering_luminance
                 as *const _ as usize
         },
         20usize,
@@ -7324,7 +7365,7 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<hdr_metadata_infoframe>())).max_cll as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<hdr_metadata_infoframe>())).max_cll as *const _ as usize },
         22usize,
         concat!(
             "Offset of field: ",
@@ -7334,7 +7375,9 @@ fn bindgen_test_layout_hdr_metadata_infoframe() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<hdr_metadata_infoframe>())).max_fall as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<hdr_metadata_infoframe>())).max_fall as *const _ as usize
+        },
         24usize,
         concat!(
             "Offset of field: ",
@@ -7358,12 +7401,12 @@ pub union hdr_output_metadata__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_hdr_output_metadata__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<hdr_output_metadata__bindgen_ty_1>(),
+        ::core::mem::size_of::<hdr_output_metadata__bindgen_ty_1>(),
         26usize,
         concat!("Size of: ", stringify!(hdr_output_metadata__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<hdr_output_metadata__bindgen_ty_1>(),
+        ::core::mem::align_of::<hdr_output_metadata__bindgen_ty_1>(),
         2usize,
         concat!(
             "Alignment of ",
@@ -7372,7 +7415,7 @@ fn bindgen_test_layout_hdr_output_metadata__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_output_metadata__bindgen_ty_1>())).hdmi_metadata_type1
+            &(*(::core::ptr::null::<hdr_output_metadata__bindgen_ty_1>())).hdmi_metadata_type1
                 as *const _ as usize
         },
         0usize,
@@ -7387,18 +7430,18 @@ fn bindgen_test_layout_hdr_output_metadata__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_hdr_output_metadata() {
     assert_eq!(
-        ::std::mem::size_of::<hdr_output_metadata>(),
+        ::core::mem::size_of::<hdr_output_metadata>(),
         32usize,
         concat!("Size of: ", stringify!(hdr_output_metadata))
     );
     assert_eq!(
-        ::std::mem::align_of::<hdr_output_metadata>(),
+        ::core::mem::align_of::<hdr_output_metadata>(),
         4usize,
         concat!("Alignment of ", stringify!(hdr_output_metadata))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<hdr_output_metadata>())).metadata_type as *const _ as usize
+            &(*(::core::ptr::null::<hdr_output_metadata>())).metadata_type as *const _ as usize
         },
         0usize,
         concat!(
@@ -7421,17 +7464,19 @@ pub struct drm_mode_crtc_page_flip {
 #[test]
 fn bindgen_test_layout_drm_mode_crtc_page_flip() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_crtc_page_flip>(),
+        ::core::mem::size_of::<drm_mode_crtc_page_flip>(),
         24usize,
         concat!("Size of: ", stringify!(drm_mode_crtc_page_flip))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_crtc_page_flip>(),
+        ::core::mem::align_of::<drm_mode_crtc_page_flip>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_crtc_page_flip))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_page_flip>())).crtc_id as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip>())).crtc_id as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7441,7 +7486,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_page_flip>())).fb_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_page_flip>())).fb_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7451,7 +7496,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_crtc_page_flip>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_crtc_page_flip>())).flags as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7462,7 +7507,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip>())).reserved as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip>())).reserved as *const _ as usize
         },
         12usize,
         concat!(
@@ -7474,7 +7519,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip>())).user_data as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip>())).user_data as *const _ as usize
         },
         16usize,
         concat!(
@@ -7497,18 +7542,18 @@ pub struct drm_mode_crtc_page_flip_target {
 #[test]
 fn bindgen_test_layout_drm_mode_crtc_page_flip_target() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_crtc_page_flip_target>(),
+        ::core::mem::size_of::<drm_mode_crtc_page_flip_target>(),
         24usize,
         concat!("Size of: ", stringify!(drm_mode_crtc_page_flip_target))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_crtc_page_flip_target>(),
+        ::core::mem::align_of::<drm_mode_crtc_page_flip_target>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_crtc_page_flip_target))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip_target>())).crtc_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip_target>())).crtc_id as *const _ as usize
         },
         0usize,
         concat!(
@@ -7520,7 +7565,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip_target() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip_target>())).fb_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip_target>())).fb_id as *const _ as usize
         },
         4usize,
         concat!(
@@ -7532,7 +7577,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip_target() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip_target>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip_target>())).flags as *const _ as usize
         },
         8usize,
         concat!(
@@ -7544,7 +7589,8 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip_target() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip_target>())).sequence as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip_target>())).sequence as *const _
+                as usize
         },
         12usize,
         concat!(
@@ -7556,7 +7602,7 @@ fn bindgen_test_layout_drm_mode_crtc_page_flip_target() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_crtc_page_flip_target>())).user_data as *const _
+            &(*(::core::ptr::null::<drm_mode_crtc_page_flip_target>())).user_data as *const _
                 as usize
         },
         16usize,
@@ -7582,17 +7628,17 @@ pub struct drm_mode_create_dumb {
 #[test]
 fn bindgen_test_layout_drm_mode_create_dumb() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_create_dumb>(),
+        ::core::mem::size_of::<drm_mode_create_dumb>(),
         32usize,
         concat!("Size of: ", stringify!(drm_mode_create_dumb))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_create_dumb>(),
+        ::core::mem::align_of::<drm_mode_create_dumb>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_create_dumb))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).height as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).height as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7602,7 +7648,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).width as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7612,7 +7658,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).bpp as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).bpp as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7622,7 +7668,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).flags as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -7632,7 +7678,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).handle as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -7642,7 +7688,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).pitch as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).pitch as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -7652,7 +7698,7 @@ fn bindgen_test_layout_drm_mode_create_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_dumb>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_dumb>())).size as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -7672,17 +7718,17 @@ pub struct drm_mode_map_dumb {
 #[test]
 fn bindgen_test_layout_drm_mode_map_dumb() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_map_dumb>(),
+        ::core::mem::size_of::<drm_mode_map_dumb>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_map_dumb))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_map_dumb>(),
+        ::core::mem::align_of::<drm_mode_map_dumb>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_map_dumb))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_map_dumb>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_map_dumb>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7692,7 +7738,7 @@ fn bindgen_test_layout_drm_mode_map_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_map_dumb>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_map_dumb>())).pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7702,7 +7748,7 @@ fn bindgen_test_layout_drm_mode_map_dumb() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_map_dumb>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_map_dumb>())).offset as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7720,17 +7766,17 @@ pub struct drm_mode_destroy_dumb {
 #[test]
 fn bindgen_test_layout_drm_mode_destroy_dumb() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_destroy_dumb>(),
+        ::core::mem::size_of::<drm_mode_destroy_dumb>(),
         4usize,
         concat!("Size of: ", stringify!(drm_mode_destroy_dumb))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_destroy_dumb>(),
+        ::core::mem::align_of::<drm_mode_destroy_dumb>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_destroy_dumb))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_destroy_dumb>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_destroy_dumb>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7755,17 +7801,17 @@ pub struct drm_mode_atomic {
 #[test]
 fn bindgen_test_layout_drm_mode_atomic() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_atomic>(),
+        ::core::mem::size_of::<drm_mode_atomic>(),
         56usize,
         concat!("Size of: ", stringify!(drm_mode_atomic))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_atomic>(),
+        ::core::mem::align_of::<drm_mode_atomic>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_atomic))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7775,7 +7821,7 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).count_objs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).count_objs as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7785,7 +7831,7 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).objs_ptr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).objs_ptr as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7795,7 +7841,9 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).count_props_ptr as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_atomic>())).count_props_ptr as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -7805,7 +7853,7 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).props_ptr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).props_ptr as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -7815,7 +7863,9 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).prop_values_ptr as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_atomic>())).prop_values_ptr as *const _ as usize
+        },
         32usize,
         concat!(
             "Offset of field: ",
@@ -7825,7 +7875,7 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).reserved as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).reserved as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -7835,7 +7885,7 @@ fn bindgen_test_layout_drm_mode_atomic() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_atomic>())).user_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_atomic>())).user_data as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -7858,18 +7908,18 @@ pub struct drm_format_modifier_blob {
 #[test]
 fn bindgen_test_layout_drm_format_modifier_blob() {
     assert_eq!(
-        ::std::mem::size_of::<drm_format_modifier_blob>(),
+        ::core::mem::size_of::<drm_format_modifier_blob>(),
         24usize,
         concat!("Size of: ", stringify!(drm_format_modifier_blob))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_format_modifier_blob>(),
+        ::core::mem::align_of::<drm_format_modifier_blob>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_format_modifier_blob))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_format_modifier_blob>())).version as *const _ as usize
+            &(*(::core::ptr::null::<drm_format_modifier_blob>())).version as *const _ as usize
         },
         0usize,
         concat!(
@@ -7880,7 +7930,7 @@ fn bindgen_test_layout_drm_format_modifier_blob() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_format_modifier_blob>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_format_modifier_blob>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -7891,7 +7941,7 @@ fn bindgen_test_layout_drm_format_modifier_blob() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_format_modifier_blob>())).count_formats as *const _ as usize
+            &(*(::core::ptr::null::<drm_format_modifier_blob>())).count_formats as *const _ as usize
         },
         8usize,
         concat!(
@@ -7903,7 +7953,8 @@ fn bindgen_test_layout_drm_format_modifier_blob() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_format_modifier_blob>())).formats_offset as *const _ as usize
+            &(*(::core::ptr::null::<drm_format_modifier_blob>())).formats_offset as *const _
+                as usize
         },
         12usize,
         concat!(
@@ -7915,7 +7966,7 @@ fn bindgen_test_layout_drm_format_modifier_blob() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_format_modifier_blob>())).count_modifiers as *const _
+            &(*(::core::ptr::null::<drm_format_modifier_blob>())).count_modifiers as *const _
                 as usize
         },
         16usize,
@@ -7928,7 +7979,7 @@ fn bindgen_test_layout_drm_format_modifier_blob() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_format_modifier_blob>())).modifiers_offset as *const _
+            &(*(::core::ptr::null::<drm_format_modifier_blob>())).modifiers_offset as *const _
                 as usize
         },
         20usize,
@@ -7951,17 +8002,17 @@ pub struct drm_format_modifier {
 #[test]
 fn bindgen_test_layout_drm_format_modifier() {
     assert_eq!(
-        ::std::mem::size_of::<drm_format_modifier>(),
+        ::core::mem::size_of::<drm_format_modifier>(),
         24usize,
         concat!("Size of: ", stringify!(drm_format_modifier))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_format_modifier>(),
+        ::core::mem::align_of::<drm_format_modifier>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_format_modifier))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_format_modifier>())).formats as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_format_modifier>())).formats as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -7971,7 +8022,7 @@ fn bindgen_test_layout_drm_format_modifier() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_format_modifier>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_format_modifier>())).offset as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -7981,7 +8032,7 @@ fn bindgen_test_layout_drm_format_modifier() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_format_modifier>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_format_modifier>())).pad as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -7991,7 +8042,7 @@ fn bindgen_test_layout_drm_format_modifier() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_format_modifier>())).modifier as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_format_modifier>())).modifier as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8011,17 +8062,17 @@ pub struct drm_mode_create_blob {
 #[test]
 fn bindgen_test_layout_drm_mode_create_blob() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_create_blob>(),
+        ::core::mem::size_of::<drm_mode_create_blob>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_create_blob))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_create_blob>(),
+        ::core::mem::align_of::<drm_mode_create_blob>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_create_blob))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_blob>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_blob>())).data as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8031,7 +8082,7 @@ fn bindgen_test_layout_drm_mode_create_blob() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_blob>())).length as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_blob>())).length as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8041,7 +8092,7 @@ fn bindgen_test_layout_drm_mode_create_blob() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_blob>())).blob_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_blob>())).blob_id as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -8059,17 +8110,17 @@ pub struct drm_mode_destroy_blob {
 #[test]
 fn bindgen_test_layout_drm_mode_destroy_blob() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_destroy_blob>(),
+        ::core::mem::size_of::<drm_mode_destroy_blob>(),
         4usize,
         concat!("Size of: ", stringify!(drm_mode_destroy_blob))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_destroy_blob>(),
+        ::core::mem::align_of::<drm_mode_destroy_blob>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_destroy_blob))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_destroy_blob>())).blob_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_destroy_blob>())).blob_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8091,18 +8142,18 @@ pub struct drm_mode_create_lease {
 #[test]
 fn bindgen_test_layout_drm_mode_create_lease() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_create_lease>(),
+        ::core::mem::size_of::<drm_mode_create_lease>(),
         24usize,
         concat!("Size of: ", stringify!(drm_mode_create_lease))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_create_lease>(),
+        ::core::mem::align_of::<drm_mode_create_lease>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_create_lease))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_create_lease>())).object_ids as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_create_lease>())).object_ids as *const _ as usize
         },
         0usize,
         concat!(
@@ -8114,7 +8165,7 @@ fn bindgen_test_layout_drm_mode_create_lease() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_create_lease>())).object_count as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_create_lease>())).object_count as *const _ as usize
         },
         8usize,
         concat!(
@@ -8125,7 +8176,7 @@ fn bindgen_test_layout_drm_mode_create_lease() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_lease>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_lease>())).flags as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -8135,7 +8186,9 @@ fn bindgen_test_layout_drm_mode_create_lease() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_lease>())).lessee_id as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_create_lease>())).lessee_id as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8145,7 +8198,7 @@ fn bindgen_test_layout_drm_mode_create_lease() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_create_lease>())).fd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_create_lease>())).fd as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -8165,18 +8218,18 @@ pub struct drm_mode_list_lessees {
 #[test]
 fn bindgen_test_layout_drm_mode_list_lessees() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_list_lessees>(),
+        ::core::mem::size_of::<drm_mode_list_lessees>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_list_lessees))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_list_lessees>(),
+        ::core::mem::align_of::<drm_mode_list_lessees>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_list_lessees))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_list_lessees>())).count_lessees as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_list_lessees>())).count_lessees as *const _ as usize
         },
         0usize,
         concat!(
@@ -8187,7 +8240,7 @@ fn bindgen_test_layout_drm_mode_list_lessees() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_list_lessees>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_list_lessees>())).pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -8198,7 +8251,7 @@ fn bindgen_test_layout_drm_mode_list_lessees() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_list_lessees>())).lessees_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_list_lessees>())).lessees_ptr as *const _ as usize
         },
         8usize,
         concat!(
@@ -8219,18 +8272,18 @@ pub struct drm_mode_get_lease {
 #[test]
 fn bindgen_test_layout_drm_mode_get_lease() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_get_lease>(),
+        ::core::mem::size_of::<drm_mode_get_lease>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_get_lease))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_get_lease>(),
+        ::core::mem::align_of::<drm_mode_get_lease>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_mode_get_lease))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_mode_get_lease>())).count_objects as *const _ as usize
+            &(*(::core::ptr::null::<drm_mode_get_lease>())).count_objects as *const _ as usize
         },
         0usize,
         concat!(
@@ -8241,7 +8294,7 @@ fn bindgen_test_layout_drm_mode_get_lease() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_lease>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_lease>())).pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -8251,7 +8304,7 @@ fn bindgen_test_layout_drm_mode_get_lease() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_get_lease>())).objects_ptr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_get_lease>())).objects_ptr as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8269,17 +8322,19 @@ pub struct drm_mode_revoke_lease {
 #[test]
 fn bindgen_test_layout_drm_mode_revoke_lease() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_revoke_lease>(),
+        ::core::mem::size_of::<drm_mode_revoke_lease>(),
         4usize,
         concat!("Size of: ", stringify!(drm_mode_revoke_lease))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_revoke_lease>(),
+        ::core::mem::align_of::<drm_mode_revoke_lease>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_revoke_lease))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_revoke_lease>())).lessee_id as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_mode_revoke_lease>())).lessee_id as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8300,17 +8355,17 @@ pub struct drm_mode_rect {
 #[test]
 fn bindgen_test_layout_drm_mode_rect() {
     assert_eq!(
-        ::std::mem::size_of::<drm_mode_rect>(),
+        ::core::mem::size_of::<drm_mode_rect>(),
         16usize,
         concat!("Size of: ", stringify!(drm_mode_rect))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_mode_rect>(),
+        ::core::mem::align_of::<drm_mode_rect>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_mode_rect))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_rect>())).x1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_rect>())).x1 as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8320,7 +8375,7 @@ fn bindgen_test_layout_drm_mode_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_rect>())).y1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_rect>())).y1 as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -8330,7 +8385,7 @@ fn bindgen_test_layout_drm_mode_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_rect>())).x2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_rect>())).x2 as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8340,7 +8395,7 @@ fn bindgen_test_layout_drm_mode_rect() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_mode_rect>())).y2 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_mode_rect>())).y2 as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -8359,17 +8414,17 @@ pub struct drm_event {
 #[test]
 fn bindgen_test_layout_drm_event() {
     assert_eq!(
-        ::std::mem::size_of::<drm_event>(),
+        ::core::mem::size_of::<drm_event>(),
         8usize,
         concat!("Size of: ", stringify!(drm_event))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_event>(),
+        ::core::mem::align_of::<drm_event>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_event))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8379,7 +8434,7 @@ fn bindgen_test_layout_drm_event() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event>())).length as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event>())).length as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -8402,17 +8457,17 @@ pub struct drm_event_vblank {
 #[test]
 fn bindgen_test_layout_drm_event_vblank() {
     assert_eq!(
-        ::std::mem::size_of::<drm_event_vblank>(),
+        ::core::mem::size_of::<drm_event_vblank>(),
         32usize,
         concat!("Size of: ", stringify!(drm_event_vblank))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_event_vblank>(),
+        ::core::mem::align_of::<drm_event_vblank>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_event_vblank))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).base as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).base as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8422,7 +8477,7 @@ fn bindgen_test_layout_drm_event_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).user_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).user_data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8432,7 +8487,7 @@ fn bindgen_test_layout_drm_event_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).tv_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).tv_sec as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8442,7 +8497,7 @@ fn bindgen_test_layout_drm_event_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).tv_usec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).tv_usec as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -8452,7 +8507,7 @@ fn bindgen_test_layout_drm_event_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).sequence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).sequence as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -8462,7 +8517,7 @@ fn bindgen_test_layout_drm_event_vblank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_vblank>())).crtc_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_vblank>())).crtc_id as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -8483,17 +8538,17 @@ pub struct drm_event_crtc_sequence {
 #[test]
 fn bindgen_test_layout_drm_event_crtc_sequence() {
     assert_eq!(
-        ::std::mem::size_of::<drm_event_crtc_sequence>(),
+        ::core::mem::size_of::<drm_event_crtc_sequence>(),
         32usize,
         concat!("Size of: ", stringify!(drm_event_crtc_sequence))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_event_crtc_sequence>(),
+        ::core::mem::align_of::<drm_event_crtc_sequence>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_event_crtc_sequence))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_crtc_sequence>())).base as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_event_crtc_sequence>())).base as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8504,7 +8559,7 @@ fn bindgen_test_layout_drm_event_crtc_sequence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_event_crtc_sequence>())).user_data as *const _ as usize
+            &(*(::core::ptr::null::<drm_event_crtc_sequence>())).user_data as *const _ as usize
         },
         8usize,
         concat!(
@@ -8515,7 +8570,9 @@ fn bindgen_test_layout_drm_event_crtc_sequence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_event_crtc_sequence>())).time_ns as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_event_crtc_sequence>())).time_ns as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8526,7 +8583,7 @@ fn bindgen_test_layout_drm_event_crtc_sequence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_event_crtc_sequence>())).sequence as *const _ as usize
+            &(*(::core::ptr::null::<drm_event_crtc_sequence>())).sequence as *const _ as usize
         },
         24usize,
         concat!(
@@ -8577,38 +8634,39 @@ pub type drm_agp_binding_t = drm_agp_binding;
 pub type drm_agp_info_t = drm_agp_info;
 pub type drm_scatter_gather_t = drm_scatter_gather;
 pub type drm_set_version_t = drm_set_version;
-pub type drmSize = ::std::os::raw::c_uint;
-pub type drmSizePtr = *mut ::std::os::raw::c_uint;
-pub type drmAddress = *mut ::std::os::raw::c_void;
-pub type drmAddressPtr = *mut *mut ::std::os::raw::c_void;
+pub type drmSize = ::core::ffi::c_uint;
+pub type drmSizePtr = *mut ::core::ffi::c_uint;
+pub type drmAddress = *mut ::core::ffi::c_void;
+pub type drmAddressPtr = *mut *mut ::core::ffi::c_void;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmServerInfo {
-    pub debug_print: ::std::option::Option<
+    pub debug_print: ::core::option::Option<
         unsafe extern "C" fn(
-            format: *const ::std::os::raw::c_char,
+            format: *const ::core::ffi::c_char,
             ap: *mut __va_list_tag,
-        ) -> ::std::os::raw::c_int,
+        ) -> ::core::ffi::c_int,
     >,
-    pub load_module: ::std::option::Option<
-        unsafe extern "C" fn(name: *const ::std::os::raw::c_char) -> ::std::os::raw::c_int,
+    pub load_module: ::core::option::Option<
+        unsafe extern "C" fn(name: *const ::core::ffi::c_char) -> ::core::ffi::c_int,
     >,
-    pub get_perms: ::std::option::Option<unsafe extern "C" fn(arg1: *mut gid_t, arg2: *mut mode_t)>,
+    pub get_perms:
+        ::core::option::Option<unsafe extern "C" fn(arg1: *mut gid_t, arg2: *mut mode_t)>,
 }
 #[test]
 fn bindgen_test_layout__drmServerInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmServerInfo>(),
+        ::core::mem::size_of::<_drmServerInfo>(),
         24usize,
         concat!("Size of: ", stringify!(_drmServerInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmServerInfo>(),
+        ::core::mem::align_of::<_drmServerInfo>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmServerInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmServerInfo>())).debug_print as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmServerInfo>())).debug_print as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8618,7 +8676,7 @@ fn bindgen_test_layout__drmServerInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmServerInfo>())).load_module as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmServerInfo>())).load_module as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8628,7 +8686,7 @@ fn bindgen_test_layout__drmServerInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmServerInfo>())).get_perms as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmServerInfo>())).get_perms as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8643,30 +8701,30 @@ pub type drmServerInfoPtr = *mut _drmServerInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drmHashEntry {
-    pub fd: ::std::os::raw::c_int,
-    pub f: ::std::option::Option<
+    pub fd: ::core::ffi::c_int,
+    pub f: ::core::option::Option<
         unsafe extern "C" fn(
-            arg1: ::std::os::raw::c_int,
-            arg2: *mut ::std::os::raw::c_void,
-            arg3: *mut ::std::os::raw::c_void,
+            arg1: ::core::ffi::c_int,
+            arg2: *mut ::core::ffi::c_void,
+            arg3: *mut ::core::ffi::c_void,
         ),
     >,
-    pub tagTable: *mut ::std::os::raw::c_void,
+    pub tagTable: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout_drmHashEntry() {
     assert_eq!(
-        ::std::mem::size_of::<drmHashEntry>(),
+        ::core::mem::size_of::<drmHashEntry>(),
         24usize,
         concat!("Size of: ", stringify!(drmHashEntry))
     );
     assert_eq!(
-        ::std::mem::align_of::<drmHashEntry>(),
+        ::core::mem::align_of::<drmHashEntry>(),
         8usize,
         concat!("Alignment of ", stringify!(drmHashEntry))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drmHashEntry>())).fd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drmHashEntry>())).fd as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8676,7 +8734,7 @@ fn bindgen_test_layout_drmHashEntry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drmHashEntry>())).f as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drmHashEntry>())).f as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8686,7 +8744,7 @@ fn bindgen_test_layout_drmHashEntry() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drmHashEntry>())).tagTable as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drmHashEntry>())).tagTable as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8698,44 +8756,44 @@ fn bindgen_test_layout_drmHashEntry() {
 }
 extern "C" {
     pub fn drmIoctl(
-        fd: ::std::os::raw::c_int,
-        request: ::std::os::raw::c_ulong,
-        arg: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        request: ::core::ffi::c_ulong,
+        arg: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetHashTable() -> *mut ::std::os::raw::c_void;
+    pub fn drmGetHashTable() -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn drmGetEntry(fd: ::std::os::raw::c_int) -> *mut drmHashEntry;
+    pub fn drmGetEntry(fd: ::core::ffi::c_int) -> *mut drmHashEntry;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmVersion {
-    pub version_major: ::std::os::raw::c_int,
-    pub version_minor: ::std::os::raw::c_int,
-    pub version_patchlevel: ::std::os::raw::c_int,
-    pub name_len: ::std::os::raw::c_int,
-    pub name: *mut ::std::os::raw::c_char,
-    pub date_len: ::std::os::raw::c_int,
-    pub date: *mut ::std::os::raw::c_char,
-    pub desc_len: ::std::os::raw::c_int,
-    pub desc: *mut ::std::os::raw::c_char,
+    pub version_major: ::core::ffi::c_int,
+    pub version_minor: ::core::ffi::c_int,
+    pub version_patchlevel: ::core::ffi::c_int,
+    pub name_len: ::core::ffi::c_int,
+    pub name: *mut ::core::ffi::c_char,
+    pub date_len: ::core::ffi::c_int,
+    pub date: *mut ::core::ffi::c_char,
+    pub desc_len: ::core::ffi::c_int,
+    pub desc: *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout__drmVersion() {
     assert_eq!(
-        ::std::mem::size_of::<_drmVersion>(),
+        ::core::mem::size_of::<_drmVersion>(),
         56usize,
         concat!("Size of: ", stringify!(_drmVersion))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmVersion>(),
+        ::core::mem::align_of::<_drmVersion>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmVersion))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).version_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).version_major as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8745,7 +8803,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).version_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).version_minor as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -8755,7 +8813,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).version_patchlevel as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).version_patchlevel as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8765,7 +8823,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).name_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).name_len as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -8775,7 +8833,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).name as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -8785,7 +8843,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).date_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).date_len as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -8795,7 +8853,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).date as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).date as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -8805,7 +8863,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).desc_len as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).desc_len as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -8815,7 +8873,7 @@ fn bindgen_test_layout__drmVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVersion>())).desc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVersion>())).desc as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -8830,36 +8888,36 @@ pub type drmVersionPtr = *mut _drmVersion;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats {
-    pub count: ::std::os::raw::c_ulong,
+    pub count: ::core::ffi::c_ulong,
     pub data: [_drmStats__bindgen_ty_1; 15usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats__bindgen_ty_1 {
-    pub value: ::std::os::raw::c_ulong,
-    pub long_format: *const ::std::os::raw::c_char,
-    pub long_name: *const ::std::os::raw::c_char,
-    pub rate_format: *const ::std::os::raw::c_char,
-    pub rate_name: *const ::std::os::raw::c_char,
-    pub isvalue: ::std::os::raw::c_int,
-    pub mult_names: *const ::std::os::raw::c_char,
-    pub mult: ::std::os::raw::c_int,
-    pub verbose: ::std::os::raw::c_int,
+    pub value: ::core::ffi::c_ulong,
+    pub long_format: *const ::core::ffi::c_char,
+    pub long_name: *const ::core::ffi::c_char,
+    pub rate_format: *const ::core::ffi::c_char,
+    pub rate_name: *const ::core::ffi::c_char,
+    pub isvalue: ::core::ffi::c_int,
+    pub mult_names: *const ::core::ffi::c_char,
+    pub mult: ::core::ffi::c_int,
+    pub verbose: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<_drmStats__bindgen_ty_1>(),
+        ::core::mem::size_of::<_drmStats__bindgen_ty_1>(),
         64usize,
         concat!("Size of: ", stringify!(_drmStats__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmStats__bindgen_ty_1>(),
+        ::core::mem::align_of::<_drmStats__bindgen_ty_1>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmStats__bindgen_ty_1))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).value as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8870,7 +8928,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).long_format as *const _ as usize
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).long_format as *const _ as usize
         },
         8usize,
         concat!(
@@ -8882,7 +8940,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).long_name as *const _ as usize
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).long_name as *const _ as usize
         },
         16usize,
         concat!(
@@ -8894,7 +8952,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).rate_format as *const _ as usize
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).rate_format as *const _ as usize
         },
         24usize,
         concat!(
@@ -8906,7 +8964,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).rate_name as *const _ as usize
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).rate_name as *const _ as usize
         },
         32usize,
         concat!(
@@ -8917,7 +8975,9 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).isvalue as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).isvalue as *const _ as usize
+        },
         40usize,
         concat!(
             "Offset of field: ",
@@ -8928,7 +8988,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).mult_names as *const _ as usize
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).mult_names as *const _ as usize
         },
         48usize,
         concat!(
@@ -8939,7 +8999,7 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).mult as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).mult as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -8949,7 +9009,9 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats__bindgen_ty_1>())).verbose as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmStats__bindgen_ty_1>())).verbose as *const _ as usize
+        },
         60usize,
         concat!(
             "Offset of field: ",
@@ -8962,17 +9024,17 @@ fn bindgen_test_layout__drmStats__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout__drmStats() {
     assert_eq!(
-        ::std::mem::size_of::<_drmStats>(),
+        ::core::mem::size_of::<_drmStats>(),
         968usize,
         concat!("Size of: ", stringify!(_drmStats))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmStats>(),
+        ::core::mem::align_of::<_drmStats>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmStats))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmStats>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -8982,7 +9044,7 @@ fn bindgen_test_layout__drmStats() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmStats>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmStats>())).data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -8999,7 +9061,7 @@ pub const drmMapType_DRM_SHM: drmMapType = 2;
 pub const drmMapType_DRM_AGP: drmMapType = 3;
 pub const drmMapType_DRM_SCATTER_GATHER: drmMapType = 4;
 pub const drmMapType_DRM_CONSISTENT: drmMapType = 5;
-pub type drmMapType = ::std::os::raw::c_uint;
+pub type drmMapType = ::core::ffi::c_uint;
 pub const drmMapFlags_DRM_RESTRICTED: drmMapFlags = 1;
 pub const drmMapFlags_DRM_READ_ONLY: drmMapFlags = 2;
 pub const drmMapFlags_DRM_LOCKED: drmMapFlags = 4;
@@ -9007,53 +9069,53 @@ pub const drmMapFlags_DRM_KERNEL: drmMapFlags = 8;
 pub const drmMapFlags_DRM_WRITE_COMBINING: drmMapFlags = 16;
 pub const drmMapFlags_DRM_CONTAINS_LOCK: drmMapFlags = 32;
 pub const drmMapFlags_DRM_REMOVABLE: drmMapFlags = 64;
-pub type drmMapFlags = ::std::os::raw::c_uint;
+pub type drmMapFlags = ::core::ffi::c_uint;
 pub const drmDMAFlags_DRM_DMA_BLOCK: drmDMAFlags = 1;
 pub const drmDMAFlags_DRM_DMA_WHILE_LOCKED: drmDMAFlags = 2;
 pub const drmDMAFlags_DRM_DMA_PRIORITY: drmDMAFlags = 4;
 pub const drmDMAFlags_DRM_DMA_WAIT: drmDMAFlags = 16;
 pub const drmDMAFlags_DRM_DMA_SMALLER_OK: drmDMAFlags = 32;
 pub const drmDMAFlags_DRM_DMA_LARGER_OK: drmDMAFlags = 64;
-pub type drmDMAFlags = ::std::os::raw::c_uint;
+pub type drmDMAFlags = ::core::ffi::c_uint;
 pub const drmBufDescFlags_DRM_PAGE_ALIGN: drmBufDescFlags = 1;
 pub const drmBufDescFlags_DRM_AGP_BUFFER: drmBufDescFlags = 2;
 pub const drmBufDescFlags_DRM_SG_BUFFER: drmBufDescFlags = 4;
 pub const drmBufDescFlags_DRM_FB_BUFFER: drmBufDescFlags = 8;
 pub const drmBufDescFlags_DRM_PCI_BUFFER_RO: drmBufDescFlags = 16;
-pub type drmBufDescFlags = ::std::os::raw::c_uint;
+pub type drmBufDescFlags = ::core::ffi::c_uint;
 pub const drmLockFlags_DRM_LOCK_READY: drmLockFlags = 1;
 pub const drmLockFlags_DRM_LOCK_QUIESCENT: drmLockFlags = 2;
 pub const drmLockFlags_DRM_LOCK_FLUSH: drmLockFlags = 4;
 pub const drmLockFlags_DRM_LOCK_FLUSH_ALL: drmLockFlags = 8;
 pub const drmLockFlags_DRM_HALT_ALL_QUEUES: drmLockFlags = 16;
 pub const drmLockFlags_DRM_HALT_CUR_QUEUES: drmLockFlags = 32;
-pub type drmLockFlags = ::std::os::raw::c_uint;
+pub type drmLockFlags = ::core::ffi::c_uint;
 pub const drm_context_tFlags_DRM_CONTEXT_PRESERVED: drm_context_tFlags = 1;
 pub const drm_context_tFlags_DRM_CONTEXT_2DONLY: drm_context_tFlags = 2;
-pub type drm_context_tFlags = ::std::os::raw::c_uint;
+pub type drm_context_tFlags = ::core::ffi::c_uint;
 pub type drm_context_tFlagsPtr = *mut drm_context_tFlags;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufDesc {
-    pub count: ::std::os::raw::c_int,
-    pub size: ::std::os::raw::c_int,
-    pub low_mark: ::std::os::raw::c_int,
-    pub high_mark: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
+    pub size: ::core::ffi::c_int,
+    pub low_mark: ::core::ffi::c_int,
+    pub high_mark: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout__drmBufDesc() {
     assert_eq!(
-        ::std::mem::size_of::<_drmBufDesc>(),
+        ::core::mem::size_of::<_drmBufDesc>(),
         16usize,
         concat!("Size of: ", stringify!(_drmBufDesc))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmBufDesc>(),
+        ::core::mem::align_of::<_drmBufDesc>(),
         4usize,
         concat!("Alignment of ", stringify!(_drmBufDesc))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufDesc>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufDesc>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9063,7 +9125,7 @@ fn bindgen_test_layout__drmBufDesc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufDesc>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufDesc>())).size as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9073,7 +9135,7 @@ fn bindgen_test_layout__drmBufDesc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufDesc>())).low_mark as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufDesc>())).low_mark as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9083,7 +9145,7 @@ fn bindgen_test_layout__drmBufDesc() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufDesc>())).high_mark as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufDesc>())).high_mark as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -9098,23 +9160,23 @@ pub type drmBufDescPtr = *mut _drmBufDesc;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufInfo {
-    pub count: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
     pub list: drmBufDescPtr,
 }
 #[test]
 fn bindgen_test_layout__drmBufInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmBufInfo>(),
+        ::core::mem::size_of::<_drmBufInfo>(),
         16usize,
         concat!("Size of: ", stringify!(_drmBufInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmBufInfo>(),
+        ::core::mem::align_of::<_drmBufInfo>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmBufInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufInfo>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufInfo>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9124,7 +9186,7 @@ fn bindgen_test_layout__drmBufInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufInfo>())).list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufInfo>())).list as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9139,25 +9201,25 @@ pub type drmBufInfoPtr = *mut _drmBufInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBuf {
-    pub idx: ::std::os::raw::c_int,
-    pub total: ::std::os::raw::c_int,
-    pub used: ::std::os::raw::c_int,
+    pub idx: ::core::ffi::c_int,
+    pub total: ::core::ffi::c_int,
+    pub used: ::core::ffi::c_int,
     pub address: drmAddress,
 }
 #[test]
 fn bindgen_test_layout__drmBuf() {
     assert_eq!(
-        ::std::mem::size_of::<_drmBuf>(),
+        ::core::mem::size_of::<_drmBuf>(),
         24usize,
         concat!("Size of: ", stringify!(_drmBuf))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmBuf>(),
+        ::core::mem::align_of::<_drmBuf>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmBuf))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBuf>())).idx as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBuf>())).idx as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9167,7 +9229,7 @@ fn bindgen_test_layout__drmBuf() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBuf>())).total as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBuf>())).total as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9177,7 +9239,7 @@ fn bindgen_test_layout__drmBuf() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBuf>())).used as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBuf>())).used as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9187,7 +9249,7 @@ fn bindgen_test_layout__drmBuf() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBuf>())).address as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBuf>())).address as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9202,23 +9264,23 @@ pub type drmBufPtr = *mut _drmBuf;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufMap {
-    pub count: ::std::os::raw::c_int,
+    pub count: ::core::ffi::c_int,
     pub list: drmBufPtr,
 }
 #[test]
 fn bindgen_test_layout__drmBufMap() {
     assert_eq!(
-        ::std::mem::size_of::<_drmBufMap>(),
+        ::core::mem::size_of::<_drmBufMap>(),
         16usize,
         concat!("Size of: ", stringify!(_drmBufMap))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmBufMap>(),
+        ::core::mem::align_of::<_drmBufMap>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmBufMap))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufMap>())).count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufMap>())).count as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9228,7 +9290,7 @@ fn bindgen_test_layout__drmBufMap() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmBufMap>())).list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmBufMap>())).list as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9243,23 +9305,23 @@ pub type drmBufMapPtr = *mut _drmBufMap;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmLock {
-    pub lock: ::std::os::raw::c_uint,
-    pub padding: [::std::os::raw::c_char; 60usize],
+    pub lock: ::core::ffi::c_uint,
+    pub padding: [::core::ffi::c_char; 60usize],
 }
 #[test]
 fn bindgen_test_layout__drmLock() {
     assert_eq!(
-        ::std::mem::size_of::<_drmLock>(),
+        ::core::mem::size_of::<_drmLock>(),
         64usize,
         concat!("Size of: ", stringify!(_drmLock))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmLock>(),
+        ::core::mem::align_of::<_drmLock>(),
         4usize,
         concat!("Alignment of ", stringify!(_drmLock))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmLock>())).lock as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmLock>())).lock as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9269,7 +9331,7 @@ fn bindgen_test_layout__drmLock() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmLock>())).padding as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmLock>())).padding as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9285,30 +9347,30 @@ pub type drmLockPtr = *mut _drmLock;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmDMAReq {
     pub context: drm_context_t,
-    pub send_count: ::std::os::raw::c_int,
-    pub send_list: *mut ::std::os::raw::c_int,
-    pub send_sizes: *mut ::std::os::raw::c_int,
+    pub send_count: ::core::ffi::c_int,
+    pub send_list: *mut ::core::ffi::c_int,
+    pub send_sizes: *mut ::core::ffi::c_int,
     pub flags: drmDMAFlags,
-    pub request_count: ::std::os::raw::c_int,
-    pub request_size: ::std::os::raw::c_int,
-    pub request_list: *mut ::std::os::raw::c_int,
-    pub request_sizes: *mut ::std::os::raw::c_int,
-    pub granted_count: ::std::os::raw::c_int,
+    pub request_count: ::core::ffi::c_int,
+    pub request_size: ::core::ffi::c_int,
+    pub request_list: *mut ::core::ffi::c_int,
+    pub request_sizes: *mut ::core::ffi::c_int,
+    pub granted_count: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout__drmDMAReq() {
     assert_eq!(
-        ::std::mem::size_of::<_drmDMAReq>(),
+        ::core::mem::size_of::<_drmDMAReq>(),
         64usize,
         concat!("Size of: ", stringify!(_drmDMAReq))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmDMAReq>(),
+        ::core::mem::align_of::<_drmDMAReq>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmDMAReq))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).context as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).context as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9318,7 +9380,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).send_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).send_count as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9328,7 +9390,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).send_list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).send_list as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9338,7 +9400,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).send_sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).send_sizes as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9348,7 +9410,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).flags as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -9358,7 +9420,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).request_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).request_count as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -9368,7 +9430,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).request_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).request_size as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -9378,7 +9440,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).request_list as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).request_list as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -9388,7 +9450,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).request_sizes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).request_sizes as *const _ as usize },
         48usize,
         concat!(
             "Offset of field: ",
@@ -9398,7 +9460,7 @@ fn bindgen_test_layout__drmDMAReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDMAReq>())).granted_count as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDMAReq>())).granted_count as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -9414,24 +9476,24 @@ pub type drmDMAReqPtr = *mut _drmDMAReq;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmRegion {
     pub handle: drm_handle_t,
-    pub offset: ::std::os::raw::c_uint,
+    pub offset: ::core::ffi::c_uint,
     pub size: drmSize,
     pub map: drmAddress,
 }
 #[test]
 fn bindgen_test_layout__drmRegion() {
     assert_eq!(
-        ::std::mem::size_of::<_drmRegion>(),
+        ::core::mem::size_of::<_drmRegion>(),
         24usize,
         concat!("Size of: ", stringify!(_drmRegion))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmRegion>(),
+        ::core::mem::align_of::<_drmRegion>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmRegion))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmRegion>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmRegion>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9441,7 +9503,7 @@ fn bindgen_test_layout__drmRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmRegion>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmRegion>())).offset as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9451,7 +9513,7 @@ fn bindgen_test_layout__drmRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmRegion>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmRegion>())).size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9461,7 +9523,7 @@ fn bindgen_test_layout__drmRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmRegion>())).map as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmRegion>())).map as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9476,26 +9538,26 @@ pub type drmRegionPtr = *mut _drmRegion;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmTextureRegion {
-    pub next: ::std::os::raw::c_uchar,
-    pub prev: ::std::os::raw::c_uchar,
-    pub in_use: ::std::os::raw::c_uchar,
-    pub padding: ::std::os::raw::c_uchar,
-    pub age: ::std::os::raw::c_uint,
+    pub next: ::core::ffi::c_uchar,
+    pub prev: ::core::ffi::c_uchar,
+    pub in_use: ::core::ffi::c_uchar,
+    pub padding: ::core::ffi::c_uchar,
+    pub age: ::core::ffi::c_uint,
 }
 #[test]
 fn bindgen_test_layout__drmTextureRegion() {
     assert_eq!(
-        ::std::mem::size_of::<_drmTextureRegion>(),
+        ::core::mem::size_of::<_drmTextureRegion>(),
         8usize,
         concat!("Size of: ", stringify!(_drmTextureRegion))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmTextureRegion>(),
+        ::core::mem::align_of::<_drmTextureRegion>(),
         4usize,
         concat!("Alignment of ", stringify!(_drmTextureRegion))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmTextureRegion>())).next as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmTextureRegion>())).next as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9505,7 +9567,7 @@ fn bindgen_test_layout__drmTextureRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmTextureRegion>())).prev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmTextureRegion>())).prev as *const _ as usize },
         1usize,
         concat!(
             "Offset of field: ",
@@ -9515,7 +9577,7 @@ fn bindgen_test_layout__drmTextureRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmTextureRegion>())).in_use as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmTextureRegion>())).in_use as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -9525,7 +9587,7 @@ fn bindgen_test_layout__drmTextureRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmTextureRegion>())).padding as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmTextureRegion>())).padding as *const _ as usize },
         3usize,
         concat!(
             "Offset of field: ",
@@ -9535,7 +9597,7 @@ fn bindgen_test_layout__drmTextureRegion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmTextureRegion>())).age as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmTextureRegion>())).age as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9555,28 +9617,28 @@ pub const drmVBlankSeqType_DRM_VBLANK_FLIP: drmVBlankSeqType = 134217728;
 pub const drmVBlankSeqType_DRM_VBLANK_NEXTONMISS: drmVBlankSeqType = 268435456;
 pub const drmVBlankSeqType_DRM_VBLANK_SECONDARY: drmVBlankSeqType = 536870912;
 pub const drmVBlankSeqType_DRM_VBLANK_SIGNAL: drmVBlankSeqType = 1073741824;
-pub type drmVBlankSeqType = ::std::os::raw::c_uint;
+pub type drmVBlankSeqType = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmVBlankReq {
     pub type_: drmVBlankSeqType,
-    pub sequence: ::std::os::raw::c_uint,
-    pub signal: ::std::os::raw::c_ulong,
+    pub sequence: ::core::ffi::c_uint,
+    pub signal: ::core::ffi::c_ulong,
 }
 #[test]
 fn bindgen_test_layout__drmVBlankReq() {
     assert_eq!(
-        ::std::mem::size_of::<_drmVBlankReq>(),
+        ::core::mem::size_of::<_drmVBlankReq>(),
         16usize,
         concat!("Size of: ", stringify!(_drmVBlankReq))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmVBlankReq>(),
+        ::core::mem::align_of::<_drmVBlankReq>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmVBlankReq))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReq>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReq>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9586,7 +9648,7 @@ fn bindgen_test_layout__drmVBlankReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReq>())).sequence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReq>())).sequence as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9596,7 +9658,7 @@ fn bindgen_test_layout__drmVBlankReq() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReq>())).signal as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReq>())).signal as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9612,24 +9674,24 @@ pub type drmVBlankReqPtr = *mut _drmVBlankReq;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmVBlankReply {
     pub type_: drmVBlankSeqType,
-    pub sequence: ::std::os::raw::c_uint,
-    pub tval_sec: ::std::os::raw::c_long,
-    pub tval_usec: ::std::os::raw::c_long,
+    pub sequence: ::core::ffi::c_uint,
+    pub tval_sec: ::core::ffi::c_long,
+    pub tval_usec: ::core::ffi::c_long,
 }
 #[test]
 fn bindgen_test_layout__drmVBlankReply() {
     assert_eq!(
-        ::std::mem::size_of::<_drmVBlankReply>(),
+        ::core::mem::size_of::<_drmVBlankReply>(),
         24usize,
         concat!("Size of: ", stringify!(_drmVBlankReply))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmVBlankReply>(),
+        ::core::mem::align_of::<_drmVBlankReply>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmVBlankReply))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReply>())).type_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReply>())).type_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9639,7 +9701,7 @@ fn bindgen_test_layout__drmVBlankReply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReply>())).sequence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReply>())).sequence as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9649,7 +9711,7 @@ fn bindgen_test_layout__drmVBlankReply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReply>())).tval_sec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReply>())).tval_sec as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9659,7 +9721,7 @@ fn bindgen_test_layout__drmVBlankReply() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlankReply>())).tval_usec as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlankReply>())).tval_usec as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -9680,17 +9742,17 @@ pub union _drmVBlank {
 #[test]
 fn bindgen_test_layout__drmVBlank() {
     assert_eq!(
-        ::std::mem::size_of::<_drmVBlank>(),
+        ::core::mem::size_of::<_drmVBlank>(),
         24usize,
         concat!("Size of: ", stringify!(_drmVBlank))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmVBlank>(),
+        ::core::mem::align_of::<_drmVBlank>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmVBlank))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlank>())).request as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlank>())).request as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9700,7 +9762,7 @@ fn bindgen_test_layout__drmVBlank() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmVBlank>())).reply as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmVBlank>())).reply as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9715,25 +9777,25 @@ pub type drmVBlankPtr = *mut _drmVBlank;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmSetVersion {
-    pub drm_di_major: ::std::os::raw::c_int,
-    pub drm_di_minor: ::std::os::raw::c_int,
-    pub drm_dd_major: ::std::os::raw::c_int,
-    pub drm_dd_minor: ::std::os::raw::c_int,
+    pub drm_di_major: ::core::ffi::c_int,
+    pub drm_di_minor: ::core::ffi::c_int,
+    pub drm_dd_major: ::core::ffi::c_int,
+    pub drm_dd_minor: ::core::ffi::c_int,
 }
 #[test]
 fn bindgen_test_layout__drmSetVersion() {
     assert_eq!(
-        ::std::mem::size_of::<_drmSetVersion>(),
+        ::core::mem::size_of::<_drmSetVersion>(),
         16usize,
         concat!("Size of: ", stringify!(_drmSetVersion))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmSetVersion>(),
+        ::core::mem::align_of::<_drmSetVersion>(),
         4usize,
         concat!("Alignment of ", stringify!(_drmSetVersion))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmSetVersion>())).drm_di_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmSetVersion>())).drm_di_major as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -9743,7 +9805,7 @@ fn bindgen_test_layout__drmSetVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmSetVersion>())).drm_di_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmSetVersion>())).drm_di_minor as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -9753,7 +9815,7 @@ fn bindgen_test_layout__drmSetVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmSetVersion>())).drm_dd_major as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmSetVersion>())).drm_dd_major as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -9763,7 +9825,7 @@ fn bindgen_test_layout__drmSetVersion() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmSetVersion>())).drm_dd_minor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmSetVersion>())).drm_dd_minor as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -9776,612 +9838,594 @@ fn bindgen_test_layout__drmSetVersion() {
 pub type drmSetVersion = _drmSetVersion;
 pub type drmSetVersionPtr = *mut _drmSetVersion;
 extern "C" {
-    pub fn drmAvailable() -> ::std::os::raw::c_int;
+    pub fn drmAvailable() -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmOpen(
-        name: *const ::std::os::raw::c_char,
-        busid: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        name: *const ::core::ffi::c_char,
+        busid: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmOpenWithType(
-        name: *const ::std::os::raw::c_char,
-        busid: *const ::std::os::raw::c_char,
-        type_: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        name: *const ::core::ffi::c_char,
+        busid: *const ::core::ffi::c_char,
+        type_: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmOpenControl(minor: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmOpenControl(minor: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmOpenRender(minor: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmOpenRender(minor: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmClose(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmClose(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetVersion(fd: ::std::os::raw::c_int) -> drmVersionPtr;
+    pub fn drmGetVersion(fd: ::core::ffi::c_int) -> drmVersionPtr;
 }
 extern "C" {
-    pub fn drmGetLibVersion(fd: ::std::os::raw::c_int) -> drmVersionPtr;
+    pub fn drmGetLibVersion(fd: ::core::ffi::c_int) -> drmVersionPtr;
 }
 extern "C" {
     pub fn drmGetCap(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         capability: u64,
         value: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmFreeVersion(arg1: drmVersionPtr);
 }
 extern "C" {
-    pub fn drmGetMagic(fd: ::std::os::raw::c_int, magic: *mut drm_magic_t)
-        -> ::std::os::raw::c_int;
+    pub fn drmGetMagic(fd: ::core::ffi::c_int, magic: *mut drm_magic_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetBusid(fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetBusid(fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
     pub fn drmGetInterruptFromBusID(
-        fd: ::std::os::raw::c_int,
-        busnum: ::std::os::raw::c_int,
-        devnum: ::std::os::raw::c_int,
-        funcnum: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        busnum: ::core::ffi::c_int,
+        devnum: ::core::ffi::c_int,
+        funcnum: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetMap(
-        fd: ::std::os::raw::c_int,
-        idx: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        idx: ::core::ffi::c_int,
         offset: *mut drm_handle_t,
         size: *mut drmSize,
         type_: *mut drmMapType,
         flags: *mut drmMapFlags,
         handle: *mut drm_handle_t,
-        mtrr: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        mtrr: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetClient(
-        fd: ::std::os::raw::c_int,
-        idx: ::std::os::raw::c_int,
-        auth: *mut ::std::os::raw::c_int,
-        pid: *mut ::std::os::raw::c_int,
-        uid: *mut ::std::os::raw::c_int,
-        magic: *mut ::std::os::raw::c_ulong,
-        iocs: *mut ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        idx: ::core::ffi::c_int,
+        auth: *mut ::core::ffi::c_int,
+        pid: *mut ::core::ffi::c_int,
+        uid: *mut ::core::ffi::c_int,
+        magic: *mut ::core::ffi::c_ulong,
+        iocs: *mut ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetStats(fd: ::std::os::raw::c_int, stats: *mut drmStatsT) -> ::std::os::raw::c_int;
+    pub fn drmGetStats(fd: ::core::ffi::c_int, stats: *mut drmStatsT) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSetInterfaceVersion(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         version: *mut drmSetVersion,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCommandNone(
-        fd: ::std::os::raw::c_int,
-        drmCommandIndex: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        drmCommandIndex: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCommandRead(
-        fd: ::std::os::raw::c_int,
-        drmCommandIndex: ::std::os::raw::c_ulong,
-        data: *mut ::std::os::raw::c_void,
-        size: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        drmCommandIndex: ::core::ffi::c_ulong,
+        data: *mut ::core::ffi::c_void,
+        size: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCommandWrite(
-        fd: ::std::os::raw::c_int,
-        drmCommandIndex: ::std::os::raw::c_ulong,
-        data: *mut ::std::os::raw::c_void,
-        size: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        drmCommandIndex: ::core::ffi::c_ulong,
+        data: *mut ::core::ffi::c_void,
+        size: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCommandWriteRead(
-        fd: ::std::os::raw::c_int,
-        drmCommandIndex: ::std::os::raw::c_ulong,
-        data: *mut ::std::os::raw::c_void,
-        size: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        drmCommandIndex: ::core::ffi::c_ulong,
+        data: *mut ::core::ffi::c_void,
+        size: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmFreeBusid(busid: *const ::std::os::raw::c_char);
+    pub fn drmFreeBusid(busid: *const ::core::ffi::c_char);
 }
 extern "C" {
     pub fn drmSetBusid(
-        fd: ::std::os::raw::c_int,
-        busid: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        busid: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAuthMagic(fd: ::std::os::raw::c_int, magic: drm_magic_t) -> ::std::os::raw::c_int;
+    pub fn drmAuthMagic(fd: ::core::ffi::c_int, magic: drm_magic_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAddMap(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         offset: drm_handle_t,
         size: drmSize,
         type_: drmMapType,
         flags: drmMapFlags,
         handle: *mut drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmRmMap(fd: ::std::os::raw::c_int, handle: drm_handle_t) -> ::std::os::raw::c_int;
+    pub fn drmRmMap(fd: ::core::ffi::c_int, handle: drm_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAddContextPrivateMapping(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         ctx_id: drm_context_t,
         handle: drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAddBufs(
-        fd: ::std::os::raw::c_int,
-        count: ::std::os::raw::c_int,
-        size: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
+        size: ::core::ffi::c_int,
         flags: drmBufDescFlags,
-        agp_offset: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        agp_offset: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmMarkBufs(fd: ::std::os::raw::c_int, low: f64, high: f64) -> ::std::os::raw::c_int;
+    pub fn drmMarkBufs(fd: ::core::ffi::c_int, low: f64, high: f64) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCreateContext(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: *mut drm_context_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSetContextFlags(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         context: drm_context_t,
         flags: drm_context_tFlags,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetContextFlags(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         context: drm_context_t,
         flags: drm_context_tFlagsPtr,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAddContextTag(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         context: drm_context_t,
-        tag: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        tag: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDelContextTag(
-        fd: ::std::os::raw::c_int,
-        context: drm_context_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmDelContextTag(fd: ::core::ffi::c_int, context: drm_context_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetContextTag(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         context: drm_context_t,
-    ) -> *mut ::std::os::raw::c_void;
+    ) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
     pub fn drmGetReservedContextList(
-        fd: ::std::os::raw::c_int,
-        count: *mut ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        count: *mut ::core::ffi::c_int,
     ) -> *mut drm_context_t;
 }
 extern "C" {
     pub fn drmFreeReservedContextList(arg1: *mut drm_context_t);
 }
 extern "C" {
-    pub fn drmSwitchToContext(
-        fd: ::std::os::raw::c_int,
-        context: drm_context_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmSwitchToContext(fd: ::core::ffi::c_int, context: drm_context_t)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDestroyContext(
-        fd: ::std::os::raw::c_int,
-        handle: drm_context_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmDestroyContext(fd: ::core::ffi::c_int, handle: drm_context_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCreateDrawable(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: *mut drm_drawable_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDestroyDrawable(
-        fd: ::std::os::raw::c_int,
-        handle: drm_drawable_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmDestroyDrawable(fd: ::core::ffi::c_int, handle: drm_drawable_t)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmUpdateDrawableInfo(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: drm_drawable_t,
         type_: drm_drawable_info_type_t,
-        num: ::std::os::raw::c_uint,
-        data: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        num: ::core::ffi::c_uint,
+        data: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmCtlInstHandler(
-        fd: ::std::os::raw::c_int,
-        irq: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmCtlInstHandler(fd: ::core::ffi::c_int, irq: ::core::ffi::c_int)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmCtlUninstHandler(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmCtlUninstHandler(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSetClientCap(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         capability: u64,
         value: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCrtcGetSequence(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         crtcId: u32,
         sequence: *mut u64,
         ns: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmCrtcQueueSequence(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         crtcId: u32,
         flags: u32,
         sequence: u64,
         sequence_queued: *mut u64,
         user_data: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmMap(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: drm_handle_t,
         size: drmSize,
         address: drmAddressPtr,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmUnmap(address: drmAddress, size: drmSize) -> ::std::os::raw::c_int;
+    pub fn drmUnmap(address: drmAddress, size: drmSize) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetBufInfo(fd: ::std::os::raw::c_int) -> drmBufInfoPtr;
+    pub fn drmGetBufInfo(fd: ::core::ffi::c_int) -> drmBufInfoPtr;
 }
 extern "C" {
-    pub fn drmMapBufs(fd: ::std::os::raw::c_int) -> drmBufMapPtr;
+    pub fn drmMapBufs(fd: ::core::ffi::c_int) -> drmBufMapPtr;
 }
 extern "C" {
-    pub fn drmUnmapBufs(bufs: drmBufMapPtr) -> ::std::os::raw::c_int;
+    pub fn drmUnmapBufs(bufs: drmBufMapPtr) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDMA(fd: ::std::os::raw::c_int, request: drmDMAReqPtr) -> ::std::os::raw::c_int;
+    pub fn drmDMA(fd: ::core::ffi::c_int, request: drmDMAReqPtr) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmFreeBufs(
-        fd: ::std::os::raw::c_int,
-        count: ::std::os::raw::c_int,
-        list: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        fd: ::core::ffi::c_int,
+        count: ::core::ffi::c_int,
+        list: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetLock(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         context: drm_context_t,
         flags: drmLockFlags,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmUnlock(fd: ::std::os::raw::c_int, context: drm_context_t) -> ::std::os::raw::c_int;
+    pub fn drmUnlock(fd: ::core::ffi::c_int, context: drm_context_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmFinish(
-        fd: ::std::os::raw::c_int,
-        context: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        context: ::core::ffi::c_int,
         flags: drmLockFlags,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetContextPrivateMapping(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         ctx_id: drm_context_t,
         handle: *mut drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpAcquire(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmAgpAcquire(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpRelease(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmAgpRelease(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpEnable(
-        fd: ::std::os::raw::c_int,
-        mode: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmAgpEnable(fd: ::core::ffi::c_int, mode: ::core::ffi::c_ulong) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAgpAlloc(
-        fd: ::std::os::raw::c_int,
-        size: ::std::os::raw::c_ulong,
-        type_: ::std::os::raw::c_ulong,
-        address: *mut ::std::os::raw::c_ulong,
+        fd: ::core::ffi::c_int,
+        size: ::core::ffi::c_ulong,
+        type_: ::core::ffi::c_ulong,
+        address: *mut ::core::ffi::c_ulong,
         handle: *mut drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpFree(fd: ::std::os::raw::c_int, handle: drm_handle_t) -> ::std::os::raw::c_int;
+    pub fn drmAgpFree(fd: ::core::ffi::c_int, handle: drm_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmAgpBind(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: drm_handle_t,
-        offset: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        offset: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpUnbind(fd: ::std::os::raw::c_int, handle: drm_handle_t) -> ::std::os::raw::c_int;
+    pub fn drmAgpUnbind(fd: ::core::ffi::c_int, handle: drm_handle_t) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpVersionMajor(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmAgpVersionMajor(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpVersionMinor(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmAgpVersionMinor(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmAgpGetMode(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_ulong;
+    pub fn drmAgpGetMode(fd: ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmAgpBase(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_ulong;
+    pub fn drmAgpBase(fd: ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmAgpSize(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_ulong;
+    pub fn drmAgpSize(fd: ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmAgpMemoryUsed(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_ulong;
+    pub fn drmAgpMemoryUsed(fd: ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmAgpMemoryAvail(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_ulong;
+    pub fn drmAgpMemoryAvail(fd: ::core::ffi::c_int) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmAgpVendorId(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_uint;
+    pub fn drmAgpVendorId(fd: ::core::ffi::c_int) -> ::core::ffi::c_uint;
 }
 extern "C" {
-    pub fn drmAgpDeviceId(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_uint;
+    pub fn drmAgpDeviceId(fd: ::core::ffi::c_int) -> ::core::ffi::c_uint;
 }
 extern "C" {
     pub fn drmScatterGatherAlloc(
-        fd: ::std::os::raw::c_int,
-        size: ::std::os::raw::c_ulong,
+        fd: ::core::ffi::c_int,
+        size: ::core::ffi::c_ulong,
         handle: *mut drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmScatterGatherFree(
-        fd: ::std::os::raw::c_int,
-        handle: drm_handle_t,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmScatterGatherFree(fd: ::core::ffi::c_int, handle: drm_handle_t)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmWaitVBlank(fd: ::std::os::raw::c_int, vbl: drmVBlankPtr) -> ::std::os::raw::c_int;
+    pub fn drmWaitVBlank(fd: ::core::ffi::c_int, vbl: drmVBlankPtr) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSetServerInfo(info: drmServerInfoPtr);
 }
 extern "C" {
     pub fn drmError(
-        err: ::std::os::raw::c_int,
-        label: *const ::std::os::raw::c_char,
-    ) -> ::std::os::raw::c_int;
+        err: ::core::ffi::c_int,
+        label: *const ::core::ffi::c_char,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmMalloc(size: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_void;
+    pub fn drmMalloc(size: ::core::ffi::c_int) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn drmFree(pt: *mut ::std::os::raw::c_void);
+    pub fn drmFree(pt: *mut ::core::ffi::c_void);
 }
 extern "C" {
-    pub fn drmHashCreate() -> *mut ::std::os::raw::c_void;
+    pub fn drmHashCreate() -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn drmHashDestroy(t: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn drmHashDestroy(t: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmHashLookup(
-        t: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        t: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmHashInsert(
-        t: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        t: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmHashDelete(
-        t: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        t: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmHashFirst(
-        t: *mut ::std::os::raw::c_void,
-        key: *mut ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        t: *mut ::core::ffi::c_void,
+        key: *mut ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmHashNext(
-        t: *mut ::std::os::raw::c_void,
-        key: *mut ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        t: *mut ::core::ffi::c_void,
+        key: *mut ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmRandomCreate(seed: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
+    pub fn drmRandomCreate(seed: ::core::ffi::c_ulong) -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn drmRandomDestroy(state: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn drmRandomDestroy(state: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmRandom(state: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_ulong;
+    pub fn drmRandom(state: *mut ::core::ffi::c_void) -> ::core::ffi::c_ulong;
 }
 extern "C" {
-    pub fn drmRandomDouble(state: *mut ::std::os::raw::c_void) -> f64;
+    pub fn drmRandomDouble(state: *mut ::core::ffi::c_void) -> f64;
 }
 extern "C" {
-    pub fn drmSLCreate() -> *mut ::std::os::raw::c_void;
+    pub fn drmSLCreate() -> *mut ::core::ffi::c_void;
 }
 extern "C" {
-    pub fn drmSLDestroy(l: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_int;
+    pub fn drmSLDestroy(l: *mut ::core::ffi::c_void) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSLLookup(
-        l: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSLInsert(
-        l: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSLDelete(
-        l: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSLNext(
-        l: *mut ::std::os::raw::c_void,
-        key: *mut ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: *mut ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSLFirst(
-        l: *mut ::std::os::raw::c_void,
-        key: *mut ::std::os::raw::c_ulong,
-        value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: *mut ::core::ffi::c_ulong,
+        value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmSLDump(l: *mut ::std::os::raw::c_void);
+    pub fn drmSLDump(l: *mut ::core::ffi::c_void);
 }
 extern "C" {
     pub fn drmSLLookupNeighbors(
-        l: *mut ::std::os::raw::c_void,
-        key: ::std::os::raw::c_ulong,
-        prev_key: *mut ::std::os::raw::c_ulong,
-        prev_value: *mut *mut ::std::os::raw::c_void,
-        next_key: *mut ::std::os::raw::c_ulong,
-        next_value: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        l: *mut ::core::ffi::c_void,
+        key: ::core::ffi::c_ulong,
+        prev_key: *mut ::core::ffi::c_ulong,
+        prev_value: *mut *mut ::core::ffi::c_void,
+        next_key: *mut ::core::ffi::c_ulong,
+        next_value: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmOpenOnce(
-        unused: *mut ::std::os::raw::c_void,
-        BusID: *const ::std::os::raw::c_char,
-        newlyopened: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        unused: *mut ::core::ffi::c_void,
+        BusID: *const ::core::ffi::c_char,
+        newlyopened: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmOpenOnceWithType(
-        BusID: *const ::std::os::raw::c_char,
-        newlyopened: *mut ::std::os::raw::c_int,
-        type_: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        BusID: *const ::core::ffi::c_char,
+        newlyopened: *mut ::core::ffi::c_int,
+        type_: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmCloseOnce(fd: ::std::os::raw::c_int);
+    pub fn drmCloseOnce(fd: ::core::ffi::c_int);
 }
 extern "C" {
-    pub fn drmMsg(format: *const ::std::os::raw::c_char, ...);
+    pub fn drmMsg(format: *const ::core::ffi::c_char, ...);
 }
 extern "C" {
-    pub fn drmSetMaster(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmSetMaster(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDropMaster(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmDropMaster(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmIsMaster(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmIsMaster(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmEventContext {
-    pub version: ::std::os::raw::c_int,
-    pub vblank_handler: ::std::option::Option<
+    pub version: ::core::ffi::c_int,
+    pub vblank_handler: ::core::option::Option<
         unsafe extern "C" fn(
-            fd: ::std::os::raw::c_int,
-            sequence: ::std::os::raw::c_uint,
-            tv_sec: ::std::os::raw::c_uint,
-            tv_usec: ::std::os::raw::c_uint,
-            user_data: *mut ::std::os::raw::c_void,
+            fd: ::core::ffi::c_int,
+            sequence: ::core::ffi::c_uint,
+            tv_sec: ::core::ffi::c_uint,
+            tv_usec: ::core::ffi::c_uint,
+            user_data: *mut ::core::ffi::c_void,
         ),
     >,
-    pub page_flip_handler: ::std::option::Option<
+    pub page_flip_handler: ::core::option::Option<
         unsafe extern "C" fn(
-            fd: ::std::os::raw::c_int,
-            sequence: ::std::os::raw::c_uint,
-            tv_sec: ::std::os::raw::c_uint,
-            tv_usec: ::std::os::raw::c_uint,
-            user_data: *mut ::std::os::raw::c_void,
+            fd: ::core::ffi::c_int,
+            sequence: ::core::ffi::c_uint,
+            tv_sec: ::core::ffi::c_uint,
+            tv_usec: ::core::ffi::c_uint,
+            user_data: *mut ::core::ffi::c_void,
         ),
     >,
-    pub page_flip_handler2: ::std::option::Option<
+    pub page_flip_handler2: ::core::option::Option<
         unsafe extern "C" fn(
-            fd: ::std::os::raw::c_int,
-            sequence: ::std::os::raw::c_uint,
-            tv_sec: ::std::os::raw::c_uint,
-            tv_usec: ::std::os::raw::c_uint,
-            crtc_id: ::std::os::raw::c_uint,
-            user_data: *mut ::std::os::raw::c_void,
+            fd: ::core::ffi::c_int,
+            sequence: ::core::ffi::c_uint,
+            tv_sec: ::core::ffi::c_uint,
+            tv_usec: ::core::ffi::c_uint,
+            crtc_id: ::core::ffi::c_uint,
+            user_data: *mut ::core::ffi::c_void,
         ),
     >,
-    pub sequence_handler: ::std::option::Option<
-        unsafe extern "C" fn(fd: ::std::os::raw::c_int, sequence: u64, ns: u64, user_data: u64),
+    pub sequence_handler: ::core::option::Option<
+        unsafe extern "C" fn(fd: ::core::ffi::c_int, sequence: u64, ns: u64, user_data: u64),
     >,
 }
 #[test]
 fn bindgen_test_layout__drmEventContext() {
     assert_eq!(
-        ::std::mem::size_of::<_drmEventContext>(),
+        ::core::mem::size_of::<_drmEventContext>(),
         40usize,
         concat!("Size of: ", stringify!(_drmEventContext))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmEventContext>(),
+        ::core::mem::align_of::<_drmEventContext>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmEventContext))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmEventContext>())).version as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmEventContext>())).version as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10391,7 +10435,9 @@ fn bindgen_test_layout__drmEventContext() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmEventContext>())).vblank_handler as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmEventContext>())).vblank_handler as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -10402,7 +10448,7 @@ fn bindgen_test_layout__drmEventContext() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmEventContext>())).page_flip_handler as *const _ as usize
+            &(*(::core::ptr::null::<_drmEventContext>())).page_flip_handler as *const _ as usize
         },
         16usize,
         concat!(
@@ -10414,7 +10460,7 @@ fn bindgen_test_layout__drmEventContext() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmEventContext>())).page_flip_handler2 as *const _ as usize
+            &(*(::core::ptr::null::<_drmEventContext>())).page_flip_handler2 as *const _ as usize
         },
         24usize,
         concat!(
@@ -10426,7 +10472,7 @@ fn bindgen_test_layout__drmEventContext() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmEventContext>())).sequence_handler as *const _ as usize
+            &(*(::core::ptr::null::<_drmEventContext>())).sequence_handler as *const _ as usize
         },
         32usize,
         concat!(
@@ -10440,43 +10486,40 @@ fn bindgen_test_layout__drmEventContext() {
 pub type drmEventContext = _drmEventContext;
 pub type drmEventContextPtr = *mut _drmEventContext;
 extern "C" {
-    pub fn drmHandleEvent(
-        fd: ::std::os::raw::c_int,
-        evctx: drmEventContextPtr,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmHandleEvent(fd: ::core::ffi::c_int, evctx: drmEventContextPtr) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetDeviceNameFromFd(fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetDeviceNameFromFd(fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn drmGetDeviceNameFromFd2(fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetDeviceNameFromFd2(fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn drmGetNodeTypeFromFd(fd: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+    pub fn drmGetNodeTypeFromFd(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmPrimeHandleToFD(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: u32,
         flags: u32,
-        prime_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        prime_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmPrimeFDToHandle(
-        fd: ::std::os::raw::c_int,
-        prime_fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        prime_fd: ::core::ffi::c_int,
         handle: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmCloseBufferHandle(fd: ::std::os::raw::c_int, handle: u32) -> ::std::os::raw::c_int;
+    pub fn drmCloseBufferHandle(fd: ::core::ffi::c_int, handle: u32) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetPrimaryDeviceNameFromFd(fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetPrimaryDeviceNameFromFd(fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn drmGetRenderDeviceNameFromFd(fd: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetRenderDeviceNameFromFd(fd: ::core::ffi::c_int) -> *mut ::core::ffi::c_char;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -10489,17 +10532,17 @@ pub struct _drmPciBusInfo {
 #[test]
 fn bindgen_test_layout__drmPciBusInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmPciBusInfo>(),
+        ::core::mem::size_of::<_drmPciBusInfo>(),
         6usize,
         concat!("Size of: ", stringify!(_drmPciBusInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmPciBusInfo>(),
+        ::core::mem::align_of::<_drmPciBusInfo>(),
         2usize,
         concat!("Alignment of ", stringify!(_drmPciBusInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciBusInfo>())).domain as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciBusInfo>())).domain as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10509,7 +10552,7 @@ fn bindgen_test_layout__drmPciBusInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciBusInfo>())).bus as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciBusInfo>())).bus as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -10519,7 +10562,7 @@ fn bindgen_test_layout__drmPciBusInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciBusInfo>())).dev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciBusInfo>())).dev as *const _ as usize },
         3usize,
         concat!(
             "Offset of field: ",
@@ -10529,7 +10572,7 @@ fn bindgen_test_layout__drmPciBusInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciBusInfo>())).func as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciBusInfo>())).func as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -10553,17 +10596,17 @@ pub struct _drmPciDeviceInfo {
 #[test]
 fn bindgen_test_layout__drmPciDeviceInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmPciDeviceInfo>(),
+        ::core::mem::size_of::<_drmPciDeviceInfo>(),
         10usize,
         concat!("Size of: ", stringify!(_drmPciDeviceInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmPciDeviceInfo>(),
+        ::core::mem::align_of::<_drmPciDeviceInfo>(),
         2usize,
         concat!("Alignment of ", stringify!(_drmPciDeviceInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciDeviceInfo>())).vendor_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciDeviceInfo>())).vendor_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10573,7 +10616,7 @@ fn bindgen_test_layout__drmPciDeviceInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciDeviceInfo>())).device_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciDeviceInfo>())).device_id as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -10583,7 +10626,7 @@ fn bindgen_test_layout__drmPciDeviceInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciDeviceInfo>())).subvendor_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciDeviceInfo>())).subvendor_id as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -10593,7 +10636,7 @@ fn bindgen_test_layout__drmPciDeviceInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciDeviceInfo>())).subdevice_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciDeviceInfo>())).subdevice_id as *const _ as usize },
         6usize,
         concat!(
             "Offset of field: ",
@@ -10603,7 +10646,7 @@ fn bindgen_test_layout__drmPciDeviceInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPciDeviceInfo>())).revision_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPciDeviceInfo>())).revision_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -10624,17 +10667,17 @@ pub struct _drmUsbBusInfo {
 #[test]
 fn bindgen_test_layout__drmUsbBusInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmUsbBusInfo>(),
+        ::core::mem::size_of::<_drmUsbBusInfo>(),
         2usize,
         concat!("Size of: ", stringify!(_drmUsbBusInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmUsbBusInfo>(),
+        ::core::mem::align_of::<_drmUsbBusInfo>(),
         1usize,
         concat!("Alignment of ", stringify!(_drmUsbBusInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmUsbBusInfo>())).bus as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmUsbBusInfo>())).bus as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10644,7 +10687,7 @@ fn bindgen_test_layout__drmUsbBusInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmUsbBusInfo>())).dev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmUsbBusInfo>())).dev as *const _ as usize },
         1usize,
         concat!(
             "Offset of field: ",
@@ -10665,17 +10708,17 @@ pub struct _drmUsbDeviceInfo {
 #[test]
 fn bindgen_test_layout__drmUsbDeviceInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmUsbDeviceInfo>(),
+        ::core::mem::size_of::<_drmUsbDeviceInfo>(),
         4usize,
         concat!("Size of: ", stringify!(_drmUsbDeviceInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmUsbDeviceInfo>(),
+        ::core::mem::align_of::<_drmUsbDeviceInfo>(),
         2usize,
         concat!("Alignment of ", stringify!(_drmUsbDeviceInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmUsbDeviceInfo>())).vendor as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmUsbDeviceInfo>())).vendor as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10685,7 +10728,7 @@ fn bindgen_test_layout__drmUsbDeviceInfo() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmUsbDeviceInfo>())).product as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmUsbDeviceInfo>())).product as *const _ as usize },
         2usize,
         concat!(
             "Offset of field: ",
@@ -10700,22 +10743,22 @@ pub type drmUsbDeviceInfoPtr = *mut _drmUsbDeviceInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmPlatformBusInfo {
-    pub fullname: [::std::os::raw::c_char; 512usize],
+    pub fullname: [::core::ffi::c_char; 512usize],
 }
 #[test]
 fn bindgen_test_layout__drmPlatformBusInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmPlatformBusInfo>(),
+        ::core::mem::size_of::<_drmPlatformBusInfo>(),
         512usize,
         concat!("Size of: ", stringify!(_drmPlatformBusInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmPlatformBusInfo>(),
+        ::core::mem::align_of::<_drmPlatformBusInfo>(),
         1usize,
         concat!("Alignment of ", stringify!(_drmPlatformBusInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmPlatformBusInfo>())).fullname as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmPlatformBusInfo>())).fullname as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10730,23 +10773,23 @@ pub type drmPlatformBusInfoPtr = *mut _drmPlatformBusInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmPlatformDeviceInfo {
-    pub compatible: *mut *mut ::std::os::raw::c_char,
+    pub compatible: *mut *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout__drmPlatformDeviceInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmPlatformDeviceInfo>(),
+        ::core::mem::size_of::<_drmPlatformDeviceInfo>(),
         8usize,
         concat!("Size of: ", stringify!(_drmPlatformDeviceInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmPlatformDeviceInfo>(),
+        ::core::mem::align_of::<_drmPlatformDeviceInfo>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmPlatformDeviceInfo))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmPlatformDeviceInfo>())).compatible as *const _ as usize
+            &(*(::core::ptr::null::<_drmPlatformDeviceInfo>())).compatible as *const _ as usize
         },
         0usize,
         concat!(
@@ -10762,22 +10805,22 @@ pub type drmPlatformDeviceInfoPtr = *mut _drmPlatformDeviceInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmHost1xBusInfo {
-    pub fullname: [::std::os::raw::c_char; 512usize],
+    pub fullname: [::core::ffi::c_char; 512usize],
 }
 #[test]
 fn bindgen_test_layout__drmHost1xBusInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmHost1xBusInfo>(),
+        ::core::mem::size_of::<_drmHost1xBusInfo>(),
         512usize,
         concat!("Size of: ", stringify!(_drmHost1xBusInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmHost1xBusInfo>(),
+        ::core::mem::align_of::<_drmHost1xBusInfo>(),
         1usize,
         concat!("Alignment of ", stringify!(_drmHost1xBusInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmHost1xBusInfo>())).fullname as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmHost1xBusInfo>())).fullname as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10792,22 +10835,24 @@ pub type drmHost1xBusInfoPtr = *mut _drmHost1xBusInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmHost1xDeviceInfo {
-    pub compatible: *mut *mut ::std::os::raw::c_char,
+    pub compatible: *mut *mut ::core::ffi::c_char,
 }
 #[test]
 fn bindgen_test_layout__drmHost1xDeviceInfo() {
     assert_eq!(
-        ::std::mem::size_of::<_drmHost1xDeviceInfo>(),
+        ::core::mem::size_of::<_drmHost1xDeviceInfo>(),
         8usize,
         concat!("Size of: ", stringify!(_drmHost1xDeviceInfo))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmHost1xDeviceInfo>(),
+        ::core::mem::align_of::<_drmHost1xDeviceInfo>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmHost1xDeviceInfo))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmHost1xDeviceInfo>())).compatible as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmHost1xDeviceInfo>())).compatible as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10822,9 +10867,9 @@ pub type drmHost1xDeviceInfoPtr = *mut _drmHost1xDeviceInfo;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct _drmDevice {
-    pub nodes: *mut *mut ::std::os::raw::c_char,
-    pub available_nodes: ::std::os::raw::c_int,
-    pub bustype: ::std::os::raw::c_int,
+    pub nodes: *mut *mut ::core::ffi::c_char,
+    pub available_nodes: ::core::ffi::c_int,
+    pub bustype: ::core::ffi::c_int,
     pub businfo: _drmDevice__bindgen_ty_1,
     pub deviceinfo: _drmDevice__bindgen_ty_2,
 }
@@ -10839,17 +10884,17 @@ pub union _drmDevice__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout__drmDevice__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<_drmDevice__bindgen_ty_1>(),
+        ::core::mem::size_of::<_drmDevice__bindgen_ty_1>(),
         8usize,
         concat!("Size of: ", stringify!(_drmDevice__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmDevice__bindgen_ty_1>(),
+        ::core::mem::align_of::<_drmDevice__bindgen_ty_1>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmDevice__bindgen_ty_1))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_1>())).pci as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice__bindgen_ty_1>())).pci as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10859,7 +10904,7 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_1>())).usb as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice__bindgen_ty_1>())).usb as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10870,7 +10915,7 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmDevice__bindgen_ty_1>())).platform as *const _ as usize
+            &(*(::core::ptr::null::<_drmDevice__bindgen_ty_1>())).platform as *const _ as usize
         },
         0usize,
         concat!(
@@ -10881,7 +10926,9 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_1>())).host1x as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmDevice__bindgen_ty_1>())).host1x as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10902,17 +10949,17 @@ pub union _drmDevice__bindgen_ty_2 {
 #[test]
 fn bindgen_test_layout__drmDevice__bindgen_ty_2() {
     assert_eq!(
-        ::std::mem::size_of::<_drmDevice__bindgen_ty_2>(),
+        ::core::mem::size_of::<_drmDevice__bindgen_ty_2>(),
         8usize,
         concat!("Size of: ", stringify!(_drmDevice__bindgen_ty_2))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmDevice__bindgen_ty_2>(),
+        ::core::mem::align_of::<_drmDevice__bindgen_ty_2>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmDevice__bindgen_ty_2))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_2>())).pci as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice__bindgen_ty_2>())).pci as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10922,7 +10969,7 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_2>())).usb as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice__bindgen_ty_2>())).usb as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10933,7 +10980,7 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<_drmDevice__bindgen_ty_2>())).platform as *const _ as usize
+            &(*(::core::ptr::null::<_drmDevice__bindgen_ty_2>())).platform as *const _ as usize
         },
         0usize,
         concat!(
@@ -10944,7 +10991,9 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_2() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice__bindgen_ty_2>())).host1x as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<_drmDevice__bindgen_ty_2>())).host1x as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10957,17 +11006,17 @@ fn bindgen_test_layout__drmDevice__bindgen_ty_2() {
 #[test]
 fn bindgen_test_layout__drmDevice() {
     assert_eq!(
-        ::std::mem::size_of::<_drmDevice>(),
+        ::core::mem::size_of::<_drmDevice>(),
         32usize,
         concat!("Size of: ", stringify!(_drmDevice))
     );
     assert_eq!(
-        ::std::mem::align_of::<_drmDevice>(),
+        ::core::mem::align_of::<_drmDevice>(),
         8usize,
         concat!("Alignment of ", stringify!(_drmDevice))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice>())).nodes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice>())).nodes as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -10977,7 +11026,7 @@ fn bindgen_test_layout__drmDevice() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice>())).available_nodes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice>())).available_nodes as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -10987,7 +11036,7 @@ fn bindgen_test_layout__drmDevice() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice>())).bustype as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice>())).bustype as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -10997,7 +11046,7 @@ fn bindgen_test_layout__drmDevice() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice>())).businfo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice>())).businfo as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11007,7 +11056,7 @@ fn bindgen_test_layout__drmDevice() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<_drmDevice>())).deviceinfo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<_drmDevice>())).deviceinfo as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -11020,10 +11069,7 @@ fn bindgen_test_layout__drmDevice() {
 pub type drmDevice = _drmDevice;
 pub type drmDevicePtr = *mut _drmDevice;
 extern "C" {
-    pub fn drmGetDevice(
-        fd: ::std::os::raw::c_int,
-        device: *mut drmDevicePtr,
-    ) -> ::std::os::raw::c_int;
+    pub fn drmGetDevice(fd: ::core::ffi::c_int, device: *mut drmDevicePtr) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmFreeDevice(device: *mut drmDevicePtr);
@@ -11031,159 +11077,162 @@ extern "C" {
 extern "C" {
     pub fn drmGetDevices(
         devices: *mut drmDevicePtr,
-        max_devices: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        max_devices: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmFreeDevices(devices: *mut drmDevicePtr, count: ::std::os::raw::c_int);
+    pub fn drmFreeDevices(devices: *mut drmDevicePtr, count: ::core::ffi::c_int);
 }
 extern "C" {
     pub fn drmGetDevice2(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         flags: u32,
         device: *mut drmDevicePtr,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetDevices2(
         flags: u32,
         devices: *mut drmDevicePtr,
-        max_devices: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        max_devices: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmGetDeviceFromDevId(
         dev_id: dev_t,
         flags: u32,
         device: *mut drmDevicePtr,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmDevicesEqual(a: drmDevicePtr, b: drmDevicePtr) -> ::std::os::raw::c_int;
+    pub fn drmDevicesEqual(a: drmDevicePtr, b: drmDevicePtr) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjCreate(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         flags: u32,
         handle: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmSyncobjDestroy(fd: ::std::os::raw::c_int, handle: u32) -> ::std::os::raw::c_int;
+    pub fn drmSyncobjDestroy(fd: ::core::ffi::c_int, handle: u32) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjHandleToFD(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: u32,
-        obj_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        obj_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjFDToHandle(
-        fd: ::std::os::raw::c_int,
-        obj_fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
+        obj_fd: ::core::ffi::c_int,
         handle: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjImportSyncFile(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: u32,
-        sync_file_fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjExportSyncFile(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handle: u32,
-        sync_file_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjWait(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *mut u32,
-        num_handles: ::std::os::raw::c_uint,
+        num_handles: ::core::ffi::c_uint,
         timeout_nsec: i64,
-        flags: ::std::os::raw::c_uint,
+        flags: ::core::ffi::c_uint,
         first_signaled: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjReset(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *const u32,
         handle_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjSignal(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *const u32,
         handle_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjTimelineSignal(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *const u32,
         points: *mut u64,
         handle_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjTimelineWait(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *mut u32,
         points: *mut u64,
-        num_handles: ::std::os::raw::c_uint,
+        num_handles: ::core::ffi::c_uint,
         timeout_nsec: i64,
-        flags: ::std::os::raw::c_uint,
+        flags: ::core::ffi::c_uint,
         first_signaled: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjQuery(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *mut u32,
         points: *mut u64,
         handle_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjQuery2(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         handles: *mut u32,
         points: *mut u64,
         handle_count: u32,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn drmSyncobjTransfer(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         dst_handle: u32,
         dst_point: u64,
         src_handle: u32,
         src_point: u64,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn drmGetFormatModifierVendor(modifier: u64) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetFormatModifierVendor(modifier: u64) -> *mut ::core::ffi::c_char;
 }
 extern "C" {
-    pub fn drmGetFormatModifierName(modifier: u64) -> *mut ::std::os::raw::c_char;
+    pub fn drmGetFormatModifierName(modifier: u64) -> *mut ::core::ffi::c_char;
+}
+extern "C" {
+    pub fn drmGetFormatName(format: u32) -> *mut ::core::ffi::c_char;
 }
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_gem_flink_name: amdgpu_bo_handle_type = 0;
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms: amdgpu_bo_handle_type = 1;
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_dma_buf_fd: amdgpu_bo_handle_type = 2;
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms_noimport: amdgpu_bo_handle_type = 3;
-pub type amdgpu_bo_handle_type = ::std::os::raw::c_uint;
+pub type amdgpu_bo_handle_type = ::core::ffi::c_uint;
 pub const amdgpu_gpu_va_range_amdgpu_gpu_va_range_general: amdgpu_gpu_va_range = 0;
-pub type amdgpu_gpu_va_range = ::std::os::raw::c_uint;
+pub type amdgpu_gpu_va_range = ::core::ffi::c_uint;
 pub const amdgpu_sw_info_amdgpu_sw_info_address32_hi: amdgpu_sw_info = 0;
-pub type amdgpu_sw_info = ::std::os::raw::c_uint;
+pub type amdgpu_sw_info = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_device {
@@ -11231,18 +11280,18 @@ pub struct amdgpu_bo_alloc_request {
 #[test]
 fn bindgen_test_layout_amdgpu_bo_alloc_request() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_bo_alloc_request>(),
+        ::core::mem::size_of::<amdgpu_bo_alloc_request>(),
         32usize,
         concat!("Size of: ", stringify!(amdgpu_bo_alloc_request))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_bo_alloc_request>(),
+        ::core::mem::align_of::<amdgpu_bo_alloc_request>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_bo_alloc_request))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_alloc_request>())).alloc_size as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_alloc_request>())).alloc_size as *const _ as usize
         },
         0usize,
         concat!(
@@ -11254,7 +11303,7 @@ fn bindgen_test_layout_amdgpu_bo_alloc_request() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_alloc_request>())).phys_alignment as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_alloc_request>())).phys_alignment as *const _ as usize
         },
         8usize,
         concat!(
@@ -11266,7 +11315,7 @@ fn bindgen_test_layout_amdgpu_bo_alloc_request() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_alloc_request>())).preferred_heap as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_alloc_request>())).preferred_heap as *const _ as usize
         },
         16usize,
         concat!(
@@ -11277,7 +11326,7 @@ fn bindgen_test_layout_amdgpu_bo_alloc_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_alloc_request>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_alloc_request>())).flags as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -11298,17 +11347,17 @@ pub struct amdgpu_bo_metadata {
 #[test]
 fn bindgen_test_layout_amdgpu_bo_metadata() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_bo_metadata>(),
+        ::core::mem::size_of::<amdgpu_bo_metadata>(),
         280usize,
         concat!("Size of: ", stringify!(amdgpu_bo_metadata))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_bo_metadata>(),
+        ::core::mem::align_of::<amdgpu_bo_metadata>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_bo_metadata))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_metadata>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_metadata>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11318,7 +11367,7 @@ fn bindgen_test_layout_amdgpu_bo_metadata() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_metadata>())).tiling_info as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_metadata>())).tiling_info as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11329,7 +11378,7 @@ fn bindgen_test_layout_amdgpu_bo_metadata() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_metadata>())).size_metadata as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_metadata>())).size_metadata as *const _ as usize
         },
         16usize,
         concat!(
@@ -11340,7 +11389,9 @@ fn bindgen_test_layout_amdgpu_bo_metadata() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_metadata>())).umd_metadata as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<amdgpu_bo_metadata>())).umd_metadata as *const _ as usize
+        },
         20usize,
         concat!(
             "Offset of field: ",
@@ -11362,17 +11413,17 @@ pub struct amdgpu_bo_info {
 #[test]
 fn bindgen_test_layout_amdgpu_bo_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_bo_info>(),
+        ::core::mem::size_of::<amdgpu_bo_info>(),
         312usize,
         concat!("Size of: ", stringify!(amdgpu_bo_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_bo_info>(),
+        ::core::mem::align_of::<amdgpu_bo_info>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_bo_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_info>())).alloc_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_info>())).alloc_size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11382,7 +11433,7 @@ fn bindgen_test_layout_amdgpu_bo_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_info>())).phys_alignment as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_info>())).phys_alignment as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11392,7 +11443,7 @@ fn bindgen_test_layout_amdgpu_bo_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_info>())).preferred_heap as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_info>())).preferred_heap as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11402,7 +11453,7 @@ fn bindgen_test_layout_amdgpu_bo_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_info>())).alloc_flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_info>())).alloc_flags as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -11412,7 +11463,7 @@ fn bindgen_test_layout_amdgpu_bo_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_bo_info>())).metadata as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_bo_info>())).metadata as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -11431,18 +11482,18 @@ pub struct amdgpu_bo_import_result {
 #[test]
 fn bindgen_test_layout_amdgpu_bo_import_result() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_bo_import_result>(),
+        ::core::mem::size_of::<amdgpu_bo_import_result>(),
         16usize,
         concat!("Size of: ", stringify!(amdgpu_bo_import_result))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_bo_import_result>(),
+        ::core::mem::align_of::<amdgpu_bo_import_result>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_bo_import_result))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_import_result>())).buf_handle as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_import_result>())).buf_handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -11454,7 +11505,7 @@ fn bindgen_test_layout_amdgpu_bo_import_result() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_bo_import_result>())).alloc_size as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_bo_import_result>())).alloc_size as *const _ as usize
         },
         8usize,
         concat!(
@@ -11479,18 +11530,18 @@ pub struct amdgpu_gds_resource_info {
 #[test]
 fn bindgen_test_layout_amdgpu_gds_resource_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_gds_resource_info>(),
+        ::core::mem::size_of::<amdgpu_gds_resource_info>(),
         28usize,
         concat!("Size of: ", stringify!(amdgpu_gds_resource_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_gds_resource_info>(),
+        ::core::mem::align_of::<amdgpu_gds_resource_info>(),
         4usize,
         concat!("Alignment of ", stringify!(amdgpu_gds_resource_info))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).gds_gfx_partition_size as *const _
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).gds_gfx_partition_size as *const _
                 as usize
         },
         0usize,
@@ -11503,7 +11554,7 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).compute_partition_size as *const _
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).compute_partition_size as *const _
                 as usize
         },
         4usize,
@@ -11516,7 +11567,8 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).gds_total_size as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).gds_total_size as *const _
+                as usize
         },
         8usize,
         concat!(
@@ -11528,7 +11580,7 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).gws_per_gfx_partition as *const _
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).gws_per_gfx_partition as *const _
                 as usize
         },
         12usize,
@@ -11541,7 +11593,7 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).gws_per_compute_partition
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).gws_per_compute_partition
                 as *const _ as usize
         },
         16usize,
@@ -11554,7 +11606,7 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).oa_per_gfx_partition as *const _
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).oa_per_gfx_partition as *const _
                 as usize
         },
         20usize,
@@ -11567,7 +11619,7 @@ fn bindgen_test_layout_amdgpu_gds_resource_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gds_resource_info>())).oa_per_compute_partition
+            &(*(::core::ptr::null::<amdgpu_gds_resource_info>())).oa_per_compute_partition
                 as *const _ as usize
         },
         24usize,
@@ -11591,17 +11643,17 @@ pub struct amdgpu_cs_fence {
 #[test]
 fn bindgen_test_layout_amdgpu_cs_fence() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_cs_fence>(),
+        ::core::mem::size_of::<amdgpu_cs_fence>(),
         32usize,
         concat!("Size of: ", stringify!(amdgpu_cs_fence))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_cs_fence>(),
+        ::core::mem::align_of::<amdgpu_cs_fence>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_cs_fence))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence>())).context as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence>())).context as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11611,7 +11663,7 @@ fn bindgen_test_layout_amdgpu_cs_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence>())).ip_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence>())).ip_type as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11621,7 +11673,7 @@ fn bindgen_test_layout_amdgpu_cs_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence>())).ip_instance as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence>())).ip_instance as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -11631,7 +11683,7 @@ fn bindgen_test_layout_amdgpu_cs_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence>())).ring as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11641,7 +11693,7 @@ fn bindgen_test_layout_amdgpu_cs_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence>())).fence as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence>())).fence as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -11661,17 +11713,17 @@ pub struct amdgpu_cs_ib_info {
 #[test]
 fn bindgen_test_layout_amdgpu_cs_ib_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_cs_ib_info>(),
+        ::core::mem::size_of::<amdgpu_cs_ib_info>(),
         24usize,
         concat!("Size of: ", stringify!(amdgpu_cs_ib_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_cs_ib_info>(),
+        ::core::mem::align_of::<amdgpu_cs_ib_info>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_cs_ib_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_ib_info>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_ib_info>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11681,7 +11733,9 @@ fn bindgen_test_layout_amdgpu_cs_ib_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_ib_info>())).ib_mc_address as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<amdgpu_cs_ib_info>())).ib_mc_address as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11691,7 +11745,7 @@ fn bindgen_test_layout_amdgpu_cs_ib_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_ib_info>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_ib_info>())).size as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11710,17 +11764,17 @@ pub struct amdgpu_cs_fence_info {
 #[test]
 fn bindgen_test_layout_amdgpu_cs_fence_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_cs_fence_info>(),
+        ::core::mem::size_of::<amdgpu_cs_fence_info>(),
         16usize,
         concat!("Size of: ", stringify!(amdgpu_cs_fence_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_cs_fence_info>(),
+        ::core::mem::align_of::<amdgpu_cs_fence_info>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_cs_fence_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence_info>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence_info>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11730,7 +11784,7 @@ fn bindgen_test_layout_amdgpu_cs_fence_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_fence_info>())).offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_fence_info>())).offset as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11744,8 +11798,8 @@ fn bindgen_test_layout_amdgpu_cs_fence_info() {
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_request {
     pub flags: u64,
-    pub ip_type: ::std::os::raw::c_uint,
-    pub ip_instance: ::std::os::raw::c_uint,
+    pub ip_type: ::core::ffi::c_uint,
+    pub ip_instance: ::core::ffi::c_uint,
     pub ring: u32,
     pub resources: amdgpu_bo_list_handle,
     pub number_of_dependencies: u32,
@@ -11758,17 +11812,17 @@ pub struct amdgpu_cs_request {
 #[test]
 fn bindgen_test_layout_amdgpu_cs_request() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_cs_request>(),
+        ::core::mem::size_of::<amdgpu_cs_request>(),
         88usize,
         concat!("Size of: ", stringify!(amdgpu_cs_request))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_cs_request>(),
+        ::core::mem::align_of::<amdgpu_cs_request>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_cs_request))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11778,7 +11832,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).ip_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).ip_type as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11788,7 +11842,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).ip_instance as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).ip_instance as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -11798,7 +11852,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).ring as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -11808,7 +11862,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).resources as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).resources as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -11819,7 +11873,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_cs_request>())).number_of_dependencies as *const _
+            &(*(::core::ptr::null::<amdgpu_cs_request>())).number_of_dependencies as *const _
                 as usize
         },
         32usize,
@@ -11831,7 +11885,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).dependencies as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).dependencies as *const _ as usize },
         40usize,
         concat!(
             "Offset of field: ",
@@ -11841,7 +11895,9 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).number_of_ibs as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<amdgpu_cs_request>())).number_of_ibs as *const _ as usize
+        },
         48usize,
         concat!(
             "Offset of field: ",
@@ -11851,7 +11907,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).ibs as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).ibs as *const _ as usize },
         56usize,
         concat!(
             "Offset of field: ",
@@ -11861,7 +11917,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).seq_no as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).seq_no as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -11871,7 +11927,7 @@ fn bindgen_test_layout_amdgpu_cs_request() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_cs_request>())).fence_info as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_cs_request>())).fence_info as *const _ as usize },
         72usize,
         concat!(
             "Offset of field: ",
@@ -11890,18 +11946,18 @@ pub struct amdgpu_buffer_size_alignments {
 #[test]
 fn bindgen_test_layout_amdgpu_buffer_size_alignments() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_buffer_size_alignments>(),
+        ::core::mem::size_of::<amdgpu_buffer_size_alignments>(),
         16usize,
         concat!("Size of: ", stringify!(amdgpu_buffer_size_alignments))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_buffer_size_alignments>(),
+        ::core::mem::align_of::<amdgpu_buffer_size_alignments>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_buffer_size_alignments))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_buffer_size_alignments>())).size_local as *const _
+            &(*(::core::ptr::null::<amdgpu_buffer_size_alignments>())).size_local as *const _
                 as usize
         },
         0usize,
@@ -11914,7 +11970,7 @@ fn bindgen_test_layout_amdgpu_buffer_size_alignments() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_buffer_size_alignments>())).size_remote as *const _
+            &(*(::core::ptr::null::<amdgpu_buffer_size_alignments>())).size_remote as *const _
                 as usize
         },
         8usize,
@@ -11936,17 +11992,17 @@ pub struct amdgpu_heap_info {
 #[test]
 fn bindgen_test_layout_amdgpu_heap_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_heap_info>(),
+        ::core::mem::size_of::<amdgpu_heap_info>(),
         24usize,
         concat!("Size of: ", stringify!(amdgpu_heap_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_heap_info>(),
+        ::core::mem::align_of::<amdgpu_heap_info>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_heap_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_heap_info>())).heap_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_heap_info>())).heap_size as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -11956,7 +12012,7 @@ fn bindgen_test_layout_amdgpu_heap_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_heap_info>())).heap_usage as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_heap_info>())).heap_usage as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -11966,7 +12022,9 @@ fn bindgen_test_layout_amdgpu_heap_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_heap_info>())).max_allocation as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<amdgpu_heap_info>())).max_allocation as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12014,17 +12072,17 @@ pub struct amdgpu_gpu_info {
 #[test]
 fn bindgen_test_layout_amdgpu_gpu_info() {
     assert_eq!(
-        ::std::mem::size_of::<amdgpu_gpu_info>(),
+        ::core::mem::size_of::<amdgpu_gpu_info>(),
         416usize,
         concat!("Size of: ", stringify!(amdgpu_gpu_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<amdgpu_gpu_info>(),
+        ::core::mem::align_of::<amdgpu_gpu_info>(),
         8usize,
         concat!("Alignment of ", stringify!(amdgpu_gpu_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).asic_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).asic_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -12034,7 +12092,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).chip_rev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).chip_rev as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -12045,7 +12103,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).chip_external_rev as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).chip_external_rev as *const _ as usize
         },
         8usize,
         concat!(
@@ -12056,7 +12114,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).family_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).family_id as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -12066,7 +12124,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).ids_flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).ids_flags as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -12076,7 +12134,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).max_engine_clk as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).max_engine_clk as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -12086,7 +12144,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).max_memory_clk as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).max_memory_clk as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -12097,7 +12155,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).num_shader_engines as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).num_shader_engines as *const _ as usize
         },
         40usize,
         concat!(
@@ -12109,7 +12167,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).num_shader_arrays_per_engine as *const _
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).num_shader_arrays_per_engine as *const _
                 as usize
         },
         44usize,
@@ -12122,7 +12180,8 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).avail_quad_shader_pipes as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).avail_quad_shader_pipes as *const _
+                as usize
         },
         48usize,
         concat!(
@@ -12134,7 +12193,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).max_quad_shader_pipes as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).max_quad_shader_pipes as *const _ as usize
         },
         52usize,
         concat!(
@@ -12146,7 +12205,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).cache_entries_per_quad_pipe as *const _
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).cache_entries_per_quad_pipe as *const _
                 as usize
         },
         56usize,
@@ -12159,7 +12218,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).num_hw_gfx_contexts as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).num_hw_gfx_contexts as *const _ as usize
         },
         60usize,
         concat!(
@@ -12170,7 +12229,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).rb_pipes as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).rb_pipes as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -12181,7 +12240,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).enabled_rb_pipes_mask as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).enabled_rb_pipes_mask as *const _ as usize
         },
         68usize,
         concat!(
@@ -12193,7 +12252,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).gpu_counter_freq as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).gpu_counter_freq as *const _ as usize
         },
         72usize,
         concat!(
@@ -12204,7 +12263,9 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).backend_disable as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).backend_disable as *const _ as usize
+        },
         76usize,
         concat!(
             "Offset of field: ",
@@ -12214,7 +12275,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).mc_arb_ramcfg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).mc_arb_ramcfg as *const _ as usize },
         92usize,
         concat!(
             "Offset of field: ",
@@ -12224,7 +12285,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).gb_addr_cfg as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).gb_addr_cfg as *const _ as usize },
         96usize,
         concat!(
             "Offset of field: ",
@@ -12234,7 +12295,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).gb_tile_mode as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).gb_tile_mode as *const _ as usize },
         100usize,
         concat!(
             "Offset of field: ",
@@ -12245,7 +12306,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).gb_macro_tile_mode as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).gb_macro_tile_mode as *const _ as usize
         },
         228usize,
         concat!(
@@ -12257,7 +12318,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).pa_sc_raster_cfg as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).pa_sc_raster_cfg as *const _ as usize
         },
         292usize,
         concat!(
@@ -12269,7 +12330,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).pa_sc_raster_cfg1 as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).pa_sc_raster_cfg1 as *const _ as usize
         },
         308usize,
         concat!(
@@ -12281,7 +12342,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).cu_active_number as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).cu_active_number as *const _ as usize
         },
         324usize,
         concat!(
@@ -12292,7 +12353,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).cu_ao_mask as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).cu_ao_mask as *const _ as usize },
         328usize,
         concat!(
             "Offset of field: ",
@@ -12302,7 +12363,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).cu_bitmap as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).cu_bitmap as *const _ as usize },
         332usize,
         concat!(
             "Offset of field: ",
@@ -12312,7 +12373,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).vram_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).vram_type as *const _ as usize },
         396usize,
         concat!(
             "Offset of field: ",
@@ -12322,7 +12383,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).vram_bit_width as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).vram_bit_width as *const _ as usize },
         400usize,
         concat!(
             "Offset of field: ",
@@ -12332,7 +12393,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).ce_ram_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).ce_ram_size as *const _ as usize },
         404usize,
         concat!(
             "Offset of field: ",
@@ -12343,7 +12404,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<amdgpu_gpu_info>())).vce_harvest_config as *const _ as usize
+            &(*(::core::ptr::null::<amdgpu_gpu_info>())).vce_harvest_config as *const _ as usize
         },
         408usize,
         concat!(
@@ -12354,7 +12415,7 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<amdgpu_gpu_info>())).pci_rev_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<amdgpu_gpu_info>())).pci_rev_id as *const _ as usize },
         412usize,
         concat!(
             "Offset of field: ",
@@ -12366,44 +12427,43 @@ fn bindgen_test_layout_amdgpu_gpu_info() {
 }
 extern "C" {
     pub fn amdgpu_device_initialize(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         major_version: *mut u32,
         minor_version: *mut u32,
         device_handle: *mut amdgpu_device_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_device_deinitialize(device_handle: amdgpu_device_handle)
-        -> ::std::os::raw::c_int;
+    pub fn amdgpu_device_deinitialize(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_device_get_fd(device_handle: amdgpu_device_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_device_get_fd(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_alloc(
         dev: amdgpu_device_handle,
         alloc_buffer: *mut amdgpu_bo_alloc_request,
         buf_handle: *mut amdgpu_bo_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_set_metadata(
         buf_handle: amdgpu_bo_handle,
         info: *mut amdgpu_bo_metadata,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_query_info(
         buf_handle: amdgpu_bo_handle,
         info: *mut amdgpu_bo_info,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_export(
         buf_handle: amdgpu_bo_handle,
         type_: amdgpu_bo_handle_type,
         shared_handle: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_import(
@@ -12411,27 +12471,27 @@ extern "C" {
         type_: amdgpu_bo_handle_type,
         shared_handle: u32,
         output: *mut amdgpu_bo_import_result,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_create_bo_from_user_mem(
         dev: amdgpu_device_handle,
-        cpu: *mut ::std::os::raw::c_void,
+        cpu: *mut ::core::ffi::c_void,
         size: u64,
         buf_handle: *mut amdgpu_bo_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_find_bo_by_cpu_mapping(
         dev: amdgpu_device_handle,
-        cpu: *mut ::std::os::raw::c_void,
+        cpu: *mut ::core::ffi::c_void,
         size: u64,
         buf_handle: *mut amdgpu_bo_handle,
         offset_in_bo: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_bo_free(buf_handle: amdgpu_bo_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_bo_free(buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_inc_ref(bo: amdgpu_bo_handle);
@@ -12439,18 +12499,18 @@ extern "C" {
 extern "C" {
     pub fn amdgpu_bo_cpu_map(
         buf_handle: amdgpu_bo_handle,
-        cpu: *mut *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        cpu: *mut *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_bo_cpu_unmap(buf_handle: amdgpu_bo_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_bo_cpu_unmap(buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_wait_for_idle(
         buf_handle: amdgpu_bo_handle,
         timeout_ns: u64,
         buffer_busy: *mut bool,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_list_create_raw(
@@ -12458,13 +12518,13 @@ extern "C" {
         number_of_buffers: u32,
         buffers: *mut drm_amdgpu_bo_list_entry,
         result: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_list_destroy_raw(
         dev: amdgpu_device_handle,
         bo_list: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_list_create(
@@ -12473,10 +12533,10 @@ extern "C" {
         resources: *mut amdgpu_bo_handle,
         resource_prios: *mut u8,
         result: *mut amdgpu_bo_list_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_bo_list_destroy(handle: amdgpu_bo_list_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_bo_list_destroy(handle: amdgpu_bo_list_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_list_update(
@@ -12484,31 +12544,31 @@ extern "C" {
         number_of_resources: u32,
         resources: *mut amdgpu_bo_handle,
         resource_prios: *mut u8,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_ctx_create2(
         dev: amdgpu_device_handle,
         priority: u32,
         context: *mut amdgpu_context_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_ctx_create(
         dev: amdgpu_device_handle,
         context: *mut amdgpu_context_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_cs_ctx_free(context: amdgpu_context_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_cs_ctx_free(context: amdgpu_context_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_ctx_override_priority(
         dev: amdgpu_device_handle,
         context: amdgpu_context_handle,
-        master_fd: ::std::os::raw::c_int,
-        priority: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
+        master_fd: ::core::ffi::c_int,
+        priority: ::core::ffi::c_uint,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_ctx_stable_pstate(
@@ -12516,20 +12576,20 @@ extern "C" {
         op: u32,
         flags: u32,
         out_flags: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_query_reset_state(
         context: amdgpu_context_handle,
         state: *mut u32,
         hangs: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_query_reset_state2(
         context: amdgpu_context_handle,
         flags: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_submit(
@@ -12537,7 +12597,7 @@ extern "C" {
         flags: u64,
         ibs_request: *mut amdgpu_cs_request,
         number_of_requests: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_query_fence_status(
@@ -12545,7 +12605,7 @@ extern "C" {
         timeout_ns: u64,
         flags: u64,
         expired: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_wait_fences(
@@ -12555,38 +12615,38 @@ extern "C" {
         timeout_ns: u64,
         status: *mut u32,
         first: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_buffer_size_alignment(
         dev: amdgpu_device_handle,
         info: *mut amdgpu_buffer_size_alignments,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_firmware_version(
         dev: amdgpu_device_handle,
-        fw_type: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
-        index: ::std::os::raw::c_uint,
+        fw_type: ::core::ffi::c_uint,
+        ip_instance: ::core::ffi::c_uint,
+        index: ::core::ffi::c_uint,
         version: *mut u32,
         feature: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_hw_ip_count(
         dev: amdgpu_device_handle,
-        type_: ::std::os::raw::c_uint,
+        type_: ::core::ffi::c_uint,
         count: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_hw_ip_info(
         dev: amdgpu_device_handle,
-        type_: ::std::os::raw::c_uint,
-        ip_instance: ::std::os::raw::c_uint,
+        type_: ::core::ffi::c_uint,
+        ip_instance: ::core::ffi::c_uint,
         info: *mut drm_amdgpu_info_hw_ip,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_heap_info(
@@ -12594,67 +12654,67 @@ extern "C" {
         heap: u32,
         flags: u32,
         info: *mut amdgpu_heap_info,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_crtc_from_id(
         dev: amdgpu_device_handle,
-        id: ::std::os::raw::c_uint,
+        id: ::core::ffi::c_uint,
         result: *mut i32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_gpu_info(
         dev: amdgpu_device_handle,
         info: *mut amdgpu_gpu_info,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_info(
         dev: amdgpu_device_handle,
-        info_id: ::std::os::raw::c_uint,
-        size: ::std::os::raw::c_uint,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        info_id: ::core::ffi::c_uint,
+        size: ::core::ffi::c_uint,
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_sw_info(
         dev: amdgpu_device_handle,
         info: amdgpu_sw_info,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_gds_info(
         dev: amdgpu_device_handle,
         gds_info: *mut amdgpu_gds_resource_info,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_sensor_info(
         dev: amdgpu_device_handle,
-        sensor_type: ::std::os::raw::c_uint,
-        size: ::std::os::raw::c_uint,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        sensor_type: ::core::ffi::c_uint,
+        size: ::core::ffi::c_uint,
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_query_video_caps_info(
         dev: amdgpu_device_handle,
-        cap_type: ::std::os::raw::c_uint,
-        size: ::std::os::raw::c_uint,
-        value: *mut ::std::os::raw::c_void,
-    ) -> ::std::os::raw::c_int;
+        cap_type: ::core::ffi::c_uint,
+        size: ::core::ffi::c_uint,
+        value: *mut ::core::ffi::c_void,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_read_mm_registers(
         dev: amdgpu_device_handle,
-        dword_offset: ::std::os::raw::c_uint,
-        count: ::std::os::raw::c_uint,
+        dword_offset: ::core::ffi::c_uint,
+        count: ::core::ffi::c_uint,
         instance: u32,
         flags: u32,
         values: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_va_range_alloc(
@@ -12666,10 +12726,10 @@ extern "C" {
         va_base_allocated: *mut u64,
         va_range_handle: *mut amdgpu_va_handle,
         flags: u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_va_range_free(va_range_handle: amdgpu_va_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_va_range_free(va_range_handle: amdgpu_va_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_va_range_query(
@@ -12677,7 +12737,7 @@ extern "C" {
         type_: amdgpu_gpu_va_range,
         start: *mut u64,
         end: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_va_op(
@@ -12687,7 +12747,7 @@ extern "C" {
         addr: u64,
         flags: u64,
         ops: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_bo_va_op_raw(
@@ -12698,10 +12758,10 @@ extern "C" {
         addr: u64,
         flags: u64,
         ops: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_cs_create_semaphore(sem: *mut amdgpu_semaphore_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_cs_create_semaphore(sem: *mut amdgpu_semaphore_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_signal_semaphore(
@@ -12710,7 +12770,7 @@ extern "C" {
         ip_instance: u32,
         ring: u32,
         sem: amdgpu_semaphore_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_wait_semaphore(
@@ -12719,46 +12779,44 @@ extern "C" {
         ip_instance: u32,
         ring: u32,
         sem: amdgpu_semaphore_handle,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_cs_destroy_semaphore(sem: amdgpu_semaphore_handle) -> ::std::os::raw::c_int;
+    pub fn amdgpu_cs_destroy_semaphore(sem: amdgpu_semaphore_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_get_marketing_name(dev: amdgpu_device_handle) -> *const ::std::os::raw::c_char;
+    pub fn amdgpu_get_marketing_name(dev: amdgpu_device_handle) -> *const ::core::ffi::c_char;
 }
 extern "C" {
     pub fn amdgpu_cs_create_syncobj2(
         dev: amdgpu_device_handle,
         flags: u32,
         syncobj: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_create_syncobj(
         dev: amdgpu_device_handle,
         syncobj: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_cs_destroy_syncobj(
-        dev: amdgpu_device_handle,
-        syncobj: u32,
-    ) -> ::std::os::raw::c_int;
+    pub fn amdgpu_cs_destroy_syncobj(dev: amdgpu_device_handle, syncobj: u32)
+        -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_reset(
         dev: amdgpu_device_handle,
         syncobjs: *const u32,
         syncobj_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_signal(
         dev: amdgpu_device_handle,
         syncobjs: *const u32,
         syncobj_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_timeline_signal(
@@ -12766,73 +12824,73 @@ extern "C" {
         syncobjs: *const u32,
         points: *mut u64,
         syncobj_count: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_wait(
         dev: amdgpu_device_handle,
         handles: *mut u32,
-        num_handles: ::std::os::raw::c_uint,
+        num_handles: ::core::ffi::c_uint,
         timeout_nsec: i64,
-        flags: ::std::os::raw::c_uint,
+        flags: ::core::ffi::c_uint,
         first_signaled: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_timeline_wait(
         dev: amdgpu_device_handle,
         handles: *mut u32,
         points: *mut u64,
-        num_handles: ::std::os::raw::c_uint,
+        num_handles: ::core::ffi::c_uint,
         timeout_nsec: i64,
-        flags: ::std::os::raw::c_uint,
+        flags: ::core::ffi::c_uint,
         first_signaled: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_query(
         dev: amdgpu_device_handle,
         handles: *mut u32,
         points: *mut u64,
-        num_handles: ::std::os::raw::c_uint,
-    ) -> ::std::os::raw::c_int;
+        num_handles: ::core::ffi::c_uint,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_query2(
         dev: amdgpu_device_handle,
         handles: *mut u32,
         points: *mut u64,
-        num_handles: ::std::os::raw::c_uint,
+        num_handles: ::core::ffi::c_uint,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_export_syncobj(
         dev: amdgpu_device_handle,
         syncobj: u32,
-        shared_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        shared_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_import_syncobj(
         dev: amdgpu_device_handle,
-        shared_fd: ::std::os::raw::c_int,
+        shared_fd: ::core::ffi::c_int,
         syncobj: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_export_sync_file(
         dev: amdgpu_device_handle,
         syncobj: u32,
-        sync_file_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_import_sync_file(
         dev: amdgpu_device_handle,
         syncobj: u32,
-        sync_file_fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_export_sync_file2(
@@ -12840,16 +12898,16 @@ extern "C" {
         syncobj: u32,
         point: u64,
         flags: u32,
-        sync_file_fd: *mut ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: *mut ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_import_sync_file2(
         dev: amdgpu_device_handle,
         syncobj: u32,
         point: u64,
-        sync_file_fd: ::std::os::raw::c_int,
-    ) -> ::std::os::raw::c_int;
+        sync_file_fd: ::core::ffi::c_int,
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_syncobj_transfer(
@@ -12859,7 +12917,7 @@ extern "C" {
         src_handle: u32,
         src_point: u64,
         flags: u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_fence_to_handle(
@@ -12867,27 +12925,27 @@ extern "C" {
         fence: *mut amdgpu_cs_fence,
         what: u32,
         out_handle: *mut u32,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_submit_raw(
         dev: amdgpu_device_handle,
         context: amdgpu_context_handle,
         bo_list_handle: amdgpu_bo_list_handle,
-        num_chunks: ::std::os::raw::c_int,
+        num_chunks: ::core::ffi::c_int,
         chunks: *mut drm_amdgpu_cs_chunk,
         seq_no: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_submit_raw2(
         dev: amdgpu_device_handle,
         context: amdgpu_context_handle,
         bo_list_handle: u32,
-        num_chunks: ::std::os::raw::c_int,
+        num_chunks: ::core::ffi::c_int,
         chunks: *mut drm_amdgpu_cs_chunk,
         seq_no: *mut u64,
-    ) -> ::std::os::raw::c_int;
+    ) -> ::core::ffi::c_int;
 }
 extern "C" {
     pub fn amdgpu_cs_chunk_fence_to_dep(
@@ -12902,11 +12960,10 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn amdgpu_vm_reserve_vmid(dev: amdgpu_device_handle, flags: u32) -> ::std::os::raw::c_int;
+    pub fn amdgpu_vm_reserve_vmid(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_vm_unreserve_vmid(dev: amdgpu_device_handle, flags: u32)
-        -> ::std::os::raw::c_int;
+    pub fn amdgpu_vm_unreserve_vmid(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -12919,18 +12976,18 @@ pub struct drm_amdgpu_gem_create_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_create_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_create_in>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_create_in>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_create_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_create_in>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_create_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_create_in))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_create_in>())).bo_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_create_in>())).bo_size as *const _ as usize
         },
         0usize,
         concat!(
@@ -12942,7 +12999,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_create_in>())).alignment as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_create_in>())).alignment as *const _ as usize
         },
         8usize,
         concat!(
@@ -12954,7 +13011,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_create_in>())).domains as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_create_in>())).domains as *const _ as usize
         },
         16usize,
         concat!(
@@ -12966,7 +13023,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_create_in>())).domain_flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_create_in>())).domain_flags as *const _ as usize
         },
         24usize,
         concat!(
@@ -12986,18 +13043,18 @@ pub struct drm_amdgpu_gem_create_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_create_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_create_out>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_create_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_create_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_create_out>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_create_out>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_create_out))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_create_out>())).handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_create_out>())).handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -13008,7 +13065,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create_out() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_create_out>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_create_out>()))._pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13027,17 +13084,17 @@ pub union drm_amdgpu_gem_create {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_create() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_create>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_create>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_create))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_create>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_create>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_create))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_create>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_create>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13047,7 +13104,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_create>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_create>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13069,17 +13126,19 @@ pub struct drm_amdgpu_bo_list_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_bo_list_in>(),
+        ::core::mem::size_of::<drm_amdgpu_bo_list_in>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_bo_list_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_bo_list_in>(),
+        ::core::mem::align_of::<drm_amdgpu_bo_list_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_bo_list_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_bo_list_in>())).operation as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_in>())).operation as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13090,7 +13149,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_in>())).list_handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_in>())).list_handle as *const _ as usize
         },
         4usize,
         concat!(
@@ -13101,7 +13160,9 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_bo_list_in>())).bo_number as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_in>())).bo_number as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13112,7 +13173,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_in>())).bo_info_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_in>())).bo_info_size as *const _ as usize
         },
         12usize,
         concat!(
@@ -13124,7 +13185,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_in>())).bo_info_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_in>())).bo_info_ptr as *const _ as usize
         },
         16usize,
         concat!(
@@ -13144,18 +13205,18 @@ pub struct drm_amdgpu_bo_list_entry {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_bo_list_entry() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_bo_list_entry>(),
+        ::core::mem::size_of::<drm_amdgpu_bo_list_entry>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_bo_list_entry))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_bo_list_entry>(),
+        ::core::mem::align_of::<drm_amdgpu_bo_list_entry>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_bo_list_entry))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_entry>())).bo_handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_entry>())).bo_handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -13167,7 +13228,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_entry() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_entry>())).bo_priority as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_entry>())).bo_priority as *const _ as usize
         },
         4usize,
         concat!(
@@ -13187,18 +13248,18 @@ pub struct drm_amdgpu_bo_list_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_bo_list_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_bo_list_out>(),
+        ::core::mem::size_of::<drm_amdgpu_bo_list_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_bo_list_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_bo_list_out>(),
+        ::core::mem::align_of::<drm_amdgpu_bo_list_out>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_bo_list_out))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_bo_list_out>())).list_handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_bo_list_out>())).list_handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -13209,7 +13270,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_out() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_bo_list_out>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_bo_list_out>()))._pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13228,17 +13289,17 @@ pub union drm_amdgpu_bo_list {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_bo_list() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_bo_list>(),
+        ::core::mem::size_of::<drm_amdgpu_bo_list>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_bo_list))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_bo_list>(),
+        ::core::mem::align_of::<drm_amdgpu_bo_list>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_bo_list))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_bo_list>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_bo_list>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13248,7 +13309,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_bo_list>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_bo_list>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13269,17 +13330,17 @@ pub struct drm_amdgpu_ctx_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx_in>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx_in>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx_in>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx_in>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_ctx_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_in>())).op as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_in>())).op as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13289,7 +13350,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_in>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_in>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13299,7 +13360,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_in>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_in>())).ctx_id as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13309,7 +13370,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_in>())).priority as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_in>())).priority as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -13335,12 +13396,12 @@ pub struct drm_amdgpu_ctx_out__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_1>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx_out__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_1>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -13349,7 +13410,8 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_1>())).ctx_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_1>())).ctx_id as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -13361,7 +13423,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_1>()))._pad as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_1>()))._pad as *const _ as usize
         },
         4usize,
         concat!(
@@ -13382,12 +13444,12 @@ pub struct drm_amdgpu_ctx_out__bindgen_ty_2 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_2() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_2>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_2>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx_out__bindgen_ty_2))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_2>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_2>(),
         8usize,
         concat!(
             "Alignment of ",
@@ -13396,7 +13458,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).flags as *const _ as usize
         },
         0usize,
         concat!(
@@ -13408,7 +13470,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).hangs as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).hangs as *const _ as usize
         },
         8usize,
         concat!(
@@ -13420,7 +13482,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).reset_status as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_2>())).reset_status as *const _
                 as usize
         },
         12usize,
@@ -13441,12 +13503,12 @@ pub struct drm_amdgpu_ctx_out__bindgen_ty_3 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_3() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_3>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx_out__bindgen_ty_3>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx_out__bindgen_ty_3))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_3>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx_out__bindgen_ty_3>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -13455,7 +13517,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_3>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_3>())).flags as *const _ as usize
         },
         0usize,
         concat!(
@@ -13467,7 +13529,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_3>()))._pad as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_ctx_out__bindgen_ty_3>()))._pad as *const _ as usize
         },
         4usize,
         concat!(
@@ -13481,17 +13543,17 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_3() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx_out>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx_out>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx_out>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx_out>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_ctx_out))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_out>())).alloc as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_out>())).alloc as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13501,7 +13563,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_out>())).state as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_out>())).state as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13511,7 +13573,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx_out>())).pstate as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx_out>())).pstate as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13530,17 +13592,17 @@ pub union drm_amdgpu_ctx {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_ctx() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_ctx>(),
+        ::core::mem::size_of::<drm_amdgpu_ctx>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_ctx))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_ctx>(),
+        ::core::mem::align_of::<drm_amdgpu_ctx>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_ctx))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13550,7 +13612,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_ctx>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_ctx>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13569,17 +13631,17 @@ pub struct drm_amdgpu_vm_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_vm_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_vm_in>(),
+        ::core::mem::size_of::<drm_amdgpu_vm_in>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_vm_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_vm_in>(),
+        ::core::mem::align_of::<drm_amdgpu_vm_in>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_vm_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_vm_in>())).op as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_vm_in>())).op as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13589,7 +13651,7 @@ fn bindgen_test_layout_drm_amdgpu_vm_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_vm_in>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_vm_in>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13607,17 +13669,17 @@ pub struct drm_amdgpu_vm_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_vm_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_vm_out>(),
+        ::core::mem::size_of::<drm_amdgpu_vm_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_vm_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_vm_out>(),
+        ::core::mem::align_of::<drm_amdgpu_vm_out>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_vm_out))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_vm_out>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_vm_out>())).flags as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13636,17 +13698,17 @@ pub union drm_amdgpu_vm {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_vm() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_vm>(),
+        ::core::mem::size_of::<drm_amdgpu_vm>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_vm))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_vm>(),
+        ::core::mem::align_of::<drm_amdgpu_vm>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_vm))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_vm>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_vm>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13656,7 +13718,7 @@ fn bindgen_test_layout_drm_amdgpu_vm() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_vm>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_vm>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13677,17 +13739,17 @@ pub struct drm_amdgpu_sched_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_sched_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_sched_in>(),
+        ::core::mem::size_of::<drm_amdgpu_sched_in>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_sched_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_sched_in>(),
+        ::core::mem::align_of::<drm_amdgpu_sched_in>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_sched_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_sched_in>())).op as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_sched_in>())).op as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13697,7 +13759,7 @@ fn bindgen_test_layout_drm_amdgpu_sched_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_sched_in>())).fd as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_sched_in>())).fd as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13707,7 +13769,7 @@ fn bindgen_test_layout_drm_amdgpu_sched_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_sched_in>())).priority as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_sched_in>())).priority as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13717,7 +13779,7 @@ fn bindgen_test_layout_drm_amdgpu_sched_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_sched_in>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_sched_in>())).ctx_id as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -13735,17 +13797,17 @@ pub union drm_amdgpu_sched {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_sched() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_sched>(),
+        ::core::mem::size_of::<drm_amdgpu_sched>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_sched))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_sched>(),
+        ::core::mem::align_of::<drm_amdgpu_sched>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_sched))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_sched>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_sched>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13766,17 +13828,17 @@ pub struct drm_amdgpu_gem_userptr {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_userptr() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_userptr>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_userptr>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_userptr))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_userptr>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_userptr>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_userptr))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_userptr>())).addr as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_userptr>())).addr as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13786,7 +13848,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_userptr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_userptr>())).size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_userptr>())).size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13796,7 +13858,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_userptr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_userptr>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_userptr>())).flags as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -13806,7 +13868,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_userptr() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_userptr>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_userptr>())).handle as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -13834,7 +13896,7 @@ pub struct drm_amdgpu_gem_metadata__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_metadata__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_metadata__bindgen_ty_1>(),
         280usize,
         concat!(
             "Size of: ",
@@ -13842,7 +13904,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_metadata__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_metadata__bindgen_ty_1>(),
         8usize,
         concat!(
             "Alignment of ",
@@ -13851,7 +13913,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).flags as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).flags as *const _
                 as usize
         },
         0usize,
@@ -13864,7 +13926,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).tiling_info
+            &(*(::core::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).tiling_info
                 as *const _ as usize
         },
         8usize,
@@ -13877,7 +13939,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).data_size_bytes
+            &(*(::core::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).data_size_bytes
                 as *const _ as usize
         },
         16usize,
@@ -13890,7 +13952,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).data as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_gem_metadata__bindgen_ty_1>())).data as *const _
                 as usize
         },
         20usize,
@@ -13905,17 +13967,17 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_metadata() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_metadata>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_metadata>(),
         288usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_metadata))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_metadata>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_metadata>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_metadata))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_metadata>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_metadata>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13925,7 +13987,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_metadata>())).op as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_metadata>())).op as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13935,7 +13997,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_metadata>())).data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_metadata>())).data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -13954,17 +14016,17 @@ pub struct drm_amdgpu_gem_mmap_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_mmap_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_mmap_in>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_mmap_in>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_mmap_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_mmap_in>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_mmap_in>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_mmap_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_mmap_in>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_mmap_in>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -13974,7 +14036,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_mmap_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_mmap_in>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_mmap_in>()))._pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -13992,18 +14054,18 @@ pub struct drm_amdgpu_gem_mmap_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_mmap_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_mmap_out>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_mmap_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_mmap_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_mmap_out>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_mmap_out>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_mmap_out))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_mmap_out>())).addr_ptr as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_mmap_out>())).addr_ptr as *const _ as usize
         },
         0usize,
         concat!(
@@ -14023,17 +14085,17 @@ pub union drm_amdgpu_gem_mmap {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_mmap() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_mmap>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_mmap>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_mmap))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_mmap>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_mmap>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_mmap))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_mmap>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_mmap>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14043,7 +14105,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_mmap() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_mmap>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_mmap>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14063,18 +14125,18 @@ pub struct drm_amdgpu_gem_wait_idle_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_wait_idle_in>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_wait_idle_in>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_wait_idle_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_wait_idle_in>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_wait_idle_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_wait_idle_in))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -14086,7 +14148,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).flags as *const _ as usize
         },
         4usize,
         concat!(
@@ -14098,7 +14160,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).timeout as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle_in>())).timeout as *const _ as usize
         },
         8usize,
         concat!(
@@ -14118,18 +14180,18 @@ pub struct drm_amdgpu_gem_wait_idle_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_wait_idle_out>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_wait_idle_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_wait_idle_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_wait_idle_out>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_wait_idle_out>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_wait_idle_out))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle_out>())).status as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle_out>())).status as *const _ as usize
         },
         0usize,
         concat!(
@@ -14141,7 +14203,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_out() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle_out>())).domain as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle_out>())).domain as *const _ as usize
         },
         4usize,
         concat!(
@@ -14161,17 +14223,17 @@ pub union drm_amdgpu_gem_wait_idle {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_wait_idle() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_wait_idle>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_wait_idle>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_wait_idle))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_wait_idle>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_wait_idle>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_wait_idle))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14181,7 +14243,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_wait_idle>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_wait_idle>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14204,17 +14266,17 @@ pub struct drm_amdgpu_wait_cs_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_cs_in>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_cs_in>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_cs_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_cs_in>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_cs_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_cs_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14224,7 +14286,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).timeout as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).timeout as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14234,7 +14296,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).ip_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).ip_type as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14245,7 +14307,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).ip_instance as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).ip_instance as *const _ as usize
         },
         20usize,
         concat!(
@@ -14256,7 +14318,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).ring as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -14266,7 +14328,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_in>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_in>())).ctx_id as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -14284,17 +14346,17 @@ pub struct drm_amdgpu_wait_cs_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_cs_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_cs_out>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_cs_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_cs_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_cs_out>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_cs_out>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_cs_out))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs_out>())).status as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs_out>())).status as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14313,17 +14375,17 @@ pub union drm_amdgpu_wait_cs {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_cs() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_cs>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_cs>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_cs))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_cs>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_cs>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_cs))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14333,7 +14395,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_cs>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_cs>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14355,17 +14417,17 @@ pub struct drm_amdgpu_fence {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_fence() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_fence>(),
+        ::core::mem::size_of::<drm_amdgpu_fence>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_fence))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_fence>(),
+        ::core::mem::align_of::<drm_amdgpu_fence>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_fence))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence>())).ctx_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14375,7 +14437,7 @@ fn bindgen_test_layout_drm_amdgpu_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence>())).ip_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence>())).ip_type as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14385,7 +14447,7 @@ fn bindgen_test_layout_drm_amdgpu_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence>())).ip_instance as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence>())).ip_instance as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14395,7 +14457,7 @@ fn bindgen_test_layout_drm_amdgpu_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence>())).ring as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -14405,7 +14467,7 @@ fn bindgen_test_layout_drm_amdgpu_fence() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence>())).seq_no as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence>())).seq_no as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14426,18 +14488,18 @@ pub struct drm_amdgpu_wait_fences_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_fences_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_fences_in>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_fences_in>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_fences_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_fences_in>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_fences_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_fences_in))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_in>())).fences as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_in>())).fences as *const _ as usize
         },
         0usize,
         concat!(
@@ -14449,7 +14511,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_in>())).fence_count as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_in>())).fence_count as *const _ as usize
         },
         8usize,
         concat!(
@@ -14461,7 +14523,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_in>())).wait_all as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_in>())).wait_all as *const _ as usize
         },
         12usize,
         concat!(
@@ -14473,7 +14535,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences_in() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_in>())).timeout_ns as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_in>())).timeout_ns as *const _ as usize
         },
         16usize,
         concat!(
@@ -14493,18 +14555,18 @@ pub struct drm_amdgpu_wait_fences_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_fences_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_fences_out>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_fences_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_fences_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_fences_out>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_fences_out>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_fences_out))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_out>())).status as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_out>())).status as *const _ as usize
         },
         0usize,
         concat!(
@@ -14516,7 +14578,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences_out() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_wait_fences_out>())).first_signaled as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_wait_fences_out>())).first_signaled as *const _
                 as usize
         },
         4usize,
@@ -14537,17 +14599,17 @@ pub union drm_amdgpu_wait_fences {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_wait_fences() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_wait_fences>(),
+        ::core::mem::size_of::<drm_amdgpu_wait_fences>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_wait_fences))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_wait_fences>(),
+        ::core::mem::align_of::<drm_amdgpu_wait_fences>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_wait_fences))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_fences>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_fences>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14557,7 +14619,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_wait_fences>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_wait_fences>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14577,17 +14639,17 @@ pub struct drm_amdgpu_gem_op {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_op() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_op>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_op>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_op))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_op>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_op>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_op))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_op>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_op>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14597,7 +14659,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_op() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_op>())).op as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_op>())).op as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14607,7 +14669,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_op() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_op>())).value as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_op>())).value as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14631,17 +14693,17 @@ pub struct drm_amdgpu_gem_va {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_gem_va() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_gem_va>(),
+        ::core::mem::size_of::<drm_amdgpu_gem_va>(),
         40usize,
         concat!("Size of: ", stringify!(drm_amdgpu_gem_va))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_gem_va>(),
+        ::core::mem::align_of::<drm_amdgpu_gem_va>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_gem_va))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14651,7 +14713,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>()))._pad as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14661,7 +14723,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).operation as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).operation as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14671,7 +14733,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).flags as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -14681,7 +14743,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).va_address as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).va_address as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14691,7 +14753,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).offset_in_bo as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).offset_in_bo as *const _ as usize },
         24usize,
         concat!(
             "Offset of field: ",
@@ -14701,7 +14763,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_va() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_gem_va>())).map_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_gem_va>())).map_size as *const _ as usize },
         32usize,
         concat!(
             "Offset of field: ",
@@ -14721,17 +14783,17 @@ pub struct drm_amdgpu_cs_chunk {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk>())).chunk_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk>())).chunk_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14741,7 +14803,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk>())).length_dw as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk>())).length_dw as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14751,7 +14813,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk>())).chunk_data as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk>())).chunk_data as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14773,17 +14835,17 @@ pub struct drm_amdgpu_cs_in {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_in() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_in>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_in>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_in))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_in>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_in>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_in))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_in>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_in>())).ctx_id as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14793,7 +14855,9 @@ fn bindgen_test_layout_drm_amdgpu_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_in>())).bo_list_handle as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_in>())).bo_list_handle as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14803,7 +14867,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_in>())).num_chunks as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_in>())).num_chunks as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14813,7 +14877,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_in>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_in>())).flags as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -14823,7 +14887,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_in() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_in>())).chunks as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_in>())).chunks as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14841,17 +14905,17 @@ pub struct drm_amdgpu_cs_out {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_out() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_out>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_out>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_out))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_out>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_out>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_out))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_out>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_out>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14870,17 +14934,17 @@ pub union drm_amdgpu_cs {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs>(),
+        ::core::mem::size_of::<drm_amdgpu_cs>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs>(),
+        ::core::mem::align_of::<drm_amdgpu_cs>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14890,7 +14954,7 @@ fn bindgen_test_layout_drm_amdgpu_cs() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14914,17 +14978,17 @@ pub struct drm_amdgpu_cs_chunk_ib {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_ib>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_ib>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_ib))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_ib>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_ib>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_ib))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>()))._pad as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -14934,7 +14998,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).flags as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).flags as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -14944,7 +15008,9 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).va_start as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).va_start as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -14954,7 +15020,9 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ib_bytes as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ib_bytes as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -14964,7 +15032,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ip_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ip_type as *const _ as usize },
         20usize,
         concat!(
             "Offset of field: ",
@@ -14975,7 +15043,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ip_instance as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ip_instance as *const _ as usize
         },
         24usize,
         concat!(
@@ -14986,7 +15054,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_ib() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_ib>())).ring as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -15008,17 +15076,19 @@ pub struct drm_amdgpu_cs_chunk_dep {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_dep() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_dep>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_dep>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_dep))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_dep>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_dep>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_dep))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ip_type as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ip_type as *const _ as usize
+        },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15029,7 +15099,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_dep() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ip_instance as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ip_instance as *const _ as usize
         },
         4usize,
         concat!(
@@ -15040,7 +15110,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_dep() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ring as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ring as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -15050,7 +15120,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_dep() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ctx_id as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_dep>())).ctx_id as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -15060,7 +15130,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_dep() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_dep>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_dep>())).handle as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -15079,18 +15149,18 @@ pub struct drm_amdgpu_cs_chunk_fence {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_fence() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_fence>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_fence>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_fence))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_fence>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_fence>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_fence))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_fence>())).handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_fence>())).handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -15102,7 +15172,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_fence() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_fence>())).offset as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_fence>())).offset as *const _ as usize
         },
         4usize,
         concat!(
@@ -15121,17 +15191,17 @@ pub struct drm_amdgpu_cs_chunk_sem {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_sem() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_sem>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_sem>(),
         4usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_sem))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_sem>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_sem>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_sem))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_sem>())).handle as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_sem>())).handle as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15151,18 +15221,18 @@ pub struct drm_amdgpu_cs_chunk_syncobj {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_syncobj() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_syncobj>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_syncobj>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_syncobj))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_syncobj>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_syncobj>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_syncobj))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).handle as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).handle as *const _ as usize
         },
         0usize,
         concat!(
@@ -15174,7 +15244,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_syncobj() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).flags as *const _ as usize
         },
         4usize,
         concat!(
@@ -15186,7 +15256,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_syncobj() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).point as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_syncobj>())).point as *const _ as usize
         },
         8usize,
         concat!(
@@ -15213,7 +15283,7 @@ pub struct drm_amdgpu_fence_to_handle__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_fence_to_handle__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_fence_to_handle__bindgen_ty_1>(),
         32usize,
         concat!(
             "Size of: ",
@@ -15221,7 +15291,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_fence_to_handle__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_fence_to_handle__bindgen_ty_1>(),
         8usize,
         concat!(
             "Alignment of ",
@@ -15230,7 +15300,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).fence as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).fence as *const _
                 as usize
         },
         0usize,
@@ -15243,7 +15313,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).what as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).what as *const _
                 as usize
         },
         24usize,
@@ -15256,7 +15326,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).pad as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_1>())).pad as *const _
                 as usize
         },
         28usize,
@@ -15276,7 +15346,7 @@ pub struct drm_amdgpu_fence_to_handle__bindgen_ty_2 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_2() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_fence_to_handle__bindgen_ty_2>(),
+        ::core::mem::size_of::<drm_amdgpu_fence_to_handle__bindgen_ty_2>(),
         4usize,
         concat!(
             "Size of: ",
@@ -15284,7 +15354,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_2() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_fence_to_handle__bindgen_ty_2>(),
+        ::core::mem::align_of::<drm_amdgpu_fence_to_handle__bindgen_ty_2>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15293,7 +15363,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_2>())).handle as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle__bindgen_ty_2>())).handle as *const _
                 as usize
         },
         0usize,
@@ -15308,17 +15378,17 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle__bindgen_ty_2() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_fence_to_handle() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_fence_to_handle>(),
+        ::core::mem::size_of::<drm_amdgpu_fence_to_handle>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_fence_to_handle))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_fence_to_handle>(),
+        ::core::mem::align_of::<drm_amdgpu_fence_to_handle>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_fence_to_handle))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle>())).in_ as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle>())).in_ as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15328,7 +15398,7 @@ fn bindgen_test_layout_drm_amdgpu_fence_to_handle() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_fence_to_handle>())).out as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_fence_to_handle>())).out as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15352,7 +15422,7 @@ pub union drm_amdgpu_cs_chunk_data__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_data__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>(),
         32usize,
         concat!(
             "Size of: ",
@@ -15360,7 +15430,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_data__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>(),
         8usize,
         concat!(
             "Alignment of ",
@@ -15369,7 +15439,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_data__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>())).ib_data as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>())).ib_data as *const _
                 as usize
         },
         0usize,
@@ -15382,7 +15452,7 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_data__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>())).fence_data
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_data__bindgen_ty_1>())).fence_data
                 as *const _ as usize
         },
         0usize,
@@ -15397,12 +15467,12 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_data__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_cs_chunk_data() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_cs_chunk_data>(),
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_data>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_data))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_cs_chunk_data>(),
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_data>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_cs_chunk_data))
     );
@@ -15418,17 +15488,17 @@ pub struct drm_amdgpu_query_fw {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_query_fw() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_query_fw>(),
+        ::core::mem::size_of::<drm_amdgpu_query_fw>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_query_fw))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_query_fw>(),
+        ::core::mem::align_of::<drm_amdgpu_query_fw>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_query_fw))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_query_fw>())).fw_type as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_query_fw>())).fw_type as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15438,7 +15508,9 @@ fn bindgen_test_layout_drm_amdgpu_query_fw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_query_fw>())).ip_instance as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_query_fw>())).ip_instance as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -15448,7 +15520,7 @@ fn bindgen_test_layout_drm_amdgpu_query_fw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_query_fw>())).index as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_query_fw>())).index as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -15458,7 +15530,7 @@ fn bindgen_test_layout_drm_amdgpu_query_fw() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_query_fw>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_query_fw>()))._pad as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -15496,7 +15568,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>(),
         8usize,
         concat!(
             "Size of: ",
@@ -15504,7 +15576,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15513,7 +15585,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>())).id as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>())).id as *const _
                 as usize
         },
         0usize,
@@ -15526,8 +15598,8 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>()))._pad as *const _
-                as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1>()))._pad
+                as *const _ as usize
         },
         4usize,
         concat!(
@@ -15547,7 +15619,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>(),
         8usize,
         concat!(
             "Size of: ",
@@ -15555,7 +15627,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15564,7 +15636,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>())).type_
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>())).type_
                 as *const _ as usize
         },
         0usize,
@@ -15577,7 +15649,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>())).ip_instance
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2>())).ip_instance
                 as *const _ as usize
         },
         4usize,
@@ -15600,7 +15672,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>(),
         16usize,
         concat!(
             "Size of: ",
@@ -15608,7 +15680,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15617,7 +15689,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).dword_offset
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).dword_offset
                 as *const _ as usize
         },
         0usize,
@@ -15630,7 +15702,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).count
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).count
                 as *const _ as usize
         },
         4usize,
@@ -15643,7 +15715,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).instance
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).instance
                 as *const _ as usize
         },
         8usize,
@@ -15656,7 +15728,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).flags
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3>())).flags
                 as *const _ as usize
         },
         12usize,
@@ -15677,7 +15749,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>(),
         8usize,
         concat!(
             "Size of: ",
@@ -15685,7 +15757,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15694,7 +15766,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>())).type_
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>())).type_
                 as *const _ as usize
         },
         0usize,
@@ -15707,7 +15779,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>())).offset
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_4>())).offset
                 as *const _ as usize
         },
         4usize,
@@ -15727,7 +15799,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>(),
         4usize,
         concat!(
             "Size of: ",
@@ -15735,7 +15807,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15744,7 +15816,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>())).type_
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_5>())).type_
                 as *const _ as usize
         },
         0usize,
@@ -15764,7 +15836,7 @@ pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6 {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>(),
         4usize,
         concat!(
             "Size of: ",
@@ -15772,7 +15844,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -15781,7 +15853,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>())).type_
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6>())).type_
                 as *const _ as usize
         },
         0usize,
@@ -15796,18 +15868,19 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_6() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info__bindgen_ty_1>(),
+        ::core::mem::size_of::<drm_amdgpu_info__bindgen_ty_1>(),
         16usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info__bindgen_ty_1))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info__bindgen_ty_1>(),
+        ::core::mem::align_of::<drm_amdgpu_info__bindgen_ty_1>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info__bindgen_ty_1))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).mode_crtc as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).mode_crtc as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -15819,7 +15892,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).query_hw_ip as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).query_hw_ip as *const _
                 as usize
         },
         0usize,
@@ -15832,7 +15905,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).read_mmr_reg as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).read_mmr_reg as *const _
                 as usize
         },
         0usize,
@@ -15845,7 +15918,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).query_fw as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).query_fw as *const _ as usize
         },
         0usize,
         concat!(
@@ -15857,7 +15930,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).vbios_info as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).vbios_info as *const _
                 as usize
         },
         0usize,
@@ -15870,7 +15943,7 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).sensor_info as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).sensor_info as *const _
                 as usize
         },
         0usize,
@@ -15883,7 +15956,8 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).video_cap as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info__bindgen_ty_1>())).video_cap as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -15897,17 +15971,17 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1() {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info>(),
+        ::core::mem::size_of::<drm_amdgpu_info>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info>(),
+        ::core::mem::align_of::<drm_amdgpu_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info>())).return_pointer as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info>())).return_pointer as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -15917,7 +15991,7 @@ fn bindgen_test_layout_drm_amdgpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info>())).return_size as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info>())).return_size as *const _ as usize },
         8usize,
         concat!(
             "Offset of field: ",
@@ -15927,7 +16001,7 @@ fn bindgen_test_layout_drm_amdgpu_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info>())).query as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info>())).query as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -15952,18 +16026,18 @@ pub struct drm_amdgpu_info_gds {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_gds() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_gds>(),
+        ::core::mem::size_of::<drm_amdgpu_info_gds>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_gds))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_gds>(),
+        ::core::mem::align_of::<drm_amdgpu_info_gds>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_gds))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).gds_gfx_partition_size as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).gds_gfx_partition_size as *const _
                 as usize
         },
         0usize,
@@ -15976,7 +16050,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).compute_partition_size as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).compute_partition_size as *const _
                 as usize
         },
         4usize,
@@ -15989,7 +16063,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).gds_total_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).gds_total_size as *const _ as usize
         },
         8usize,
         concat!(
@@ -16001,7 +16075,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).gws_per_gfx_partition as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).gws_per_gfx_partition as *const _
                 as usize
         },
         12usize,
@@ -16014,7 +16088,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).gws_per_compute_partition as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).gws_per_compute_partition as *const _
                 as usize
         },
         16usize,
@@ -16027,7 +16101,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).oa_per_gfx_partition as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).oa_per_gfx_partition as *const _
                 as usize
         },
         20usize,
@@ -16040,7 +16114,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_gds>())).oa_per_compute_partition as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_gds>())).oa_per_compute_partition as *const _
                 as usize
         },
         24usize,
@@ -16052,7 +16126,7 @@ fn bindgen_test_layout_drm_amdgpu_info_gds() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_gds>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_gds>()))._pad as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -16072,18 +16146,18 @@ pub struct drm_amdgpu_info_vram_gtt {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_vram_gtt() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_vram_gtt>(),
+        ::core::mem::size_of::<drm_amdgpu_info_vram_gtt>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_vram_gtt))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_vram_gtt>(),
+        ::core::mem::align_of::<drm_amdgpu_info_vram_gtt>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_vram_gtt))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vram_gtt>())).vram_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_vram_gtt>())).vram_size as *const _ as usize
         },
         0usize,
         concat!(
@@ -16095,7 +16169,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vram_gtt() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vram_gtt>())).vram_cpu_accessible_size
+            &(*(::core::ptr::null::<drm_amdgpu_info_vram_gtt>())).vram_cpu_accessible_size
                 as *const _ as usize
         },
         8usize,
@@ -16108,7 +16182,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vram_gtt() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vram_gtt>())).gtt_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_vram_gtt>())).gtt_size as *const _ as usize
         },
         16usize,
         concat!(
@@ -16130,18 +16204,18 @@ pub struct drm_amdgpu_heap_info {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_heap_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_heap_info>(),
+        ::core::mem::size_of::<drm_amdgpu_heap_info>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_heap_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_heap_info>(),
+        ::core::mem::align_of::<drm_amdgpu_heap_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_heap_info))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_heap_info>())).total_heap_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_heap_info>())).total_heap_size as *const _ as usize
         },
         0usize,
         concat!(
@@ -16153,7 +16227,7 @@ fn bindgen_test_layout_drm_amdgpu_heap_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_heap_info>())).usable_heap_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_heap_info>())).usable_heap_size as *const _ as usize
         },
         8usize,
         concat!(
@@ -16164,7 +16238,9 @@ fn bindgen_test_layout_drm_amdgpu_heap_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_heap_info>())).heap_usage as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_heap_info>())).heap_usage as *const _ as usize
+        },
         16usize,
         concat!(
             "Offset of field: ",
@@ -16175,7 +16251,7 @@ fn bindgen_test_layout_drm_amdgpu_heap_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_heap_info>())).max_allocation as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_heap_info>())).max_allocation as *const _ as usize
         },
         24usize,
         concat!(
@@ -16196,17 +16272,17 @@ pub struct drm_amdgpu_memory_info {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_memory_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_memory_info>(),
+        ::core::mem::size_of::<drm_amdgpu_memory_info>(),
         96usize,
         concat!("Size of: ", stringify!(drm_amdgpu_memory_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_memory_info>(),
+        ::core::mem::align_of::<drm_amdgpu_memory_info>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_memory_info))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_memory_info>())).vram as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_memory_info>())).vram as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -16217,7 +16293,7 @@ fn bindgen_test_layout_drm_amdgpu_memory_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_memory_info>())).cpu_accessible_vram as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_memory_info>())).cpu_accessible_vram as *const _
                 as usize
         },
         32usize,
@@ -16229,7 +16305,7 @@ fn bindgen_test_layout_drm_amdgpu_memory_info() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_memory_info>())).gtt as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_memory_info>())).gtt as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -16248,17 +16324,17 @@ pub struct drm_amdgpu_info_firmware {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_firmware() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_firmware>(),
+        ::core::mem::size_of::<drm_amdgpu_info_firmware>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_firmware))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_firmware>(),
+        ::core::mem::align_of::<drm_amdgpu_info_firmware>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_firmware))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_firmware>())).ver as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_firmware>())).ver as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -16269,7 +16345,7 @@ fn bindgen_test_layout_drm_amdgpu_info_firmware() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_firmware>())).feature as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_firmware>())).feature as *const _ as usize
         },
         4usize,
         concat!(
@@ -16293,17 +16369,17 @@ pub struct drm_amdgpu_info_vbios {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_vbios() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_vbios>(),
+        ::core::mem::size_of::<drm_amdgpu_info_vbios>(),
         200usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_vbios))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_vbios>(),
+        ::core::mem::align_of::<drm_amdgpu_info_vbios>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_vbios))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).name as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).name as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -16313,7 +16389,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).vbios_pn as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).vbios_pn as *const _ as usize },
         64usize,
         concat!(
             "Offset of field: ",
@@ -16323,7 +16399,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).version as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).version as *const _ as usize },
         128usize,
         concat!(
             "Offset of field: ",
@@ -16333,7 +16409,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).pad as *const _ as usize },
         132usize,
         concat!(
             "Offset of field: ",
@@ -16344,7 +16420,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).vbios_ver_str as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).vbios_ver_str as *const _ as usize
         },
         136usize,
         concat!(
@@ -16355,7 +16431,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_vbios>())).date as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_vbios>())).date as *const _ as usize },
         168usize,
         concat!(
             "Offset of field: ",
@@ -16421,18 +16497,18 @@ pub struct drm_amdgpu_info_device {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_device() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_device>(),
+        ::core::mem::size_of::<drm_amdgpu_info_device>(),
         368usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_device))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_device>(),
+        ::core::mem::align_of::<drm_amdgpu_info_device>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_device))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).device_id as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).device_id as *const _ as usize
         },
         0usize,
         concat!(
@@ -16443,7 +16519,9 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_device>())).chip_rev as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).chip_rev as *const _ as usize
+        },
         4usize,
         concat!(
             "Offset of field: ",
@@ -16454,7 +16532,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).external_rev as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).external_rev as *const _ as usize
         },
         8usize,
         concat!(
@@ -16465,7 +16543,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_device>())).pci_rev as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pci_rev as *const _ as usize },
         12usize,
         concat!(
             "Offset of field: ",
@@ -16475,7 +16553,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_device>())).family as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>())).family as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",
@@ -16486,7 +16564,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_shader_engines as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_shader_engines as *const _
                 as usize
         },
         20usize,
@@ -16499,7 +16577,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_shader_arrays_per_engine
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_shader_arrays_per_engine
                 as *const _ as usize
         },
         24usize,
@@ -16512,7 +16590,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).gpu_counter_freq as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gpu_counter_freq as *const _
+                as usize
         },
         28usize,
         concat!(
@@ -16524,7 +16603,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).max_engine_clock as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).max_engine_clock as *const _
+                as usize
         },
         32usize,
         concat!(
@@ -16536,7 +16616,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).max_memory_clock as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).max_memory_clock as *const _
+                as usize
         },
         40usize,
         concat!(
@@ -16548,7 +16629,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cu_active_number as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cu_active_number as *const _
+                as usize
         },
         48usize,
         concat!(
@@ -16560,7 +16642,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cu_ao_mask as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cu_ao_mask as *const _ as usize
         },
         52usize,
         concat!(
@@ -16572,7 +16654,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cu_bitmap as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cu_bitmap as *const _ as usize
         },
         56usize,
         concat!(
@@ -16584,7 +16666,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).enabled_rb_pipes_mask as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).enabled_rb_pipes_mask as *const _
                 as usize
         },
         120usize,
@@ -16597,7 +16679,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_rb_pipes as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_rb_pipes as *const _ as usize
         },
         124usize,
         concat!(
@@ -16609,7 +16691,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_hw_gfx_contexts as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_hw_gfx_contexts as *const _
                 as usize
         },
         128usize,
@@ -16621,7 +16703,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_device>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>()))._pad as *const _ as usize },
         132usize,
         concat!(
             "Offset of field: ",
@@ -16632,7 +16714,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).ids_flags as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).ids_flags as *const _ as usize
         },
         136usize,
         concat!(
@@ -16644,7 +16726,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).virtual_address_offset as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).virtual_address_offset as *const _
                 as usize
         },
         144usize,
@@ -16657,7 +16739,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).virtual_address_max as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).virtual_address_max as *const _
                 as usize
         },
         152usize,
@@ -16670,8 +16752,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).virtual_address_alignment as *const _
-                as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).virtual_address_alignment
+                as *const _ as usize
         },
         160usize,
         concat!(
@@ -16683,7 +16765,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).pte_fragment_size as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pte_fragment_size as *const _
                 as usize
         },
         164usize,
@@ -16696,7 +16778,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).gart_page_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gart_page_size as *const _ as usize
         },
         168usize,
         concat!(
@@ -16708,7 +16790,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).ce_ram_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).ce_ram_size as *const _ as usize
         },
         172usize,
         concat!(
@@ -16720,7 +16802,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).vram_type as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).vram_type as *const _ as usize
         },
         176usize,
         concat!(
@@ -16732,7 +16814,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).vram_bit_width as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).vram_bit_width as *const _ as usize
         },
         180usize,
         concat!(
@@ -16744,7 +16826,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).vce_harvest_config as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).vce_harvest_config as *const _
                 as usize
         },
         184usize,
@@ -16757,8 +16839,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).gc_double_offchip_lds_buf as *const _
-                as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gc_double_offchip_lds_buf
+                as *const _ as usize
         },
         188usize,
         concat!(
@@ -16770,7 +16852,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).prim_buf_gpu_addr as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).prim_buf_gpu_addr as *const _
                 as usize
         },
         192usize,
@@ -16783,7 +16865,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).pos_buf_gpu_addr as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pos_buf_gpu_addr as *const _
+                as usize
         },
         200usize,
         concat!(
@@ -16795,7 +16878,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cntl_sb_buf_gpu_addr as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cntl_sb_buf_gpu_addr as *const _
                 as usize
         },
         208usize,
@@ -16808,7 +16891,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).param_buf_gpu_addr as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).param_buf_gpu_addr as *const _
                 as usize
         },
         216usize,
@@ -16821,7 +16904,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).prim_buf_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).prim_buf_size as *const _ as usize
         },
         224usize,
         concat!(
@@ -16833,7 +16916,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).pos_buf_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pos_buf_size as *const _ as usize
         },
         228usize,
         concat!(
@@ -16845,7 +16928,8 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cntl_sb_buf_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cntl_sb_buf_size as *const _
+                as usize
         },
         232usize,
         concat!(
@@ -16857,7 +16941,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).param_buf_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).param_buf_size as *const _ as usize
         },
         236usize,
         concat!(
@@ -16869,7 +16953,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).wave_front_size as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).wave_front_size as *const _ as usize
         },
         240usize,
         concat!(
@@ -16881,7 +16965,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_shader_visible_vgprs as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_shader_visible_vgprs as *const _
                 as usize
         },
         244usize,
@@ -16894,7 +16978,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_cu_per_sh as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_cu_per_sh as *const _ as usize
         },
         248usize,
         concat!(
@@ -16906,7 +16990,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).num_tcc_blocks as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_tcc_blocks as *const _ as usize
         },
         252usize,
         concat!(
@@ -16918,7 +17002,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).gs_vgt_table_depth as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gs_vgt_table_depth as *const _
                 as usize
         },
         256usize,
@@ -16931,7 +17015,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).gs_prim_buffer_depth as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gs_prim_buffer_depth as *const _
                 as usize
         },
         260usize,
@@ -16944,7 +17028,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).max_gs_waves_per_vgt as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).max_gs_waves_per_vgt as *const _
                 as usize
         },
         264usize,
@@ -16956,7 +17040,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_device>()))._pad1 as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>()))._pad1 as *const _ as usize },
         268usize,
         concat!(
             "Offset of field: ",
@@ -16967,7 +17051,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).cu_ao_bitmap as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).cu_ao_bitmap as *const _ as usize
         },
         272usize,
         concat!(
@@ -16979,7 +17063,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).high_va_offset as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).high_va_offset as *const _ as usize
         },
         336usize,
         concat!(
@@ -16991,7 +17075,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).high_va_max as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).high_va_max as *const _ as usize
         },
         344usize,
         concat!(
@@ -17003,7 +17087,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).pa_sc_tile_steering_override
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pa_sc_tile_steering_override
                 as *const _ as usize
         },
         352usize,
@@ -17016,7 +17100,7 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_device>())).tcc_disabled_mask as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).tcc_disabled_mask as *const _
                 as usize
         },
         360usize,
@@ -17042,18 +17126,18 @@ pub struct drm_amdgpu_info_hw_ip {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_hw_ip>(),
+        ::core::mem::size_of::<drm_amdgpu_info_hw_ip>(),
         32usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_hw_ip))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_hw_ip>(),
+        ::core::mem::align_of::<drm_amdgpu_info_hw_ip>(),
         8usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_hw_ip))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).hw_ip_version_major as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).hw_ip_version_major as *const _
                 as usize
         },
         0usize,
@@ -17066,7 +17150,7 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).hw_ip_version_minor as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).hw_ip_version_minor as *const _
                 as usize
         },
         4usize,
@@ -17079,7 +17163,7 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).capabilities_flags as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).capabilities_flags as *const _
                 as usize
         },
         8usize,
@@ -17092,7 +17176,7 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).ib_start_alignment as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).ib_start_alignment as *const _
                 as usize
         },
         16usize,
@@ -17105,7 +17189,8 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).ib_size_alignment as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).ib_size_alignment as *const _
+                as usize
         },
         20usize,
         concat!(
@@ -17117,7 +17202,7 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>())).available_rings as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).available_rings as *const _ as usize
         },
         24usize,
         concat!(
@@ -17128,7 +17213,7 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<drm_amdgpu_info_hw_ip>()))._pad as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>()))._pad as *const _ as usize },
         28usize,
         concat!(
             "Offset of field: ",
@@ -17147,18 +17232,18 @@ pub struct drm_amdgpu_info_num_handles {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_num_handles() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_num_handles>(),
+        ::core::mem::size_of::<drm_amdgpu_info_num_handles>(),
         8usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_num_handles))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_num_handles>(),
+        ::core::mem::align_of::<drm_amdgpu_info_num_handles>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_num_handles))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_num_handles>())).uvd_max_handles as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_num_handles>())).uvd_max_handles as *const _
                 as usize
         },
         0usize,
@@ -17171,7 +17256,7 @@ fn bindgen_test_layout_drm_amdgpu_info_num_handles() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_num_handles>())).uvd_used_handles as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_num_handles>())).uvd_used_handles as *const _
                 as usize
         },
         4usize,
@@ -17194,7 +17279,7 @@ pub struct drm_amdgpu_info_vce_clock_table_entry {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_vce_clock_table_entry>(),
+        ::core::mem::size_of::<drm_amdgpu_info_vce_clock_table_entry>(),
         16usize,
         concat!(
             "Size of: ",
@@ -17202,7 +17287,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
         )
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_vce_clock_table_entry>(),
+        ::core::mem::align_of::<drm_amdgpu_info_vce_clock_table_entry>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -17211,7 +17296,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).sclk as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).sclk as *const _
                 as usize
         },
         0usize,
@@ -17224,7 +17309,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).mclk as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).mclk as *const _
                 as usize
         },
         4usize,
@@ -17237,7 +17322,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).eclk as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).eclk as *const _
                 as usize
         },
         8usize,
@@ -17250,7 +17335,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table_entry() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).pad as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table_entry>())).pad as *const _
                 as usize
         },
         12usize,
@@ -17272,18 +17357,19 @@ pub struct drm_amdgpu_info_vce_clock_table {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_vce_clock_table>(),
+        ::core::mem::size_of::<drm_amdgpu_info_vce_clock_table>(),
         104usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_vce_clock_table))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_vce_clock_table>(),
+        ::core::mem::align_of::<drm_amdgpu_info_vce_clock_table>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_vce_clock_table))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table>())).entries as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table>())).entries as *const _
+                as usize
         },
         0usize,
         concat!(
@@ -17295,7 +17381,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table>())).num_valid_entries
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table>())).num_valid_entries
                 as *const _ as usize
         },
         96usize,
@@ -17308,7 +17394,7 @@ fn bindgen_test_layout_drm_amdgpu_info_vce_clock_table() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_vce_clock_table>())).pad as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_vce_clock_table>())).pad as *const _ as usize
         },
         100usize,
         concat!(
@@ -17332,12 +17418,12 @@ pub struct drm_amdgpu_info_video_codec_info {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_video_codec_info>(),
+        ::core::mem::size_of::<drm_amdgpu_info_video_codec_info>(),
         24usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_video_codec_info))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_video_codec_info>(),
+        ::core::mem::align_of::<drm_amdgpu_info_video_codec_info>(),
         4usize,
         concat!(
             "Alignment of ",
@@ -17346,7 +17432,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).valid as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).valid as *const _ as usize
         },
         0usize,
         concat!(
@@ -17358,7 +17444,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_width as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_width as *const _
                 as usize
         },
         4usize,
@@ -17371,7 +17457,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_height as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_height as *const _
                 as usize
         },
         8usize,
@@ -17384,7 +17470,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_pixels_per_frame
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_pixels_per_frame
                 as *const _ as usize
         },
         12usize,
@@ -17397,7 +17483,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_level as *const _
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).max_level as *const _
                 as usize
         },
         16usize,
@@ -17410,7 +17496,7 @@ fn bindgen_test_layout_drm_amdgpu_info_video_codec_info() {
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_codec_info>())).pad as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_codec_info>())).pad as *const _ as usize
         },
         20usize,
         concat!(
@@ -17429,18 +17515,18 @@ pub struct drm_amdgpu_info_video_caps {
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_video_caps() {
     assert_eq!(
-        ::std::mem::size_of::<drm_amdgpu_info_video_caps>(),
+        ::core::mem::size_of::<drm_amdgpu_info_video_caps>(),
         192usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_video_caps))
     );
     assert_eq!(
-        ::std::mem::align_of::<drm_amdgpu_info_video_caps>(),
+        ::core::mem::align_of::<drm_amdgpu_info_video_caps>(),
         4usize,
         concat!("Alignment of ", stringify!(drm_amdgpu_info_video_caps))
     );
     assert_eq!(
         unsafe {
-            &(*(::std::ptr::null::<drm_amdgpu_info_video_caps>())).codec_info as *const _ as usize
+            &(*(::core::ptr::null::<drm_amdgpu_info_video_caps>())).codec_info as *const _ as usize
         },
         0usize,
         concat!(
@@ -17455,25 +17541,25 @@ pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct __va_list_tag {
-    pub gp_offset: ::std::os::raw::c_uint,
-    pub fp_offset: ::std::os::raw::c_uint,
-    pub overflow_arg_area: *mut ::std::os::raw::c_void,
-    pub reg_save_area: *mut ::std::os::raw::c_void,
+    pub gp_offset: ::core::ffi::c_uint,
+    pub fp_offset: ::core::ffi::c_uint,
+    pub overflow_arg_area: *mut ::core::ffi::c_void,
+    pub reg_save_area: *mut ::core::ffi::c_void,
 }
 #[test]
 fn bindgen_test_layout___va_list_tag() {
     assert_eq!(
-        ::std::mem::size_of::<__va_list_tag>(),
+        ::core::mem::size_of::<__va_list_tag>(),
         24usize,
         concat!("Size of: ", stringify!(__va_list_tag))
     );
     assert_eq!(
-        ::std::mem::align_of::<__va_list_tag>(),
+        ::core::mem::align_of::<__va_list_tag>(),
         8usize,
         concat!("Alignment of ", stringify!(__va_list_tag))
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).gp_offset as *const _ as usize },
         0usize,
         concat!(
             "Offset of field: ",
@@ -17483,7 +17569,7 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).fp_offset as *const _ as usize },
         4usize,
         concat!(
             "Offset of field: ",
@@ -17493,7 +17579,9 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<__va_list_tag>())).overflow_arg_area as *const _ as usize
+        },
         8usize,
         concat!(
             "Offset of field: ",
@@ -17503,7 +17591,7 @@ fn bindgen_test_layout___va_list_tag() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::std::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize },
+        unsafe { &(*(::core::ptr::null::<__va_list_tag>())).reg_save_area as *const _ as usize },
         16usize,
         concat!(
             "Offset of field: ",

@@ -89,7 +89,9 @@ impl VRAM_TYPE {
     }
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
+#[cfg(feature = "std")]
 impl fmt::Display for VRAM_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

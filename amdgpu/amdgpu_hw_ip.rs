@@ -2,7 +2,7 @@ use crate::AMDGPU::*;
 use crate::*;
 
 use crate::bindings::drm_amdgpu_info_hw_ip;
-use std::mem::MaybeUninit;
+use core::mem::MaybeUninit;
 
 impl DeviceHandle {
     pub fn query_hw_ip_count(
@@ -14,7 +14,7 @@ impl DeviceHandle {
 
             let r = bindings::amdgpu_query_hw_ip_count(
                 self.0,
-                type_ as ::std::os::raw::c_uint,
+                type_ as ::core::ffi::c_uint,
                 hw_ip_count.as_mut_ptr(),
             );
 
@@ -27,15 +27,15 @@ impl DeviceHandle {
     pub fn query_hw_ip_info(
         &self,
         type_: HW_IP_TYPE,
-        ip_instance: ::std::os::raw::c_uint,
+        ip_instance: ::core::ffi::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32> {
         unsafe {
             let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_hw_ip_info(
                 self.0,
-                type_ as ::std::os::raw::c_uint,
-                ip_instance as ::std::os::raw::c_uint,
+                type_ as ::core::ffi::c_uint,
+                ip_instance as ::core::ffi::c_uint,
                 hw_ip_info.as_mut_ptr(),
             );
 
@@ -83,7 +83,9 @@ pub enum HW_IP_TYPE {
     VCN_JPEG = AMDGPU_HW_IP_VCN_JPEG,
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
+#[cfg(feature = "std")]
 impl fmt::Display for HW_IP_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

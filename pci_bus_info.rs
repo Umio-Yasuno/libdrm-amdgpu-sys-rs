@@ -21,7 +21,7 @@ pub mod PCI {
 
 impl PCI::BUS_INFO {
     pub fn drm_get_device2(
-        fd: ::std::os::raw::c_int,
+        fd: ::core::ffi::c_int,
         //  flags: u32,
     ) -> Result<Self, i32> {
         unsafe {
@@ -79,7 +79,9 @@ impl PCI::BUS_INFO {
     }
 }
 
+#[cfg(feature = "std")]
 use std::fmt;
+#[cfg(feature = "std")]
 impl fmt::Display for PCI::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,
@@ -93,9 +95,9 @@ use crate::{
     bindings::{drmDevicePtr, drmGetDevice2, drmFreeDevice},
     query_error,
 };
-use std::mem::MaybeUninit;
+use core::mem::MaybeUninit;
 
-unsafe fn __drmGetDevice2(fd: ::std::os::raw::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
+unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
     let mut drm_dev_info: MaybeUninit<drmDevicePtr> = MaybeUninit::uninit();
 
     let r = drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());

@@ -27,6 +27,8 @@ fn main() {
         .header("wrapper/wrapper_drm.h")
         .header("wrapper/wrapper_amdgpu.h")
         .clang_args(config.iter())
+        .use_core()
+        .ctypes_prefix("::core::ffi")
         // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
         // Finish the builder and generate the bindings.
         .generate()
