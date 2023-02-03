@@ -10,9 +10,16 @@ use bindings::{
     drm_amdgpu_info_device,
     drm_amdgpu_info_gds,
     drm_amdgpu_memory_info,
+    drm_amdgpu_info_vce_clock_table,
 };
 use bindings::{
-    AMDGPU_INFO_DEV_INFO, AMDGPU_INFO_GDS_CONFIG, AMDGPU_INFO_MEMORY, AMDGPU_INFO_VRAM_USAGE,
+    AMDGPU_INFO_NUM_BYTES_MOVED,
+    AMDGPU_INFO_DEV_INFO,
+    AMDGPU_INFO_GDS_CONFIG,
+    AMDGPU_INFO_MEMORY,
+    AMDGPU_INFO_VRAM_USAGE,
+    AMDGPU_INFO_VCE_CLOCK_TABLE,
+    AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS,
 };
 use core::mem::{size_of, MaybeUninit};
 
@@ -162,6 +169,18 @@ impl DeviceHandle {
 
     pub fn gds_info(&self) -> Result<drm_amdgpu_info_gds, i32> {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
+    }
+
+    pub fn vce_clock_info(&self) -> Result<drm_amdgpu_info_vce_clock_table, i32> {
+        Self::query(self, AMDGPU_INFO_VCE_CLOCK_TABLE)
+    }
+
+    pub fn num_vram_cpu_page_failts(&self) -> Result<u64, i32> {
+        Self::query(self, AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS)
+    }
+
+    pub fn num_bytes_moved(&self) -> Result<u64, i32> {
+        Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
     }
 }
 

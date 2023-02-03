@@ -130,6 +130,24 @@ fn main() {
         }
     }
 
+    if let Ok(info) = amdgpu_dev.memory_info() {
+        println!(
+            "VRAM Usage: {usage}/{total} MiB",
+            usage = info.vram.heap_usage / 1024 / 1024,
+            total = info.vram.total_heap_size / 1024 / 1024,
+        );
+        println!(
+            "CPU Accessible VRAM Usage: {usage}/{total} MiB",
+            usage = info.cpu_accessible_vram.heap_usage / 1024 / 1024,
+            total = info.cpu_accessible_vram.total_heap_size / 1024 / 1024,
+        );
+        println!(
+            "GTT Usage: {usage}/{total} MiB",
+            usage = info.gtt.heap_usage / 1024 / 1024,
+            total = info.gtt.total_heap_size / 1024 / 1024,
+        );
+    }
+
     if let [Ok(dec), Ok(enc)] = [
         amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::DECODE),
         amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::ENCODE),
@@ -176,10 +194,9 @@ fn main() {
             vbios.date.to_vec(),
         ]
         .map(|v| {
-            let vec = v.null_ctrl_to_space();
-            let tmp = String::from_utf8(vec).unwrap();
+            let tmp = String::from_utf8(v).unwrap();
 
-            tmp.trim_end().to_string()
+            tmp.trim_end_matches(|c: char| c.is_control() || c.is_whitespace()).to_string()
         });
 
         println!("\nVBIOS info:");
@@ -187,10 +204,6 @@ fn main() {
         println!("pn: [{pn}]");
         println!("ver_str: [{ver_str}]");
         println!("date: [{date}]");
-    }
-
-    if let Ok(vbios_size) = unsafe { amdgpu_dev.vbios_size(fd) } {
-        println!("vbios size: {vbios_size}");
     }
 
     {

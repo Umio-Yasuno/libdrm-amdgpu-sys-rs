@@ -45,18 +45,45 @@ impl DeviceHandle {
         &self,
         fd: ::core::ffi::c_int,
     ) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
-        use bindings::{drm_amdgpu_info_vbios, AMDGPU_INFO_VBIOS_INFO};
+        use bindings::{AMDGPU_INFO_VBIOS_INFO};
 
-        let vbios: drm_amdgpu_info_vbios = Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_INFO)?;
-
-        return Ok(vbios);
+        Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_INFO)
     }
 
     pub unsafe fn vbios_size(&self, fd: ::core::ffi::c_int) -> Result<u32, i32> {
         use bindings::AMDGPU_INFO_VBIOS_SIZE;
 
-        let vbios_size: u32 = Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_SIZE)?;
+        Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_SIZE)
+    }
 
-        return Ok(vbios_size);
+    #[cfg(feature = "std")]
+    pub unsafe fn vbios_image(&self, fd: ::core::ffi::c_int, vbios_size: usize) -> Result<Vec<u8>, i32> {
+        use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
+        use bindings::AMDGPU_INFO_VBIOS_IMAGE;
+
+        let mut vbios_image = vec![0; vbios_size];
+
+        let mut device_info: drm_amdgpu_info = core::mem::zeroed();
+
+        device_info.return_pointer = vbios_image.as_mut_ptr() as u64;
+        device_info.return_size = vbios_size as u32;
+        device_info.query = AMDGPU_INFO_VBIOS;
+
+        device_info.__bindgen_anon_1.vbios_info.type_ = AMDGPU_INFO_VBIOS_IMAGE;
+
+        let mut device_info = MaybeUninit::new(device_info);
+
+        let r = drmCommandWrite(
+            fd,
+            bindings::DRM_AMDGPU_INFO as u64,
+            device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
+            size_of::<drm_amdgpu_info> as u64,
+        );
+
+        query_error!(r);
+
+        let _ = device_info.assume_init();
+
+        return Ok(vbios_image);
     }
 }

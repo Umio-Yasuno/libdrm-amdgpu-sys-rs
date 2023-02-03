@@ -21,36 +21,6 @@ mod pci_bus_info;
 #[cfg(feature = "std")]
 pub use pci_bus_info::*;
 
-/* TODO: CStr::from_bytes_until_nul */
-#[cfg(feature = "std")]
-pub trait BindingsStr {
-    fn null_ctrl_to_space(&self) -> Vec<u8>;
-}
-
-#[cfg(feature = "std")]
-impl BindingsStr for Vec<u8> {
-    fn null_ctrl_to_space(&self) -> Vec<u8> {
-        let mut null_char_flag = false;
-
-        self
-            .iter()
-            .map(|&v| {
-                /* '\0' */
-                if v == 0 {
-                    null_char_flag = true;
-                }
-
-                /* replace from <Control> \u0020 (<Space>) */
-                if null_char_flag || char::from(v).is_control() {
-                    0x20
-                } else {
-                    v
-                }
-            })
-            .collect()
-    }
-}
-
 pub unsafe fn drmGetVersion(fd: ::core::ffi::c_int) -> bindings::_drmVersion {
     let drm_ver = bindings::drmGetVersion(fd);
 
