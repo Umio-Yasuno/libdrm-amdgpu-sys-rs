@@ -54,6 +54,8 @@ fn main() {
             if let Ok(vbios_image) = unsafe { amdgpu_dev.vbios_image(vbios_size as usize) } {
                 dump(&vbios_image, name).unwrap();
             }
+        } else {
+            println!("If you need a VBIOS image, add \"-d\" or \"--dump\" as an argument and run.");
         }
     }
 }

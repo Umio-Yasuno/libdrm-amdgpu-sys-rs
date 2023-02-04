@@ -230,6 +230,4 @@ fn main() {
             }
         }
     }
-
-    amdgpu_dev.deinit().unwrap();
 }

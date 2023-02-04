@@ -51,7 +51,7 @@ impl DeviceHandle {
         }
     }
 
-    pub fn deinit(&self) -> Result<i32, i32> {
+    fn deinit(&self) -> Result<i32, i32> {
         let r = unsafe { bindings::amdgpu_device_deinitialize(self.0) };
 
         query_error!(r);
@@ -181,6 +181,12 @@ impl DeviceHandle {
 
     pub fn num_bytes_moved(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
+    }
+}
+
+impl Drop for DeviceHandle {
+    fn drop(&mut self) {
+        self.deinit().unwrap();
     }
 }
 
