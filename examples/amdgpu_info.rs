@@ -44,9 +44,22 @@ fn main() {
         println!("L2cache: {} KiB", ext_info.calc_l2_cache_size() / 1024);
     }
 
-    if let Ok(memory_info) = amdgpu_dev.memory_info() {
-        let vram_size_mb = memory_info.vram.total_heap_size / 1024 / 1024;
-        println!("VRAM size: {vram_size_mb} MiB");
+    if let Ok(info) = amdgpu_dev.memory_info() {
+        println!(
+            "VRAM Usage:\t\t\t{usage}/{total} MiB",
+            usage = info.vram.heap_usage / 1024 / 1024,
+            total = info.vram.total_heap_size / 1024 / 1024,
+        );
+        println!(
+            "CPU Accessible VRAM Usage:\t{usage}/{total} MiB",
+            usage = info.cpu_accessible_vram.heap_usage / 1024 / 1024,
+            total = info.cpu_accessible_vram.total_heap_size / 1024 / 1024,
+        );
+        println!(
+            "GTT Usage:\t\t\t{usage}/{total} MiB",
+            usage = info.gtt.heap_usage / 1024 / 1024,
+            total = info.gtt.total_heap_size / 1024 / 1024,
+        );
     }
 
     {
@@ -130,24 +143,6 @@ fn main() {
         }
     }
 
-    if let Ok(info) = amdgpu_dev.memory_info() {
-        println!(
-            "VRAM Usage: {usage}/{total} MiB",
-            usage = info.vram.heap_usage / 1024 / 1024,
-            total = info.vram.total_heap_size / 1024 / 1024,
-        );
-        println!(
-            "CPU Accessible VRAM Usage: {usage}/{total} MiB",
-            usage = info.cpu_accessible_vram.heap_usage / 1024 / 1024,
-            total = info.cpu_accessible_vram.total_heap_size / 1024 / 1024,
-        );
-        println!(
-            "GTT Usage: {usage}/{total} MiB",
-            usage = info.gtt.heap_usage / 1024 / 1024,
-            total = info.gtt.total_heap_size / 1024 / 1024,
-        );
-    }
-
     if let [Ok(dec), Ok(enc)] = [
         amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::DECODE),
         amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::ENCODE),
@@ -204,6 +199,10 @@ fn main() {
         println!("pn: [{pn}]");
         println!("ver_str: [{ver_str}]");
         println!("date: [{date}]");
+    }
+
+    if let Ok(vce_clock) = amdgpu_dev.vce_clock_info() {
+        println!("\n{vce_clock:#?}");
     }
 
     {
