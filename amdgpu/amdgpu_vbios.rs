@@ -6,7 +6,6 @@ use core::mem::{size_of, MaybeUninit};
 impl DeviceHandle {
     unsafe fn query_vbios<T>(
         &self,
-        fd: ::core::ffi::c_int,
         info_id: ::core::ffi::c_uint,
     ) -> Result<T, i32> {
         use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
@@ -27,7 +26,7 @@ impl DeviceHandle {
         let mut device_info = MaybeUninit::new(device_info);
 
         let r = drmCommandWrite(
-            fd,
+            self.get_fd(),
             bindings::DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info> as u64,
@@ -41,23 +40,20 @@ impl DeviceHandle {
         return Ok(vbios);
     }
 
-    pub unsafe fn vbios_info(
-        &self,
-        fd: ::core::ffi::c_int,
-    ) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
+    pub unsafe fn vbios_info(&self) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
         use bindings::{AMDGPU_INFO_VBIOS_INFO};
 
-        Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_INFO)
+        Self::query_vbios(self, AMDGPU_INFO_VBIOS_INFO)
     }
 
-    pub unsafe fn vbios_size(&self, fd: ::core::ffi::c_int) -> Result<u32, i32> {
+    pub unsafe fn vbios_size(&self) -> Result<u32, i32> {
         use bindings::AMDGPU_INFO_VBIOS_SIZE;
 
-        Self::query_vbios(self, fd, AMDGPU_INFO_VBIOS_SIZE)
+        Self::query_vbios(self, AMDGPU_INFO_VBIOS_SIZE)
     }
 
     #[cfg(feature = "std")]
-    pub unsafe fn vbios_image(&self, fd: ::core::ffi::c_int, vbios_size: usize) -> Result<Vec<u8>, i32> {
+    pub unsafe fn vbios_image(&self, vbios_size: usize) -> Result<Vec<u8>, i32> {
         use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
@@ -74,7 +70,7 @@ impl DeviceHandle {
         let mut device_info = MaybeUninit::new(device_info);
 
         let r = drmCommandWrite(
-            fd,
+            self.get_fd(),
             bindings::DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info> as u64,

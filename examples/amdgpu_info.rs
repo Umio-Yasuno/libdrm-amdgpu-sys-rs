@@ -186,7 +186,7 @@ fn main() {
         println!("Max     Link: Gen{}x{}", max.gen, max.width);
     }
 
-    if let Ok(vbios) = unsafe { amdgpu_dev.vbios_info(fd) } {
+    if let Ok(vbios) = unsafe { amdgpu_dev.vbios_info() } {
         let [name, pn, ver_str, date] = [
             vbios.name.to_vec(),
             vbios.vbios_pn.to_vec(),

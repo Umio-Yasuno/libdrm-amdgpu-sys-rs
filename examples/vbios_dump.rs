@@ -26,7 +26,7 @@ fn main() {
     let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
     if let (Ok(vbios), Ok(vbios_size)) = unsafe {
-        (amdgpu_dev.vbios_info(fd), amdgpu_dev.vbios_size(fd))
+        (amdgpu_dev.vbios_info(), amdgpu_dev.vbios_size())
     } {
         let [name, pn, ver_str, date] = [
             vbios.name.to_vec(),
@@ -51,9 +51,7 @@ fn main() {
         let args: Vec<String> = std::env::args().collect();
 
         if args.contains(&"-d".to_string()) || args.contains(&"--dump".to_string()) {
-            if let Ok(vbios_image) = unsafe {
-                amdgpu_dev.vbios_image(fd, vbios_size as usize)
-            } {
+            if let Ok(vbios_image) = unsafe { amdgpu_dev.vbios_image(vbios_size as usize) } {
                 dump(&vbios_image, name).unwrap();
             }
         }
