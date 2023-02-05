@@ -63,6 +63,25 @@ impl DeviceHandle {
         unsafe { bindings::amdgpu_device_get_fd(self.0) }
     }
 
+    pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
+        let fd = self.get_fd();
+        let mut drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
+
+        if drm_ver_ptr.is_null() {
+            return Err(());
+        }
+
+        let ver = unsafe { (
+            (*drm_ver_ptr).version_major,
+            (*drm_ver_ptr).version_minor,
+            (*drm_ver_ptr).version_patchlevel,
+        ) };
+
+        unsafe { bindings::drmFreeVersion(drm_ver_ptr) }
+
+        Ok(ver)
+    }
+
     #[cfg(feature = "std")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         use core::ffi::CStr;

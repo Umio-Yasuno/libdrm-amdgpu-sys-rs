@@ -20,9 +20,3 @@ pub mod AMDGPU {
 mod pci_bus_info;
 #[cfg(feature = "std")]
 pub use pci_bus_info::*;
-
-pub unsafe fn drmGetVersion(fd: ::core::ffi::c_int) -> bindings::_drmVersion {
-    let drm_ver = bindings::drmGetVersion(fd);
-
-    return *drm_ver;
-}

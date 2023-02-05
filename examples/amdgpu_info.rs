@@ -12,6 +12,11 @@ fn main() {
 
     let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
+    if let Ok(drm_ver) = amdgpu_dev.get_drm_version() {
+        let (major, minor, patchlevel) = drm_ver;
+        println!("drm version: {major}.{minor}.{patchlevel}");
+    }
+
     if let Ok(mark_name) = amdgpu_dev.get_marketing_name() {
         println!("Marketing Name: [{mark_name}]");
     }
