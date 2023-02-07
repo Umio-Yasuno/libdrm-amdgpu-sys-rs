@@ -3,7 +3,7 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 
 ## Examples
 
-    cargo run --example amdgpu_info
+    cargo run --example amdgpu_info --features=std
 
 ## License
  * MIT License
