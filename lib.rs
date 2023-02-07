@@ -16,7 +16,5 @@ pub mod AMDGPU {
     pub use amdgpu_mod::*;
 }
 
-#[cfg(feature = "std")]
 mod pci_bus_info;
-#[cfg(feature = "std")]
 pub use pci_bus_info::*;

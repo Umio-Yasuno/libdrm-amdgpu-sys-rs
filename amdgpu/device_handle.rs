@@ -65,19 +65,19 @@ impl DeviceHandle {
 
     pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
         let fd = self.get_fd();
-        let mut drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
+        let mut _drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
 
-        if drm_ver_ptr.is_null() {
+        if _drm_ver_ptr.is_null() {
             return Err(());
         }
 
         let ver = unsafe { (
-            (*drm_ver_ptr).version_major,
-            (*drm_ver_ptr).version_minor,
-            (*drm_ver_ptr).version_patchlevel,
+            (*_drm_ver_ptr).version_major,
+            (*_drm_ver_ptr).version_minor,
+            (*_drm_ver_ptr).version_patchlevel,
         ) };
 
-        unsafe { bindings::drmFreeVersion(drm_ver_ptr) }
+        unsafe { bindings::drmFreeVersion(_drm_ver_ptr) }
 
         Ok(ver)
     }
@@ -200,6 +200,10 @@ impl DeviceHandle {
 
     pub fn num_bytes_moved(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
+    }
+
+    pub fn get_pci_bus_info(&self) -> Result<PCI::BUS_INFO, i32> {
+        PCI::BUS_INFO::drm_get_device2(self.get_fd())
     }
 }
 

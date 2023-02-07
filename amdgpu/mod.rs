@@ -21,20 +21,20 @@ pub use amdgpu_chip_class::*;
 mod gpu_info;
 pub use gpu_info::*;
 
-    mod amdgpu_vbios;
-    pub use amdgpu_vbios::*;
+mod amdgpu_vbios;
+pub use amdgpu_vbios::*;
 
-    mod amdgpu_video_caps;
-    pub use amdgpu_video_caps::*;
+mod amdgpu_video_caps;
+pub use amdgpu_video_caps::*;
 
-    mod amdgpu_hw_ip;
-    pub use amdgpu_hw_ip::*;
+mod amdgpu_hw_ip;
+pub use amdgpu_hw_ip::*;
 
-    mod amdgpu_fw_version;
-    pub use amdgpu_fw_version::*;
+mod amdgpu_fw_version;
+pub use amdgpu_fw_version::*;
 
-    mod amdgpu_cs;
-    pub use amdgpu_cs::*;
+// mod amdgpu_cs;
+// pub use amdgpu_cs::*;
 
-    mod amdgpu_sensor_info;
-    pub use amdgpu_sensor_info::*;
+mod amdgpu_sensor_info;
+pub use amdgpu_sensor_info::*;

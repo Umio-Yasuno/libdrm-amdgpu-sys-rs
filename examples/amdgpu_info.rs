@@ -1,16 +1,14 @@
 use libdrm_amdgpu_sys::*;
 
 fn main() {
-    let fd = {
+    let amdgpu_dev ={
         use std::fs::File;
         use std::os::unix::io::IntoRawFd;
 
-        let v = File::open("/dev/dri/renderD128").unwrap();
+        let fd = File::open("/dev/dri/renderD128").unwrap();
 
-        v.into_raw_fd()
+        AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
     };
-
-    let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
     if let Ok(drm_ver) = amdgpu_dev.get_drm_version() {
         let (major, minor, patchlevel) = drm_ver;
@@ -24,7 +22,7 @@ fn main() {
     if let Ok(ext_info) = amdgpu_dev.device_info() {
         use AMDGPU::GPU_INFO;
 
-        // println!("\n{ext_info:#?}\n");
+        // println!("\n{ext_info:#X?}\n");
 
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
@@ -33,20 +31,20 @@ fn main() {
         );
 
         println!();
-        println!("Family: {}", ext_info.get_family_name());
-        println!("ASIC Name: {}", ext_info.get_asic_name());
-        println!("Chip class: {}", ext_info.get_chip_class());
+        println!("Family:\t\t{}", ext_info.get_family_name());
+        println!("ASIC Name:\t{}", ext_info.get_asic_name());
+        println!("Chip class:\t{}", ext_info.get_chip_class());
 
         println!();
-        println!("CU: {}", ext_info.cu_active_number());
-        println!("Max Engine Clock: {} MHz", ext_info.max_engine_clock() / 1000);
-        println!("Peak FP32: {} GFLOPS", ext_info.peak_gflops());
+        println!("CU:\t\t\t{}", ext_info.cu_active_number());
+        println!("Max Engine Clock:\t{} MHz", ext_info.max_engine_clock() / 1000);
+        println!("Peak FP32:\t\t{} GFLOPS", ext_info.peak_gflops());
 
         println!();
-        println!("VRAM Type: {}", ext_info.get_vram_type());
-        println!("VRAM Bit Width: {}-bit", ext_info.vram_bit_width);
-        println!("Peak Memory BW: {} GB/s", ext_info.peak_memory_bw_gb());
-        println!("L2cache: {} KiB", ext_info.calc_l2_cache_size() / 1024);
+        println!("VRAM Type:\t{}", ext_info.get_vram_type());
+        println!("VRAM Bit Width:\t{}-bit", ext_info.vram_bit_width);
+        println!("Peak Memory BW:\t{} GB/s", ext_info.peak_memory_bw_gb());
+        println!("L2cache:\t{} KiB", ext_info.calc_l2_cache_size() / 1024);
     }
 
     if let Ok(info) = amdgpu_dev.memory_info() {
@@ -165,8 +163,7 @@ fn main() {
             CODEC::AV1,
         ];
 
-        println!();
-        println!("Video caps:");
+        println!("\nVideo caps:");
 
         for codec in &codec_list {
             let [dec_cap, enc_cap] = [dec, enc].map(|type_| type_.get_codec_info(*codec));
@@ -177,7 +174,7 @@ fn main() {
         }
     }
 
-    if let Ok(bus_info) = PCI::BUS_INFO::drm_get_device2(fd) {
+    if let Ok(bus_info) = amdgpu_dev.get_pci_bus_info() {
         let cur = bus_info.get_link_info(PCI::STATUS::Current);
         let max = bus_info.get_link_info(PCI::STATUS::Max);
 

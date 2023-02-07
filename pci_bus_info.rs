@@ -40,6 +40,7 @@ impl PCI::BUS_INFO {
         }
     }
 
+    #[cfg(feature = "std")]
     pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [std::path::PathBuf; 2] {
         use std::path::PathBuf;
 
@@ -56,6 +57,7 @@ impl PCI::BUS_INFO {
         .map(|file_name| path.join(file_name));
     }
 
+    #[cfg(feature = "std")]
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
         let [speed, width] = Self::get_link_sysfs_path(&self, status)
             .map(|path| std::fs::read_to_string(path).unwrap());
@@ -66,6 +68,7 @@ impl PCI::BUS_INFO {
         return PCI::LINK { gen, width };
     }
 
+    #[cfg(feature = "std")]
     fn speed_to_gen(speed: &str) -> u8 {
         match speed {
             "2.5 GT/s PCIe" => 1,
