@@ -16,21 +16,21 @@ macro_rules! query_error {
 mod device_handle;
 pub use device_handle::*;
 
-#[path = "amdgpu/amdgpu_family.rs"]
-mod amdgpu_family;
-pub use amdgpu_family::*;
+#[path = "amdgpu/family.rs"]
+mod family;
+pub use family::*;
 
-#[path = "amdgpu/amdgpu_vram.rs"]
-mod amdgpu_vram;
-pub use amdgpu_vram::*;
+#[path = "amdgpu/vram.rs"]
+mod vram;
+pub use vram::*;
 
-#[path = "amdgpu/amdgpu_asic.rs"]
-mod amdgpu_asic;
-pub use amdgpu_asic::*;
+#[path = "amdgpu/asic.rs"]
+mod asic;
+pub use asic::*;
 
-#[path = "amdgpu/amdgpu_chip_class.rs"]
-mod amdgpu_chip_class;
-pub use amdgpu_chip_class::*;
+#[path = "amdgpu/chip_class.rs"]
+mod chip_class;
+pub use chip_class::*;
 
 #[path = "amdgpu/gpu_info.rs"]
 mod gpu_info;
@@ -38,26 +38,26 @@ pub use gpu_info::*;
 
 #[path = "amdgpu/"]
 pub mod VBIOS {
-    mod amdgpu_vbios;
-    pub use amdgpu_vbios::*;
+    mod vbios;
+    pub use vbios::*;
 }
 
 #[path = "amdgpu/"]
 pub mod VIDEO_CAPS {
-    mod amdgpu_video_caps;
-    pub use amdgpu_video_caps::*;
+    mod video_caps;
+    pub use video_caps::*;
 }
 
 #[path = "amdgpu/"]
 pub mod HW_IP {
-    mod amdgpu_hw_ip;
-    pub use amdgpu_hw_ip::*;
+    mod hw_ip;
+    pub use hw_ip::*;
 }
 
 #[path = "amdgpu/"]
 pub mod FW_VERSION {
-    mod amdgpu_fw_version;
-    pub use amdgpu_fw_version::*;
+    mod fw_version;
+    pub use fw_version::*;
 }
 
 /*
@@ -70,6 +70,6 @@ pub mod CS {
 
 #[path = "amdgpu/"]
 pub mod SENSOR_INFO {
-    mod amdgpu_sensor_info;
-    pub use amdgpu_sensor_info::*;
+    mod sensor_info;
+    pub use sensor_info::*;
 }
