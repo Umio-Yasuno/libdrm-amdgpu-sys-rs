@@ -35,12 +35,31 @@ fn main() {
         println!("ASIC Name:\t{}", ext_info.get_asic_name());
         println!("Chip class:\t{}", ext_info.get_chip_class());
 
+        let max_good_cu_per_sa = ext_info.get_max_good_cu_per_sa();
+        let min_good_cu_per_sa = ext_info.get_min_good_cu_per_sa();
+
         println!();
-        println!("CU:\t\t\t{}", ext_info.cu_active_number());
+        println!("Shader Engine (SE):\t\t{:3}", ext_info.max_se());
+        println!("Shader Array (SA/SH) per SE:\t{:3}", ext_info.max_sa_per_se());
+        if max_good_cu_per_sa != min_good_cu_per_sa {
+            println!("CU per SA[0]:\t\t\t{:3}", max_good_cu_per_sa);
+            println!("CU per SA[1]:\t\t\t{:3}", min_good_cu_per_sa);
+        } else {
+            println!("CU per SA:\t\t\t{:3}", max_good_cu_per_sa);
+        }
+        println!("Total Compute Unit:\t\t{:3}", ext_info.cu_active_number());
+
         println!("Max Engine Clock:\t{} MHz", ext_info.max_engine_clock() / 1000);
         println!("Peak FP32:\t\t{} GFLOPS", ext_info.peak_gflops());
 
+        let gpu_type = if ext_info.is_apu() {
+            "APU"
+        } else {
+            "dGPU"
+        };
+
         println!();
+        println!("GPU Type:\t{gpu_type}");
         println!("VRAM Type:\t{}", ext_info.get_vram_type());
         println!("VRAM Bit Width:\t{}-bit", ext_info.vram_bit_width);
         println!("Peak Memory BW:\t{} GB/s", ext_info.peak_memory_bw_gb());
@@ -95,8 +114,8 @@ fn main() {
                 }
 
                 println!(
-                    "{:8} count: {ip_count}, ver: {major:2}.{minor}, queues: {queues}",
-                    ip_type.to_string()
+                    "{ip_type:8} count: {ip_count}, ver: {major:2}.{minor}, queues: {queues}",
+                    ip_type = ip_type.to_string(),
                 );
             }
         }
@@ -142,7 +161,10 @@ fn main() {
                 continue;
             }
 
-            println!("{fw_type}:\n   ver: {ver:>#10X}, feature: {ftr:>3}");
+            println!(
+                "{fw_type:<8} ver: {ver:>#10X}, feature: {ftr:>3}",
+                fw_type = fw_type.to_string(),
+            );
         }
     }
 
@@ -203,9 +225,11 @@ fn main() {
         println!("date: [{date}]");
     }
 
+/*
     if let Ok(vce_clock) = amdgpu_dev.vce_clock_info() {
         println!("\n{vce_clock:#?}");
     }
+*/
 
     {
         use AMDGPU::SENSOR_INFO::*;

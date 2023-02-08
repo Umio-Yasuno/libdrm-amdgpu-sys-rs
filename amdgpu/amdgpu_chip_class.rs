@@ -49,8 +49,8 @@ pub enum CHIP_CLASS {
     GFX10_3,
 }
 
-impl CHIP_CLASS {
-    pub fn from_asic_name(asic_name: ASIC_NAME) -> Self {
+impl From<ASIC_NAME> for CHIP_CLASS {
+    fn from(asic_name: ASIC_NAME) -> Self {
         if asic_name >= ASIC_NAME::CHIP_NAVI21 {
             Self::GFX10_3
         } else if asic_name >= ASIC_NAME::CHIP_NAVI10 {
@@ -67,9 +67,19 @@ impl CHIP_CLASS {
             Self::CLASS_UNKNOWN
         }
     }
+}
 
+impl CHIP_CLASS {
     pub fn has_packed_math_16bit(&self) -> bool {
         *self >= Self::GFX9
+    }
+
+    pub fn cu_group(&self) -> u8 {
+        if *self >= Self::GFX10 {
+            2
+        } else {
+            1
+        }
     }
 }
 

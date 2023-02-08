@@ -190,6 +190,7 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
     }
 
+    /// drm_amdgpu_info_vce_clock_table is invalid
     pub fn vce_clock_info(&self) -> Result<drm_amdgpu_info_vce_clock_table, i32> {
         Self::query(self, AMDGPU_INFO_VCE_CLOCK_TABLE)
     }

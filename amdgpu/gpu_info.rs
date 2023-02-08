@@ -13,6 +13,8 @@ pub trait GPU_INFO {
     fn ids_flags(&self) -> u64;
     fn rb_pipes(&self) -> u32;
     fn cu_active_number(&self) -> u32;
+    fn max_se(&self) -> u32;
+    fn max_sa_per_se(&self) -> u32;
 
     fn get_family_name(&self) -> AMDGPU::FAMILY_NAME {
         AMDGPU::FAMILY_NAME::from(self.family_id())
@@ -33,7 +35,7 @@ pub trait GPU_INFO {
     fn is_apu(&self) -> bool {
         use crate::bindings::AMDGPU_IDS_FLAGS_FUSION;
 
-        return (self.ids_flags() & AMDGPU_IDS_FLAGS_FUSION as u64) != 0;
+        (self.ids_flags() & AMDGPU_IDS_FLAGS_FUSION as u64) != 0
     }
 
     fn peak_memory_bw(&self) -> u64 {
@@ -53,7 +55,7 @@ pub trait GPU_INFO {
             4
         };
 
-        return self.rb_pipes() * rop_per_rb;
+        self.rb_pipes() * rop_per_rb
     }
 
     fn peak_gflops(&self) -> u32 {
@@ -88,6 +90,23 @@ pub trait GPU_INFO {
         }
 
         Ok("AMD Radeon Graphics".to_string())
+    }
+
+    fn get_max_good_cu_per_sa(&self) -> u32 {
+        let cu_group = self.get_chip_class().cu_group() as u32;
+        let max_sa = self.max_se() * self.max_sa_per_se();
+        let div_round_up = |n: u32, d: u32| -> u32 {
+            (n + d - 1) / d
+        };
+
+        div_round_up(self.cu_active_number(), max_sa * cu_group) * cu_group
+    }
+
+    fn get_min_good_cu_per_sa(&self) -> u32 {
+        let cu_group = self.get_chip_class().cu_group() as u32;
+        let max_sa = self.max_se() * self.max_sa_per_se();
+
+        self.cu_active_number() / (max_sa * cu_group) * cu_group
     }
 }
 
@@ -125,6 +144,12 @@ impl GPU_INFO for amdgpu_gpu_info {
     fn cu_active_number(&self) -> u32 {
         self.cu_active_number
     }
+    fn max_se(&self) -> u32 {
+        self.num_shader_engines
+    }
+    fn max_sa_per_se(&self) -> u32 {
+        self.num_shader_arrays_per_engine
+    }
 }
 
 impl GPU_INFO for drm_amdgpu_info_device {
@@ -160,6 +185,12 @@ impl GPU_INFO for drm_amdgpu_info_device {
     }
     fn cu_active_number(&self) -> u32 {
         self.cu_active_number
+    }
+    fn max_se(&self) -> u32 {
+        self.num_shader_engines
+    }
+    fn max_sa_per_se(&self) -> u32 {
+        self.num_shader_arrays_per_engine
     }
 }
 

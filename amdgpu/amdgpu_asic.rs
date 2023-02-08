@@ -212,7 +212,7 @@ impl ASIC_NAME {
     }
 
     pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
-        AMDGPU::CHIP_CLASS::from_asic_name(*self)
+        AMDGPU::CHIP_CLASS::from(*self)
     }
     /*
         https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c
@@ -259,6 +259,14 @@ impl ASIC_NAME {
             2
         } else {
             4
+        }
+    }
+
+    pub fn cu_group(&self) -> u8 {
+        if *self >= Self::CHIP_NAVI10 {
+            2
+        } else {
+            1
         }
     }
 
