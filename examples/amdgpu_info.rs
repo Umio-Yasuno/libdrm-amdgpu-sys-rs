@@ -3,7 +3,7 @@ use libdrm_amdgpu_sys::*;
 fn main() {
     let amdgpu_dev ={
         use std::fs::File;
-        use std::os::unix::io::IntoRawFd;
+        use std::os::fd::IntoRawFd;
 
         let fd = File::open("/dev/dri/renderD128").unwrap();
 

@@ -15,15 +15,13 @@ fn dump(image: &[u8], vbios_name: String) -> io::Result<()> {
 }
 
 fn main() {
-    let fd = {
-        use std::os::unix::io::IntoRawFd;
+    let amdgpu_dev = {
+        use std::os::fd::IntoRawFd;
 
-        let v = File::open("/dev/dri/renderD128").unwrap();
+        let f = File::open("/dev/dri/renderD128").unwrap();
 
-        v.into_raw_fd()
+        AMDGPU::DeviceHandle::init(f.into_raw_fd()).unwrap()
     };
-
-    let amdgpu_dev = AMDGPU::DeviceHandle::init(fd).unwrap();
 
     if let (Ok(vbios), Ok(vbios_size)) = unsafe {
         (amdgpu_dev.vbios_info(), amdgpu_dev.vbios_size())
