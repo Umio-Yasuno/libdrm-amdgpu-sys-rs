@@ -94,8 +94,9 @@ impl fmt::Display for PCI::BUS_INFO {
     }
 }
 
+use crate::bindings;
 use crate::{
-    bindings::{drmDevicePtr, drmGetDevice2, drmFreeDevice},
+    bindings::{drmDevicePtr, drmFreeDevice},
     query_error,
 };
 use core::mem::MaybeUninit;
@@ -103,7 +104,7 @@ use core::mem::MaybeUninit;
 unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
     let mut drm_dev_info: MaybeUninit<drmDevicePtr> = MaybeUninit::uninit();
 
-    let r = drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
+    let r = bindings::drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
 
     query_error!(r);
 

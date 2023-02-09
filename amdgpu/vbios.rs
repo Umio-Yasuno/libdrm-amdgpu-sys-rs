@@ -2,6 +2,7 @@ use crate::AMDGPU::*;
 use crate::*;
 
 use core::mem::{size_of, MaybeUninit};
+use core::ptr;
 
 impl DeviceHandle {
     unsafe fn query_vbios<T>(
@@ -11,19 +12,17 @@ impl DeviceHandle {
         use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
 
         let mut vbios: MaybeUninit<T> = MaybeUninit::uninit();
+        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
 
-        // std::ptr::write_bytes(device_info.as_mut_ptr(), 0x0, 1);
-        let mut device_info: drm_amdgpu_info = core::mem::zeroed();
+        {
+            let ptr = device_info.as_mut_ptr();
 
-        device_info.return_pointer = vbios.as_mut_ptr() as u64;
-        device_info.return_size = size_of::<T>() as u32;
-        device_info.query = AMDGPU_INFO_VBIOS;
+            ptr::addr_of_mut!((*ptr).return_pointer).write(vbios.as_mut_ptr() as u64);
+            ptr::addr_of_mut!((*ptr).return_size).write(size_of::<T> as u32);
+            ptr::addr_of_mut!((*ptr).query).write(AMDGPU_INFO_VBIOS);
 
-        device_info.__bindgen_anon_1.vbios_info.type_ = info_id;
-
-        // println!("vbios type: {}", device_info.__bindgen_anon_1.vbios_info.type_);
-
-        let mut device_info = MaybeUninit::new(device_info);
+            ptr::addr_of_mut!((*ptr).__bindgen_anon_1.vbios_info.type_).write(info_id);
+        }
 
         let r = drmCommandWrite(
             self.get_fd(),
@@ -58,16 +57,18 @@ impl DeviceHandle {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
         let mut vbios_image = vec![0; vbios_size];
+        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
 
-        let mut device_info: drm_amdgpu_info = core::mem::zeroed();
+        {
+            let ptr = device_info.as_mut_ptr();
 
-        device_info.return_pointer = vbios_image.as_mut_ptr() as u64;
-        device_info.return_size = vbios_size as u32;
-        device_info.query = AMDGPU_INFO_VBIOS;
+            ptr::addr_of_mut!((*ptr).return_pointer).write(vbios_image.as_mut_ptr() as u64);
+            ptr::addr_of_mut!((*ptr).return_size).write(vbios_size as u32);
+            ptr::addr_of_mut!((*ptr).query).write(AMDGPU_INFO_VBIOS);
 
-        device_info.__bindgen_anon_1.vbios_info.type_ = AMDGPU_INFO_VBIOS_IMAGE;
-
-        let mut device_info = MaybeUninit::new(device_info);
+            ptr::addr_of_mut!((*ptr).__bindgen_anon_1.vbios_info.type_)
+                .write(AMDGPU_INFO_VBIOS_IMAGE);
+        }
 
         let r = drmCommandWrite(
             self.get_fd(),
