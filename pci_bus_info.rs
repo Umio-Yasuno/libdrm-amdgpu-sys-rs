@@ -106,9 +106,11 @@ unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevic
 
     let r = bindings::drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
 
+    let drm_dev_info = drm_dev_info.assume_init();
+
     query_error!(r);
 
-    return Ok(drm_dev_info.assume_init());
+    return Ok(drm_dev_info);
 }
 
 unsafe fn __drmFreeDevice(device: *mut drmDevicePtr) {

@@ -14,9 +14,11 @@ impl DeviceHandle {
                 val.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
+            let val = val.assume_init();
+
             query_error!(r);
 
-            return Ok(val.assume_init());
+            return Ok(val);
         }
     }
 }

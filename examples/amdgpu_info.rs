@@ -1,7 +1,7 @@
 use libdrm_amdgpu_sys::*;
 
 fn main() {
-    let amdgpu_dev ={
+    let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
         use std::os::fd::IntoRawFd;
 

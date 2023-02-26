@@ -18,9 +18,11 @@ impl DeviceHandle {
                 hw_ip_count.as_mut_ptr(),
             );
 
+            let hw_ip_count = hw_ip_count.assume_init();
+
             query_error!(r);
 
-            return Ok(hw_ip_count.assume_init());
+            return Ok(hw_ip_count);
         }
     }
 
@@ -39,9 +41,11 @@ impl DeviceHandle {
                 hw_ip_info.as_mut_ptr(),
             );
 
+            let hw_ip_info = hw_ip_info.assume_init();
+
             query_error!(r);
 
-            return Ok(hw_ip_info.assume_init());
+            return Ok(hw_ip_info);
         }
     }
 }

@@ -15,7 +15,7 @@ impl DeviceHandle {
         ip_instance: ::core::ffi::c_uint,
         index: ::core::ffi::c_uint,
     ) -> Result<FwVer, i32> {
-        let fw_ver = unsafe {
+        unsafe {
             let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
 
@@ -28,15 +28,15 @@ impl DeviceHandle {
                 feature.as_mut_ptr(),
             );
 
-            query_error!(r);
-
-            FwVer {
+            let fw_ver = FwVer {
                 version: version.assume_init(),
                 feature: feature.assume_init(),
-            }
-        };
+            };
 
-        return Ok(fw_ver);
+            query_error!(r);
+
+            return Ok(fw_ver);
+        };
     }
 }
 

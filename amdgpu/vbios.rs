@@ -31,10 +31,10 @@ impl DeviceHandle {
             size_of::<drm_amdgpu_info> as u64,
         );
 
-        query_error!(r);
-
         let _ = device_info.assume_init();
         let vbios = vbios.assume_init();
+
+        query_error!(r);
 
         return Ok(vbios);
     }
@@ -77,9 +77,9 @@ impl DeviceHandle {
             size_of::<drm_amdgpu_info> as u64,
         );
 
-        query_error!(r);
-
         let _ = device_info.assume_init();
+
+        query_error!(r);
 
         return Ok(vbios_image);
     }

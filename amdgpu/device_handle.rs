@@ -26,28 +26,25 @@ use core::mem::{size_of, MaybeUninit};
 pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
 
 impl DeviceHandle {
-    pub fn init(fd: i32) -> Result<Self, i32> {
+    pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
-            let mut _major: MaybeUninit<u32> = MaybeUninit::zeroed();
-            let mut _minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_device_initialize(
                 fd,
-                _major.as_mut_ptr(),
-                _minor.as_mut_ptr(),
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
                 amdgpu_dev.as_mut_ptr(),
             );
 
+            let [major, minor] = [major.assume_init(), minor.assume_init()];
+            let amdgpu_dev = Self(amdgpu_dev.assume_init());
+
             query_error!(r);
 
-            /*
-            let [_major, _minor] = [_major, _minor].map(
-                |v| v.assume_init()
-            );
-            */
-
-            return Ok(Self(amdgpu_dev.assume_init()));
+            return Ok((amdgpu_dev, major, minor));
         }
     }
 
@@ -106,9 +103,11 @@ impl DeviceHandle {
 
             let r = bindings::amdgpu_query_gpu_info(self.0, gpu_info.as_mut_ptr());
 
+            let gpu_info = gpu_info.assume_init();
+
             query_error!(r);
 
-            return Ok(gpu_info.assume_init());
+            return Ok(gpu_info);
         }
     }
 
@@ -118,9 +117,11 @@ impl DeviceHandle {
 
             let r = bindings::amdgpu_query_gds_info(self.0, gds_info.as_mut_ptr());
 
+            let gds_info = gds_info.assume_init();
+
             query_error!(r);
 
-            return Ok(gds_info.assume_init());
+            return Ok(gds_info);
         }
     }
 
@@ -134,43 +135,30 @@ impl DeviceHandle {
                 val.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
-            query_error!(r);
-
-            return Ok(val.assume_init());
-        }
-    }
-
-    /*
-    fn query_heap_info(self) -> Result<amdgpu_heap_info, i32> {
-        unsafe {
-            let mut heap_info: MaybeUninit<amdgpu_heap_info> = MaybeUninit::zeroed();
-
-            let r = bindings::amdgpu_query_heap_info(
-                self,
-                heap_info.as_mut_ptr(),
-            );
+            let val = val.assume_init();
 
             query_error!(r);
 
-            return Ok(heap_info.assume_init());
+            return Ok(val);
         }
     }
-    */
 
     fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
         unsafe {
-            let mut device_info: MaybeUninit<T> = MaybeUninit::uninit();
+            let mut dev: MaybeUninit<T> = MaybeUninit::uninit();
 
             let r = bindings::amdgpu_query_info(
                 self.0,
                 info_id,
                 size_of::<T>() as u32,
-                device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
+                dev.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
+
+            let dev = dev.assume_init();
 
             query_error!(r);
 
-            return Ok(device_info.assume_init());
+            return Ok(dev);
         }
     }
 

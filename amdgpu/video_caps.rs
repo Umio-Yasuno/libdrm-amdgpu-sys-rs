@@ -33,9 +33,9 @@ impl DeviceHandle {
                 video_caps.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 
-            query_error!(r);
-
             let video_caps = video_caps.assume_init();
+
+            query_error!(r);
 
             return Ok(video_caps);
         }
