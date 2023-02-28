@@ -23,6 +23,11 @@ fn main() {
         use AMDGPU::GPU_INFO;
 
         // println!("\n{ext_info:#X?}\n");
+        let gpu_type = if ext_info.is_apu() {
+            "APU"
+        } else {
+            "dGPU"
+        };
 
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
@@ -34,6 +39,7 @@ fn main() {
         println!("Family:\t\t{}", ext_info.get_family_name());
         println!("ASIC Name:\t{}", ext_info.get_asic_name());
         println!("Chip class:\t{}", ext_info.get_chip_class());
+        println!("GPU Type:\t{gpu_type}");
 
         let max_good_cu_per_sa = ext_info.get_max_good_cu_per_sa();
         let min_good_cu_per_sa = ext_info.get_min_good_cu_per_sa();
@@ -49,24 +55,30 @@ fn main() {
         }
         println!("Total Compute Unit:\t\t{:3}", ext_info.cu_active_number());
 
-        println!("Max Engine Clock:\t{} MHz", ext_info.max_engine_clock() / 1000);
+        if let Some(min_clk) = amdgpu_dev.get_min_gpu_clock_from_sysfs() {
+            println!("Min Engine Clock:\t{min_clk:4} MHz");
+        }
+        // KHz / 1000
+        println!("Max Engine Clock:\t{:4} MHz", ext_info.max_engine_clock() / 1000);
         println!("Peak FP32:\t\t{} GFLOPS", ext_info.peak_gflops());
 
-        let gpu_type = if ext_info.is_apu() {
-            "APU"
-        } else {
-            "dGPU"
-        };
-
         println!();
-        println!("GPU Type:\t{gpu_type}");
-        println!("VRAM Type:\t{}", ext_info.get_vram_type());
-        println!("VRAM Bit Width:\t{}-bit", ext_info.vram_bit_width);
-        println!("Peak Memory BW:\t{} GB/s", ext_info.peak_memory_bw_gb());
-        println!("L2cache:\t{} KiB", ext_info.calc_l2_cache_size() / 1024);
+        println!("VRAM Type:\t\t{}", ext_info.get_vram_type());
+        println!("VRAM Bit Width:\t\t{}-bit", ext_info.vram_bit_width);
+        if let Some(min_clk) = amdgpu_dev.get_min_memory_clock_from_sysfs() {
+            println!("Min Memory Clock:\t{min_clk:4} MHz");
+        }
+        println!("Max Memory Clock:\t{:4} MHz", ext_info.max_memory_clock() / 1000);
+        println!("Peak Memory BW:\t\t{} GB/s", ext_info.peak_memory_bw_gb());
+        println!(
+            "L2cache:\t\t{} KiB ({} Banks)",
+            ext_info.calc_l2_cache_size() / 1024,
+            ext_info.num_tcc_blocks
+        );
     }
 
     if let Ok(info) = amdgpu_dev.memory_info() {
+        println!();
         println!(
             "VRAM Usage:\t\t\t{usage}/{total} MiB",
             usage = info.vram.heap_usage / 1024 / 1024,
