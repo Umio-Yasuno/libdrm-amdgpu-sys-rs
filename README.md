@@ -1,6 +1,9 @@
 # libdrm-amdgpu-sys-rs
 libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac_gpu_info.c](https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c)).  
 
+## License
+ * MIT License
+
 ## Examples
 ### amdgpu_info
 
@@ -10,5 +13,6 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 
     cargo run --example vbios_dump 
 
-## License
- * MIT License
+### amdgpu_top
+
+    cargo run --example amdgpu_top  
