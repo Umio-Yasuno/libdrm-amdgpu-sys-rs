@@ -7,23 +7,23 @@ use libdrm_amdgpu_sys::*;
 /* ref: http://developer.amd.com/wordpress/media/2013/10/CIK_3D_registers_v2.pdf */
 
 struct GRBM {
-    ta: u32, // Texture Addresser?
-    gds: u32, // Global Data Share
-    vgt: u32, // Vertex Grouper and Tessellator
-    ia: u32, // Input Assembly?
-    sx: u32, // Shader Export
-    spi: u32, // Shader Pipe Interpolator
-    bci: u32, // Barycentric interpolation control
-    sc: u32, // Scan Convertor
-    pa: u32, // Primitive Assembly
-    db: u32, // Depth Block? Depth Buffer?
-    cp: u32, // Command Processor?
-    cb: u32, // Color Buffer
-    gui_active: u32,
+    ta: u8, // Texture Addresser?
+    gds: u8, // Global Data Share
+    vgt: u8, // Vertex Grouper and Tessellator
+    ia: u8, // Input Assembly?
+    sx: u8, // Shader Export
+    spi: u8, // Shader Pipe Interpolator
+    bci: u8, // Barycentric interpolation control
+    sc: u8, // Scan Convertor
+    pa: u8, // Primitive Assembly
+    db: u8, // Depth Block? Depth Buffer?
+    cp: u8, // Command Processor?
+    cb: u8, // Color Buffer
+    gui_active: u8,
 }
 
 impl GRBM {
-    fn new() -> Self {
+    const fn new() -> Self {
         Self {
             ta: 0,
             gds: 0,
@@ -34,7 +34,7 @@ impl GRBM {
             bci: 0,
             sc: 0,
             pa: 0,
-            db: 0, // Depth Block
+            db: 0,
             cp: 0,
             cb: 0,
             gui_active: 0,
@@ -42,35 +42,23 @@ impl GRBM {
     }
 
     fn clear(&mut self) {
-        self.ta = 0;
-        self.gds = 0;
-        self.vgt = 0;
-        self.ia = 0;
-        self.sx = 0;
-        self.spi = 0;
-        self.bci = 0;
-        self.sc = 0;
-        self.pa = 0;
-        self.db = 0;
-        self.cp = 0;
-        self.cb = 0;
-        self.gui_active = 0;
+        *self = Self::new()
     }
 
     fn acc(&mut self, reg: u32) {
-        self.ta += (reg >> 14) & 0b1;
-        self.gds += (reg >> 15) & 0b1;
-        self.vgt += (reg >> 17) & 0b1;
-        self.ia += (reg >> 19) & 0b1;
-        self.sx += (reg >> 20) & 0b1;
-        self.spi += (reg >> 22) & 0b1;
-        self.bci += (reg >> 23) & 0b1;
-        self.sc += (reg >> 24) & 0b1;
-        self.pa += (reg >> 25) & 0b1;
-        self.db += (reg >> 26) & 0b1;
-        self.cp += (reg >> 29) & 0b1;
-        self.cb += (reg >> 30) & 0b1;
-        self.gui_active += (reg >> 31) & 0b1;
+        self.ta += ((reg >> 14) & 0b1) as u8;
+        self.gds += ((reg >> 15) & 0b1) as u8;
+        self.vgt += ((reg >> 17) & 0b1) as u8;
+        self.ia += ((reg >> 19) & 0b1) as u8;
+        self.sx += ((reg >> 20) & 0b1) as u8;
+        self.spi += ((reg >> 22) & 0b1) as u8;
+        self.bci += ((reg >> 23) & 0b1) as u8;
+        self.sc += ((reg >> 24) & 0b1) as u8;
+        self.pa += ((reg >> 25) & 0b1) as u8;
+        self.db += ((reg >> 26) & 0b1) as u8;
+        self.cp += ((reg >> 29) & 0b1) as u8;
+        self.cb += ((reg >> 30) & 0b1) as u8;
+        self.gui_active += ((reg >> 31) & 0b1) as u8;
     }
 }
 
@@ -84,11 +72,18 @@ fn main() {
         AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
     };
 
+    let offset = {
+        use AMDGPU::GPU_INFO;
+        let ext_info = amdgpu_dev.device_info().unwrap();
+
+        ext_info.get_family_name().get_grbm_offset()
+    };
+
     let mut grbm = GRBM::new();
     let delay = std::time::Duration::from_millis(10);
     for _ in 0..10 {
         for _ in 0..100 {
-            if let Ok(out) = amdgpu_dev.read_grbm() {
+            if let Ok(out) = amdgpu_dev.read_mm_registers(offset) {
                 grbm.acc(out);
             }
             std::thread::sleep(delay);

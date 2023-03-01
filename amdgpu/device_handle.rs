@@ -53,7 +53,7 @@ impl DeviceHandle {
 
         query_error!(r);
 
-        return Ok(r);
+        Ok(r)
     }
 
     pub fn get_fd(&self) -> i32 {

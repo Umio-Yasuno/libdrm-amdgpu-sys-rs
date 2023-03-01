@@ -44,6 +44,44 @@ impl FAMILY_NAME {
     pub fn asic_name(&self, chip_external_rev: u32) -> AMDGPU::ASIC_NAME {
         AMDGPU::ASIC_NAME::get(*self, chip_external_rev)
     }
+
+    pub fn get_grbm_offset(&self) -> u32 {
+        match self {
+            Self::NV |
+            Self::VGH |
+            Self::YC => 0xDA4,
+            Self::AI |
+            Self::RV => 0x4,
+            _ => 0x2004,
+        }
+    }
+
+    pub fn get_grbm2_offset(&self) -> u32 {
+        self.get_grbm_offset() - 0x2
+    }
+
+    pub fn get_srbm_offset(&self) -> u32 {
+        0x394
+    }
+
+    pub fn get_srbm2_offset(&self) -> u32 {
+        0x393
+    }
+
+    pub fn get_srbm3_offset(&self) -> u32 {
+        0x395
+    }
+
+    pub fn get_cp_stat_offset(&self) -> u32 {
+        match self {
+            Self::NV |
+            Self::VGH |
+            Self::YC => 0xF40,
+            Self::AI |
+            Self::RV => 0x1A0,
+            _ => 0x21A0,
+        }
+    }
 }
 
 #[cfg(feature = "std")]
