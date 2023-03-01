@@ -6,6 +6,12 @@ use libdrm_amdgpu_sys::*;
 /* ref: https://developer.amd.com/wordpress/media/2013/10/R6xx_R7xx_3D.pdf */
 /* ref: http://developer.amd.com/wordpress/media/2013/10/CIK_3D_registers_v2.pdf */
 
+macro_rules! get_bit {
+    ($reg: expr, $shift: expr) => {
+        (($reg >> $shift) & 0b1) as u8
+    };
+}
+
 struct GRBM {
     ta: u8, // Texture Addresser?
     gds: u8, // Global Data Share
@@ -46,21 +52,40 @@ impl GRBM {
     }
 
     fn acc(&mut self, reg: u32) {
-        self.ta += ((reg >> 14) & 0b1) as u8;
-        self.gds += ((reg >> 15) & 0b1) as u8;
-        self.vgt += ((reg >> 17) & 0b1) as u8;
-        self.ia += ((reg >> 19) & 0b1) as u8;
-        self.sx += ((reg >> 20) & 0b1) as u8;
-        self.spi += ((reg >> 22) & 0b1) as u8;
-        self.bci += ((reg >> 23) & 0b1) as u8;
-        self.sc += ((reg >> 24) & 0b1) as u8;
-        self.pa += ((reg >> 25) & 0b1) as u8;
-        self.db += ((reg >> 26) & 0b1) as u8;
-        self.cp += ((reg >> 29) & 0b1) as u8;
-        self.cb += ((reg >> 30) & 0b1) as u8;
-        self.gui_active += ((reg >> 31) & 0b1) as u8;
+        self.ta += get_bit!(reg, 14);
+        self.gds += get_bit!(reg, 15);
+        self.vgt += get_bit!(reg, 17);
+        self.ia += get_bit!(reg, 19);
+        self.sx += get_bit!(reg, 20);
+        self.spi += get_bit!(reg, 22);
+        self.bci += get_bit!(reg, 23);
+        self.sc += get_bit!(reg, 24);
+        self.pa += get_bit!(reg, 25);
+        self.db += get_bit!(reg, 26);
+        self.cp += get_bit!(reg, 29);
+        self.cb += get_bit!(reg, 30);
+        self.gui_active += get_bit!(reg, 31);
     }
 }
+
+
+/*
+// SRBM
+struct UVD_BUSY(u8);
+impl UVD_BUSY {
+    const fn new() -> Self {
+        Self(0u8)
+    }
+
+    fn clear(&mut self) {
+        *self = Self::new()
+    }
+
+    fn acc(&mut self, reg: u32) {
+        self.0 += get_bit!(reg, 19);
+    }
+}
+*/
 
 fn main() {
     let (amdgpu_dev, _major, _minor) = {
@@ -81,6 +106,7 @@ fn main() {
 
     let mut grbm = GRBM::new();
     let delay = std::time::Duration::from_millis(10);
+
     for _ in 0..10 {
         for _ in 0..100 {
             if let Ok(out) = amdgpu_dev.read_mm_registers(offset) {
