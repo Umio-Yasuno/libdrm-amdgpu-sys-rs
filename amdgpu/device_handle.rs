@@ -79,6 +79,39 @@ impl DeviceHandle {
         Ok(ver)
     }
 
+    pub fn read_grbm(&self) -> Result<u32, i32> {
+        // TODO: check AMDGPU Family,
+        // <=GFX8: 0x2004, Vega/GFX9: 0x4, RDNA1/RDNA2: 0xDA4
+        self.read_mm_registers(0x2004)
+    }
+
+    pub fn read_grbm2(&self) -> Result<u32, i32> {
+        // TODO: check AMDGPU Family,
+        // <=GFX8: 0x2002, Vega/GFX9: 0x2, RDNA1/RDNA2: 0xDA2
+        self.read_mm_registers(0x2002)
+    }
+
+    pub fn read_mm_registers(&self, offset: u32) -> Result<u32, i32> {
+        unsafe {
+            let mut out: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = bindings::amdgpu_read_mm_registers(
+                self.0,
+                offset, // DWORD offset
+                1, // count
+                0xFFFF_FFFF, // instance mask, full mask
+                0, // flags
+                out.as_mut_ptr(),
+            );
+
+            let out = out.assume_init();
+
+            query_error!(r);
+
+            Ok(out)
+        }
+    }
+
     #[cfg(feature = "std")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         use core::ffi::CStr;

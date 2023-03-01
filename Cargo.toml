@@ -29,3 +29,7 @@ required-features = ["std"]
 [[example]]
 name = "vbios_dump"
 required-features = ["std"]
+
+[[example]]
+name = "amdgpu_top"
+required-features = ["std"]
