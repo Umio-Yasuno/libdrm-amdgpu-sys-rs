@@ -43,3 +43,12 @@ pub enum SENSOR_TYPE {
     STABLE_PSTATE_GFX_SCLK = AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK,
     STABLE_PSTATE_GFX_MCLK = AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK,
 }
+
+#[cfg(feature = "std")]
+use std::fmt;
+#[cfg(feature = "std")]
+impl fmt::Display for SENSOR_TYPE {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}

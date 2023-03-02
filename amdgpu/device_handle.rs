@@ -1,7 +1,7 @@
 use crate::AMDGPU::DEVICE_HANDLE;
 use crate::*;
 
-use bindings::{
+pub use bindings::{
     amdgpu_device_handle,
     // amdgpu_device_initialize,
     amdgpu_gds_resource_info,
@@ -24,6 +24,9 @@ use bindings::{
 use core::mem::{size_of, MaybeUninit};
 
 pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
+
+unsafe impl Send for DeviceHandle {}
+unsafe impl Sync for DeviceHandle {}
 
 impl DeviceHandle {
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
