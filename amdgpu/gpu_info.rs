@@ -108,6 +108,38 @@ pub trait GPU_INFO {
 
         self.cu_active_number() / (max_sa * cu_group) * cu_group
     }
+
+    fn get_grbm_offset(&self) -> u32 {
+        match self.family_id() {
+            bindings::AMDGPU_FAMILY_NV.. => 0xDA4,
+            bindings::AMDGPU_FAMILY_AI.. => 0x4,
+            _ => 0x2004,
+        }
+    }
+
+    fn get_grbm2_offset(&self) -> u32 {
+        self.get_grbm_offset() - 0x2
+    }
+
+    fn get_srbm_offset(&self) -> u32 {
+        0x394
+    }
+
+    fn get_srbm2_offset(&self) -> u32 {
+        0x393
+    }
+
+    fn get_srbm3_offset(&self) -> u32 {
+        0x395
+    }
+
+    fn get_cp_stat_offset(&self) -> u32 {
+        match self.family_id() {
+            bindings::AMDGPU_FAMILY_NV.. => 0xF40,
+            bindings::AMDGPU_FAMILY_AI.. => 0x1A0,
+            _ => 0x21A0,
+        }
+    }
 }
 
 impl GPU_INFO for amdgpu_gpu_info {
