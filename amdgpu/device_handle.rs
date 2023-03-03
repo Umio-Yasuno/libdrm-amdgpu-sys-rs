@@ -231,8 +231,6 @@ impl DeviceHandle {
         PCI::BUS_INFO::drm_get_device2(self.get_fd())
     }
 
-    const PCI_PATH: &str = "/sys/bus/pci/devices";
-
     #[cfg(feature = "std")]
     fn get_first_line(path: &String) -> Result<String, std::io::Error> {
         use std::fs::File;
@@ -262,14 +260,14 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    fn get_min_clock(&self, file_name: &str) -> Option<u64> {
-        if let Ok(pci) = self.get_pci_bus_info() {
-            let path = format!("{PCI_PATH}/{pci}/{file_name}", PCI_PATH = Self::PCI_PATH);
+    fn get_min_clock(&self, pci: &PCI::BUS_INFO, file_name: &str) -> Option<u64> {
+        const PCI_PATH: &str = "/sys/bus/pci/devices";
 
-            if let Ok(line) = Self::get_first_line(&path) {
-                if let Ok(clk) = Self::trim_dpm_clk(&line) {
-                    return Some(clk);
-                }
+        let path = format!("{PCI_PATH}/{pci}/{file_name}");
+
+        if let Ok(line) = Self::get_first_line(&path) {
+            if let Ok(clk) = Self::trim_dpm_clk(&line) {
+                return Some(clk);
             }
         }
 
@@ -277,13 +275,13 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    pub fn get_min_gpu_clock_from_sysfs(&self) -> Option<u64> {
-        Self::get_min_clock(self, "pp_dpm_sclk")
+    pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
+        Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
 
     #[cfg(feature = "std")]
-    pub fn get_min_memory_clock_from_sysfs(&self) -> Option<u64> {
-        Self::get_min_clock(self, "pp_dpm_mclk")
+    pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
+        Self::get_min_clock(self, pci, "pp_dpm_mclk")
     }
 }
 
