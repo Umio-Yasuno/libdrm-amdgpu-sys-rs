@@ -9,6 +9,7 @@ pub use bindings::{
     // amdgpu_heap_info,
     drm_amdgpu_info_device,
     drm_amdgpu_info_gds,
+    drm_amdgpu_info_vram_gtt,
     drm_amdgpu_memory_info,
     drm_amdgpu_info_vce_clock_table,
 };
@@ -16,8 +17,11 @@ use bindings::{
     AMDGPU_INFO_NUM_BYTES_MOVED,
     AMDGPU_INFO_DEV_INFO,
     AMDGPU_INFO_GDS_CONFIG,
+    AMDGPU_INFO_VRAM_GTT,
     AMDGPU_INFO_MEMORY,
     AMDGPU_INFO_VRAM_USAGE,
+    AMDGPU_INFO_VIS_VRAM_USAGE,
+    AMDGPU_INFO_GTT_USAGE,
     AMDGPU_INFO_VCE_CLOCK_TABLE,
     AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS,
 };
@@ -202,12 +206,25 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_DEV_INFO)
     }
 
+    pub fn vram_gtt_info(&self) -> Result<drm_amdgpu_info_vram_gtt, i32> {
+        // return usable_heap_size (real_size - pin_size - reserved_size)
+        Self::query(self, AMDGPU_INFO_VRAM_GTT)
+    }
+
     pub fn memory_info(&self) -> Result<drm_amdgpu_memory_info, i32> {
         Self::query(self, AMDGPU_INFO_MEMORY)
     }
 
     pub fn vram_usage_info(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_VRAM_USAGE)
+    }
+
+    pub fn vis_vram_usage_info(&self) -> Result<u64, i32> {
+        Self::query(self, AMDGPU_INFO_VIS_VRAM_USAGE)
+    }
+
+    pub fn gtt_usage_info(&self) -> Result<u64, i32> {
+        Self::query(self, AMDGPU_INFO_GTT_USAGE)
     }
 
     pub fn gds_info(&self) -> Result<drm_amdgpu_info_gds, i32> {
