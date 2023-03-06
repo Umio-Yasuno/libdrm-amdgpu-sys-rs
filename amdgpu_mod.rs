@@ -1,5 +1,12 @@
 use crate::*;
 
+pub const GRBM_OFFSET: u32 = 0x2004;
+pub const GRBM2_OFFSET: u32 = 0x2002;
+pub const SRBM_OFFSET: u32 = 0x394;
+pub const SRBM2_OFFSET: u32 = 0x393;
+pub const SRBM3_OFFSET: u32 = 0x395;
+pub const CP_STAT_OFFSET: u32 = 0x21A0;
+
 // pub type DEVICE = bindings::amdgpu_device;
 pub type DEVICE_HANDLE = bindings::amdgpu_device_handle;
 
