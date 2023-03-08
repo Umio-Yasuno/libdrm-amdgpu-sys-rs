@@ -47,11 +47,14 @@ pub enum CHIP_CLASS {
     GFX9,
     GFX10,
     GFX10_3,
+    GFX11,
 }
 
 impl From<ASIC_NAME> for CHIP_CLASS {
     fn from(asic_name: ASIC_NAME) -> Self {
-        if asic_name >= ASIC_NAME::CHIP_NAVI21 {
+        if asic_name >= ASIC_NAME::CHIP_GFX1100 {
+            Self::GFX11
+        } else if asic_name >= ASIC_NAME::CHIP_NAVI21 {
             Self::GFX10_3
         } else if asic_name >= ASIC_NAME::CHIP_NAVI10 {
             Self::GFX10
@@ -108,6 +111,7 @@ impl fmt::Display for CHIP_CLASS {
             Self::GFX9 => write!(f, "GFX9"),
             Self::GFX10 => write!(f, "GFX10"),
             Self::GFX10_3 => write!(f, "GFX10_3"),
+            Self::GFX11 => write!(f, "GFX11"),
         }
     }
 }

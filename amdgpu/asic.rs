@@ -132,6 +132,11 @@ pub enum ASIC_NAME {
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
     CHIP_GFX1036,
+    CHIP_GFX1100,
+    CHIP_GFX1101,
+    CHIP_GFX1102,
+    CHIP_GFX1103_R1,
+    CHIP_GFX1103_R2,
 }
 
 use crate::AMDGPU::FAMILY_NAME;
@@ -202,11 +207,20 @@ impl ASIC_NAME {
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
+            FAMILY_NAME::GC_11_0_0 => match rev {
+                0x01..=0x09 => Self::CHIP_GFX1100,
+                0x10..=0x19 => Self::CHIP_GFX1102,
+                0x20..=0xFF => Self::CHIP_GFX1101,
+                _ => Self::CHIP_UNKNOWN,
+            },
             FAMILY_NAME::YC => Self::CHIP_REMBRANDT,
-            /*
-            FAMILY_NAME::GFX1036 => Self::GFX1036,
-            FAMILY_NAME::GFX1037 => Self::GFX1037,
-            */
+            FAMILY_NAME::GC_11_0_1 => match rev {
+                0x01..=0x09 => Self::CHIP_GFX1103_R1,
+                0x80..=0xFF => Self::CHIP_GFX1103_R2,
+                _ => Self::CHIP_UNKNOWN,
+            },
+            FAMILY_NAME::GC_10_3_6 |
+            FAMILY_NAME::GC_10_3_7 => Self::CHIP_GFX1036,
             _ => Self::CHIP_UNKNOWN,
         }
     }
@@ -270,8 +284,23 @@ impl ASIC_NAME {
         }
     }
 
-    pub fn l1_cache_size() -> u32 {
-        16 * 1024
+    pub fn l1_cache_size(&self) -> u32 {
+        if *self >= Self::CHIP_GFX1100 {
+            32 * 1024 // KiB
+        } else {
+            16 * 1024 // KiB
+        }
+    }
+
+    /* RDNA L1cache, per ShaderArray */
+    pub fn gl1_cache_size(&self) -> u32 {
+        if *self >= Self::CHIP_GFX1100 {
+            256 * 1024 // KiB
+        } else if *self >= Self::CHIP_NAVI10 {
+            128 * 1024 // KiB
+        } else {
+            0
+        }
     }
 
     pub fn l2_cache_size_per_block(&self) -> u32 {
@@ -513,6 +542,11 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI24 => write!(f, "Beige Goby/Navi24"),
             Self::CHIP_REMBRANDT => write!(f, "Yellow Carp/Rembrandt"),
             Self::CHIP_GFX1036 => write!(f, "GFX1036"),
+            Self::CHIP_GFX1100 => write!(f, "GFX1100"),
+            Self::CHIP_GFX1101 => write!(f, "GFX1101"),
+            Self::CHIP_GFX1102 => write!(f, "GFX1102"),
+            Self::CHIP_GFX1103_R1 => write!(f, "GFX1103_R1"),
+            Self::CHIP_GFX1103_R2 => write!(f, "GFX1103_R2"),
         }
     }
 }

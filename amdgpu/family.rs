@@ -1,25 +1,37 @@
-use crate::*;
+/*
+    https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/include/drm-uapi/amdgpu_drm.h
+*/
 
+use crate::*;
 use bindings::{
     AMDGPU_FAMILY_AI, AMDGPU_FAMILY_CI, AMDGPU_FAMILY_CZ, AMDGPU_FAMILY_KV, AMDGPU_FAMILY_NV,
     AMDGPU_FAMILY_RV, AMDGPU_FAMILY_SI, AMDGPU_FAMILY_UNKNOWN, AMDGPU_FAMILY_VGH, AMDGPU_FAMILY_VI,
     AMDGPU_FAMILY_YC,
 };
 
+const AMDGPU_FAMILY_GC_11_0_0: u32 = 145; /* GC 11.0.0 */
+const AMDGPU_FAMILY_GC_11_0_1: u32 = 148; /* GC 11.0.1 */
+const AMDGPU_FAMILY_GC_10_3_6: u32 = 149; /* GC 10.3.6 */
+const AMDGPU_FAMILY_GC_10_3_7: u32 = 151; /* GC 10.3.7 */
+
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum FAMILY_NAME {
     UNKNOWN,
-    SI,
-    CI,
-    KV,
-    VI,
-    CZ,
-    AI,
-    RV,
-    NV,
-    VGH,
-    YC,
+    SI = AMDGPU_FAMILY_SI,
+    CI = AMDGPU_FAMILY_CI,
+    KV = AMDGPU_FAMILY_KV,
+    VI = AMDGPU_FAMILY_VI,
+    CZ = AMDGPU_FAMILY_CZ,
+    AI = AMDGPU_FAMILY_AI,
+    RV = AMDGPU_FAMILY_RV,
+    NV = AMDGPU_FAMILY_NV,
+    VGH = AMDGPU_FAMILY_VGH,
+    GC_11_0_0 = AMDGPU_FAMILY_GC_11_0_0,
+    YC = AMDGPU_FAMILY_YC,
+    GC_11_0_1 = AMDGPU_FAMILY_GC_11_0_1,
+    GC_10_3_6 = AMDGPU_FAMILY_GC_10_3_6,
+    GC_10_3_7 = AMDGPU_FAMILY_GC_10_3_7,
 }
 
 impl From<u32> for FAMILY_NAME {
@@ -34,7 +46,11 @@ impl From<u32> for FAMILY_NAME {
             AMDGPU_FAMILY_RV => Self::RV,
             AMDGPU_FAMILY_NV => Self::NV,
             AMDGPU_FAMILY_VGH => Self::VGH,
+            AMDGPU_FAMILY_GC_11_0_0 => Self::GC_11_0_0,
             AMDGPU_FAMILY_YC => Self::YC,
+            AMDGPU_FAMILY_GC_11_0_1 => Self::GC_11_0_1,
+            AMDGPU_FAMILY_GC_10_3_6 => Self::GC_10_3_6,
+            AMDGPU_FAMILY_GC_10_3_7 => Self::GC_10_3_7,
             AMDGPU_FAMILY_UNKNOWN | _ => Self::UNKNOWN,
         }
     }
@@ -61,7 +77,11 @@ impl fmt::Display for FAMILY_NAME {
             Self::RV => write!(f, "Raven (RV)"),
             Self::NV => write!(f, "Navi (NV)"),
             Self::VGH => write!(f, "VanGogh (VGH)"),
+            Self::GC_11_0_0 => write!(f, "GC 11.0.0"),
             Self::YC => write!(f, "Yellow Carp (YC)"),
+            Self::GC_11_0_1 => write!(f, "GC 11.0.1"),
+            Self::GC_10_3_6 => write!(f, "GC 10.3.6"),
+            Self::GC_10_3_7 => write!(f, "GC 10.3.7"),
             Self::UNKNOWN => write!(f, "Unknown"),
         }
     }
