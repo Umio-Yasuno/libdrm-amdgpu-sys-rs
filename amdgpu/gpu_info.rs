@@ -198,4 +198,8 @@ impl drm_amdgpu_info_device {
     pub fn calc_l2_cache_size(&self) -> u32 {
         self.num_tcc_blocks * self.get_asic_name().l2_cache_size_per_block()
     }
+    // num_tcc_blocks = memory channels
+    pub fn calc_l3_cache_size_mb(&self) -> u32 {
+        self.num_tcc_blocks * self.get_asic_name().l3_cache_size_mb_per_channel()
+    }
 }
