@@ -108,6 +108,14 @@ pub trait GPU_INFO {
 
         self.cu_active_number() / (max_sa * cu_group) * cu_group
     }
+
+    fn get_l1_cache_size(&self) -> u32 {
+        self.get_asic_name().l1_cache_size()
+    }
+
+    fn get_gl1_cache_size(&self) -> u32 {
+        self.get_asic_name().gl1_cache_size()
+    }
 }
 
 impl GPU_INFO for amdgpu_gpu_info {
