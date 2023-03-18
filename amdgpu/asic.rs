@@ -131,12 +131,12 @@ pub enum ASIC_NAME {
     CHIP_NAVI23,    /* Radeon 6600 */
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
-    CHIP_GFX1036,
-    CHIP_GFX1100,
-    CHIP_GFX1101,
-    CHIP_GFX1102,
-    CHIP_GFX1103_R1,
-    CHIP_GFX1103_R2,
+    CHIP_GFX1036, /* Raphael, Mendocino */
+    CHIP_GFX1100, /* Navi31 */
+    CHIP_GFX1101, /* Navi32 */
+    CHIP_GFX1102, /* Navi33 */
+    CHIP_GFX1103_R1, /* Phoenix */
+    CHIP_GFX1103_R2, /* Phoenix? */
 }
 
 use crate::AMDGPU::FAMILY_NAME;
@@ -337,8 +337,13 @@ impl ASIC_NAME {
 
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
         match self {
-            Self::CHIP_NAVI21 | Self::CHIP_NAVI22 => 8,
-            Self::CHIP_NAVI23 | Self::CHIP_NAVI24 => 4,
+            Self::CHIP_NAVI21 |
+            Self::CHIP_NAVI22 => 8,
+            Self::CHIP_NAVI23 |
+            Self::CHIP_NAVI24 |
+            Self::CHIP_GFX1100 |
+            // Self::CHIP_GFX1101 |
+            Self::CHIP_GFX1102 => 4,
             _ => 0,
         }
     }
