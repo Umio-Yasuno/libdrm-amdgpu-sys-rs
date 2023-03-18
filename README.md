@@ -6,13 +6,21 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 
 ## Examples
 ### amdgpu_info
-
-    cargo run --example amdgpu_info 
-
+```
+cargo run --example amdgpu_info
+```
 ### vbios_dump
-
-    cargo run --example vbios_dump 
-
+```
+cargo run --example vbios_dump
+```
 ### amdgpu_top
+```
+cargo run --example amdgpu_top
+```
 
-    cargo run --example amdgpu_top  
+## Build
+To generate a new `bindings/drm.rs` .
+
+```
+cargo build --features=buildtime_bindgen
+```
