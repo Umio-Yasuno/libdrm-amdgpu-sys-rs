@@ -3,12 +3,15 @@
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
-#[allow(dead_code)]
 
+#[allow(dead_code)]
+#[cfg(not(feature = "buildtime_bindgen"))]
 mod bindings {
-    include!("./bindings/drm.rs");
+    mod drm;
+    pub use drm::*;
 }
 
+#[cfg(not(feature = "buildtime_bindgen"))]
 #[path = "./"]
 pub mod AMDGPU {
     #[path = "amdgpu_mod.rs"]
@@ -16,5 +19,7 @@ pub mod AMDGPU {
     pub use amdgpu_mod::*;
 }
 
+#[cfg(not(feature = "buildtime_bindgen"))]
 mod pci_bus_info;
+#[cfg(not(feature = "buildtime_bindgen"))]
 pub use pci_bus_info::*;

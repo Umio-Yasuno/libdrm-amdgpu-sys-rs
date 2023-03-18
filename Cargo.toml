@@ -13,13 +13,14 @@ keywords = ["amdgpu", "libdrm"]
 [features]
 default = ["std"]
 std = []
+buildtime_bindgen = ["bindgen"]
 
 [lib]
 # name = "libdrm_amdgpu_sys"
 path = "lib.rs"
 
 [build-dependencies]
-bindgen = "0.59.0"
+bindgen = { version = "0.59.0", optional = true }
 pkg-config = "0.3.25"
 
 [[example]]
