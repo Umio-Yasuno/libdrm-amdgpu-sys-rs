@@ -1,9 +1,7 @@
-extern crate bindgen;
-extern crate pkg_config;
+#[cfg(feature = "buildtime_bindgen")]
+fn build() {
+    use std::path::PathBuf;
 
-use std::path::PathBuf;
-
-fn main() {
     let config = pkg_config::Config::new()
         .probe("libdrm")
         .unwrap()
@@ -13,9 +11,6 @@ fn main() {
         .iter()
         .map(|path| format!("-I{}", path.to_str().unwrap()))
         .collect();
-
-    println!("cargo:rustc-link-lib=drm");
-    println!("cargo:rustc-link-lib=drm_amdgpu");
 
     let bindings = bindgen::Builder::default()
         // Do not generate unstable Rust code that
@@ -41,4 +36,12 @@ fn main() {
     bindings
         .write_to_file(out_path.join(&format!("drm.rs")))
         .expect("Couldn't write bindings!");
+}
+
+fn main() {
+    println!("cargo:rustc-link-lib=drm");
+    println!("cargo:rustc-link-lib=drm_amdgpu");
+
+    #[cfg(feature = "buildtime_bindgen")]
+    build();
 }
