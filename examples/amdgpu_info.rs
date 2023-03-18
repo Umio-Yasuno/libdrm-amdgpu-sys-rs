@@ -222,24 +222,12 @@ fn main() {
         println!("Max     Link: Gen{}x{}", max.gen, max.width);
     }
 
-    if let Ok(vbios) = unsafe { amdgpu_dev.vbios_info() } {
-        let [name, pn, ver_str, date] = [
-            vbios.name.to_vec(),
-            vbios.vbios_pn.to_vec(),
-            vbios.vbios_ver_str.to_vec(),
-            vbios.date.to_vec(),
-        ]
-        .map(|v| {
-            let tmp = String::from_utf8(v).unwrap();
-
-            tmp.trim_end_matches(|c: char| c.is_control() || c.is_whitespace()).to_string()
-        });
-
+    if let Ok(vbios) = amdgpu_dev.get_vbios_info() {
         println!("\nVBIOS info:");
-        println!("name: [{name}]");
-        println!("pn: [{pn}]");
-        println!("ver_str: [{ver_str}]");
-        println!("date: [{date}]");
+        println!("name: [{}]", vbios.name);
+        println!("pn: [{}]", vbios.pn);
+        println!("ver: [{}]", vbios.ver);
+        println!("date: [{}]", vbios.date);
     }
 
 /*

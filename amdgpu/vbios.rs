@@ -4,7 +4,45 @@ use crate::*;
 use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 
+#[cfg(feature = "std")]
+#[derive(Debug, Clone)]
+pub struct VbiosInfo {
+    pub name: String,
+    pub pn: String,
+    pub ver: String,
+    pub date: String,
+    pub size: u32,
+}
+
 impl DeviceHandle {
+    #[cfg(feature = "std")]
+    pub fn get_vbios_info(&self) -> Result<VbiosInfo, i32> {
+        let vbios = unsafe { self.vbios_info()? };
+        let size = unsafe { self.vbios_size()? };
+
+        let [name, pn, ver, date] = [
+            vbios.name.to_vec(),
+            vbios.vbios_pn.to_vec(),
+            vbios.vbios_ver_str.to_vec(),
+            vbios.date.to_vec(),
+        ]
+        .map(|v| {
+            if let Some(index) = v.iter().position(|&x| x == 0) {
+                String::from_utf8(v[..index].to_vec()).unwrap()
+            } else {
+                String::from_utf8(v).unwrap()
+            }
+        });
+
+        Ok(VbiosInfo {
+            name,
+            pn,
+            ver,
+            date,
+            size,
+        })
+    }
+
     unsafe fn query_vbios<T>(
         &self,
         info_id: ::core::ffi::c_uint,
@@ -52,18 +90,18 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    pub unsafe fn vbios_image(&self, vbios_size: usize) -> Result<Vec<u8>, i32> {
+    pub unsafe fn vbios_image(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
         use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
-        let mut vbios_image = vec![0; vbios_size];
+        let mut vbios_image = vec![0; vbios_size as usize];
         let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
 
         {
             let ptr = device_info.as_mut_ptr();
 
             ptr::addr_of_mut!((*ptr).return_pointer).write(vbios_image.as_mut_ptr() as u64);
-            ptr::addr_of_mut!((*ptr).return_size).write(vbios_size as u32);
+            ptr::addr_of_mut!((*ptr).return_size).write(vbios_size);
             ptr::addr_of_mut!((*ptr).query).write(AMDGPU_INFO_VBIOS);
 
             ptr::addr_of_mut!((*ptr).__bindgen_anon_1.vbios_info.type_)

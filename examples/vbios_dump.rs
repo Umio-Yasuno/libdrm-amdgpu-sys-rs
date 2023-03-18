@@ -15,7 +15,7 @@ fn dump(image: &[u8], vbios_name: String) -> io::Result<()> {
 }
 
 fn main() {
-    let amdgpu_dev = {
+    let (amdgpu_dev, _, _) = {
         use std::os::fd::IntoRawFd;
 
         let f = File::open("/dev/dri/renderD128").unwrap();
@@ -23,34 +23,19 @@ fn main() {
         AMDGPU::DeviceHandle::init(f.into_raw_fd()).unwrap()
     };
 
-    if let (Ok(vbios), Ok(vbios_size)) = unsafe {
-        (amdgpu_dev.vbios_info(), amdgpu_dev.vbios_size())
-    } {
-        let [name, pn, ver_str, date] = [
-            vbios.name.to_vec(),
-            vbios.vbios_pn.to_vec(),
-            vbios.vbios_ver_str.to_vec(),
-            vbios.date.to_vec(),
-        ]
-        .map(|v| {
-            let tmp = String::from_utf8(v).unwrap();
-
-            tmp.trim_end_matches(|c: char| c.is_control() || c.is_whitespace()).to_string()
-        });
-
+    if let Ok(vbios) = amdgpu_dev.get_vbios_info() {
         println!("\nVBIOS info:");
-        println!("name: [{name}]");
-        println!("pn: [{pn}]");
-        println!("ver_str: [{ver_str}]");
-        println!("date: [{date}]");
-
-        println!("vbios size: {vbios_size}");
+        println!("name: [{}]", vbios.name);
+        println!("pn: [{}]", vbios.pn);
+        println!("ver: [{}]", vbios.ver);
+        println!("date: [{}]", vbios.date);
+        println!("vbios size: {}", vbios.size);
 
         let args: Vec<String> = std::env::args().collect();
 
         if args.contains(&"-d".to_string()) || args.contains(&"--dump".to_string()) {
-            if let Ok(vbios_image) = unsafe { amdgpu_dev.vbios_image(vbios_size as usize) } {
-                let name = name.replace(' ', "");
+            if let Ok(vbios_image) = unsafe { amdgpu_dev.vbios_image(vbios.size) } {
+                let name = vbios.name.replace(' ', "");
                 dump(&vbios_image, name).unwrap();
             }
         } else {
