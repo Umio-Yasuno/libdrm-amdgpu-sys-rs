@@ -12,14 +12,23 @@ mod bindings {
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[path = "./"]
+#[path = "amdgpu"]
 pub mod AMDGPU {
-    #[path = "amdgpu_mod.rs"]
-    mod amdgpu_mod;
-    pub use amdgpu_mod::*;
+    #[path = "mod.rs"]
+    mod amdgpu;
+    pub use amdgpu::*;
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
 mod pci_bus_info;
 #[cfg(not(feature = "buildtime_bindgen"))]
 pub use pci_bus_info::*;
+
+#[macro_export]
+macro_rules! query_error {
+    ($r: expr) => {
+        if $r != 0 {
+            return Err($r);
+        }
+    };
+}

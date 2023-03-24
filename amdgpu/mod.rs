@@ -1,40 +1,47 @@
-// use crate::*;
+use crate::*;
 
-// pub type DEVICE = bindings::amdgpu_device;
-// pub type DEVICE_HANDLE = bindings::amdgpu_device_handle;
+pub const GRBM_OFFSET: u32 = 0x2004;
+pub const GRBM2_OFFSET: u32 = 0x2002;
+pub const SRBM_OFFSET: u32 = 0x394;
+pub const SRBM2_OFFSET: u32 = 0x393;
+pub const SRBM3_OFFSET: u32 = 0x395;
+pub const CP_STAT_OFFSET: u32 = 0x21A0;
+
+// pub(crate) type DEVICE = bindings::amdgpu_device;
+pub(crate) type DEVICE_HANDLE = bindings::amdgpu_device_handle;
 
 mod device_handle;
 pub use device_handle::*;
 
-mod amdgpu_family;
-pub use amdgpu_family::*;
+mod family;
+pub use family::*;
 
-mod amdgpu_vram;
-pub use amdgpu_vram::*;
+mod vram;
+pub use vram::*;
 
-mod amdgpu_asic;
-pub use amdgpu_asic::*;
+mod asic;
+pub use asic::*;
 
-mod amdgpu_chip_class;
-pub use amdgpu_chip_class::*;
+mod chip_class;
+pub use chip_class::*;
 
 mod gpu_info;
 pub use gpu_info::*;
 
-mod amdgpu_vbios;
-pub use amdgpu_vbios::*;
+mod vbios;
+pub use vbios::*;
 
-mod amdgpu_video_caps;
-pub use amdgpu_video_caps::*;
+mod video_caps;
+pub use video_caps::*;
 
-mod amdgpu_hw_ip;
-pub use amdgpu_hw_ip::*;
+mod hw_ip;
+pub use hw_ip::*;
 
-mod amdgpu_fw_version;
-pub use amdgpu_fw_version::*;
+mod fw_version;
+pub use fw_version::*;
 
 // mod amdgpu_cs;
 // pub use amdgpu_cs::*;
 
-mod amdgpu_sensor_info;
-pub use amdgpu_sensor_info::*;
+mod sensor_info;
+pub use sensor_info::*;
