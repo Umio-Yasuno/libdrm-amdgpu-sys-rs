@@ -4,6 +4,8 @@ use crate::*;
 use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 
+use bindings::{AMDGPU_INFO_VBIOS, DRM_AMDGPU_INFO, drmCommandWrite, drm_amdgpu_info};
+
 #[cfg(feature = "std")]
 #[derive(Debug, Clone)]
 pub struct VbiosInfo {
@@ -47,8 +49,6 @@ impl DeviceHandle {
         &self,
         info_id: ::core::ffi::c_uint,
     ) -> Result<T, i32> {
-        use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
-
         let mut vbios: MaybeUninit<T> = MaybeUninit::uninit();
         let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
 
@@ -64,13 +64,12 @@ impl DeviceHandle {
 
         let r = drmCommandWrite(
             self.get_fd(),
-            bindings::DRM_AMDGPU_INFO as u64,
+            DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info> as u64,
         );
 
-        let _ = device_info.assume_init();
-        let vbios = vbios.assume_init();
+        let (_, vbios) = (device_info.assume_init(), vbios.assume_init());
 
         query_error!(r);
 
@@ -78,7 +77,7 @@ impl DeviceHandle {
     }
 
     pub unsafe fn vbios_info(&self) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
-        use bindings::{AMDGPU_INFO_VBIOS_INFO};
+        use bindings::AMDGPU_INFO_VBIOS_INFO;
 
         Self::query_vbios(self, AMDGPU_INFO_VBIOS_INFO)
     }
@@ -91,7 +90,6 @@ impl DeviceHandle {
 
     #[cfg(feature = "std")]
     pub unsafe fn vbios_image(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
-        use bindings::{drmCommandWrite, drm_amdgpu_info, AMDGPU_INFO_VBIOS};
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
         let mut vbios_image = vec![0; vbios_size as usize];
@@ -110,7 +108,7 @@ impl DeviceHandle {
 
         let r = drmCommandWrite(
             self.get_fd(),
-            bindings::DRM_AMDGPU_INFO as u64,
+            DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info> as u64,
         );

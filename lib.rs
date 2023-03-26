@@ -12,11 +12,10 @@ mod bindings {
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[path = "amdgpu"]
+mod amdgpu;
+#[cfg(not(feature = "buildtime_bindgen"))]
 pub mod AMDGPU {
-    #[path = "mod.rs"]
-    mod amdgpu;
-    pub use amdgpu::*;
+    pub use super::amdgpu::*;
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]

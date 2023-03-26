@@ -29,19 +29,23 @@ mod gpu_info;
 pub use gpu_info::*;
 
 mod vbios;
-pub use vbios::*;
-
 mod video_caps;
-pub use video_caps::*;
-
 mod hw_ip;
-pub use hw_ip::*;
-
 mod fw_version;
-pub use fw_version::*;
-
-// mod amdgpu_cs;
-// pub use amdgpu_cs::*;
-
 mod sensor_info;
-pub use sensor_info::*;
+
+pub mod VBIOS {
+    pub use super::vbios::*;
+}
+pub mod VIDEO_CAPS {
+    pub use super::video_caps::*;
+}
+pub mod HW_IP {
+    pub use super::hw_ip::*;
+}
+pub mod FW_VERSION {
+    pub use super::fw_version::*;
+}
+pub mod SENSOR_INFO {
+    pub use super::sensor_info::*;
+}
