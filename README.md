@@ -1,6 +1,12 @@
 # libdrm-amdgpu-sys-rs
 libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac_gpu_info.c](https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c)).  
 
+## Reference
+ * [Mesa / drm · GitLab](https://gitlab.freedesktop.org/mesa/drm/)
+ * [Mesa / mesa · GitLab](https://gitlab.freedesktop.org/mesa/mesa/)
+ * Linux Kernel
+    * `drivers/gpu/drm/amd/amdgpu/amdgpu_kms.c`
+
 ## License
  * MIT License
 

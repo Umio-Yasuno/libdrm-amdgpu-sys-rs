@@ -1,6 +1,7 @@
 use crate::bindings::{amdgpu_gpu_info, drm_amdgpu_info_device};
 use crate::*;
 
+/// Information that [amdgpu_gpu_info] and [drm_amdgpu_info_device] have in common
 pub trait GPU_INFO {
     fn family_id(&self) -> u32;
     fn chip_external_rev(&self) -> u32;

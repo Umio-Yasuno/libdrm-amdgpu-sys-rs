@@ -30,6 +30,7 @@ use bindings::{
     AMDGPU_INFO_SENSOR_VDDGFX, AMDGPU_INFO_SENSOR_VDDNB,
 };
 
+/// Used for [DeviceHandle::sensor_info]
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum SENSOR_TYPE {

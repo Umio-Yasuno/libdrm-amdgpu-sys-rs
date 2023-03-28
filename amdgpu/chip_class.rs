@@ -30,6 +30,7 @@
 
 use crate::AMDGPU::ASIC_NAME;
 
+/// List of AMDGPU chip class (generation)
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum CHIP_CLASS {

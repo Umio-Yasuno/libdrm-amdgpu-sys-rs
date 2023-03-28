@@ -49,6 +49,7 @@ pub use crate::bindings::{
     AMDGPU_INFO_FW_UVD, AMDGPU_INFO_FW_VCE, AMDGPU_INFO_FW_VCN,
 };
 
+/// Used for [DeviceHandle::query_firmware_version]
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum FW_TYPE {

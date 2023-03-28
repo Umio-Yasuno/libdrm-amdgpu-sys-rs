@@ -5,8 +5,8 @@ use crate::*;
 // use super::*;
 use core::mem::{size_of, MaybeUninit};
 
+pub use bindings::{drm_amdgpu_info_video_caps, drm_amdgpu_info_video_codec_info};
 use bindings::{
-    drm_amdgpu_info_video_caps, drm_amdgpu_info_video_codec_info,
     AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
     AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
     AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
@@ -14,6 +14,7 @@ use bindings::{
     AMDGPU_INFO_VIDEO_CAPS_DECODE, AMDGPU_INFO_VIDEO_CAPS_ENCODE,
 };
 
+/// Used for [DeviceHandle::get_video_caps]
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum CAP_TYPE {
@@ -48,6 +49,7 @@ impl drm_amdgpu_info_video_caps {
     }
 }
 
+/// Used for [drm_amdgpu_info_video_caps::get_codec_info]
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum CODEC {

@@ -1,4 +1,5 @@
 pub mod PCI {
+    /// PCI information (Domain, Bus, Device, Function)
     #[derive(Debug, Clone, Copy)]
     pub struct BUS_INFO {
         pub domain: u16,
@@ -7,11 +8,13 @@ pub mod PCI {
         pub func: u8,
     }
 
+    /// PCI link status
     pub enum STATUS {
         Current,
         Max,
     }
 
+    /// PCI link speed information
     #[derive(Debug, Clone)]
     pub struct LINK {
         pub gen: u8,
@@ -40,6 +43,7 @@ impl PCI::BUS_INFO {
         }
     }
 
+    /// Returns paths to sysfs for PCI information
     #[cfg(feature = "std")]
     pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [std::path::PathBuf; 2] {
         use std::path::PathBuf;
@@ -57,6 +61,7 @@ impl PCI::BUS_INFO {
         .map(|file_name| path.join(file_name));
     }
 
+    /// Returns [PCI::LINK]
     #[cfg(feature = "std")]
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
         let [speed, width] = Self::get_link_sysfs_path(&self, status)
@@ -68,6 +73,7 @@ impl PCI::BUS_INFO {
         return PCI::LINK { gen, width };
     }
 
+    /// Convert PCIe speed to PCIe gen
     #[cfg(feature = "std")]
     fn speed_to_gen(speed: &str) -> u8 {
         match speed {

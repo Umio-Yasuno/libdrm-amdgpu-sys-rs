@@ -73,6 +73,7 @@ use crate::bindings::{
     // AMDGPU_HW_IP_INSTANCE_MAX_COUNT,
 };
 
+/// Used for [DeviceHandle::query_hw_ip_info] and [DeviceHandle::query_hw_ip_count]
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum HW_IP_TYPE {

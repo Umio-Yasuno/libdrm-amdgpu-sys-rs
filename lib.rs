@@ -1,3 +1,5 @@
+#![doc = include_str!("./README.md")]
+
 #![cfg_attr(not(feature = "std"), no_std)]
 
 #![allow(non_upper_case_globals)]
@@ -23,6 +25,7 @@ mod pci_bus_info;
 #[cfg(not(feature = "buildtime_bindgen"))]
 pub use pci_bus_info::*;
 
+/// Convert `errno` to `Err(i32)`
 #[macro_export]
 macro_rules! query_error {
     ($r: expr) => {

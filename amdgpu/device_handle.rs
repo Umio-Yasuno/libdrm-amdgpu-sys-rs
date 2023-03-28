@@ -6,7 +6,7 @@ pub use bindings::{
     // amdgpu_device_initialize,
     amdgpu_gds_resource_info,
     amdgpu_gpu_info,
-    // amdgpu_heap_info,
+    drm_amdgpu_heap_info,
     drm_amdgpu_info_device,
     drm_amdgpu_info_gds,
     drm_amdgpu_info_vram_gtt,
@@ -33,6 +33,8 @@ unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
 impl DeviceHandle {
+    /// Initialization.
+    /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
@@ -86,6 +88,8 @@ impl DeviceHandle {
         Ok(ver)
     }
 
+    /// Returns the result of reading the register at the specified offset.
+    /// If the offset is not allowed, returns `Err(i32)`.
     pub fn read_mm_registers(&self, offset: u32) -> Result<u32, i32> {
         unsafe {
             let mut out: MaybeUninit<u32> = MaybeUninit::zeroed();
@@ -194,8 +198,9 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_DEV_INFO)
     }
 
+    /// `usable_heap_size` equal `real_size - pin_size - reserved_size`, is not fixed.
     pub fn vram_gtt_info(&self) -> Result<drm_amdgpu_info_vram_gtt, i32> {
-        // return usable_heap_size (real_size - pin_size - reserved_size)
+        // return 
         Self::query(self, AMDGPU_INFO_VRAM_GTT)
     }
 
@@ -219,7 +224,8 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_GDS_CONFIG)
     }
 
-    /// drm_amdgpu_info_vce_clock_table is invalid
+    /// AMDGPU driver returns invalid [drm_amdgpu_info_vce_clock_table].
+    /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/2391>
     pub fn vce_clock_info(&self) -> Result<drm_amdgpu_info_vce_clock_table, i32> {
         Self::query(self, AMDGPU_INFO_VCE_CLOCK_TABLE)
     }
@@ -232,6 +238,7 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
     }
 
+    // Get [PCI::BUS_INFO]
     pub fn get_pci_bus_info(&self) -> Result<PCI::BUS_INFO, i32> {
         PCI::BUS_INFO::drm_get_device2(self.get_fd())
     }
@@ -279,11 +286,13 @@ impl DeviceHandle {
         None
     }
 
+    /// Get the minimum gpu core clock from sysfs
     #[cfg(feature = "std")]
     pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
 
+    /// Get the minimum memory clock from sysfs
     #[cfg(feature = "std")]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")

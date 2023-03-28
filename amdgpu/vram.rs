@@ -9,6 +9,7 @@ use bindings::{
 const AMDGPU_VRAM_TYPE_LPDDR4: u32 = 11;
 const AMDGPU_VRAM_TYPE_LPDDR5: u32 = 12;
 
+/// List of AMDGPU VRAM types
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum VRAM_TYPE {
@@ -69,6 +70,7 @@ impl VRAM_TYPE {
     }
     */
     /* https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp */
+    /// Memory ops per clock
     fn memory_ops_per_clock(&self) -> u64 {
         match self {
             Self::DDR2 | Self::DDR3 | Self::DDR4 | Self::HBM | Self::LPDDR4 => 2,
@@ -78,12 +80,14 @@ impl VRAM_TYPE {
         }
     }
 
+    /// Peak Memory Bandwidth (MB/s)
     pub fn peak_bw(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u64 {
         let eff_mem_clk_mhz = (max_mem_clk_khz / 1000) * self.memory_ops_per_clock();
 
         eff_mem_clk_mhz * (vram_bit_width as u64) / 8
     }
 
+    /// Peak Memory Bandwidth (GB/s)
     pub fn peak_bw_gb(&self, max_mem_clk_khz: u64, vram_bit_width: u32) -> u32 {
         (self.peak_bw(max_mem_clk_khz, vram_bit_width) / 1000) as u32
     }

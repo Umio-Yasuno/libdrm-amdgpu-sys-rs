@@ -3,6 +3,7 @@
 */
 
 use crate::*;
+use crate::AMDGPU::ASIC_NAME;
 use bindings::{
     AMDGPU_FAMILY_AI, AMDGPU_FAMILY_CI, AMDGPU_FAMILY_CZ, AMDGPU_FAMILY_KV, AMDGPU_FAMILY_NV,
     AMDGPU_FAMILY_RV, AMDGPU_FAMILY_SI, AMDGPU_FAMILY_UNKNOWN, AMDGPU_FAMILY_VGH, AMDGPU_FAMILY_VI,
@@ -14,6 +15,7 @@ const AMDGPU_FAMILY_GC_11_0_1: u32 = 148; /* GC 11.0.1 */
 const AMDGPU_FAMILY_GC_10_3_6: u32 = 149; /* GC 10.3.6 */
 const AMDGPU_FAMILY_GC_10_3_7: u32 = 151; /* GC 10.3.7 */
 
+/// List of AMDGPU Family names
 #[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum FAMILY_NAME {
@@ -57,8 +59,9 @@ impl From<u32> for FAMILY_NAME {
 }
 
 impl FAMILY_NAME {
-    pub fn asic_name(&self, chip_external_rev: u32) -> AMDGPU::ASIC_NAME {
-        AMDGPU::ASIC_NAME::get(*self, chip_external_rev)
+    /// Get [ASIC_NAME] from [FAMILY_NAME]
+    pub fn asic_name(&self, chip_external_rev: u32) -> ASIC_NAME {
+        ASIC_NAME::get(*self, chip_external_rev)
     }
 }
 

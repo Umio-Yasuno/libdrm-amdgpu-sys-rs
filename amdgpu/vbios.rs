@@ -6,6 +6,7 @@ use core::ptr;
 
 use bindings::{AMDGPU_INFO_VBIOS, DRM_AMDGPU_INFO, drmCommandWrite, drm_amdgpu_info};
 
+/// VBIOS information
 #[cfg(feature = "std")]
 #[derive(Debug, Clone)]
 pub struct VbiosInfo {

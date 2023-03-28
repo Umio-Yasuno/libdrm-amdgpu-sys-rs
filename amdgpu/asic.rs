@@ -30,6 +30,7 @@
 
 use crate::*;
 
+/// List of AMDGPU ASIC name
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
@@ -139,9 +140,10 @@ pub enum ASIC_NAME {
     CHIP_GFX1103_R2, /* Phoenix? */
 }
 
-use crate::AMDGPU::FAMILY_NAME;
+use crate::AMDGPU::{CHIP_CLASS, FAMILY_NAME};
 
 impl ASIC_NAME {
+    /// Get the ASIC name from [FAMILY_NAME] and `chip_external_rev`
     pub fn get(family: FAMILY_NAME, chip_external_rev: u32) -> Self {
         /*
             https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/addrlib/src/amdgpu_asic_addr.h
@@ -225,16 +227,17 @@ impl ASIC_NAME {
         }
     }
 
-    pub fn chip_class(&self) -> AMDGPU::CHIP_CLASS {
+    /// Get [CHIP_CLASS] from [ASIC_NAME]
+    pub fn chip_class(&self) -> CHIP_CLASS {
         AMDGPU::CHIP_CLASS::from(*self)
     }
-    /*
-        https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c
-    */
+
+    /// Check if ASIC has RB+ (RenderBackendPlus)
     fn has_rbplus(&self) -> bool {
         *self == Self::CHIP_STONEY || *self >= Self::CHIP_VEGA10
     }
 
+    /// Check if RB+ is allowed
     pub fn rbplus_allowed(&self) -> bool {
         self.has_rbplus()
             && (*self == Self::CHIP_STONEY
@@ -245,10 +248,12 @@ impl ASIC_NAME {
                 || *self >= Self::CHIP_NAVI21)
     }
 
+    /// Check if packed math instructions is supported
     pub fn has_packed_math_16bit(&self) -> bool {
         *self >= Self::CHIP_VEGA10
     }
 
+    /// Check if dot product instructions is supported
     pub fn has_accelerated_dot_product(&self) -> bool {
         *self == Self::CHIP_ARCTURUS
             || *self == Self::CHIP_ALDEBARAN
@@ -268,6 +273,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// Number of SIMD units per CU
     pub fn num_simd_per_cu(&self) -> u8 {
         if *self >= Self::CHIP_NAVI10 {
             2
@@ -284,6 +290,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// GCN L1 cache per CU, Byte
     pub fn l1_cache_size(&self) -> u32 {
         if *self >= Self::CHIP_GFX1100 {
             32 * 1024 // KiB
@@ -292,7 +299,7 @@ impl ASIC_NAME {
         }
     }
 
-    /* RDNA L1cache, per ShaderArray */
+    /// RDNA L1 cache per ShaderArray, Byte
     pub fn gl1_cache_size(&self) -> u32 {
         if *self >= Self::CHIP_GFX1100 {
             256 * 1024 // KiB
@@ -303,6 +310,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// L2 (Texture) cache size per block (channel), Byte
     pub fn l2_cache_size_per_block(&self) -> u32 {
         match self {
             Self::CHIP_TAHITI
@@ -327,6 +335,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// L2 (Texture) cache line size, Byte
     pub fn l2_cache_line_size(&self) -> u32 {
         if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
             128
@@ -335,6 +344,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// L3 cache (MALL, Infinity Cache) size per memory channel, MiB
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
         match self {
             Self::CHIP_NAVI21 |
@@ -348,6 +358,7 @@ impl ASIC_NAME {
         }
     }
 
+    /// Processor name for LLVM
     #[cfg(feature = "std")]
     pub fn get_llvm_processor_name(&self) -> String {
         match self {
