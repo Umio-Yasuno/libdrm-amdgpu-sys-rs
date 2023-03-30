@@ -26,6 +26,7 @@ impl DeviceHandle {
         }
     }
 
+    /// Note: `ip_instance` must be less than `AMDGPU_HW_IP_INSTANCE_MAX_COUNT` (`0` recommended)
     pub fn query_hw_ip_info(
         &self,
         type_: HW_IP_TYPE,

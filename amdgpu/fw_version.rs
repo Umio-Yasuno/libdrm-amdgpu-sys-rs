@@ -9,6 +9,7 @@ pub struct FwVer {
 }
 
 impl DeviceHandle {
+    /// Note: `ip_instance` must be `0`.
     pub fn query_firmware_version(
         &self,
         fw_type: FW_TYPE,

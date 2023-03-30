@@ -69,6 +69,7 @@ impl DeviceHandle {
         unsafe { bindings::amdgpu_device_get_fd(self.0) }
     }
 
+    /// (`major`, `minor`, `patchlevel`)
     pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
         let fd = self.get_fd();
         let mut _drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
@@ -198,7 +199,7 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_DEV_INFO)
     }
 
-    /// `usable_heap_size` equal `real_size - pin_size - reserved_size`, is not fixed.
+    /// Note: `usable_heap_size` equal `real_size - pin_size - reserved_size`, is not fixed.
     pub fn vram_gtt_info(&self) -> Result<drm_amdgpu_info_vram_gtt, i32> {
         // return 
         Self::query(self, AMDGPU_INFO_VRAM_GTT)
@@ -238,7 +239,7 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
     }
 
-    // Get [PCI::BUS_INFO]
+    /// Get [PCI::BUS_INFO]
     pub fn get_pci_bus_info(&self) -> Result<PCI::BUS_INFO, i32> {
         PCI::BUS_INFO::drm_get_device2(self.get_fd())
     }
@@ -286,13 +287,13 @@ impl DeviceHandle {
         None
     }
 
-    /// Get the minimum gpu core clock from sysfs
+    /// Get the minimum gpu core clock from sysfs (`pp_dpm_sclk`)
     #[cfg(feature = "std")]
     pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
 
-    /// Get the minimum memory clock from sysfs
+    /// Get the minimum memory clock from sysfs (`pp_dpm_mclk`)
     #[cfg(feature = "std")]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")
