@@ -37,9 +37,44 @@ mod sensor_info;
 pub mod VBIOS {
     pub use super::vbios::*;
 }
+
+/// # Video Encode/Decode Capabilities
+/// ## Examples
+///
+/// ```
+/// use AMDGPU::VIDEO_CAPS::*;
+/// for cap_type in [
+///     amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap(),
+///     amdgpu_dev.get_video_caps(CAP_TYPE::ENCODE).unwrap(),
+/// ] {
+///     let codec_list = [
+///         CODEC::MPEG2,
+///         CODEC::MPEG4,
+///         CODEC::VC1,
+///         CODEC::MPEG4_AVC,
+///         CODEC::HEVC,
+///         CODEC::JPEG,
+///         CODEC::VP9,
+///         CODEC::AV1,
+///     ];
+///
+///     for codec in &codec_list {
+///         let cap = cap_type.get_codec_info(*codec);
+///         println!("{cap:?}");
+///     }
+/// }
+/// // or
+/// if let Ok(dec_info) = amdgpu_dev.get_video_caps_info(CAP_TYPE::DECODE) {
+///     println!("{dec_info:#?}");
+/// }
+/// if let Ok(enc_info) = amdgpu_dev.get_video_caps_info(CAP_TYPE::ENCODE) {
+///     println!("{enc_info:#?}");
+/// }
+/// ```
 pub mod VIDEO_CAPS {
     pub use super::video_caps::*;
 }
+
 pub mod HW_IP {
     pub use super::hw_ip::*;
 }

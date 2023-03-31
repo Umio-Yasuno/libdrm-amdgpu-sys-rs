@@ -23,11 +23,7 @@ fn main() {
         use AMDGPU::GPU_INFO;
 
         // println!("\n{ext_info:#X?}\n");
-        let gpu_type = if ext_info.is_apu() {
-            "APU"
-        } else {
-            "dGPU"
-        };
+        let gpu_type = if ext_info.is_apu() { "APU" } else { "dGPU" };
 
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
@@ -196,31 +192,15 @@ fn main() {
         }
     }
 
-    if let [Ok(dec), Ok(enc)] = [
-        amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::DECODE),
-        amdgpu_dev.get_video_caps(AMDGPU::VIDEO_CAPS::CAP_TYPE::ENCODE),
-    ] {
-        use AMDGPU::VIDEO_CAPS::*;
-
-        let codec_list = [
-            CODEC::MPEG2,
-            CODEC::MPEG4,
-            CODEC::VC1,
-            CODEC::MPEG4_AVC,
-            CODEC::HEVC,
-            CODEC::JPEG,
-            CODEC::VP9,
-            CODEC::AV1,
-        ];
+    {
+        use AMDGPU::VIDEO_CAPS::CAP_TYPE;
 
         println!("\nVideo caps:");
-
-        for codec in &codec_list {
-            let [dec_cap, enc_cap] = [dec, enc].map(|type_| type_.get_codec_info(*codec));
-
-            println!("{codec}:");
-            println!("    Decode: w {:>5}, h {:>5}", dec_cap.max_width, dec_cap.max_height);
-            println!("    Encode: w {:>5}, h {:>5}", enc_cap.max_width, enc_cap.max_height);
+        if let Ok(codec_info) = amdgpu_dev.get_video_caps_info(CAP_TYPE::DECODE) {
+            println!("{codec_info:#?}");
+        }
+        if let Ok(codec_info) = amdgpu_dev.get_video_caps_info(CAP_TYPE::ENCODE) {
+            println!("{codec_info:#?}");
         }
     }
 

@@ -1,17 +1,56 @@
-/* TODO: WIP */
-
-use crate::AMDGPU::*;
 use crate::*;
-// use super::*;
+use crate::AMDGPU::*;
 use core::mem::{size_of, MaybeUninit};
-
 pub use bindings::{drm_amdgpu_info_video_caps, drm_amdgpu_info_video_codec_info};
+
+#[derive(Debug, Clone, Copy)]
+pub struct VideoCapsInfo {
+    pub cap_type: CAP_TYPE,
+    pub mpeg2: Option<drm_amdgpu_info_video_codec_info>,
+    pub mpeg4: Option<drm_amdgpu_info_video_codec_info>,
+    pub vc1: Option<drm_amdgpu_info_video_codec_info>,
+    pub mpeg4_avc: Option<drm_amdgpu_info_video_codec_info>,
+    pub hevc: Option<drm_amdgpu_info_video_codec_info>,
+    pub jpeg: Option<drm_amdgpu_info_video_codec_info>,
+    pub vp9: Option<drm_amdgpu_info_video_codec_info>,
+    pub av1: Option<drm_amdgpu_info_video_codec_info>,
+}
+
+impl From<(&CAP_TYPE, &drm_amdgpu_info_video_caps)> for VideoCapsInfo {
+    fn from(caps: (&CAP_TYPE, &drm_amdgpu_info_video_caps)) -> Self {
+        let (cap_type, video_caps) = caps;
+        let [mpeg2, mpeg4, vc1, mpeg4_avc, hevc, jpeg, vp9, av1] = CODEC::LIST
+            .map(|codec| {
+                let info = video_caps.get_codec_info(codec);
+
+                (info.valid != 0).then_some(info)
+            });
+
+        Self {
+            cap_type: *cap_type,
+            mpeg2,
+            mpeg4,
+            vc1,
+            mpeg4_avc,
+            hevc,
+            jpeg,
+            vp9,
+            av1,
+        }
+    }
+}
+
+impl DeviceHandle {
+    pub fn get_video_caps_info(&self, cap_type: CAP_TYPE) -> Result<VideoCapsInfo, i32> {
+        let cap = self.get_video_caps(cap_type)?;
+
+        Ok(VideoCapsInfo::from((&cap_type, &cap)))
+    }
+}
+
 use bindings::{
-    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
-    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
-    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
-    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1, AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9,
-    AMDGPU_INFO_VIDEO_CAPS_DECODE, AMDGPU_INFO_VIDEO_CAPS_ENCODE,
+    AMDGPU_INFO_VIDEO_CAPS_DECODE,
+    AMDGPU_INFO_VIDEO_CAPS_ENCODE,
 };
 
 /// Used for [DeviceHandle::get_video_caps]
@@ -38,7 +77,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(video_caps);
+            Ok(video_caps)
         }
     }
 }
@@ -48,6 +87,18 @@ impl drm_amdgpu_info_video_caps {
         self.codec_info[codec as usize]
     }
 }
+
+use bindings::{
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VC1,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4_AVC,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_HEVC,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1,
+    AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT,
+};
 
 /// Used for [drm_amdgpu_info_video_caps::get_codec_info]
 #[derive(Debug, Clone, Copy)]
@@ -61,6 +112,19 @@ pub enum CODEC {
     JPEG = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_JPEG,
     VP9 = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_VP9,
     AV1 = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_AV1,
+}
+
+impl CODEC {
+    pub const LIST: [Self; AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_COUNT as usize] = [
+        Self::MPEG2,
+        Self::MPEG4,
+        Self::VC1,
+        Self::MPEG4_AVC,
+        Self::HEVC,
+        Self::JPEG,
+        Self::VP9,
+        Self::AV1,
+    ];
 }
 
 #[cfg(feature = "std")]
