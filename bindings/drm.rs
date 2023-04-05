@@ -657,6 +657,7 @@ pub const AMDGPU_FAMILY_RV: u32 = 142;
 pub const AMDGPU_FAMILY_NV: u32 = 143;
 pub const AMDGPU_FAMILY_VGH: u32 = 144;
 pub const AMDGPU_FAMILY_YC: u32 = 146;
+pub const NUM_HBM_INSTANCES: u32 = 4;
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
 pub type __u_char = ::core::ffi::c_uchar;
@@ -17534,6 +17535,3625 @@ fn bindgen_test_layout_drm_amdgpu_info_video_caps() {
             stringify!(drm_amdgpu_info_video_caps),
             "::",
             stringify!(codec_info)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct metrics_table_header {
+    pub structure_size: u16,
+    pub format_revision: u8,
+    pub content_revision: u8,
+}
+#[test]
+fn bindgen_test_layout_metrics_table_header() {
+    assert_eq!(
+        ::core::mem::size_of::<metrics_table_header>(),
+        4usize,
+        concat!("Size of: ", stringify!(metrics_table_header))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<metrics_table_header>(),
+        2usize,
+        concat!("Alignment of ", stringify!(metrics_table_header))
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<metrics_table_header>())).structure_size as *const _ as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(metrics_table_header),
+            "::",
+            stringify!(structure_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<metrics_table_header>())).format_revision as *const _ as usize
+        },
+        2usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(metrics_table_header),
+            "::",
+            stringify!(format_revision)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<metrics_table_header>())).content_revision as *const _ as usize
+        },
+        3usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(metrics_table_header),
+            "::",
+            stringify!(content_revision)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v1_0 {
+    pub common_header: metrics_table_header,
+    pub system_clock_counter: u64,
+    pub temperature_edge: u16,
+    pub temperature_hotspot: u16,
+    pub temperature_mem: u16,
+    pub temperature_vrgfx: u16,
+    pub temperature_vrsoc: u16,
+    pub temperature_vrmem: u16,
+    pub average_gfx_activity: u16,
+    pub average_umc_activity: u16,
+    pub average_mm_activity: u16,
+    pub average_socket_power: u16,
+    pub energy_accumulator: u32,
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_vclk0_frequency: u16,
+    pub average_dclk0_frequency: u16,
+    pub average_vclk1_frequency: u16,
+    pub average_dclk1_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_vclk0: u16,
+    pub current_dclk0: u16,
+    pub current_vclk1: u16,
+    pub current_dclk1: u16,
+    pub throttle_status: u32,
+    pub current_fan_speed: u16,
+    pub pcie_link_width: u8,
+    pub pcie_link_speed: u8,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v1_0() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v1_0>(),
+        80usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v1_0))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v1_0>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v1_0))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).system_clock_counter as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_edge as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_edge)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_hotspot as *const _ as usize
+        },
+        18usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_hotspot)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_mem as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_mem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_vrgfx as *const _ as usize
+        },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_vrgfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_vrsoc as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_vrsoc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).temperature_vrmem as *const _ as usize
+        },
+        26usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(temperature_vrmem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_gfx_activity as *const _ as usize
+        },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_umc_activity as *const _ as usize
+        },
+        30usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_umc_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_mm_activity as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_socket_power as *const _ as usize
+        },
+        34usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).energy_accumulator as *const _ as usize
+        },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(energy_accumulator)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_socclk_frequency as *const _
+                as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_uclk_frequency as *const _
+                as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_vclk0_frequency as *const _
+                as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_vclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_dclk0_frequency as *const _
+                as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_dclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_vclk1_frequency as *const _
+                as usize
+        },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_vclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).average_dclk1_frequency as *const _
+                as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(average_dclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_gfxclk as *const _ as usize
+        },
+        54usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_socclk as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_uclk as *const _ as usize },
+        58usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_vclk0 as *const _ as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_vclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_dclk0 as *const _ as usize },
+        62usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_dclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_vclk1 as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_vclk1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_dclk1 as *const _ as usize },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_dclk1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).throttle_status as *const _ as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).current_fan_speed as *const _ as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(current_fan_speed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).pcie_link_width as *const _ as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(pcie_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_0>())).pcie_link_speed as *const _ as usize
+        },
+        75usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_0),
+            "::",
+            stringify!(pcie_link_speed)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v1_1 {
+    pub common_header: metrics_table_header,
+    pub temperature_edge: u16,
+    pub temperature_hotspot: u16,
+    pub temperature_mem: u16,
+    pub temperature_vrgfx: u16,
+    pub temperature_vrsoc: u16,
+    pub temperature_vrmem: u16,
+    pub average_gfx_activity: u16,
+    pub average_umc_activity: u16,
+    pub average_mm_activity: u16,
+    pub average_socket_power: u16,
+    pub energy_accumulator: u64,
+    pub system_clock_counter: u64,
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_vclk0_frequency: u16,
+    pub average_dclk0_frequency: u16,
+    pub average_vclk1_frequency: u16,
+    pub average_dclk1_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_vclk0: u16,
+    pub current_dclk0: u16,
+    pub current_vclk1: u16,
+    pub current_dclk1: u16,
+    pub throttle_status: u32,
+    pub current_fan_speed: u16,
+    pub pcie_link_width: u16,
+    pub pcie_link_speed: u16,
+    pub padding: u16,
+    pub gfx_activity_acc: u32,
+    pub mem_activity_acc: u32,
+    pub temperature_hbm: [u16; 4usize],
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v1_1() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v1_1>(),
+        96usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v1_1))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v1_1>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v1_1))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_edge as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_edge)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_hotspot as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_hotspot)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_mem as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_mem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_vrgfx as *const _ as usize
+        },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_vrgfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_vrsoc as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_vrsoc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_vrmem as *const _ as usize
+        },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_vrmem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_gfx_activity as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_umc_activity as *const _ as usize
+        },
+        18usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_umc_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_mm_activity as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_socket_power as *const _ as usize
+        },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).energy_accumulator as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(energy_accumulator)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_socclk_frequency as *const _
+                as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_uclk_frequency as *const _
+                as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_vclk0_frequency as *const _
+                as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_vclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_dclk0_frequency as *const _
+                as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_dclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_vclk1_frequency as *const _
+                as usize
+        },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_vclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).average_dclk1_frequency as *const _
+                as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(average_dclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_gfxclk as *const _ as usize
+        },
+        54usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_socclk as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_uclk as *const _ as usize },
+        58usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_vclk0 as *const _ as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_vclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_dclk0 as *const _ as usize },
+        62usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_dclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_vclk1 as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_vclk1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_dclk1 as *const _ as usize },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_dclk1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).throttle_status as *const _ as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).current_fan_speed as *const _ as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(current_fan_speed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).pcie_link_width as *const _ as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(pcie_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).pcie_link_speed as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(pcie_link_speed)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_1>())).padding as *const _ as usize },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).gfx_activity_acc as *const _ as usize
+        },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(gfx_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).mem_activity_acc as *const _ as usize
+        },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(mem_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_1>())).temperature_hbm as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_1),
+            "::",
+            stringify!(temperature_hbm)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v1_2 {
+    pub common_header: metrics_table_header,
+    pub temperature_edge: u16,
+    pub temperature_hotspot: u16,
+    pub temperature_mem: u16,
+    pub temperature_vrgfx: u16,
+    pub temperature_vrsoc: u16,
+    pub temperature_vrmem: u16,
+    pub average_gfx_activity: u16,
+    pub average_umc_activity: u16,
+    pub average_mm_activity: u16,
+    pub average_socket_power: u16,
+    pub energy_accumulator: u64,
+    pub system_clock_counter: u64,
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_vclk0_frequency: u16,
+    pub average_dclk0_frequency: u16,
+    pub average_vclk1_frequency: u16,
+    pub average_dclk1_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_vclk0: u16,
+    pub current_dclk0: u16,
+    pub current_vclk1: u16,
+    pub current_dclk1: u16,
+    pub throttle_status: u32,
+    pub current_fan_speed: u16,
+    pub pcie_link_width: u16,
+    pub pcie_link_speed: u16,
+    pub padding: u16,
+    pub gfx_activity_acc: u32,
+    pub mem_activity_acc: u32,
+    pub temperature_hbm: [u16; 4usize],
+    pub firmware_timestamp: u64,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v1_2() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v1_2>(),
+        104usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v1_2))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v1_2>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v1_2))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_edge as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_edge)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_hotspot as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_hotspot)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_mem as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_mem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_vrgfx as *const _ as usize
+        },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_vrgfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_vrsoc as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_vrsoc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_vrmem as *const _ as usize
+        },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_vrmem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_gfx_activity as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_umc_activity as *const _ as usize
+        },
+        18usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_umc_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_mm_activity as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_socket_power as *const _ as usize
+        },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).energy_accumulator as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(energy_accumulator)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_socclk_frequency as *const _
+                as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_uclk_frequency as *const _
+                as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_vclk0_frequency as *const _
+                as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_vclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_dclk0_frequency as *const _
+                as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_dclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_vclk1_frequency as *const _
+                as usize
+        },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_vclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).average_dclk1_frequency as *const _
+                as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(average_dclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_gfxclk as *const _ as usize
+        },
+        54usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_socclk as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_uclk as *const _ as usize },
+        58usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_vclk0 as *const _ as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_vclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_dclk0 as *const _ as usize },
+        62usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_dclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_vclk1 as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_vclk1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_dclk1 as *const _ as usize },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_dclk1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).throttle_status as *const _ as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).current_fan_speed as *const _ as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(current_fan_speed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).pcie_link_width as *const _ as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(pcie_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).pcie_link_speed as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(pcie_link_speed)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_2>())).padding as *const _ as usize },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).gfx_activity_acc as *const _ as usize
+        },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(gfx_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).mem_activity_acc as *const _ as usize
+        },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(mem_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).temperature_hbm as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(temperature_hbm)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_2>())).firmware_timestamp as *const _ as usize
+        },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_2),
+            "::",
+            stringify!(firmware_timestamp)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v1_3 {
+    pub common_header: metrics_table_header,
+    pub temperature_edge: u16,
+    pub temperature_hotspot: u16,
+    pub temperature_mem: u16,
+    pub temperature_vrgfx: u16,
+    pub temperature_vrsoc: u16,
+    pub temperature_vrmem: u16,
+    pub average_gfx_activity: u16,
+    pub average_umc_activity: u16,
+    pub average_mm_activity: u16,
+    pub average_socket_power: u16,
+    pub energy_accumulator: u64,
+    pub system_clock_counter: u64,
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_vclk0_frequency: u16,
+    pub average_dclk0_frequency: u16,
+    pub average_vclk1_frequency: u16,
+    pub average_dclk1_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_vclk0: u16,
+    pub current_dclk0: u16,
+    pub current_vclk1: u16,
+    pub current_dclk1: u16,
+    pub throttle_status: u32,
+    pub current_fan_speed: u16,
+    pub pcie_link_width: u16,
+    pub pcie_link_speed: u16,
+    pub padding: u16,
+    pub gfx_activity_acc: u32,
+    pub mem_activity_acc: u32,
+    pub temperature_hbm: [u16; 4usize],
+    pub firmware_timestamp: u64,
+    pub voltage_soc: u16,
+    pub voltage_gfx: u16,
+    pub voltage_mem: u16,
+    pub padding1: u16,
+    pub indep_throttle_status: u64,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v1_3() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v1_3>(),
+        120usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v1_3))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v1_3>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v1_3))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_edge as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_edge)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_hotspot as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_hotspot)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_mem as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_mem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_vrgfx as *const _ as usize
+        },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_vrgfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_vrsoc as *const _ as usize
+        },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_vrsoc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_vrmem as *const _ as usize
+        },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_vrmem)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_gfx_activity as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_umc_activity as *const _ as usize
+        },
+        18usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_umc_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_mm_activity as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_socket_power as *const _ as usize
+        },
+        22usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).energy_accumulator as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(energy_accumulator)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_socclk_frequency as *const _
+                as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_uclk_frequency as *const _
+                as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_vclk0_frequency as *const _
+                as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_vclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_dclk0_frequency as *const _
+                as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_dclk0_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_vclk1_frequency as *const _
+                as usize
+        },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_vclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).average_dclk1_frequency as *const _
+                as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(average_dclk1_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_gfxclk as *const _ as usize
+        },
+        54usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_socclk as *const _ as usize
+        },
+        56usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_uclk as *const _ as usize },
+        58usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_vclk0 as *const _ as usize },
+        60usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_vclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_dclk0 as *const _ as usize },
+        62usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_dclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_vclk1 as *const _ as usize },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_vclk1)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_dclk1 as *const _ as usize },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_dclk1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).throttle_status as *const _ as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).current_fan_speed as *const _ as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(current_fan_speed)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).pcie_link_width as *const _ as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(pcie_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).pcie_link_speed as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(pcie_link_speed)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).padding as *const _ as usize },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).gfx_activity_acc as *const _ as usize
+        },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(gfx_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).mem_activity_acc as *const _ as usize
+        },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(mem_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).temperature_hbm as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(temperature_hbm)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).firmware_timestamp as *const _ as usize
+        },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(firmware_timestamp)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).voltage_soc as *const _ as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(voltage_soc)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).voltage_gfx as *const _ as usize },
+        106usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(voltage_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).voltage_mem as *const _ as usize },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(voltage_mem)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v1_3>())).padding1 as *const _ as usize },
+        110usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(padding1)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v1_3>())).indep_throttle_status as *const _ as usize
+        },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_3),
+            "::",
+            stringify!(indep_throttle_status)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v2_0 {
+    pub common_header: metrics_table_header,
+    pub system_clock_counter: u64,
+    pub temperature_gfx: u16,
+    pub temperature_soc: u16,
+    pub temperature_core: [u16; 8usize],
+    pub temperature_l3: [u16; 2usize],
+    pub average_gfx_activity: u16,
+    pub average_mm_activity: u16,
+    pub average_socket_power: u16,
+    pub average_cpu_power: u16,
+    pub average_soc_power: u16,
+    pub average_gfx_power: u16,
+    pub average_core_power: [u16; 8usize],
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_fclk_frequency: u16,
+    pub average_vclk_frequency: u16,
+    pub average_dclk_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_fclk: u16,
+    pub current_vclk: u16,
+    pub current_dclk: u16,
+    pub current_coreclk: [u16; 8usize],
+    pub current_l3clk: [u16; 2usize],
+    pub throttle_status: u32,
+    pub fan_pwm: u16,
+    pub padding: u16,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v2_0() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v2_0>(),
+        120usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v2_0))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v2_0>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v2_0))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).system_clock_counter as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).temperature_gfx as *const _ as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(temperature_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).temperature_soc as *const _ as usize
+        },
+        18usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(temperature_soc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).temperature_core as *const _ as usize
+        },
+        20usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(temperature_core)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).temperature_l3 as *const _ as usize
+        },
+        36usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(temperature_l3)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_gfx_activity as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_mm_activity as *const _ as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_socket_power as *const _ as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_cpu_power as *const _ as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_cpu_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_soc_power as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_soc_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_gfx_power as *const _ as usize
+        },
+        50usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_gfx_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_core_power as *const _ as usize
+        },
+        52usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_core_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_socclk_frequency as *const _
+                as usize
+        },
+        70usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_uclk_frequency as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_fclk_frequency as *const _
+                as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_fclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_vclk_frequency as *const _
+                as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_vclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).average_dclk_frequency as *const _
+                as usize
+        },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(average_dclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_gfxclk as *const _ as usize
+        },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_socclk as *const _ as usize
+        },
+        82usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_uclk as *const _ as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_fclk as *const _ as usize },
+        86usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_fclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_vclk as *const _ as usize },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_vclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_dclk as *const _ as usize },
+        90usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_dclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_coreclk as *const _ as usize
+        },
+        92usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_coreclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).current_l3clk as *const _ as usize },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(current_l3clk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_0>())).throttle_status as *const _ as usize
+        },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).fan_pwm as *const _ as usize },
+        116usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(fan_pwm)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_0>())).padding as *const _ as usize },
+        118usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_0),
+            "::",
+            stringify!(padding)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v2_1 {
+    pub common_header: metrics_table_header,
+    pub temperature_gfx: u16,
+    pub temperature_soc: u16,
+    pub temperature_core: [u16; 8usize],
+    pub temperature_l3: [u16; 2usize],
+    pub average_gfx_activity: u16,
+    pub average_mm_activity: u16,
+    pub system_clock_counter: u64,
+    pub average_socket_power: u16,
+    pub average_cpu_power: u16,
+    pub average_soc_power: u16,
+    pub average_gfx_power: u16,
+    pub average_core_power: [u16; 8usize],
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_fclk_frequency: u16,
+    pub average_vclk_frequency: u16,
+    pub average_dclk_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_fclk: u16,
+    pub current_vclk: u16,
+    pub current_dclk: u16,
+    pub current_coreclk: [u16; 8usize],
+    pub current_l3clk: [u16; 2usize],
+    pub throttle_status: u32,
+    pub fan_pwm: u16,
+    pub padding: [u16; 3usize],
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v2_1() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v2_1>(),
+        120usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v2_1))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v2_1>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v2_1))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).temperature_gfx as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(temperature_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).temperature_soc as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(temperature_soc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).temperature_core as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(temperature_core)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).temperature_l3 as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(temperature_l3)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_gfx_activity as *const _ as usize
+        },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_mm_activity as *const _ as usize
+        },
+        30usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_socket_power as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_cpu_power as *const _ as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_cpu_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_soc_power as *const _ as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_soc_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_gfx_power as *const _ as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_gfx_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_core_power as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_core_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_socclk_frequency as *const _
+                as usize
+        },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_uclk_frequency as *const _
+                as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_fclk_frequency as *const _
+                as usize
+        },
+        70usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_fclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_vclk_frequency as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_vclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).average_dclk_frequency as *const _
+                as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(average_dclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_gfxclk as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_socclk as *const _ as usize
+        },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_uclk as *const _ as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_fclk as *const _ as usize },
+        82usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_fclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_vclk as *const _ as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_vclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_dclk as *const _ as usize },
+        86usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_dclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_coreclk as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_coreclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).current_l3clk as *const _ as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(current_l3clk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_1>())).throttle_status as *const _ as usize
+        },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).fan_pwm as *const _ as usize },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(fan_pwm)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_1>())).padding as *const _ as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_1),
+            "::",
+            stringify!(padding)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v2_2 {
+    pub common_header: metrics_table_header,
+    pub temperature_gfx: u16,
+    pub temperature_soc: u16,
+    pub temperature_core: [u16; 8usize],
+    pub temperature_l3: [u16; 2usize],
+    pub average_gfx_activity: u16,
+    pub average_mm_activity: u16,
+    pub system_clock_counter: u64,
+    pub average_socket_power: u16,
+    pub average_cpu_power: u16,
+    pub average_soc_power: u16,
+    pub average_gfx_power: u16,
+    pub average_core_power: [u16; 8usize],
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_fclk_frequency: u16,
+    pub average_vclk_frequency: u16,
+    pub average_dclk_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_fclk: u16,
+    pub current_vclk: u16,
+    pub current_dclk: u16,
+    pub current_coreclk: [u16; 8usize],
+    pub current_l3clk: [u16; 2usize],
+    pub throttle_status: u32,
+    pub fan_pwm: u16,
+    pub padding: [u16; 3usize],
+    pub indep_throttle_status: u64,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v2_2() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v2_2>(),
+        128usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v2_2))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v2_2>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v2_2))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).temperature_gfx as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(temperature_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).temperature_soc as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(temperature_soc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).temperature_core as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(temperature_core)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).temperature_l3 as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(temperature_l3)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_gfx_activity as *const _ as usize
+        },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_mm_activity as *const _ as usize
+        },
+        30usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_socket_power as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_cpu_power as *const _ as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_cpu_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_soc_power as *const _ as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_soc_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_gfx_power as *const _ as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_gfx_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_core_power as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_core_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_socclk_frequency as *const _
+                as usize
+        },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_uclk_frequency as *const _
+                as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_fclk_frequency as *const _
+                as usize
+        },
+        70usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_fclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_vclk_frequency as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_vclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).average_dclk_frequency as *const _
+                as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(average_dclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_gfxclk as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_socclk as *const _ as usize
+        },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_uclk as *const _ as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_fclk as *const _ as usize },
+        82usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_fclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_vclk as *const _ as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_vclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_dclk as *const _ as usize },
+        86usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_dclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_coreclk as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_coreclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).current_l3clk as *const _ as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(current_l3clk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).throttle_status as *const _ as usize
+        },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).fan_pwm as *const _ as usize },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(fan_pwm)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_2>())).padding as *const _ as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_2>())).indep_throttle_status as *const _ as usize
+        },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_2),
+            "::",
+            stringify!(indep_throttle_status)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v2_3 {
+    pub common_header: metrics_table_header,
+    pub temperature_gfx: u16,
+    pub temperature_soc: u16,
+    pub temperature_core: [u16; 8usize],
+    pub temperature_l3: [u16; 2usize],
+    pub average_gfx_activity: u16,
+    pub average_mm_activity: u16,
+    pub system_clock_counter: u64,
+    pub average_socket_power: u16,
+    pub average_cpu_power: u16,
+    pub average_soc_power: u16,
+    pub average_gfx_power: u16,
+    pub average_core_power: [u16; 8usize],
+    pub average_gfxclk_frequency: u16,
+    pub average_socclk_frequency: u16,
+    pub average_uclk_frequency: u16,
+    pub average_fclk_frequency: u16,
+    pub average_vclk_frequency: u16,
+    pub average_dclk_frequency: u16,
+    pub current_gfxclk: u16,
+    pub current_socclk: u16,
+    pub current_uclk: u16,
+    pub current_fclk: u16,
+    pub current_vclk: u16,
+    pub current_dclk: u16,
+    pub current_coreclk: [u16; 8usize],
+    pub current_l3clk: [u16; 2usize],
+    pub throttle_status: u32,
+    pub fan_pwm: u16,
+    pub padding: [u16; 3usize],
+    pub indep_throttle_status: u64,
+    pub average_temperature_gfx: u16,
+    pub average_temperature_soc: u16,
+    pub average_temperature_core: [u16; 8usize],
+    pub average_temperature_l3: [u16; 2usize],
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v2_3() {
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v2_3>(),
+        152usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v2_3))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v2_3>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v2_3))
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).common_header as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).temperature_gfx as *const _ as usize
+        },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(temperature_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).temperature_soc as *const _ as usize
+        },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(temperature_soc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).temperature_core as *const _ as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(temperature_core)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).temperature_l3 as *const _ as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(temperature_l3)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_gfx_activity as *const _ as usize
+        },
+        28usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_mm_activity as *const _ as usize
+        },
+        30usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_mm_activity)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).system_clock_counter as *const _ as usize
+        },
+        32usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_socket_power as *const _ as usize
+        },
+        40usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_cpu_power as *const _ as usize
+        },
+        42usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_cpu_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_soc_power as *const _ as usize
+        },
+        44usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_soc_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_gfx_power as *const _ as usize
+        },
+        46usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_gfx_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_core_power as *const _ as usize
+        },
+        48usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_core_power)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_gfxclk_frequency as *const _
+                as usize
+        },
+        64usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_gfxclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_socclk_frequency as *const _
+                as usize
+        },
+        66usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_socclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_uclk_frequency as *const _
+                as usize
+        },
+        68usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_uclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_fclk_frequency as *const _
+                as usize
+        },
+        70usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_fclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_vclk_frequency as *const _
+                as usize
+        },
+        72usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_vclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_dclk_frequency as *const _
+                as usize
+        },
+        74usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_dclk_frequency)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_gfxclk as *const _ as usize
+        },
+        76usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_socclk as *const _ as usize
+        },
+        78usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_uclk as *const _ as usize },
+        80usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_fclk as *const _ as usize },
+        82usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_fclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_vclk as *const _ as usize },
+        84usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_vclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_dclk as *const _ as usize },
+        86usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_dclk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_coreclk as *const _ as usize
+        },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_coreclk)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).current_l3clk as *const _ as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(current_l3clk)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).throttle_status as *const _ as usize
+        },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).fan_pwm as *const _ as usize },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(fan_pwm)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::core::ptr::null::<gpu_metrics_v2_3>())).padding as *const _ as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(padding)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).indep_throttle_status as *const _ as usize
+        },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(indep_throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_temperature_gfx as *const _
+                as usize
+        },
+        128usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_temperature_gfx)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_temperature_soc as *const _
+                as usize
+        },
+        130usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_temperature_soc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_temperature_core as *const _
+                as usize
+        },
+        132usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_temperature_core)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<gpu_metrics_v2_3>())).average_temperature_l3 as *const _
+                as usize
+        },
+        148usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v2_3),
+            "::",
+            stringify!(average_temperature_l3)
         )
     );
 }

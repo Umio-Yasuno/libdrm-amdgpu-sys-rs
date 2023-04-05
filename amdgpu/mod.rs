@@ -28,6 +28,11 @@ pub use chip_class::*;
 mod gpu_info;
 pub use gpu_info::*;
 
+mod metrics_table;
+pub use metrics_table::*;
+mod gpu_metrics;
+pub use gpu_metrics::*;
+
 mod vbios;
 mod video_caps;
 mod hw_ip;
@@ -84,3 +89,4 @@ pub mod FW_VERSION {
 pub mod SENSOR_INFO {
     pub use super::sensor_info::*;
 }
+

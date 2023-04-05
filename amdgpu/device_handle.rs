@@ -32,6 +32,8 @@ pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
+const PCI_PATH: &str = "/sys/bus/pci/devices";
+
 impl DeviceHandle {
     /// Initialization.
     /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`
@@ -274,7 +276,6 @@ impl DeviceHandle {
 
     #[cfg(feature = "std")]
     fn get_min_clock(&self, pci: &PCI::BUS_INFO, file_name: &str) -> Option<u64> {
-        const PCI_PATH: &str = "/sys/bus/pci/devices";
 
         let path = format!("{PCI_PATH}/{pci}/{file_name}");
 
@@ -297,6 +298,14 @@ impl DeviceHandle {
     #[cfg(feature = "std")]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")
+    }
+
+    /// 
+    #[cfg(feature = "std")]
+    pub fn get_sysfs_path(&self) -> Result<String, i32> {
+        let path = format!("{PCI_PATH}/{}/", self.get_pci_bus_info()?);
+
+        Ok(path)
     }
 }
 

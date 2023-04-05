@@ -21,6 +21,7 @@ fn build() {
         // bindings for.
         .header("wrapper/wrapper_drm.h")
         .header("wrapper/wrapper_amdgpu.h")
+        .header("wrapper/wrapper_gpu_metrics.h")
         .clang_args(config.iter())
         .use_core()
         .ctypes_prefix("::core::ffi")
