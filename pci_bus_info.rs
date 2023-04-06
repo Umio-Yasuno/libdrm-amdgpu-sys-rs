@@ -23,7 +23,7 @@ pub mod PCI {
 }
 
 impl PCI::BUS_INFO {
-    pub fn drm_get_device2(
+    pub(crate) fn drm_get_device2(
         fd: ::core::ffi::c_int,
         //  flags: u32,
     ) -> Result<Self, i32> {

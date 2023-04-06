@@ -31,6 +31,10 @@ cargo run --example amdgpu_info
 ```
 cargo run --example vbios_dump
 ```
+### gpu_metrics
+```
+cargo run --example gpu_metrics
+```
 ## Build
 To generate a new `bindings/drm.rs` .
 
