@@ -252,4 +252,8 @@ fn main() {
             }
         }
     }
+
+        if let Ok(pci_bus) = amdgpu_dev.get_pci_bus_info() {
+            println!("{:?}", pci_bus.get_sysfs_path());
+        }
 }

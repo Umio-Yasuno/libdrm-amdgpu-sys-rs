@@ -16,6 +16,7 @@ use core::ptr;
 
 use std::fs::File;
 use std::io::{self, Read};
+use std::path::PathBuf;
 
 /// AMD GPU metrics data available from `"{sysfs_path}/gpu_metrics"`.
 /// Vega12 (dGPU) or later, Renoir (APU) or later supports GPU metrics.
@@ -101,8 +102,11 @@ impl MetricsInfo for GpuMetrics {
 }
 
 impl DeviceHandle {
-    pub fn get_gpu_metrics_from_sysfs_path(&self, path: &str) -> io::Result<GpuMetrics> {
-        let mut f = File::open(&format!("{path}/gpu_metrics"))?;
+    pub fn get_gpu_metrics_from_sysfs_path<P: Into<PathBuf>>(
+        &self,
+        path: P
+    ) -> io::Result<GpuMetrics> {
+        let mut f = File::open(path.into().join("gpu_metrics"))?;
         let mut buf: Vec<u8> = Vec::with_capacity(256);
         f.read_to_end(&mut buf)?;
 

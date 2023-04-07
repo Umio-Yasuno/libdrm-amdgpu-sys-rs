@@ -28,9 +28,13 @@ pub use chip_class::*;
 mod gpu_info;
 pub use gpu_info::*;
 
+#[cfg(feature = "std")]
 mod metrics_table;
+#[cfg(feature = "std")]
 pub use metrics_table::*;
+#[cfg(feature = "std")]
 mod gpu_metrics;
+#[cfg(feature = "std")]
 pub use gpu_metrics::*;
 
 mod vbios;

@@ -33,6 +33,8 @@ unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
 const PCI_PATH: &str = "/sys/bus/pci/devices";
+#[cfg(feature = "std")]
+use std::path::{Path, PathBuf};
 
 impl DeviceHandle {
     /// Initialization.
@@ -247,7 +249,7 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    fn get_first_line(path: &String) -> Result<String, std::io::Error> {
+    fn get_first_line<P: AsRef<Path>>(path: P) -> Result<String, std::io::Error> {
         use std::fs::File;
         use std::io::{BufRead, BufReader};
 
@@ -260,7 +262,7 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    fn trim_dpm_clk(line: &String) -> Result<u64, std::num::ParseIntError> {
+    fn trim_dpm_clk(line: &str) -> Result<u64, std::num::ParseIntError> {
         const MHZ: &str = "Mhz";
         let mut tmp = String::new();
 
@@ -276,8 +278,7 @@ impl DeviceHandle {
 
     #[cfg(feature = "std")]
     fn get_min_clock(&self, pci: &PCI::BUS_INFO, file_name: &str) -> Option<u64> {
-
-        let path = format!("{PCI_PATH}/{pci}/{file_name}");
+        let path = pci.get_sysfs_path().join(file_name);
 
         if let Ok(line) = Self::get_first_line(&path) {
             if let Ok(clk) = Self::trim_dpm_clk(&line) {
@@ -302,8 +303,8 @@ impl DeviceHandle {
 
     /// 
     #[cfg(feature = "std")]
-    pub fn get_sysfs_path(&self) -> Result<String, i32> {
-        let path = format!("{PCI_PATH}/{}/", self.get_pci_bus_info()?);
+    pub fn get_sysfs_path(&self) -> Result<PathBuf, i32> {
+        let path = self.get_pci_bus_info()?.get_sysfs_path();
 
         Ok(path)
     }

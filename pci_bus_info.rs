@@ -22,6 +22,9 @@ pub mod PCI {
     }
 }
 
+#[cfg(feature = "std")]
+use std::path::PathBuf;
+
 impl PCI::BUS_INFO {
     pub(crate) fn drm_get_device2(
         fd: ::core::ffi::c_int,
@@ -43,11 +46,14 @@ impl PCI::BUS_INFO {
         }
     }
 
+    #[cfg(feature = "std")]
+    pub fn get_sysfs_path(&self) -> PathBuf {
+        PathBuf::from("/sys/bus/pci/devices/").join(self.to_string())
+    }
+
     /// Returns paths to sysfs for PCI information
     #[cfg(feature = "std")]
-    pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [std::path::PathBuf; 2] {
-        use std::path::PathBuf;
-
+    pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [PathBuf; 2] {
         let status = match status {
             PCI::STATUS::Current => "current",
             PCI::STATUS::Max => "max",
