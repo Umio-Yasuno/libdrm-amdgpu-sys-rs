@@ -32,7 +32,6 @@ pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
-const PCI_PATH: &str = "/sys/bus/pci/devices";
 #[cfg(feature = "std")]
 use std::path::{Path, PathBuf};
 
