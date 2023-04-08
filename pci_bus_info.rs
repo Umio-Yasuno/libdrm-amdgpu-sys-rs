@@ -51,6 +51,17 @@ impl PCI::BUS_INFO {
         PathBuf::from("/sys/bus/pci/devices/").join(self.to_string())
     }
 
+    #[cfg(feature = "std")]
+    pub fn get_hwmon_path(&self) -> Option<PathBuf> {
+        let base = self.get_sysfs_path().join("hwmon");
+
+        let Some(hwmon_dir) = std::fs::read_dir(&base).ok()
+            .and_then(|mut read_dir| read_dir.next())
+            .and_then(|dir| dir.ok()) else { return None };
+
+        Some(hwmon_dir.path())
+    }
+
     /// Returns paths to sysfs for PCI information
     #[cfg(feature = "std")]
     pub fn get_link_sysfs_path(&self, status: PCI::STATUS) -> [PathBuf; 2] {

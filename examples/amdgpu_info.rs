@@ -253,7 +253,11 @@ fn main() {
         }
     }
 
-        if let Ok(pci_bus) = amdgpu_dev.get_pci_bus_info() {
-            println!("{:?}", pci_bus.get_sysfs_path());
-        }
+    if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
+        println!("sysfs: {sysfs:?}");
+    }
+
+    if let Some(hwmon) = amdgpu_dev.get_hwmon_path() {
+        println!("hwmon: {hwmon:?}");
+    }
 }

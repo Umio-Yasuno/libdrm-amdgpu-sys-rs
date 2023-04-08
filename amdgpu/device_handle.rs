@@ -307,6 +307,12 @@ impl DeviceHandle {
 
         Ok(path)
     }
+
+    /// 
+    #[cfg(feature = "std")]
+    pub fn get_hwmon_path(&self) -> Option<PathBuf> {
+        self.get_pci_bus_info().ok().and_then(|pci| pci.get_hwmon_path())
+    }
 }
 
 impl Drop for DeviceHandle {
