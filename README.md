@@ -10,6 +10,8 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 ## License
  * MIT License
 
+## Documentation
+ * [libdrm_amdgpu_sys - Rust](https://docs.rs/libdrm_amdgpu_sys/latest/libdrm_amdgpu_sys/)
 ## Examples
 ```
 let (amdgpu_dev, drm_major, drm_minor) = {
