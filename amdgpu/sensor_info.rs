@@ -18,7 +18,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(val);
+            Ok(val)
         }
     }
 }

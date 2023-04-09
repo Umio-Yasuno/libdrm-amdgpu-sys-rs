@@ -42,7 +42,7 @@ impl PCI::BUS_INFO {
 
             __drmFreeDevice(&mut dev_info);
 
-            return Ok(bus_info);
+            Ok(bus_info)
         }
     }
 
@@ -71,23 +71,26 @@ impl PCI::BUS_INFO {
         };
         let path = PathBuf::from(format!("/sys/bus/pci/devices/{}/", self));
 
-        return [
+        [
             format!("{status}_link_speed"),
             format!("{status}_link_width"),
         ]
-        .map(|file_name| path.join(file_name));
+        .map(|file_name| path.join(file_name))
     }
 
     /// Returns [PCI::LINK]
     #[cfg(feature = "std")]
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
-        let [speed, width] = Self::get_link_sysfs_path(&self, status)
+        let [speed, width] = Self::get_link_sysfs_path(self, status)
             .map(|path| std::fs::read_to_string(path).unwrap());
 
         let gen = Self::speed_to_gen(speed.trim());
         let width: u8 = width.trim().parse().unwrap();
 
-        return PCI::LINK { gen, width };
+        PCI::LINK {
+            gen,
+            width
+        }
     }
 
     /// Convert PCIe speed to PCIe gen
@@ -133,7 +136,7 @@ unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevic
 
     query_error!(r);
 
-    return Ok(drm_dev_info);
+    Ok(drm_dev_info)
 }
 
 unsafe fn __drmFreeDevice(device: *mut drmDevicePtr) {

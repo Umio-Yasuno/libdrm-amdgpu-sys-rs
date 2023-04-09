@@ -56,7 +56,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok((amdgpu_dev, major, minor));
+            Ok((amdgpu_dev, major, minor))
         }
     }
 
@@ -143,7 +143,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(gpu_info);
+            Ok(gpu_info)
         }
     }
 
@@ -157,7 +157,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(gds_info);
+            Ok(gds_info)
         }
     }
 
@@ -175,7 +175,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(val);
+            Ok(val)
         }
     }
 
@@ -194,7 +194,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(dev);
+            Ok(dev)
         }
     }
 

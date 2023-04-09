@@ -22,7 +22,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(hw_ip_count);
+            Ok(hw_ip_count)
         }
     }
 
@@ -46,7 +46,7 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(hw_ip_info);
+            Ok(hw_ip_info)
         }
     }
 }

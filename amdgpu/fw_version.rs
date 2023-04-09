@@ -36,8 +36,8 @@ impl DeviceHandle {
 
             query_error!(r);
 
-            return Ok(fw_ver);
-        };
+            Ok(fw_ver)
+        }
     }
 }
 

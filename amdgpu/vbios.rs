@@ -74,7 +74,7 @@ impl DeviceHandle {
 
         query_error!(r);
 
-        return Ok(vbios);
+        Ok(vbios)
     }
 
     pub unsafe fn vbios_info(&self) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
@@ -118,6 +118,6 @@ impl DeviceHandle {
 
         query_error!(r);
 
-        return Ok(vbios_image);
+        Ok(vbios_image)
     }
 }
