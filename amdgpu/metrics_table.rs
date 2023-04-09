@@ -34,13 +34,14 @@ impl metrics_table_header {
         let mut f = File::open(path.into())?;
         let mut buf = [0u8; 4];
 
-        f.read(&mut buf[..])?;
+        f.read_exact(&mut buf)?;
 
         Ok(Self::from_buf(buf))
     }
 }
 
 pub trait MetricsInfo {
+    fn get_header(&self) -> Option<metrics_table_header>;
     /// millidegrees Celsius
     fn get_temperature_edge(&self) -> Option<u16>;
     /// millidegrees Celsius
@@ -128,6 +129,10 @@ pub trait MetricsInfo {
 
 macro_rules! v1_impl {
     () => {
+        fn get_header(&self) -> Option<metrics_table_header> {
+            Some(self.common_header.clone())
+        }
+
         fn get_temperature_edge(&self) -> Option<u16> {
             Some(self.temperature_edge)
         }
@@ -408,6 +413,10 @@ impl MetricsInfo for gpu_metrics_v1_3 {
 
 macro_rules! v2_impl {
     () => {
+        fn get_header(&self) -> Option<metrics_table_header> {
+            Some(self.common_header.clone())
+        }
+
         fn get_temperature_edge(&self) -> Option<u16> {
             None
         }

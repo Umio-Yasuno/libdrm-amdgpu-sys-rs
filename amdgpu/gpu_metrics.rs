@@ -52,6 +52,7 @@ macro_rules! impl_metrics {
 }
 
 impl MetricsInfo for GpuMetrics {
+    impl_metrics!(get_header, Option<metrics_table_header>);
     impl_metrics!(get_temperature_edge, Option<u16>);
     impl_metrics!(get_temperature_hotspot, Option<u16>);
     impl_metrics!(get_temperature_mem, Option<u16>);
@@ -144,9 +145,7 @@ impl DeviceHandle {
                 structure_size,
             );
 
-            let metrics = metrics.assume_init();
-
-            metrics
+            metrics.assume_init()
         }
     }
 }
