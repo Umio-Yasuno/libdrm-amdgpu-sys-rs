@@ -290,14 +290,63 @@ impl DeviceHandle {
 
     /// Get the minimum gpu core clock from sysfs (`pp_dpm_sclk`)
     #[cfg(feature = "std")]
+    #[deprecated]
     pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
 
     /// Get the minimum memory clock from sysfs (`pp_dpm_mclk`)
     #[cfg(feature = "std")]
+    #[deprecated]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")
+    }
+
+    #[cfg(feature = "std")]
+    fn get_min_max_clock_from_sysfs<P: Into<PathBuf>>(
+        &self,
+        path: P,
+    ) -> Option<(u32, u32)> {
+        let Ok(s) = std::fs::read_to_string(path.into()) else { return None };
+        let split: Vec<&str> = s.split(' ').collect();
+        let Some(min_clk) = split.get(1)
+            .and_then(|s| s.trim_end_matches("Mhz").parse::<u32>().ok()) else {
+                return None
+            };
+        let Some(max_clk) = split.get(split.len()-2)
+            .and_then(|s| s.trim_end_matches("Mhz").parse::<u32>().ok()) else {
+                return None
+            };
+
+        Some((min_clk, max_clk))
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_memory_clock_from_sysfs<P: Into<PathBuf>>(
+        &self,
+        path: P
+    ) -> Option<(u32, u32)> {
+        self.get_min_max_clock_from_sysfs(path.into().join("pp_dpm_sclk"))
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_memory_clock(&self) -> Option<(u32, u32)> {
+        let Ok(sysfs_path) = self.get_sysfs_path() else { return None };
+        self.get_min_max_memory_clock_from_sysfs(sysfs_path)
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_gpu_clock(&self) -> Option<(u32, u32)> {
+        let Ok(sysfs_path) = self.get_sysfs_path() else { return None };
+        self.get_min_max_gpu_clock_from_sysfs(sysfs_path)
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_gpu_clock_from_sysfs<P: Into<PathBuf>>(
+        &self,
+        path: P
+    ) -> Option<(u32, u32)> {
+        self.get_min_max_clock_from_sysfs(path.into().join("pp_dpm_mclk"))
     }
 
     /// 
