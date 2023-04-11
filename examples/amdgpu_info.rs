@@ -1,11 +1,12 @@
 use libdrm_amdgpu_sys::*;
 
 fn main() {
+    let device_path = std::env::var("AMDGPU_PATH").unwrap_or("/dev/dri/renderD128".to_string());
     let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
         use std::os::fd::IntoRawFd;
 
-        let fd = File::open("/dev/dri/renderD128").unwrap();
+        let fd = File::open(device_path).unwrap();
 
         AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
     };
@@ -51,10 +52,8 @@ fn main() {
         }
         println!("Total Compute Unit:\t\t{:3}", ext_info.cu_active_number());
 
-        if let Ok(pci_bus) = amdgpu_dev.get_pci_bus_info() {
-            if let Some(min_clk) = amdgpu_dev.get_min_gpu_clock_from_sysfs(&pci_bus) {
-                println!("Min Engine Clock:\t{min_clk:4} MHz");
-            }
+        if let Some((min_clk, _)) = amdgpu_dev.get_min_max_gpu_clock() {
+            println!("Min Engine Clock:\t{min_clk:4} MHz");
         }
 
         // KHz / 1000
@@ -64,11 +63,11 @@ fn main() {
         println!();
         println!("VRAM Type:\t\t{}", ext_info.get_vram_type());
         println!("VRAM Bit Width:\t\t{}-bit", ext_info.vram_bit_width);
-        if let Ok(pci_bus) = amdgpu_dev.get_pci_bus_info() {
-            if let Some(min_clk) = amdgpu_dev.get_min_memory_clock_from_sysfs(&pci_bus) {
-                println!("Min Memory Clock:\t{min_clk:4} MHz");
-            }
+
+        if let Some((min_clk, _)) = amdgpu_dev.get_min_max_memory_clock() {
+            println!("Min Engine Clock:\t{min_clk:4} MHz");
         }
+
         println!("Max Memory Clock:\t{:4} MHz", ext_info.max_memory_clock() / 1000);
         println!("Peak Memory BW:\t\t{} GB/s", ext_info.peak_memory_bw_gb());
 
