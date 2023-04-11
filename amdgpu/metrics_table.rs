@@ -40,6 +40,7 @@ impl metrics_table_header {
     }
 }
 
+/// The actual unsupported value will be 0xFFFF.
 pub trait MetricsInfo {
     fn get_header(&self) -> Option<metrics_table_header>;
     /// millidegrees Celsius
@@ -58,29 +59,35 @@ pub trait MetricsInfo {
     fn get_temperature_gfx(&self) -> Option<u16>;
     /// millidegrees Celsius
     fn get_temperature_soc(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// millidegrees Celsius,  
+    /// For VanGogh APU, only the first half is a valid value.  
+    /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_temperature_core(&self) -> Option<[u16; 8]>;
-    /// millidegrees Celsius
+    /// millidegrees Celsius,  
+    /// For VanGogh APU, only the first half is a valid value.  
+    /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_temperature_l3(&self) -> Option<[u16; 2]>;
     fn get_average_gfx_activity(&self) -> Option<u16>;
     fn get_average_umc_activity(&self) -> Option<u16>;
     fn get_average_mm_activity(&self) -> Option<u16>;
     fn get_system_clock_counter(&self) -> Option<u64>;
-    /// microWatts
+    /// Watts
     fn get_average_socket_power(&self) -> Option<u16>;
-    /// microWatts
+    /// Watts
     fn get_average_cpu_power(&self) -> Option<u16>;
-    /// microWatts
+    /// Watts
     fn get_average_soc_power(&self) -> Option<u16>;
-    /// microWatts
+    /// Watts
     fn get_average_gfx_power(&self) -> Option<u16>;
-    /// microWatts
+    /// Watts,  
+    /// For VanGogh APU, only the first half is a valid value.  
+    /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_average_core_power(&self) -> Option<[u16; 8]>;
     /// MHz
     fn get_average_gfxclk_frequency(&self) -> Option<u16>;
     /// MHz
     fn get_average_socclk_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// UMC Clock, MHz
     fn get_average_uclk_frequency(&self) -> Option<u16>;
     /// MHz
     fn get_average_fclk_frequency(&self) -> Option<u16>;
@@ -108,9 +115,13 @@ pub trait MetricsInfo {
     fn get_current_vclk1(&self) -> Option<u16>;
     /// MHz
     fn get_current_dclk1(&self) -> Option<u16>;
-    /// MHz
+    /// MHz,  
+    /// For VanGogh APU, only the first half is a valid value.  
+    /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_current_coreclk(&self) -> Option<[u16; 8]>;
-    /// MHz
+    /// MHz,  
+    /// For VanGogh APU, only the first half is a valid value.  
+    /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_current_l3clk(&self) -> Option<[u16; 2]>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
@@ -119,11 +130,11 @@ pub trait MetricsInfo {
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
     fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]>;
-    /// Voltage (mV)
+    /// mV
     fn get_voltage_soc(&self) -> Option<u16>;
-    /// Voltage (mV)
+    /// mV
     fn get_voltage_gfx(&self) -> Option<u16>;
-    /// Voltage (mV)
+    /// mV
     fn get_voltage_mem(&self) -> Option<u16>;
 }
 
