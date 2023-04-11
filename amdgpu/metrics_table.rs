@@ -129,6 +129,7 @@ pub trait MetricsInfo {
     fn get_pcie_link_spped(&self) -> Option<u16>;
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
+    /// Only Aldebaran (MI200) supports it.
     fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]>;
     /// mV
     fn get_voltage_soc(&self) -> Option<u16>;
