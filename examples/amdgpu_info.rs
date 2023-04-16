@@ -52,23 +52,20 @@ fn main() {
         }
         println!("Total Compute Unit:\t\t{:3}", ext_info.cu_active_number());
 
-        if let Some((min_clk, _)) = amdgpu_dev.get_min_max_gpu_clock() {
-            println!("Min Engine Clock:\t{min_clk:4} MHz");
+        if let Some((min, max)) = amdgpu_dev.get_min_max_gpu_clock() {
+            println!("Engine Clock:\t\t{min}-{max} MHz");
         }
 
-        // KHz / 1000
-        println!("Max Engine Clock:\t{:4} MHz", ext_info.max_engine_clock() / 1000);
         println!("Peak FP32:\t\t{} GFLOPS", ext_info.peak_gflops());
 
         println!();
         println!("VRAM Type:\t\t{}", ext_info.get_vram_type());
         println!("VRAM Bit Width:\t\t{}-bit", ext_info.vram_bit_width);
 
-        if let Some((min_clk, _)) = amdgpu_dev.get_min_max_memory_clock() {
-            println!("Min Engine Clock:\t{min_clk:4} MHz");
+        if let Some((min, max)) = amdgpu_dev.get_min_max_memory_clock() {
+            println!("Memory Clock:\t\t{min}-{max} MHz");
         }
 
-        println!("Max Memory Clock:\t{:4} MHz", ext_info.max_memory_clock() / 1000);
         println!("Peak Memory BW:\t\t{} GB/s", ext_info.peak_memory_bw_gb());
 
         println!();

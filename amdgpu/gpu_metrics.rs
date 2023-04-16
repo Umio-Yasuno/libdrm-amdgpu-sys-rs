@@ -18,8 +18,9 @@ use std::fs::File;
 use std::io::{self, Read};
 use std::path::PathBuf;
 
-/// AMD GPU metrics data available from `"{sysfs_path}/gpu_metrics"`.
-/// Vega12 (dGPU) or later, Renoir (APU) or later supports GPU metrics.
+/// AMD GPU metrics data available from `"{sysfs_path}/gpu_metrics"`.  
+/// Vega12 (dGPU) or later, Renoir (APU) or later supports GPU metrics.  
+/// [DeviceHandle::get_gpu_metrics]
 #[derive(Clone, Debug)]
 pub enum GpuMetrics {
     Unknown,

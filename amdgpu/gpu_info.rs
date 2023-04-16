@@ -11,7 +11,9 @@ pub trait GPU_INFO {
     /// Note: AMDGPU driver reports VRAM width per memory channel for LPDDR5 as 64-bits.
     /// <https://gitlab.freedesktop.org/drm/amd/-/issues/2468>
     fn vram_bit_width(&self) -> u32;
+    /// KHz
     fn max_memory_clock(&self) -> u64;
+    /// KHz
     fn max_engine_clock(&self) -> u64;
     fn ids_flags(&self) -> u64;
     fn rb_pipes(&self) -> u32;
