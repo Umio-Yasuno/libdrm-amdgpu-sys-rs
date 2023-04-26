@@ -102,6 +102,8 @@ fn main() {
             usage = info.gtt.heap_usage / 1024 / 1024,
             total = info.gtt.total_heap_size / 1024 / 1024,
         );
+        let re_bar = if info.check_resizable_bar() { "Enabled" } else { "Disabled" };
+        println!("ResizableBAR:\t\t\t{re_bar}");
     }
 
     {

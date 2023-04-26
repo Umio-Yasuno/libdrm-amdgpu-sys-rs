@@ -376,6 +376,16 @@ impl Drop for DeviceHandle {
     }
 }
 
+impl drm_amdgpu_memory_info {
+    pub fn check_resizable_bar(&self) -> bool {
+        // The AMDGPU driver allocates part of VRAM to pre-OS buffer (vbios, frame buffer)
+        // if VRAM is larger than 8GiB
+        // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
+        // ref: https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c
+        (self.vram.total_heap_size * 9 / 10) <= self.cpu_accessible_vram.total_heap_size
+    }
+}
+
 #[repr(u32)]
 pub enum amdgpu_sw_info {
     address32_hi = 0,
