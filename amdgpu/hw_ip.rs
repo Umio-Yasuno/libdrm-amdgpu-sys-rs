@@ -1,7 +1,7 @@
 use crate::AMDGPU::*;
 use crate::*;
 
-use crate::bindings::drm_amdgpu_info_hw_ip;
+pub use crate::bindings::drm_amdgpu_info_hw_ip;
 use core::mem::MaybeUninit;
 
 impl DeviceHandle {
