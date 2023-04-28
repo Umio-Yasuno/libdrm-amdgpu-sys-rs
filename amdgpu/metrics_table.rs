@@ -123,6 +123,7 @@ pub trait MetricsInfo {
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_current_l3clk(&self) -> Option<[u16; 2]>;
+    fn get_throttle_status(&self) -> Option<u32>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
     fn get_pcie_link_width(&self) -> Option<u16>;
@@ -291,6 +292,10 @@ macro_rules! v1_impl {
 
         fn get_current_l3clk(&self) -> Option<[u16; 2]> {
             None
+        }
+
+        fn get_throttle_status(&self) -> Option<u32> {
+            Some(self.throttle_status)
         }
 
         fn get_current_fan_speed(&self) -> Option<u16> {
@@ -576,6 +581,10 @@ macro_rules! v2_impl {
 
         fn get_current_l3clk(&self) -> Option<[u16; 2]> {
             Some(self.current_l3clk)
+        }
+
+        fn get_throttle_status(&self) -> Option<u32> {
+            Some(self.throttle_status)
         }
 
         fn get_current_fan_speed(&self) -> Option<u16> {
