@@ -4,6 +4,7 @@ use crate::*;
 pub use crate::bindings::drm_amdgpu_info_hw_ip;
 use core::mem::MaybeUninit;
 
+#[derive(Debug, Clone)]
 pub struct HwIpInfo {
     pub ip_type: HW_IP_TYPE,
     pub info: drm_amdgpu_info_hw_ip,
