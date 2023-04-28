@@ -4,7 +4,24 @@ use crate::*;
 pub use crate::bindings::drm_amdgpu_info_hw_ip;
 use core::mem::MaybeUninit;
 
+pub struct HwIpInfo {
+    pub ip_type: HW_IP_TYPE,
+    pub info: drm_amdgpu_info_hw_ip,
+    pub count: u32,
+}
+
 impl DeviceHandle {
+    pub fn get_hw_ip_info(&self, ip_type: HW_IP_TYPE) -> Result<HwIpInfo, i32> {
+        let info = self.query_hw_ip_info(ip_type, 0)?;
+        let count = self.query_hw_ip_count(ip_type)?;
+
+        Ok(HwIpInfo {
+            ip_type,
+            info,
+            count,
+        })
+    }
+
     pub fn query_hw_ip_count(
         &self,
         type_: HW_IP_TYPE,
