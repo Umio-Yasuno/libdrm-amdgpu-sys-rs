@@ -48,17 +48,7 @@ impl PCI::BUS_INFO {
 
     /// Convert a string ("0000:01:00.0") to [PCI::BUS_INFO]
     pub fn from_number_str(s: &str) -> Option<Self> {
-        let mut split = s.split(&[':', '.']).take(4);
-        let domain = u16::from_str_radix(split.next()?, 16).ok()?;
-        let [bus, dev, func] = [split.next()?, split.next()?, split.next()?,]
-            .map(|s| u8::from_str_radix(s, 16).ok());
-
-        Some(Self {
-            domain,
-            bus: bus?,
-            dev: dev?,
-            func: func?,
-        })
+        s.parse().ok()
     }
 
     #[cfg(feature = "std")]
@@ -120,6 +110,30 @@ impl PCI::BUS_INFO {
             "64.0 GT/s PCIe" => 6,
             _ => 0,
         }
+    }
+}
+
+#[derive(Debug, PartialEq, Eq)]
+pub struct ParseBusInfoError;
+
+impl std::str::FromStr for PCI::BUS_INFO {
+    type Err = ParseBusInfoError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let mut split = s.split(&[':', '.']).take(4);
+        let [domain, bus, dev, func] = [split.next(), split.next(), split.next(), split.next()]
+            .map(|s| s.ok_or(ParseBusInfoError));
+        let domain = u16::from_str_radix(domain?, 16).map_err(|_| ParseBusInfoError);
+        let [bus, dev, func] = [bus, dev, func].map(|v| {
+            u8::from_str_radix(v?, 16).map_err(|_| ParseBusInfoError)
+        });
+
+        Ok(Self {
+            domain: domain?,
+            bus: bus?,
+            dev: dev?,
+            func: func?,
+        })
     }
 }
 
