@@ -69,7 +69,7 @@ impl DeviceHandle {
             let r = bindings::amdgpu_query_video_caps_info(
                 self.0,
                 type_ as u32,
-                size_of::<drm_amdgpu_info_video_caps> as u32,
+                size_of::<drm_amdgpu_info_video_caps>() as u32,
                 video_caps.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
 

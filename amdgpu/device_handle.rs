@@ -279,7 +279,7 @@ impl DeviceHandle {
     fn get_min_clock(&self, pci: &PCI::BUS_INFO, file_name: &str) -> Option<u64> {
         let path = pci.get_sysfs_path().join(file_name);
 
-        if let Ok(line) = Self::get_first_line(&path) {
+        if let Ok(line) = Self::get_first_line(path) {
             if let Ok(clk) = Self::trim_dpm_clk(&line) {
                 return Some(clk);
             }

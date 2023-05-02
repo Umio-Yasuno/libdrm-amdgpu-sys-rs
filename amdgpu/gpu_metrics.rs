@@ -132,7 +132,7 @@ impl DeviceHandle {
 
     pub fn get_gpu_metrics(&self) -> io::Result<GpuMetrics> {
         let sysfs_path = self.get_sysfs_path().unwrap();
-        self.get_gpu_metrics_from_sysfs_path(&sysfs_path)
+        self.get_gpu_metrics_from_sysfs_path(sysfs_path)
     }
 
     fn get_metrics_table<T>(bytes: &[u8]) -> T {

@@ -57,7 +57,7 @@ impl DeviceHandle {
             let ptr = device_info.as_mut_ptr();
 
             ptr::addr_of_mut!((*ptr).return_pointer).write(vbios.as_mut_ptr() as u64);
-            ptr::addr_of_mut!((*ptr).return_size).write(size_of::<T> as u32);
+            ptr::addr_of_mut!((*ptr).return_size).write(size_of::<T>() as u32);
             ptr::addr_of_mut!((*ptr).query).write(AMDGPU_INFO_VBIOS);
 
             ptr::addr_of_mut!((*ptr).__bindgen_anon_1.vbios_info.type_).write(info_id);
@@ -67,7 +67,7 @@ impl DeviceHandle {
             self.get_fd(),
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
-            size_of::<drm_amdgpu_info> as u64,
+            size_of::<drm_amdgpu_info>() as u64,
         );
 
         let (_, vbios) = (device_info.assume_init(), vbios.assume_init());
@@ -111,7 +111,7 @@ impl DeviceHandle {
             self.get_fd(),
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
-            size_of::<drm_amdgpu_info> as u64,
+            size_of::<drm_amdgpu_info>() as u64,
         );
 
         let _ = device_info.assume_init();
