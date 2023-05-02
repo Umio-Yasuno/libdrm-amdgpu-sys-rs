@@ -1,6 +1,6 @@
 pub mod PCI {
     /// PCI information (Domain, Bus, Device, Function)
-    #[derive(Debug, Clone, Copy)]
+    #[derive(Debug, Clone, Copy, Eq, PartialEq)]
     pub struct BUS_INFO {
         pub domain: u16,
         pub bus: u8,
@@ -46,6 +46,21 @@ impl PCI::BUS_INFO {
         }
     }
 
+    /// Convert a string ("0000:01:00.0") to [PCI::BUS_INFO]
+    pub fn from_number_str(s: &str) -> Option<Self> {
+        let mut split = s.split(&[':', '.']).take(4);
+        let domain = u16::from_str_radix(split.next()?, 16).ok()?;
+        let [bus, dev, func] = [split.next()?, split.next()?, split.next()?,]
+            .map(|s| u8::from_str_radix(s, 16).ok());
+
+        Some(Self {
+            domain,
+            bus: bus?,
+            dev: dev?,
+            func: func?,
+        })
+    }
+
     #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> PathBuf {
         PathBuf::from("/sys/bus/pci/devices/").join(self.to_string())
@@ -55,7 +70,7 @@ impl PCI::BUS_INFO {
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         let base = self.get_sysfs_path().join("hwmon");
 
-        let Some(hwmon_dir) = std::fs::read_dir(&base).ok()
+        let Some(hwmon_dir) = std::fs::read_dir(base).ok()
             .and_then(|mut read_dir| read_dir.next())
             .and_then(|dir| dir.ok()) else { return None };
 
