@@ -291,7 +291,7 @@ impl DeviceHandle {
     /// Get the minimum gpu core clock (MHz) from sysfs (`pp_dpm_sclk`).  
     /// Recommend [DeviceHandle::get_min_max_gpu_clock]
     #[cfg(feature = "std")]
-    #[deprecated(since = "1.2")]
+    #[deprecated(since = "0.1.2")]
     pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
@@ -299,7 +299,7 @@ impl DeviceHandle {
     /// Get the minimum memory clock (MHz) from sysfs (`pp_dpm_mclk`).  
     /// Recommend [DeviceHandle::get_min_max_memory_clock]
     #[cfg(feature = "std")]
-    #[deprecated(since = "1.2")]
+    #[deprecated(since = "0.1.2")]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")
     }
