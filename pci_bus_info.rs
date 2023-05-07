@@ -60,9 +60,9 @@ impl PCI::BUS_INFO {
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         let base = self.get_sysfs_path().join("hwmon");
 
-        let Some(hwmon_dir) = std::fs::read_dir(base).ok()
+        let hwmon_dir = std::fs::read_dir(base).ok()
             .and_then(|mut read_dir| read_dir.next())
-            .and_then(|dir| dir.ok()) else { return None };
+            .and_then(|dir| dir.ok())?;
 
         Some(hwmon_dir.path())
     }

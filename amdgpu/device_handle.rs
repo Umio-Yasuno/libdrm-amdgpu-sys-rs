@@ -309,16 +309,22 @@ impl DeviceHandle {
         &self,
         path: P,
     ) -> Option<(u32, u32)> {
-        let Ok(s) = std::fs::read_to_string(path.into()) else { return None };
-        let split: Vec<&str> = s.split(' ').collect();
-        let Some(min_clk) = split.get(1)
-            .and_then(|s| s.trim_end_matches("Mhz").parse::<u32>().ok()) else {
-                return None
-            };
-        let Some(max_clk) = split.get(split.len()-2)
-            .and_then(|s| s.trim_end_matches("Mhz").parse::<u32>().ok()) else {
-                return None
-            };
+        const MHZ: usize = "Mhz".len();
+        let parse_line = |s: &str| -> Option<u32> {
+            let mut split = s.split(' ').skip(1);
+
+            split.next().and_then(|mhz| mhz[..mhz.len()-MHZ].parse::<u32>().ok())
+        };
+
+        let s = std::fs::read_to_string(path.into()).ok()?;
+        let mut lines = s.lines();
+
+        let min_clk = parse_line(lines.next()?)?;
+        let max_clk = if let Some(last) = lines.last() {
+            parse_line(last)?
+        } else {
+            min_clk
+        };
 
         Some((min_clk, max_clk))
     }
@@ -335,7 +341,7 @@ impl DeviceHandle {
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
     #[cfg(feature = "std")]
     pub fn get_min_max_memory_clock(&self) -> Option<(u32, u32)> {
-        let Ok(sysfs_path) = self.get_sysfs_path() else { return None };
+        let sysfs_path = self.get_sysfs_path().ok()?;
         self.get_min_max_memory_clock_from_sysfs(sysfs_path)
     }
 
@@ -351,7 +357,7 @@ impl DeviceHandle {
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
     #[cfg(feature = "std")]
     pub fn get_min_max_gpu_clock(&self) -> Option<(u32, u32)> {
-        let Ok(sysfs_path) = self.get_sysfs_path() else { return None };
+        let sysfs_path = self.get_sysfs_path().ok()?;
         self.get_min_max_gpu_clock_from_sysfs(sysfs_path)
     }
 
