@@ -58,13 +58,36 @@ impl PCI::BUS_INFO {
 
     #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
+        /*
+            use std::ffi::OsString;
+
+            let base = PathBuf::from("/sys/class/hwmon");
+            let hwmon_dir = std::fs::read_dir(&base).ok()?;
+
+            for hwmon in hwmon_dir {
+                let Ok(hwmon) = hwmon else { continue };
+                let link = std::fs::read_link(hwmon.path()).ok()?;
+                // "../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/hwmon/hwmon1"
+                let pci = link.iter().skip(5).next()?;
+
+                if pci.to_os_string() == OsString::from(self.to_string()) {
+                    return std::fs::canonicalize(base.join(link)).ok();
+                }
+            }
+
+            None
+        */
         let base = self.get_sysfs_path().join("hwmon");
+        let hwmon_dir = std::fs::read_dir(base).ok()?;
 
-        let hwmon_dir = std::fs::read_dir(base).ok()
-            .and_then(|mut read_dir| read_dir.next())
-            .and_then(|dir| dir.ok())?;
+        for entry in hwmon_dir {
+            let entry = entry.ok()?;
+            if entry.metadata().ok()?.is_dir() {
+                return Some(entry.path());
+            }
+        }
 
-        Some(hwmon_dir.path())
+        None
     }
 
     /// Returns paths to sysfs for PCI information
@@ -87,10 +110,10 @@ impl PCI::BUS_INFO {
     #[cfg(feature = "std")]
     pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
         let [speed, width] = Self::get_link_sysfs_path(self, status)
-            .map(|path| std::fs::read_to_string(path).unwrap());
+            .map(|path| std::fs::read_to_string(path).unwrap_or_default());
 
         let gen = Self::speed_to_gen(speed.trim());
-        let width: u8 = width.trim().parse().unwrap();
+        let width: u8 = width.trim().parse().unwrap_or(0);
 
         PCI::LINK {
             gen,
