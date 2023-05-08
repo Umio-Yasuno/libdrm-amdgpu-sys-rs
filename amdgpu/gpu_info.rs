@@ -69,32 +69,11 @@ pub trait GPU_INFO {
     }
 
     #[cfg(feature = "std")]
-    fn parse_amdgpu_ids(&self) -> Result<String, std::num::ParseIntError> {
-        const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
-
+    fn parse_amdgpu_ids(&self) -> String {
         let did = self.device_id();
         let rid = self.pci_rev_id();
 
-        for line in amdgpu_ids.lines() {
-            if line.is_empty() || line.starts_with('#') {
-                continue;
-            }
-
-            let s: Vec<&str> = line.splitn(3, ",\t").collect();
-
-            if s.len() < 3 {
-                continue;
-            }
-
-            let s_did = u32::from_str_radix(s[0], 16)?;
-            let s_rid = u32::from_str_radix(s[1], 16)?;
-
-            if did == s_did && rid == s_rid {
-                return Ok(s[2].trim_end().to_string());
-            }
-        }
-
-        Ok("AMD Radeon Graphics".to_string())
+        parse_amdgpu_ids(did, rid)
     }
 
     fn get_max_good_cu_per_sa(&self) -> u32 {
@@ -215,4 +194,29 @@ impl drm_amdgpu_info_device {
     pub fn calc_l3_cache_size_mb(&self) -> u32 {
         self.num_tcc_blocks * self.get_asic_name().l3_cache_size_mb_per_channel()
     }
+}
+
+#[cfg(feature = "std")]
+pub fn parse_amdgpu_ids(device_id: u32, revision_id: u32) -> String {
+    const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
+
+    let parse_id = |id: Option<&str>| -> Option<u32> {
+        id.and_then(|v| u32::from_str_radix(v, 16).ok())
+    };
+
+    for line in amdgpu_ids.lines() {
+        if line.is_empty() || line.starts_with('#') { continue }
+
+        let mut s = line.split(",\t");
+
+        let Some(s_did) = parse_id(s.next()) else { continue };
+        let Some(s_rid) = parse_id(s.next()) else { continue };
+
+        if device_id == s_did && revision_id == s_rid {
+            let Some(name) = s.next().map(|name| name.trim_end().to_string()) else { continue };
+            return name;
+        }
+    }
+
+    AMDGPU::DEFAULT_DEVICE_NAME.to_string()
 }

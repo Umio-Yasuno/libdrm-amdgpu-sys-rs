@@ -144,7 +144,9 @@ impl DeviceHandle {
     /// when the device name is not available.
     #[cfg(feature = "std")]
     pub fn get_marketing_name_or_default(&self) -> String {
-        self.get_marketing_name().unwrap_or("AMD Radeon Graphics".to_string())
+        self.get_marketing_name().ok()
+            .and_then(|s| if s.is_empty() { None } else { Some(s) })
+            .unwrap_or("AMD Radeon Graphics".to_string())
     }
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
