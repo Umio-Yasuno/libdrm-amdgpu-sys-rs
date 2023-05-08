@@ -31,19 +31,13 @@ impl DeviceHandle {
         ]
         .map(|v| {
             if let Some(index) = v.iter().position(|&x| x == 0) {
-                String::from_utf8(v[..index].to_vec()).unwrap()
+                String::from_utf8(v[..index].to_vec())
             } else {
-                String::from_utf8(v).unwrap()
-            }
+                String::from_utf8(v)
+            }.unwrap_or_default()
         });
 
-        Ok(VbiosInfo {
-            name,
-            pn,
-            ver,
-            date,
-            size,
-        })
+        Ok(VbiosInfo { name, pn, ver, date, size })
     }
 
     unsafe fn query_vbios<T>(

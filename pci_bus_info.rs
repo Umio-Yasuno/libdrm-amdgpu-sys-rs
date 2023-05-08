@@ -15,7 +15,7 @@ pub mod PCI {
     }
 
     /// PCI link speed information
-    #[derive(Debug, Clone)]
+    #[derive(Debug, Clone, Copy)]
     pub struct LINK {
         pub gen: u8,
         pub width: u8,
@@ -30,23 +30,24 @@ impl PCI::BUS_INFO {
         fd: ::core::ffi::c_int,
         //  flags: u32,
     ) -> Result<Self, i32> {
-        unsafe {
+        let pci = unsafe {
             let mut dev_info = __drmGetDevice2(fd, 0)?;
-
-            let bus_info = PCI::BUS_INFO {
-                domain: (*(*dev_info).businfo.pci).domain,
-                bus: (*(*dev_info).businfo.pci).bus,
-                dev: (*(*dev_info).businfo.pci).dev,
-                func: (*(*dev_info).businfo.pci).func,
-            };
-
+            let pci = core::ptr::read((*dev_info).businfo.pci);
             __drmFreeDevice(&mut dev_info);
 
-            Ok(bus_info)
-        }
+            pci
+        };
+
+        Ok(PCI::BUS_INFO {
+            domain: pci.domain,
+            bus: pci.bus,
+            dev: pci.dev,
+            func: pci.func,
+        })
     }
 
     /// Convert a string ("0000:01:00.0") to [PCI::BUS_INFO]
+    #[cfg(feature = "std")]
     pub fn from_number_str(s: &str) -> Option<Self> {
         s.parse().ok()
     }
@@ -139,6 +140,7 @@ impl PCI::BUS_INFO {
 #[derive(Debug, PartialEq, Eq)]
 pub struct ParseBusInfoError;
 
+#[cfg(feature = "std")]
 impl std::str::FromStr for PCI::BUS_INFO {
     type Err = ParseBusInfoError;
 
@@ -172,11 +174,8 @@ impl fmt::Display for PCI::BUS_INFO {
     }
 }
 
-use crate::bindings;
-use crate::{
-    bindings::{drmDevicePtr, drmFreeDevice},
-    query_error,
-};
+use crate::bindings::{self, drmDevicePtr, drmFreeDevice};
+use crate::query_error;
 use core::mem::MaybeUninit;
 
 unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
@@ -185,6 +184,10 @@ unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevic
     let r = bindings::drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
 
     let drm_dev_info = drm_dev_info.assume_init();
+
+    if drm_dev_info.is_null() {
+        return Err(r);
+    }
 
     query_error!(r);
 

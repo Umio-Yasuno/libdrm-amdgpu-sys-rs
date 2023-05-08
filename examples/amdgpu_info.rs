@@ -11,14 +11,11 @@ fn main() {
         AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
     };
 
-    if let Ok(drm_ver) = amdgpu_dev.get_drm_version() {
-        let (major, minor, patchlevel) = drm_ver;
-        println!("drm version: {major}.{minor}.{patchlevel}");
+    if let Ok(drm_ver) = amdgpu_dev.get_drm_version_struct() {
+        println!("{drm_ver:#?}");
     }
 
-    if let Ok(mark_name) = amdgpu_dev.get_marketing_name() {
-        println!("Marketing Name: [{mark_name}]");
-    }
+    println!("Marketing Name: [{}]", amdgpu_dev.get_marketing_name_or_default());
 
     if let Ok(ext_info) = amdgpu_dev.device_info() {
         use AMDGPU::GPU_INFO;
