@@ -125,6 +125,7 @@ impl DeviceHandle {
     ///  if there is no name that matches amdgpu.ids  
     /// https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a
     #[cfg(feature = "std")]
+    #[deprecated(since = "0.1.3")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         use core::ffi::CStr;
 
@@ -144,9 +145,20 @@ impl DeviceHandle {
     /// when the device name is not available.
     #[cfg(feature = "std")]
     pub fn get_marketing_name_or_default(&self) -> String {
-        self.get_marketing_name().ok()
-            .and_then(|s| if s.is_empty() { None } else { Some(s) })
-            .unwrap_or("AMD Radeon Graphics".to_string())
+        use core::ffi::CStr;
+
+        let mark_name_ptr = unsafe { bindings::amdgpu_get_marketing_name(self.0) };
+
+        if mark_name_ptr.is_null() {
+            return AMDGPU::DEFAULT_DEVICE_NAME.to_string();
+        }
+
+        let c_str = unsafe { CStr::from_ptr(mark_name_ptr) };
+
+        match c_str.to_str() {
+            Ok(name) => name,
+            Err(_) => AMDGPU::DEFAULT_DEVICE_NAME,
+        }.to_string()
     }
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {

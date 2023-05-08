@@ -10,6 +10,9 @@ pub const CP_STAT_OFFSET: u32 = 0x21A0;
 // pub(crate) type DEVICE = bindings::amdgpu_device;
 pub(crate) type DEVICE_HANDLE = bindings::amdgpu_device_handle;
 
+// ref: https://gitlab.freedesktop.org/mesa/drm/-/blob/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a/amdgpu/amdgpu_device.c#L293
+pub(crate) const DEFAULT_DEVICE_NAME: &str = "AMD Radeon Graphics";
+
 mod device_handle;
 pub use device_handle::*;
 
