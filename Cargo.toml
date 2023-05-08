@@ -20,6 +20,9 @@ buildtime_bindgen = ["bindgen", "pkg-config"]
 # name = "libdrm_amdgpu_sys"
 path = "lib.rs"
 
+[dependencies]
+libc = { version = "^0.2", default-features = false }
+
 [build-dependencies]
 bindgen = { version = "0.59.0", optional = true }
 pkg-config = { version = "0.3.25", optional = true }
