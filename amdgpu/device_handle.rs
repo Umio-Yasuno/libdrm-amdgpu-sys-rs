@@ -73,7 +73,7 @@ impl DeviceHandle {
     }
 
     /// (`major`, `minor`, `patchlevel`)
-    #[deprecated(since = "0.1.3")]
+    #[deprecated(since = "0.1.3", note = "superseded by `get_drm_version_struct`")]
     pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
         let fd = self.get_fd();
         let drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
@@ -125,7 +125,7 @@ impl DeviceHandle {
     ///  if there is no name that matches amdgpu.ids  
     /// https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a
     #[cfg(feature = "std")]
-    #[deprecated(since = "0.1.3")]
+    #[deprecated(since = "0.1.3",  note = "superseded by `get_marketing_name_or_default`")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         use core::ffi::CStr;
 
@@ -319,7 +319,7 @@ impl DeviceHandle {
     /// Get the minimum gpu core clock (MHz) from sysfs (`pp_dpm_sclk`).  
     /// Recommend [DeviceHandle::get_min_max_gpu_clock]
     #[cfg(feature = "std")]
-    #[deprecated(since = "0.1.2")]
+    #[deprecated(since = "0.1.2", note = "superseded by `get_min_max_gpu_clock_from_sysfs`")]
     pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_sclk")
     }
@@ -327,7 +327,7 @@ impl DeviceHandle {
     /// Get the minimum memory clock (MHz) from sysfs (`pp_dpm_mclk`).  
     /// Recommend [DeviceHandle::get_min_max_memory_clock]
     #[cfg(feature = "std")]
-    #[deprecated(since = "0.1.2")]
+    #[deprecated(since = "0.1.2", note = "superseded by `get_min_max_memory_clock_from_sysfs`")]
     pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
         Self::get_min_clock(self, pci, "pp_dpm_mclk")
     }
