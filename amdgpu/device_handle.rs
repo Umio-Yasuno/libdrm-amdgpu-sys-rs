@@ -347,12 +347,14 @@ impl DeviceHandle {
         let s = std::fs::read_to_string(path.into()).ok()?;
         let mut lines = s.lines();
 
-        let min_clk = parse_line(lines.next()?)?;
-        let max_clk = if let Some(last) = lines.last() {
-            parse_line(last)?
-        } else {
-            min_clk
+        let first = parse_line(lines.next()?)?;
+        let last = match lines.last() {
+            Some(last) => parse_line(last)?,
+            None => first,
         };
+
+        let min_clk = std::cmp::min(first, last);
+        let max_clk = std::cmp::max(first, last);
 
         Some((min_clk, max_clk))
     }
