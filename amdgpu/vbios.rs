@@ -58,7 +58,7 @@ impl DeviceHandle {
         }
 
         let r = drmCommandWrite(
-            self.get_fd(),
+            self.1,
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info>() as u64,
@@ -102,7 +102,7 @@ impl DeviceHandle {
         }
 
         let r = drmCommandWrite(
-            self.get_fd(),
+            self.1,
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info>() as u64,

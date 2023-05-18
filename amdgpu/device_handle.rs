@@ -27,7 +27,7 @@ use bindings::{
 };
 use core::mem::{size_of, MaybeUninit};
 
-pub struct DeviceHandle(pub(crate) DEVICE_HANDLE);
+pub struct DeviceHandle(pub(crate) DEVICE_HANDLE, pub(crate) i32);
 
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
@@ -52,7 +52,7 @@ impl DeviceHandle {
             );
 
             let [major, minor] = [major.assume_init(), minor.assume_init()];
-            let amdgpu_dev = Self(amdgpu_dev.assume_init());
+            let amdgpu_dev = Self(amdgpu_dev.assume_init(), fd);
 
             query_error!(r);
 
@@ -69,13 +69,13 @@ impl DeviceHandle {
     }
 
     pub fn get_fd(&self) -> i32 {
-        unsafe { bindings::amdgpu_device_get_fd(self.0) }
+        self.1
     }
 
     /// (`major`, `minor`, `patchlevel`)
     #[deprecated(since = "0.1.3", note = "superseded by `get_drm_version_struct`")]
     pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
-        let fd = self.get_fd();
+        let fd = self.1;
         let drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
 
         if drm_ver_ptr.is_null() {
@@ -95,7 +95,7 @@ impl DeviceHandle {
 
     #[cfg(feature = "std")]
     pub fn get_drm_version_struct(&self) -> Result<drmVersion, i32> {
-        drmVersion::get(self.get_fd())
+        drmVersion::get(self.1)
     }
 
     /// Returns the result of reading the register at the specified offset.
@@ -272,7 +272,7 @@ impl DeviceHandle {
 
     /// Get [PCI::BUS_INFO]
     pub fn get_pci_bus_info(&self) -> Result<PCI::BUS_INFO, i32> {
-        PCI::BUS_INFO::drm_get_device2(self.get_fd())
+        PCI::BUS_INFO::drm_get_device2(self.1)
     }
 
     #[cfg(feature = "std")]
