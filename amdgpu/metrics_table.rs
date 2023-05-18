@@ -43,17 +43,17 @@ impl metrics_table_header {
 /// The actual unsupported value will be 0xFFFF.
 pub trait MetricsInfo {
     fn get_header(&self) -> Option<metrics_table_header>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_edge(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_hotspot(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_mem(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_vrgfx(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_vrsoc(&self) -> Option<u16>;
-    /// millidegrees Celsius
+    /// Celsius
     fn get_temperature_vrmem(&self) -> Option<u16>;
     /// millidegrees Celsius
     fn get_temperature_gfx(&self) -> Option<u16>;
