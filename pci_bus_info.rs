@@ -15,7 +15,7 @@ pub mod PCI {
     }
 
     /// PCI link speed information
-    #[derive(Debug, Clone, Copy)]
+    #[derive(Debug, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
     pub struct LINK {
         pub gen: u8,
         pub width: u8,
@@ -120,6 +120,60 @@ impl PCI::BUS_INFO {
             gen,
             width
         }
+    }
+
+    #[cfg(feature = "std")]
+    fn parse_dpm_line(s: &str) -> Option<PCI::LINK> {
+        let mut link = PCI::LINK { gen: 0, width: 0 };
+
+        for tmp in s.split(", ") {
+            if tmp.ends_with("GT/s") {
+                // "0: 2.5GT/s"
+                let Some(pos) = tmp.find(' ') else { continue };
+                link.gen = match &tmp[(pos+1)..] {
+                    "2.5GT/s" => 1,
+                    "5.0GT/s" => 2,
+                    "8.0GT/s" => 3,
+                    "16.0GT/s" => 4,
+                    "32.0GT/s" => 5,
+                    "64.0GT/s" => 6,
+                    _ => 0,
+                };
+                continue;
+            }
+
+            if tmp.starts_with('x') {
+                // "x8 ", "x16 * "
+                let tmp = tmp.trim_start_matches('x');
+                let Some(space_pos) = tmp.find(' ') else { continue };
+                link.width = tmp[..space_pos].parse().unwrap_or(0);
+                continue;
+            }
+        }
+
+        if link.gen != 0 && link.width != 0 {
+            Some(link)
+        } else {
+            None
+        }
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_link_info_from_dpm(&self) -> Option<[PCI::LINK; 2]> {
+        let sysfs_path = self.get_sysfs_path();
+        let s = std::fs::read_to_string(sysfs_path.join("pp_dpm_pcie")).ok()?;
+        let mut lines = s.lines();
+
+        let first = Self::parse_dpm_line(lines.next()?)?;
+        let last = match lines.last() {
+            Some(last) => Self::parse_dpm_line(last)?,
+            None => return Some([first; 2]),
+        };
+
+        Some([
+            std::cmp::min(first, last),
+            std::cmp::max(first, last),
+        ])
     }
 
     /// Convert PCIe speed to PCIe gen

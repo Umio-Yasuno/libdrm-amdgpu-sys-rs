@@ -200,12 +200,16 @@ fn main() {
     }
 
     if let Ok(bus_info) = amdgpu_dev.get_pci_bus_info() {
-        let cur = bus_info.get_link_info(PCI::STATUS::Current);
-        let max = bus_info.get_link_info(PCI::STATUS::Max);
-
         println!("\nPCI (domain:bus:dev.func): {bus_info}");
-        println!("Current Link: Gen{}x{}", cur.gen, cur.width);
-        println!("Max     Link: Gen{}x{}", max.gen, max.width);
+        if let Some([min, max]) = bus_info.get_min_max_link_info_from_dpm() {
+            println!(
+                "PCI Link Speed           : Gen{}x{} - Gen{}x{}",
+                min.gen,
+                min.width,
+                max.gen,
+                max.width,
+            );
+        }
     }
 
     if let Ok(vbios) = amdgpu_dev.get_vbios_info() {
