@@ -25,6 +25,8 @@ pub mod PCI {
 #[cfg(feature = "std")]
 use std::path::PathBuf;
 
+const PCIE_DPM: &str = "pp_dpm_pcie";
+
 impl PCI::BUS_INFO {
     pub(crate) fn drm_get_device2(
         fd: ::core::ffi::c_int,
@@ -161,7 +163,7 @@ impl PCI::BUS_INFO {
     #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm(&self) -> Option<[PCI::LINK; 2]> {
         let sysfs_path = self.get_sysfs_path();
-        let s = std::fs::read_to_string(sysfs_path.join("pp_dpm_pcie")).ok()?;
+        let s = std::fs::read_to_string(sysfs_path.join(PCIE_DPM)).ok()?;
         let mut lines = s.lines();
 
         let first = Self::parse_dpm_line(lines.next()?)?;
@@ -174,6 +176,15 @@ impl PCI::BUS_INFO {
             std::cmp::min(first, last),
             std::cmp::max(first, last),
         ])
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_current_link_info_from_dpm(&self) -> Option<PCI::LINK> {
+        let sysfs_path = self.get_sysfs_path();
+        let s = std::fs::read_to_string(sysfs_path.join(PCIE_DPM)).ok()?;
+        let cur = s.lines().find(|&line| line.ends_with(" *"))?;
+
+        Self::parse_dpm_line(cur)
     }
 
     /// Convert PCIe speed to PCIe gen
