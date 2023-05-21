@@ -39,6 +39,10 @@ pub use metrics_table::*;
 mod gpu_metrics;
 #[cfg(feature = "std")]
 pub use gpu_metrics::*;
+#[cfg(feature = "std")]
+mod power_cap;
+#[cfg(feature = "std")]
+pub use power_cap::*;
 
 mod vbios;
 mod video_caps;
@@ -96,4 +100,3 @@ pub mod FW_VERSION {
 pub mod SENSOR_INFO {
     pub use super::sensor_info::*;
 }
-
