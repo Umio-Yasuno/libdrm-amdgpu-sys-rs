@@ -25,6 +25,7 @@ pub mod PCI {
 #[cfg(feature = "std")]
 use std::path::PathBuf;
 
+#[cfg(feature = "std")]
 const PCIE_DPM: &str = "pp_dpm_pcie";
 
 impl PCI::BUS_INFO {

@@ -262,10 +262,19 @@ fn main() {
     if let Some(hwmon) = amdgpu_dev.get_hwmon_path() {
         println!("hwmon: {hwmon:?}");
 
-        use AMDGPU::PowerCap;
-        if let Some(power_cap) = PowerCap::from_hwmon_path(hwmon) {
+        use AMDGPU::{HwmonTemp, HwmonTempType, PowerCap};
+        if let Some(power_cap) = PowerCap::from_hwmon_path(&hwmon) {
             let PowerCap { type_, current, default, min, max } = power_cap;
             println!("PowerCap ({type_}): {current} W (Current), {default} W (Default), {min}-{max} W (Range)");
+        }
+        if let Some(edge_temp) = HwmonTemp::from_hwmon_path(&hwmon, HwmonTempType::Edge) {
+            println!("{edge_temp:?}");
+        }
+        if let Some(junction_temp) = HwmonTemp::from_hwmon_path(&hwmon, HwmonTempType::Junction) {
+            println!("{junction_temp:?}");
+        }
+        if let Some(mem_temp) = HwmonTemp::from_hwmon_path(&hwmon, HwmonTempType::Memory) {
+            println!("{mem_temp:?}");
         }
     }
 }

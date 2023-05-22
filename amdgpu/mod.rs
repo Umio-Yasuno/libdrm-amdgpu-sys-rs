@@ -40,9 +40,19 @@ mod gpu_metrics;
 #[cfg(feature = "std")]
 pub use gpu_metrics::*;
 #[cfg(feature = "std")]
+mod hwmon_temp;
+#[cfg(feature = "std")]
+pub use hwmon_temp::*;
+#[cfg(feature = "std")]
 mod power_cap;
 #[cfg(feature = "std")]
 pub use power_cap::*;
+
+#[cfg(feature = "std")]
+pub(crate) fn parse_hwmon<T: std::str::FromStr, P: Into<std::path::PathBuf>>(path: P) -> Option<T> {
+    std::fs::read_to_string(path.into()).ok()
+        .and_then(|file| file.trim_end().parse::<T>().ok())
+}
 
 mod vbios;
 mod video_caps;

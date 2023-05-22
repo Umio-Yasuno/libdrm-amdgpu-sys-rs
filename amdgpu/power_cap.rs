@@ -1,6 +1,7 @@
 use crate::AMDGPU::DeviceHandle;
 use std::str::FromStr;
 use std::path::PathBuf;
+use super::parse_hwmon;
 
 impl DeviceHandle {
     pub fn get_power_cap(&self) -> Option<PowerCap> {
@@ -29,9 +30,7 @@ impl PowerCap {
         };
         let type_ = PowerCapType::from_str(label.as_str().trim_end()).ok()?;
         let [current, default, min, max] = type_.file_names().map(|name| {
-            std::fs::read_to_string(path.join(name)).ok()
-                .and_then(|file| file.trim_end().parse::<u32>().ok())
-                .map(|v| v.saturating_div(1_000_000))
+            parse_hwmon::<u32, _>(path.join(name)).map(|v| v.saturating_div(1_000_000))
         });
 
         Some(Self {
@@ -64,9 +63,7 @@ impl PowerCapType {
     }
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for PowerCapType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
