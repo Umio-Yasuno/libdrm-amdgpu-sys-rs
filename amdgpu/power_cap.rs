@@ -41,6 +41,13 @@ impl PowerCap {
             max: max?,
         })
     }
+
+    /// ref: drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+    /// ref: https://github.com/RadeonOpenCompute/rocm_smi_lib/blob/master/python_smi_tools/rocm_smi.py
+    #[cfg(feature = "std")]
+    pub fn check_if_secondary_die(&self) -> bool {
+        self.current == 0 && self.default == 0 && self.max == 0
+    }
 }
 
 #[derive(Clone, Debug, Eq, PartialEq)]

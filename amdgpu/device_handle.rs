@@ -404,6 +404,15 @@ impl DeviceHandle {
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         self.get_pci_bus_info().ok().and_then(|pci| pci.get_hwmon_path())
     }
+
+    /// ref: drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
+    /// ref: https://github.com/RadeonOpenCompute/rocm_smi_lib/blob/master/python_smi_tools/rocm_smi.py
+    #[cfg(feature = "std")]
+    pub fn check_if_secondary_die(&self) -> bool {
+        let Some(power_cap) = self.get_power_cap() else { return false };
+
+        power_cap.check_if_secondary_die()
+    }
 }
 
 impl Drop for DeviceHandle {
