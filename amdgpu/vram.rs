@@ -69,8 +69,31 @@ impl VRAM_TYPE {
         }
     }
     */
-    /* https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp */
-    /// Memory ops per clock
+
+    pub fn bit_width_per_channel(&self) -> u32 {
+        match self {
+            Self::DDR2 |
+            Self::DDR3 |
+            Self::DDR4 |
+            Self::DDR5 => 64,
+            /*
+                The AMDGPU drivers always calculate the width per memory channel on APU as 64-bit.  
+                https://gitlab.freedesktop.org/drm/amd/-/issues/2468
+            */
+            Self::LPDDR4 |
+            Self::LPDDR5 => 64,
+            Self::HBM => 128,
+            Self::GDDR1 |
+            Self::GDDR3 |
+            Self::GDDR4 |
+            Self::GDDR5 => 32,
+            Self::GDDR6 => 16,
+            Self::UNKNOWN => 1,
+        }
+    }
+
+    /// Memory ops per clock  
+    /// ref: https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp
     fn memory_ops_per_clock(&self) -> u64 {
         match self {
             Self::DDR2 | Self::DDR3 | Self::DDR4 | Self::HBM | Self::LPDDR4 => 2,
