@@ -228,6 +228,14 @@ impl std::str::FromStr for PCI::BUS_INFO {
     }
 }
 
+#[test]
+fn test_pci_bus_info_parse() {
+    let s = "0000:0d:00.0".parse();
+    let bus = PCI::BUS_INFO { domain: 0x0, bus: 0xd, dev: 0x0, func: 0x0 };
+
+    assert_eq!(s, Ok(bus));
+}
+
 #[cfg(feature = "std")]
 use std::fmt;
 #[cfg(feature = "std")]

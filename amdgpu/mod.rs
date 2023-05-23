@@ -68,7 +68,15 @@ pub mod VBIOS {
 /// ## Examples
 ///
 /// ```
-/// use AMDGPU::VIDEO_CAPS::*;
+/// use libdrm_amdgpu_sys::AMDGPU::{DeviceHandle, VIDEO_CAPS::*};
+/// let (amdgpu_dev, drm_major, drm_minor) = {
+///     use std::fs::File;
+///     use std::os::fd::IntoRawFd;
+///
+///     let fd = File::open("/dev/dri/renderD128").unwrap();
+///
+///     DeviceHandle::init(fd.into_raw_fd()).unwrap()
+/// };
 /// for cap_type in [
 ///     amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap(),
 ///     amdgpu_dev.get_video_caps(CAP_TYPE::ENCODE).unwrap(),
