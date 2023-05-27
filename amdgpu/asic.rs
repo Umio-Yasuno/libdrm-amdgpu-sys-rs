@@ -360,7 +360,7 @@ impl ASIC_NAME {
 
     /// Processor name for LLVM
     #[cfg(feature = "std")]
-    pub fn get_llvm_processor_name(&self) -> String {
+    pub fn get_llvm_processor_name(&self, llvm_major_ver: usize) -> &str {
         match self {
             Self::CHIP_TAHITI => "tahiti",
             Self::CHIP_PITCAIRN => "pitcairn",
@@ -389,61 +389,20 @@ impl ASIC_NAME {
             Self::CHIP_NAVI12 => "gfx1011",
             Self::CHIP_NAVI14 => "gfx1012",
             Self::CHIP_NAVI21 => "gfx1030",
-            Self::CHIP_NAVI22 => "gfx1030",
-            /*
-                if cfg!(version("1.52")) { // LLVM 12
-                    "gfx1031"
-                } else {
-                    "gfx1030"
-                },
-            */
-            Self::CHIP_NAVI23 => "gfx1030",
-            /*
-                if cfg!(version("1.52")) { // LLVM 12
-                    "gfx1032"
-                } else {
-                    "gfx1030"
-                },
-            */
-            Self::CHIP_VANGOGH => "gfx1030",
-            /*
-                if cfg!(version("1.52")) { // LLVM 12
-                    "gfx1033"
-                } else {
-                    "gfx1030"
-                },
-            */
-            Self::CHIP_NAVI24 => "gfx1030",
-            /*
-                if cfg!(version("1.56")) { // LLVM 13
-                    "gfx1034"
-                } else {
-                    "gfx1030"
-                },
-            */
-            Self::CHIP_REMBRANDT => "gfx1030",
-            /*
-                if cfg!(version("1.56")) { // LLVM 13
-                    "gfx1035"
-                } else {
-                    "gfx1030"
-                },
-            */
+            Self::CHIP_NAVI22 => if llvm_major_ver >= 12 { "gfx1031" } else { "gfx1030" },
+            Self::CHIP_NAVI23 => if llvm_major_ver >= 12 { "gfx1032" } else { "gfx1030" },
+            Self::CHIP_VANGOGH => if llvm_major_ver >= 12 { "gfx1033" } else { "gfx1030" },
+            Self::CHIP_NAVI24 => if llvm_major_ver >= 13 { "gfx1034" } else { "gfx1030" },
+            Self::CHIP_REMBRANDT => if llvm_major_ver >= 13 { "gfx1035" } else { "gfx1030" },
             Self::CHIP_GFX1036 => "gfx1030",
-            /*
-            Self::CHIP_GFX1100 =>
-                "gfx1100",
-            Self::CHIP_GFX1101 =>
-                "gfx1101",
-            Self::CHIP_GFX1102 =>
-                "gfx1102",
-            Self::CHIP_GFX1103 =>
-                "gfx1103",
-            */
+            Self::CHIP_GFX1100 => "gfx1100",
+            Self::CHIP_GFX1101 => "gfx1101",
+            Self::CHIP_GFX1102 => "gfx1102",
+            Self::CHIP_GFX1103_R1 | Self::CHIP_GFX1103_R2 => "gfx1103",
             _ => "",
         }
-        .to_string()
     }
+
 }
 
 #[test]
