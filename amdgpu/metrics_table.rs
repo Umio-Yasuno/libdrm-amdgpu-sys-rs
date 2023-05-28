@@ -124,6 +124,7 @@ pub trait MetricsInfo {
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_current_l3clk(&self) -> Option<[u16; 2]>;
     fn get_throttle_status(&self) -> Option<u32>;
+    fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
     fn get_pcie_link_width(&self) -> Option<u16>;
@@ -342,6 +343,10 @@ impl MetricsInfo for gpu_metrics_v1_0 {
     fn get_voltage_mem(&self) -> Option<u16> {
         None
     }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        None
+    }
 }
 
 impl MetricsInfo for gpu_metrics_v1_2 {
@@ -368,6 +373,10 @@ impl MetricsInfo for gpu_metrics_v1_2 {
     }
 
     fn get_voltage_mem(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
         None
     }
 }
@@ -398,6 +407,10 @@ impl MetricsInfo for gpu_metrics_v1_1 {
     fn get_voltage_mem(&self) -> Option<u16> {
         None
     }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        None
+    }
 }
 
 impl MetricsInfo for gpu_metrics_v1_3 {
@@ -425,6 +438,10 @@ impl MetricsInfo for gpu_metrics_v1_3 {
 
     fn get_voltage_mem(&self) -> Option<u16> {
         Some(self.voltage_mem)
+    }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
     }
 }
 
@@ -635,6 +652,10 @@ impl MetricsInfo for gpu_metrics_v2_0 {
     fn get_average_gfx_power(&self) -> Option<u16> {
         None
     }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        None
+    }
 }
 
 // Mendocino, Raphael, Rembrandt (Yellow Carp)
@@ -643,6 +664,10 @@ impl MetricsInfo for gpu_metrics_v2_1 {
 
     fn get_average_gfx_power(&self) -> Option<u16> {
         Some(self.average_gfx_power)
+    }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        None
     }
 }
 
@@ -654,6 +679,10 @@ impl MetricsInfo for gpu_metrics_v2_2 {
     fn get_average_gfx_power(&self) -> Option<u16> {
         Some(self.average_gfx_power)
     }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
+    }
 }
 
 // VanGogh
@@ -662,5 +691,9 @@ impl MetricsInfo for gpu_metrics_v2_3 {
 
     fn get_average_gfx_power(&self) -> Option<u16> {
         Some(self.average_gfx_power)
+    }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
     }
 }
