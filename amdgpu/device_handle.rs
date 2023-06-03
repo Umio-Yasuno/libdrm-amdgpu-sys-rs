@@ -37,7 +37,10 @@ use std::path::{Path, PathBuf};
 
 impl DeviceHandle {
     /// Initialization.
-    /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`
+    /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`  
+    /// It may require a write option (`std::fs::OpenOptions::new().read(true).write(true)`)
+    /// for GUI context.  
+    /// ref: https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
