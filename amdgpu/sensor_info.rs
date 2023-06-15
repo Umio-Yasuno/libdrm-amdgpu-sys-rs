@@ -31,7 +31,7 @@ use bindings::{
 };
 
 /// Used for [DeviceHandle::sensor_info]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum SENSOR_TYPE {
     GFX_SCLK = AMDGPU_INFO_SENSOR_GFX_SCLK,

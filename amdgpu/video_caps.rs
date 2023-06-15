@@ -101,7 +101,7 @@ use bindings::{
 };
 
 /// Used for [drm_amdgpu_info_video_caps::get_codec_info]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum CODEC {
     MPEG2 = AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2,

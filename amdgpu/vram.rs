@@ -10,7 +10,7 @@ const AMDGPU_VRAM_TYPE_LPDDR4: u32 = 11;
 const AMDGPU_VRAM_TYPE_LPDDR5: u32 = 12;
 
 /// List of AMDGPU VRAM types
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum VRAM_TYPE {
     UNKNOWN = 0,
