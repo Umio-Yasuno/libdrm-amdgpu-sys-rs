@@ -66,7 +66,7 @@ fn main() {
         println!("Peak Memory BW:\t\t{} GB/s", ext_info.peak_memory_bw_gb());
 
         println!();
-        println!("L1cache (per CU):\t{:4} KiB", ext_info.get_l1_cache_size() / 1024);
+        println!("L1cache (per CU):\t{:4} KiB", ext_info.get_l1_cache_size() >> 10);
         let gl1_cache_size = ext_info.get_gl1_cache_size();
         let l3_cache_size = ext_info.calc_l3_cache_size_mb();
         if 0 < gl1_cache_size {
@@ -74,8 +74,8 @@ fn main() {
         }
         println!(
             "L2cache:\t\t{:4} KiB ({} Banks)",
-            ext_info.calc_l2_cache_size() / 1024,
-            ext_info.num_tcc_blocks
+            ext_info.calc_l2_cache_size() >> 10,
+            ext_info.get_actual_num_tcc_blocks(),
         );
         if 0 < l3_cache_size {
             println!("L3cache:\t\t{l3_cache_size:4} MiB");
@@ -86,18 +86,18 @@ fn main() {
         println!();
         println!(
             "VRAM Usage:\t\t\t{usage}/{total} MiB",
-            usage = info.vram.heap_usage / 1024 / 1024,
-            total = info.vram.total_heap_size / 1024 / 1024,
+            usage = info.vram.heap_usage >> 20,
+            total = info.vram.total_heap_size >> 20,
         );
         println!(
             "CPU Accessible VRAM Usage:\t{usage}/{total} MiB",
-            usage = info.cpu_accessible_vram.heap_usage / 1024 / 1024,
-            total = info.cpu_accessible_vram.total_heap_size / 1024 / 1024,
+            usage = info.cpu_accessible_vram.heap_usage >> 20,
+            total = info.cpu_accessible_vram.total_heap_size >> 20,
         );
         println!(
             "GTT Usage:\t\t\t{usage}/{total} MiB",
-            usage = info.gtt.heap_usage / 1024 / 1024,
-            total = info.gtt.total_heap_size / 1024 / 1024,
+            usage = info.gtt.heap_usage >> 20,
+            total = info.gtt.total_heap_size >> 20,
         );
         let re_bar = if info.check_resizable_bar() { "Enabled" } else { "Disabled" };
         println!("ResizableBAR:\t\t\t{re_bar}");
