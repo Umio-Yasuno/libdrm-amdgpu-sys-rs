@@ -3,6 +3,7 @@ use crate::*;
 
 use core::mem::MaybeUninit;
 
+#[derive(Debug, Clone, Copy)]
 pub struct FwVer {
     pub version: u32,
     pub feature: u32,
