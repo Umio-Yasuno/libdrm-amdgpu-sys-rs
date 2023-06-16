@@ -418,7 +418,8 @@ pub const AMDGPU_GEM_DOMAIN_VRAM: u32 = 4;
 pub const AMDGPU_GEM_DOMAIN_GDS: u32 = 8;
 pub const AMDGPU_GEM_DOMAIN_GWS: u32 = 16;
 pub const AMDGPU_GEM_DOMAIN_OA: u32 = 32;
-pub const AMDGPU_GEM_DOMAIN_MASK: u32 = 63;
+pub const AMDGPU_GEM_DOMAIN_DOORBELL: u32 = 64;
+pub const AMDGPU_GEM_DOMAIN_MASK: u32 = 127;
 pub const AMDGPU_GEM_CREATE_CPU_ACCESS_REQUIRED: u32 = 1;
 pub const AMDGPU_GEM_CREATE_NO_CPU_ACCESS: u32 = 2;
 pub const AMDGPU_GEM_CREATE_CPU_GTT_USWC: u32 = 4;
@@ -430,6 +431,9 @@ pub const AMDGPU_GEM_CREATE_CP_MQD_GFX9: u32 = 256;
 pub const AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE: u32 = 512;
 pub const AMDGPU_GEM_CREATE_ENCRYPTED: u32 = 1024;
 pub const AMDGPU_GEM_CREATE_PREEMPTIBLE: u32 = 2048;
+pub const AMDGPU_GEM_CREATE_DISCARDABLE: u32 = 4096;
+pub const AMDGPU_GEM_CREATE_COHERENT: u32 = 8192;
+pub const AMDGPU_GEM_CREATE_UNCACHED: u32 = 16384;
 pub const AMDGPU_BO_LIST_OP_CREATE: u32 = 0;
 pub const AMDGPU_BO_LIST_OP_DESTROY: u32 = 1;
 pub const AMDGPU_BO_LIST_OP_UPDATE: u32 = 2;
@@ -448,6 +452,7 @@ pub const AMDGPU_CTX_QUERY2_FLAGS_VRAMLOST: u32 = 2;
 pub const AMDGPU_CTX_QUERY2_FLAGS_GUILTY: u32 = 4;
 pub const AMDGPU_CTX_QUERY2_FLAGS_RAS_CE: u32 = 8;
 pub const AMDGPU_CTX_QUERY2_FLAGS_RAS_UE: u32 = 16;
+pub const AMDGPU_CTX_QUERY2_FLAGS_RESET_IN_PROGRESS: u32 = 32;
 pub const AMDGPU_CTX_PRIORITY_UNSET: i32 = -2048;
 pub const AMDGPU_CTX_PRIORITY_VERY_LOW: i32 = -1023;
 pub const AMDGPU_CTX_PRIORITY_LOW: i32 = -512;
@@ -516,6 +521,7 @@ pub const AMDGPU_VM_MTYPE_WC: u32 = 64;
 pub const AMDGPU_VM_MTYPE_CC: u32 = 96;
 pub const AMDGPU_VM_MTYPE_UC: u32 = 128;
 pub const AMDGPU_VM_MTYPE_RW: u32 = 160;
+pub const AMDGPU_VM_PAGE_NOALLOC: u32 = 512;
 pub const AMDGPU_HW_IP_GFX: u32 = 0;
 pub const AMDGPU_HW_IP_COMPUTE: u32 = 1;
 pub const AMDGPU_HW_IP_DMA: u32 = 2;
@@ -525,7 +531,8 @@ pub const AMDGPU_HW_IP_UVD_ENC: u32 = 5;
 pub const AMDGPU_HW_IP_VCN_DEC: u32 = 6;
 pub const AMDGPU_HW_IP_VCN_ENC: u32 = 7;
 pub const AMDGPU_HW_IP_VCN_JPEG: u32 = 8;
-pub const AMDGPU_HW_IP_NUM: u32 = 9;
+pub const AMDGPU_HW_IP_VPE: u32 = 9;
+pub const AMDGPU_HW_IP_NUM: u32 = 10;
 pub const AMDGPU_HW_IP_INSTANCE_MAX_COUNT: u32 = 1;
 pub const AMDGPU_CHUNK_ID_IB: u32 = 1;
 pub const AMDGPU_CHUNK_ID_FENCE: u32 = 2;
@@ -536,6 +543,7 @@ pub const AMDGPU_CHUNK_ID_BO_HANDLES: u32 = 6;
 pub const AMDGPU_CHUNK_ID_SCHEDULED_DEPENDENCIES: u32 = 7;
 pub const AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_WAIT: u32 = 8;
 pub const AMDGPU_CHUNK_ID_SYNCOBJ_TIMELINE_SIGNAL: u32 = 9;
+pub const AMDGPU_CHUNK_ID_CP_GFX_SHADOW: u32 = 10;
 pub const AMDGPU_IB_FLAG_CE: u32 = 1;
 pub const AMDGPU_IB_FLAG_PREAMBLE: u32 = 2;
 pub const AMDGPU_IB_FLAG_PREEMPT: u32 = 4;
@@ -546,9 +554,11 @@ pub const AMDGPU_IB_FLAG_EMIT_MEM_SYNC: u32 = 64;
 pub const AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ: u32 = 0;
 pub const AMDGPU_FENCE_TO_HANDLE_GET_SYNCOBJ_FD: u32 = 1;
 pub const AMDGPU_FENCE_TO_HANDLE_GET_SYNC_FILE_FD: u32 = 2;
+pub const AMDGPU_CS_CHUNK_CP_GFX_SHADOW_FLAGS_INIT_SHADOW: u32 = 1;
 pub const AMDGPU_IDS_FLAGS_FUSION: u32 = 1;
 pub const AMDGPU_IDS_FLAGS_PREEMPTION: u32 = 2;
 pub const AMDGPU_IDS_FLAGS_TMZ: u32 = 4;
+pub const AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD: u32 = 8;
 pub const AMDGPU_INFO_ACCEL_WORKING: u32 = 0;
 pub const AMDGPU_INFO_CRTC_FROM_ID: u32 = 1;
 pub const AMDGPU_INFO_HW_IP_INFO: u32 = 2;
@@ -575,6 +585,13 @@ pub const AMDGPU_INFO_FW_DMCU: u32 = 18;
 pub const AMDGPU_INFO_FW_TA: u32 = 19;
 pub const AMDGPU_INFO_FW_DMCUB: u32 = 20;
 pub const AMDGPU_INFO_FW_TOC: u32 = 21;
+pub const AMDGPU_INFO_FW_CAP: u32 = 22;
+pub const AMDGPU_INFO_FW_GFX_RLCP: u32 = 23;
+pub const AMDGPU_INFO_FW_GFX_RLCV: u32 = 24;
+pub const AMDGPU_INFO_FW_MES_KIQ: u32 = 25;
+pub const AMDGPU_INFO_FW_MES: u32 = 26;
+pub const AMDGPU_INFO_FW_IMU: u32 = 27;
+pub const AMDGPU_INFO_FW_VPE: u32 = 28;
 pub const AMDGPU_INFO_NUM_BYTES_MOVED: u32 = 15;
 pub const AMDGPU_INFO_VRAM_USAGE: u32 = 16;
 pub const AMDGPU_INFO_GTT_USAGE: u32 = 17;
@@ -601,6 +618,8 @@ pub const AMDGPU_INFO_SENSOR_VDDNB: u32 = 6;
 pub const AMDGPU_INFO_SENSOR_VDDGFX: u32 = 7;
 pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK: u32 = 8;
 pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK: u32 = 9;
+pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_SCLK: u32 = 10;
+pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_MCLK: u32 = 11;
 pub const AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS: u32 = 30;
 pub const AMDGPU_INFO_VRAM_LOST_COUNTER: u32 = 31;
 pub const AMDGPU_INFO_RAS_ENABLED_FEATURES: u32 = 32;
@@ -621,6 +640,7 @@ pub const AMDGPU_INFO_RAS_ENABLED_FUSE: u32 = 8192;
 pub const AMDGPU_INFO_VIDEO_CAPS: u32 = 33;
 pub const AMDGPU_INFO_VIDEO_CAPS_DECODE: u32 = 0;
 pub const AMDGPU_INFO_VIDEO_CAPS_ENCODE: u32 = 1;
+pub const AMDGPU_INFO_MAX_IBS: u32 = 34;
 pub const AMDGPU_INFO_MMR_SE_INDEX_SHIFT: u32 = 0;
 pub const AMDGPU_INFO_MMR_SE_INDEX_MASK: u32 = 255;
 pub const AMDGPU_INFO_MMR_SH_INDEX_SHIFT: u32 = 8;
@@ -636,6 +656,8 @@ pub const AMDGPU_VRAM_TYPE_DDR3: u32 = 7;
 pub const AMDGPU_VRAM_TYPE_DDR4: u32 = 8;
 pub const AMDGPU_VRAM_TYPE_GDDR6: u32 = 9;
 pub const AMDGPU_VRAM_TYPE_DDR5: u32 = 10;
+pub const AMDGPU_VRAM_TYPE_LPDDR4: u32 = 11;
+pub const AMDGPU_VRAM_TYPE_LPDDR5: u32 = 12;
 pub const AMDGPU_VCE_CLOCK_TABLE_ENTRIES: u32 = 6;
 pub const AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG2: u32 = 0;
 pub const AMDGPU_INFO_VIDEO_CAPS_CODEC_IDX_MPEG4: u32 = 1;
@@ -656,7 +678,12 @@ pub const AMDGPU_FAMILY_AI: u32 = 141;
 pub const AMDGPU_FAMILY_RV: u32 = 142;
 pub const AMDGPU_FAMILY_NV: u32 = 143;
 pub const AMDGPU_FAMILY_VGH: u32 = 144;
+pub const AMDGPU_FAMILY_GC_11_0_0: u32 = 145;
 pub const AMDGPU_FAMILY_YC: u32 = 146;
+pub const AMDGPU_FAMILY_GC_11_0_1: u32 = 148;
+pub const AMDGPU_FAMILY_GC_10_3_6: u32 = 149;
+pub const AMDGPU_FAMILY_GC_10_3_7: u32 = 151;
+pub const AMDGPU_FAMILY_GC_11_5_0: u32 = 150;
 pub const NUM_HBM_INSTANCES: u32 = 4;
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
@@ -12969,9 +12996,13 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_create_in {
+    #[doc = " the requested memory size"]
     pub bo_size: __u64,
+    #[doc = " physical start_addr alignment in bytes for some HW requirements"]
     pub alignment: __u64,
+    #[doc = " the requested memory domains"]
     pub domains: __u64,
+    #[doc = " allocation flags"]
     pub domain_flags: __u64,
 }
 #[test]
@@ -13038,6 +13069,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_create_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_create_out {
+    #[doc = " returned GEM object handle"]
     pub handle: __u32,
     pub _pad: __u32,
 }
@@ -13118,10 +13150,15 @@ fn bindgen_test_layout_drm_amdgpu_gem_create() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_bo_list_in {
+    #[doc = " Type of operation"]
     pub operation: __u32,
+    #[doc = " Handle of list or 0 if we want to create one"]
     pub list_handle: __u32,
+    #[doc = " Number of BOs in list"]
     pub bo_number: __u32,
+    #[doc = " Size of each element describing BO"]
     pub bo_info_size: __u32,
+    #[doc = " Pointer to array describing BOs"]
     pub bo_info_ptr: __u64,
 }
 #[test]
@@ -13200,7 +13237,9 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_bo_list_entry {
+    #[doc = " Handle of BO"]
     pub bo_handle: __u32,
+    #[doc = " New (if specified) BO priority to be used during migration"]
     pub bo_priority: __u32,
 }
 #[test]
@@ -13243,6 +13282,7 @@ fn bindgen_test_layout_drm_amdgpu_bo_list_entry() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_bo_list_out {
+    #[doc = " Handle of resource list"]
     pub list_handle: __u32,
     pub _pad: __u32,
 }
@@ -13323,9 +13363,12 @@ fn bindgen_test_layout_drm_amdgpu_bo_list() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_ctx_in {
+    #[doc = " AMDGPU_CTX_OP_*"]
     pub op: __u32,
+    #[doc = " Flags"]
     pub flags: __u32,
     pub ctx_id: __u32,
+    #[doc = " AMDGPU_CTX_PRIORITY_*"]
     pub priority: __s32,
 }
 #[test]
@@ -13438,8 +13481,11 @@ fn bindgen_test_layout_drm_amdgpu_ctx_out__bindgen_ty_1() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_ctx_out__bindgen_ty_2 {
+    #[doc = " For future use, no flags defined so far"]
     pub flags: __u64,
+    #[doc = " Number of resets caused by this context so far."]
     pub hangs: __u32,
+    #[doc = " Reset status since the last call of the ioctl."]
     pub reset_status: __u32,
 }
 #[test]
@@ -13626,6 +13672,7 @@ fn bindgen_test_layout_drm_amdgpu_ctx() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_vm_in {
+    #[doc = " AMDGPU_VM_OP_*"]
     pub op: __u32,
     pub flags: __u32,
 }
@@ -13665,6 +13712,7 @@ fn bindgen_test_layout_drm_amdgpu_vm_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_vm_out {
+    #[doc = " For future use, no flags defined so far"]
     pub flags: __u64,
 }
 #[test]
@@ -13734,6 +13782,7 @@ fn bindgen_test_layout_drm_amdgpu_vm() {
 pub struct drm_amdgpu_sched_in {
     pub op: __u32,
     pub fd: __u32,
+    #[doc = " AMDGPU_CTX_PRIORITY_*"]
     pub priority: __s32,
     pub ctx_id: __u32,
 }
@@ -13879,17 +13928,22 @@ fn bindgen_test_layout_drm_amdgpu_gem_userptr() {
         )
     );
 }
+#[doc = " The same structure is shared for input/output"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_metadata {
+    #[doc = " GEM Object handle"]
     pub handle: __u32,
+    #[doc = " Do we want get or set metadata"]
     pub op: __u32,
     pub data: drm_amdgpu_gem_metadata__bindgen_ty_1,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_metadata__bindgen_ty_1 {
+    #[doc = " For future use, no flags defined so far"]
     pub flags: __u64,
+    #[doc = " family specific tiling info"]
     pub tiling_info: __u64,
     pub data_size_bytes: __u32,
     pub data: [__u32; 64usize],
@@ -14011,6 +14065,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_metadata() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_mmap_in {
+    #[doc = " the GEM object handle"]
     pub handle: __u32,
     pub _pad: __u32,
 }
@@ -14050,6 +14105,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_mmap_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_mmap_out {
+    #[doc = " mmap offset from the vma offset manager"]
     pub addr_ptr: __u64,
 }
 #[test]
@@ -14119,8 +14175,11 @@ fn bindgen_test_layout_drm_amdgpu_gem_mmap() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_wait_idle_in {
+    #[doc = " GEM object handle"]
     pub handle: __u32,
+    #[doc = " For future use, no flags defined so far"]
     pub flags: __u32,
+    #[doc = " Absolute timeout to wait"]
     pub timeout: __u64,
 }
 #[test]
@@ -14175,7 +14234,9 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_wait_idle_out {
+    #[doc = " BO status:  0 - BO is idle, 1 - BO is busy"]
     pub status: __u32,
+    #[doc = " Returned current memory domain"]
     pub domain: __u32,
 }
 #[test]
@@ -14258,6 +14319,7 @@ fn bindgen_test_layout_drm_amdgpu_gem_wait_idle() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_wait_cs_in {
     pub handle: __u64,
+    #[doc = " Absolute timeout to wait"]
     pub timeout: __u64,
     pub ip_type: __u32,
     pub ip_instance: __u32,
@@ -14342,6 +14404,7 @@ fn bindgen_test_layout_drm_amdgpu_wait_cs_in() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_wait_cs_out {
+    #[doc = " CS status:  0 - CS completed, 1 - CS still busy"]
     pub status: __u64,
 }
 #[test]
@@ -14481,6 +14544,7 @@ fn bindgen_test_layout_drm_amdgpu_fence() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_wait_fences_in {
+    #[doc = " This points to uint64_t * which points to fences"]
     pub fences: __u64,
     pub fence_count: __u32,
     pub wait_all: __u32,
@@ -14633,8 +14697,11 @@ fn bindgen_test_layout_drm_amdgpu_wait_fences() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_op {
+    #[doc = " GEM object handle"]
     pub handle: __u32,
+    #[doc = " AMDGPU_GEM_OP_*"]
     pub op: __u32,
+    #[doc = " Input or return value"]
     pub value: __u64,
 }
 #[test]
@@ -14683,12 +14750,18 @@ fn bindgen_test_layout_drm_amdgpu_gem_op() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_gem_va {
+    #[doc = " GEM object handle"]
     pub handle: __u32,
     pub _pad: __u32,
+    #[doc = " AMDGPU_VA_OP_*"]
     pub operation: __u32,
+    #[doc = " AMDGPU_VM_PAGE_*"]
     pub flags: __u32,
+    #[doc = " va address to assign . Must be correctly aligned."]
     pub va_address: __u64,
+    #[doc = " Specify offset inside of BO to assign. Must be correctly aligned."]
     pub offset_in_bo: __u64,
+    #[doc = " Specify mapping size. Must be correctly aligned."]
     pub map_size: __u64,
 }
 #[test]
@@ -14827,10 +14900,13 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_cs_in {
+    #[doc = " Rendering context id"]
     pub ctx_id: __u32,
+    #[doc = "  Handle of resource list associated with CS"]
     pub bo_list_handle: __u32,
     pub num_chunks: __u32,
     pub flags: __u32,
+    #[doc = " this points to __u64 * which point to cs chunks"]
     pub chunks: __u64,
 }
 #[test]
@@ -14969,11 +15045,17 @@ fn bindgen_test_layout_drm_amdgpu_cs() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_cs_chunk_ib {
     pub _pad: __u32,
+    #[doc = " AMDGPU_IB_FLAG_*"]
     pub flags: __u32,
+    #[doc = " Virtual address to begin IB execution"]
     pub va_start: __u64,
+    #[doc = " Size of submission"]
     pub ib_bytes: __u32,
+    #[doc = " HW IP to submit to"]
     pub ip_type: __u32,
+    #[doc = " HW IP index of the same type to submit to"]
     pub ip_instance: __u32,
+    #[doc = " Ring index to submit to"]
     pub ring: __u32,
 }
 #[test]
@@ -15480,9 +15562,90 @@ fn bindgen_test_layout_drm_amdgpu_cs_chunk_data() {
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
+pub struct drm_amdgpu_cs_chunk_cp_gfx_shadow {
+    pub shadow_va: __u64,
+    pub csa_va: __u64,
+    pub gds_va: __u64,
+    pub flags: __u64,
+}
+#[test]
+fn bindgen_test_layout_drm_amdgpu_cs_chunk_cp_gfx_shadow() {
+    assert_eq!(
+        ::core::mem::size_of::<drm_amdgpu_cs_chunk_cp_gfx_shadow>(),
+        32usize,
+        concat!("Size of: ", stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<drm_amdgpu_cs_chunk_cp_gfx_shadow>(),
+        8usize,
+        concat!(
+            "Alignment of ",
+            stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_cp_gfx_shadow>())).shadow_va as *const _
+                as usize
+        },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow),
+            "::",
+            stringify!(shadow_va)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_cp_gfx_shadow>())).csa_va as *const _
+                as usize
+        },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow),
+            "::",
+            stringify!(csa_va)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_cp_gfx_shadow>())).gds_va as *const _
+                as usize
+        },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow),
+            "::",
+            stringify!(gds_va)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_cs_chunk_cp_gfx_shadow>())).flags as *const _
+                as usize
+        },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_cs_chunk_cp_gfx_shadow),
+            "::",
+            stringify!(flags)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_query_fw {
+    #[doc = " AMDGPU_INFO_FW_*"]
     pub fw_type: __u32,
+    #[doc = " Index of the IP if there are more IPs of"]
+    #[doc = " the same type."]
     pub ip_instance: __u32,
+    #[doc = " Index of the engine. Whether this is used depends"]
+    #[doc = " on the firmware type. (e.g. MEC, SDMA)"]
     pub index: __u32,
     pub _pad: __u32,
 }
@@ -15614,7 +15777,10 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_1() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2 {
+    #[doc = " AMDGPU_HW_IP_*"]
     pub type_: __u32,
+    #[doc = " Index of the IP if there are more IPs of the same"]
+    #[doc = " type. Ignored by AMDGPU_INFO_HW_IP_COUNT."]
     pub ip_instance: __u32,
 }
 #[test]
@@ -15666,8 +15832,10 @@ fn bindgen_test_layout_drm_amdgpu_info__bindgen_ty_1__bindgen_ty_2() {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info__bindgen_ty_1__bindgen_ty_3 {
     pub dword_offset: __u32,
+    #[doc = " number of registers to read"]
     pub count: __u32,
     pub instance: __u32,
+    #[doc = " For future use, no flags defined so far"]
     pub flags: __u32,
 }
 #[test]
@@ -16015,12 +16183,19 @@ fn bindgen_test_layout_drm_amdgpu_info() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info_gds {
+    #[doc = " GDS GFX partition size"]
     pub gds_gfx_partition_size: __u32,
+    #[doc = " GDS compute partition size"]
     pub compute_partition_size: __u32,
+    #[doc = " total GDS memory size"]
     pub gds_total_size: __u32,
+    #[doc = " GWS size per GFX partition"]
     pub gws_per_gfx_partition: __u32,
+    #[doc = " GSW size per compute partition"]
     pub gws_per_compute_partition: __u32,
+    #[doc = " OA size per GFX partition"]
     pub oa_per_gfx_partition: __u32,
+    #[doc = " OA size per compute partition"]
     pub oa_per_compute_partition: __u32,
     pub _pad: __u32,
 }
@@ -16197,9 +16372,17 @@ fn bindgen_test_layout_drm_amdgpu_info_vram_gtt() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_heap_info {
+    #[doc = " max. physical memory"]
     pub total_heap_size: __u64,
+    #[doc = " Theoretical max. available memory in the given heap"]
     pub usable_heap_size: __u64,
+    #[doc = " Number of bytes allocated in the heap. This includes all processes"]
+    #[doc = " and private allocations in the kernel. It changes when new buffers"]
+    #[doc = " are allocated, freed, and moved. It cannot be larger than"]
+    #[doc = " heap_size."]
     pub heap_usage: __u64,
+    #[doc = " Theoretical possible max. size of buffer which"]
+    #[doc = " could be allocated in the given heap"]
     pub max_allocation: __u64,
 }
 #[test]
@@ -16445,9 +16628,12 @@ fn bindgen_test_layout_drm_amdgpu_info_vbios() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info_device {
+    #[doc = " PCI Device ID"]
     pub device_id: __u32,
+    #[doc = " Internal chip revision: A0, A1, etc.)"]
     pub chip_rev: __u32,
     pub external_rev: __u32,
+    #[doc = " Revision id in PCI Config space"]
     pub pci_rev: __u32,
     pub family: __u32,
     pub num_shader_engines: __u32,
@@ -16458,18 +16644,26 @@ pub struct drm_amdgpu_info_device {
     pub cu_active_number: __u32,
     pub cu_ao_mask: __u32,
     pub cu_bitmap: [[__u32; 4usize]; 4usize],
+    #[doc = " Render backend pipe mask. One render backend is CB+DB."]
     pub enabled_rb_pipes_mask: __u32,
     pub num_rb_pipes: __u32,
     pub num_hw_gfx_contexts: __u32,
-    pub _pad: __u32,
+    pub pcie_gen: __u32,
     pub ids_flags: __u64,
+    #[doc = " Starting virtual address for UMDs."]
     pub virtual_address_offset: __u64,
+    #[doc = " The maximum virtual address"]
     pub virtual_address_max: __u64,
+    #[doc = " Required alignment of virtual addresses."]
     pub virtual_address_alignment: __u32,
+    #[doc = " Page table entry - fragment size"]
     pub pte_fragment_size: __u32,
     pub gart_page_size: __u32,
+    #[doc = " constant engine ram size"]
     pub ce_ram_size: __u32,
+    #[doc = " video memory type info"]
     pub vram_type: __u32,
+    #[doc = " video memory bit width"]
     pub vram_bit_width: __u32,
     pub vce_harvest_config: __u32,
     pub gc_double_offchip_lds_buf: __u32,
@@ -16488,18 +16682,34 @@ pub struct drm_amdgpu_info_device {
     pub gs_vgt_table_depth: __u32,
     pub gs_prim_buffer_depth: __u32,
     pub max_gs_waves_per_vgt: __u32,
-    pub _pad1: __u32,
+    pub pcie_num_lanes: __u32,
     pub cu_ao_bitmap: [[__u32; 4usize]; 4usize],
+    #[doc = " Starting high virtual address for UMDs."]
     pub high_va_offset: __u64,
+    #[doc = " The maximum high virtual address"]
     pub high_va_max: __u64,
     pub pa_sc_tile_steering_override: __u32,
     pub tcc_disabled_mask: __u64,
+    pub min_engine_clock: __u64,
+    pub min_memory_clock: __u64,
+    pub tcp_cache_size: __u32,
+    pub num_sqc_per_wgp: __u32,
+    pub sqc_data_cache_size: __u32,
+    pub sqc_inst_cache_size: __u32,
+    pub gl1c_cache_size: __u32,
+    pub gl2c_cache_size: __u32,
+    pub mall_size: __u64,
+    pub enabled_rb_pipes_mask_hi: __u32,
+    pub shadow_size: __u32,
+    pub shadow_alignment: __u32,
+    pub csa_size: __u32,
+    pub csa_alignment: __u32,
 }
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_device() {
     assert_eq!(
         ::core::mem::size_of::<drm_amdgpu_info_device>(),
-        368usize,
+        440usize,
         concat!("Size of: ", stringify!(drm_amdgpu_info_device))
     );
     assert_eq!(
@@ -16704,13 +16914,15 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>()))._pad as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pcie_gen as *const _ as usize
+        },
         132usize,
         concat!(
             "Offset of field: ",
             stringify!(drm_amdgpu_info_device),
             "::",
-            stringify!(_pad)
+            stringify!(pcie_gen)
         )
     );
     assert_eq!(
@@ -17041,13 +17253,15 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_device>()))._pad1 as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).pcie_num_lanes as *const _ as usize
+        },
         268usize,
         concat!(
             "Offset of field: ",
             stringify!(drm_amdgpu_info_device),
             "::",
-            stringify!(_pad1)
+            stringify!(pcie_num_lanes)
         )
     );
     assert_eq!(
@@ -17112,17 +17326,197 @@ fn bindgen_test_layout_drm_amdgpu_info_device() {
             stringify!(tcc_disabled_mask)
         )
     );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).min_engine_clock as *const _
+                as usize
+        },
+        368usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(min_engine_clock)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).min_memory_clock as *const _
+                as usize
+        },
+        376usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(min_memory_clock)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).tcp_cache_size as *const _ as usize
+        },
+        384usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(tcp_cache_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).num_sqc_per_wgp as *const _ as usize
+        },
+        388usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(num_sqc_per_wgp)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).sqc_data_cache_size as *const _
+                as usize
+        },
+        392usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(sqc_data_cache_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).sqc_inst_cache_size as *const _
+                as usize
+        },
+        396usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(sqc_inst_cache_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gl1c_cache_size as *const _ as usize
+        },
+        400usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(gl1c_cache_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).gl2c_cache_size as *const _ as usize
+        },
+        404usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(gl2c_cache_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).mall_size as *const _ as usize
+        },
+        408usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(mall_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).enabled_rb_pipes_mask_hi as *const _
+                as usize
+        },
+        416usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(enabled_rb_pipes_mask_hi)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).shadow_size as *const _ as usize
+        },
+        420usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(shadow_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).shadow_alignment as *const _
+                as usize
+        },
+        424usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(shadow_alignment)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).csa_size as *const _ as usize
+        },
+        428usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(csa_size)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_device>())).csa_alignment as *const _ as usize
+        },
+        432usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(drm_amdgpu_info_device),
+            "::",
+            stringify!(csa_alignment)
+        )
+    );
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info_hw_ip {
+    #[doc = " Version of h/w IP"]
     pub hw_ip_version_major: __u32,
     pub hw_ip_version_minor: __u32,
+    #[doc = " Capabilities"]
     pub capabilities_flags: __u64,
+    #[doc = " command buffer address start alignment"]
     pub ib_start_alignment: __u32,
+    #[doc = " command buffer size alignment"]
     pub ib_size_alignment: __u32,
+    #[doc = " Bitmask of available rings. Bit 0 means ring 0, etc."]
     pub available_rings: __u32,
-    pub _pad: __u32,
+    #[doc = " version info: bits 23:16 major, 15:8 minor, 7:0 revision"]
+    pub ip_discovery_version: __u32,
 }
 #[test]
 fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
@@ -17214,20 +17608,25 @@ fn bindgen_test_layout_drm_amdgpu_info_hw_ip() {
         )
     );
     assert_eq!(
-        unsafe { &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>()))._pad as *const _ as usize },
+        unsafe {
+            &(*(::core::ptr::null::<drm_amdgpu_info_hw_ip>())).ip_discovery_version as *const _
+                as usize
+        },
         28usize,
         concat!(
             "Offset of field: ",
             stringify!(drm_amdgpu_info_hw_ip),
             "::",
-            stringify!(_pad)
+            stringify!(ip_discovery_version)
         )
     );
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info_num_handles {
+    #[doc = " Max handles as supported by firmware for UVD"]
     pub uvd_max_handles: __u32,
+    #[doc = " Handles currently in use for UVD"]
     pub uvd_used_handles: __u32,
 }
 #[test]
@@ -17272,8 +17671,11 @@ fn bindgen_test_layout_drm_amdgpu_info_num_handles() {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_info_vce_clock_table_entry {
+    #[doc = " System clock"]
     pub sclk: __u32,
+    #[doc = " Memory clock"]
     pub mclk: __u32,
+    #[doc = " VCE clock"]
     pub eclk: __u32,
     pub pad: __u32,
 }

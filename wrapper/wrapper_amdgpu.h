@@ -1,2 +1,2 @@
 #include <libdrm/amdgpu.h>
-#include <libdrm/amdgpu_drm.h>
+#include "amdgpu_drm.h"
