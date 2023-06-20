@@ -5,6 +5,9 @@ use core::mem::MaybeUninit;
 
 #[derive(Debug, Clone, Copy)]
 pub struct FwVer {
+    pub fw_type: FW_TYPE,
+    pub ip_instance: u32,
+    pub index: u32,
     pub version: u32,
     pub feature: u32,
 }
@@ -31,6 +34,9 @@ impl DeviceHandle {
             );
 
             let fw_ver = FwVer {
+                fw_type,
+                ip_instance,
+                index,
                 version: version.assume_init(),
                 feature: feature.assume_init(),
             };
