@@ -355,7 +355,7 @@ impl MetricsInfo for gpu_metrics_v1_0 {
     }
 }
 
-impl MetricsInfo for gpu_metrics_v1_2 {
+impl MetricsInfo for gpu_metrics_v1_1 {
     v1_impl!();
 
     fn get_gfx_activity_acc(&self) -> Option<u32> {
@@ -387,7 +387,7 @@ impl MetricsInfo for gpu_metrics_v1_2 {
     }
 }
 
-impl MetricsInfo for gpu_metrics_v1_1 {
+impl MetricsInfo for gpu_metrics_v1_2 {
     v1_impl!();
 
     fn get_gfx_activity_acc(&self) -> Option<u32> {

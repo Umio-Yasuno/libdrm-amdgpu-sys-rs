@@ -120,11 +120,13 @@ impl DeviceHandle {
             (1, 0) => GpuMetrics::V1_0(Self::get_metrics_table(&buf)),
             (1, 1) => GpuMetrics::V1_1(Self::get_metrics_table(&buf)),
             (1, 2) => GpuMetrics::V1_2(Self::get_metrics_table(&buf)),
-            (1, 3) => GpuMetrics::V1_3(Self::get_metrics_table(&buf)),
+            (1, 3) |
+            (1, _) => GpuMetrics::V1_3(Self::get_metrics_table(&buf)),
             (2, 0) => GpuMetrics::V2_0(Self::get_metrics_table(&buf)),
             (2, 1) => GpuMetrics::V2_1(Self::get_metrics_table(&buf)),
             (2, 2) => GpuMetrics::V2_2(Self::get_metrics_table(&buf)),
-            (2, 3) => GpuMetrics::V2_3(Self::get_metrics_table(&buf)),
+            (2, 3) |
+            (2, _) => GpuMetrics::V2_3(Self::get_metrics_table(&buf)),
             _ => GpuMetrics::Unknown,
         };
 
@@ -140,12 +142,12 @@ impl DeviceHandle {
         unsafe {
             let mut metrics: MaybeUninit<T> = MaybeUninit::zeroed();
             let metrics_ptr = metrics.as_mut_ptr();
-            let structure_size = size_of::<T>();
+            let size = std::cmp::min(bytes.len(), size_of::<T>());
 
             ptr::copy_nonoverlapping(
                 bytes.as_ptr(),
                 metrics_ptr as *mut u8,
-                structure_size,
+                size,
             );
 
             metrics.assume_init()
