@@ -31,6 +31,7 @@
 use crate::*;
 
 /// List of AMDGPU ASIC name
+/// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/amd_family.h>
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
