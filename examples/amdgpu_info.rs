@@ -69,10 +69,19 @@ fn main() {
 
         println!();
         println!("L1cache (per CU):\t{:4} KiB", ext_info.get_l1_cache_size() >> 10);
+        if 0 < ext_info.sqc_data_cache_size {
+            println!("SQC Data Cache:\t\t{:4} KiB", ext_info.sqc_data_cache_size);
+        }
+        if 0 < ext_info.sqc_inst_cache_size {
+            println!("SQC Inst Cache:\t\t{:4} KiB", ext_info.sqc_inst_cache_size);
+        }
         let gl1_cache_size = ext_info.get_gl1_cache_size();
         let l3_cache_size = ext_info.calc_l3_cache_size_mb();
         if 0 < gl1_cache_size {
             println!("GL1cache (per SA/SH):\t{:4} KiB", gl1_cache_size >> 10);
+        }
+        if 0 < ext_info.gl1c_cache_size {
+            println!("Total GL1cache:\t\t{gl1_cache_size:4} KiB");
         }
         println!(
             "L2cache:\t\t{:4} KiB ({} Banks)",
