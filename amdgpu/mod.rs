@@ -31,6 +31,9 @@ pub use chip_class::*;
 mod gpu_info;
 pub use gpu_info::*;
 
+mod throttle_status;
+pub use throttle_status::*;
+
 #[cfg(feature = "std")]
 mod metrics_table;
 #[cfg(feature = "std")]

@@ -19,6 +19,10 @@ fn main() {
         if let Some(socket_power) = metrics.get_average_socket_power() {
             println!("Average Socket Power: {socket_power} W");
         }
+
+        if let Some(thr) = metrics.get_throttle_status_info() {
+            println!("Throttle Status: {:?}", thr.get_all_throttler());
+        }
     } else {
         let ext_info = amdgpu_dev.device_info().unwrap();
         let asic_name = ext_info.get_asic_name();

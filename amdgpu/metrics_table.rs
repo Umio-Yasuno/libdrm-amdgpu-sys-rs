@@ -15,6 +15,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_3,
     NUM_HBM_INSTANCES,
 };
+use crate::AMDGPU::ThrottleStatus;
 
 impl metrics_table_header {
     pub(crate) fn from_slice(buf: &[u8]) -> Self {
@@ -139,6 +140,11 @@ pub trait MetricsInfo {
     fn get_voltage_gfx(&self) -> Option<u16>;
     /// mV
     fn get_voltage_mem(&self) -> Option<u16>;
+
+    fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
+        let thr = self.get_indep_throttle_status()?;
+        Some(ThrottleStatus::new(thr))
+    }
 }
 
 macro_rules! v1_impl {
