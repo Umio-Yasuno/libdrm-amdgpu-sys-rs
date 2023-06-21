@@ -16,6 +16,21 @@ impl ThrottleStatus {
     pub fn get_all_throttler(&self) -> Vec<ThrottlerBit> {
         THROTTLER_LIST.iter().copied().filter(|thr| self.check_throttler(*thr)).collect()
     }
+
+    pub fn get_all_throttler_type(&self) -> Vec<ThrottlerType> {
+        Self::get_all_throttler_type_from_vec(&self.get_all_throttler())
+    }
+
+    pub fn get_all_throttler_type_from_vec(thrs: &[ThrottlerBit]) -> Vec<ThrottlerType> {
+        use std::collections::HashSet;
+        let mut set: HashSet<ThrottlerType> = HashSet::new();
+
+        for thr in thrs {
+            set.insert(thr.throttler_type());
+        }
+
+        set.into_iter().collect()
+    }
 }
 
 /// ref: drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
@@ -113,7 +128,7 @@ const THROTTLER_LIST: &[ThrottlerBit] = &[
 ];
 
 /// ref: drivers/gpu/drm/amd/pm/swsmu/inc/amdgpu_smu.h
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum ThrottlerType {
     Power,
     Current,

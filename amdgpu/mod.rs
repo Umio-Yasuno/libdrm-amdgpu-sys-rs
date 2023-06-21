@@ -31,21 +31,26 @@ pub use chip_class::*;
 mod gpu_info;
 pub use gpu_info::*;
 
-mod throttle_status;
-pub use throttle_status::*;
-
 #[cfg(feature = "std")]
 mod metrics_table;
 #[cfg(feature = "std")]
 pub use metrics_table::*;
+
 #[cfg(feature = "std")]
 mod gpu_metrics;
 #[cfg(feature = "std")]
 pub use gpu_metrics::*;
+
+#[cfg(feature = "std")]
+mod throttle_status;
+#[cfg(feature = "std")]
+pub use throttle_status::*;
+
 #[cfg(feature = "std")]
 mod hwmon_temp;
 #[cfg(feature = "std")]
 pub use hwmon_temp::*;
+
 #[cfg(feature = "std")]
 mod power_cap;
 #[cfg(feature = "std")]
