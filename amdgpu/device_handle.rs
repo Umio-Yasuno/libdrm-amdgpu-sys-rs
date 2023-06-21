@@ -40,7 +40,7 @@ impl DeviceHandle {
     /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`  
     /// It may require a write option (`std::fs::OpenOptions::new().read(true).write(true)`)
     /// for GUI context.  
-    /// ref: https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424
+    /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
@@ -126,7 +126,7 @@ impl DeviceHandle {
 
     /// From libdrm-2.4.114, it returns the default name ("AMD Radeon Graphics")
     ///  if there is no name that matches amdgpu.ids  
-    /// https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a
+    /// <https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a>
     #[cfg(feature = "std")]
     #[deprecated(since = "0.1.3",  note = "superseded by `get_marketing_name_or_default`")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
@@ -409,7 +409,7 @@ impl DeviceHandle {
     }
 
     /// ref: drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
-    /// ref: https://github.com/RadeonOpenCompute/rocm_smi_lib/blob/master/python_smi_tools/rocm_smi.py
+    /// ref: <https://github.com/RadeonOpenCompute/rocm_smi_lib/blob/master/python_smi_tools/rocm_smi.py>
     #[cfg(feature = "std")]
     pub fn check_if_secondary_die(&self) -> bool {
         let Some(power_cap) = self.get_power_cap() else { return false };
@@ -425,11 +425,11 @@ impl Drop for DeviceHandle {
 }
 
 impl drm_amdgpu_memory_info {
+    /// The AMDGPU driver allocates part of VRAM to pre-OS buffer (vbios, frame buffer)
+    /// if VRAM is larger than 8GiB
+    /// ref: drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c  
+    /// ref: <https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c>  
     pub fn check_resizable_bar(&self) -> bool {
-        // The AMDGPU driver allocates part of VRAM to pre-OS buffer (vbios, frame buffer)
-        // if VRAM is larger than 8GiB
-        // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c
-        // ref: https://gitlab.freedesktop.org/mesa/mesa/blob/main/src/amd/common/ac_gpu_info.c
         (self.vram.total_heap_size * 9 / 10) <= self.cpu_accessible_vram.total_heap_size
     }
 }
