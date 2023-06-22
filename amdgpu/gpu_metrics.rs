@@ -107,37 +107,44 @@ impl MetricsInfo for GpuMetrics {
 
 impl DeviceHandle {
     pub fn get_gpu_metrics_from_sysfs_path<P: Into<PathBuf>>(
+        &self,
         path: P,
     ) -> io::Result<GpuMetrics> {
+        GpuMetrics::get_from_sysfs_path(path)
+    }
+
+    pub fn get_gpu_metrics(&self) -> io::Result<GpuMetrics> {
+        let sysfs_path = self.get_sysfs_path().unwrap();
+        GpuMetrics::get_from_sysfs_path(sysfs_path)
+    }
+}
+
+impl GpuMetrics {
+    pub fn get_from_sysfs_path<P: Into<PathBuf>>(path: P) -> io::Result<Self> {
         let mut f = File::open(path.into().join("gpu_metrics"))?;
         let mut buf: Vec<u8> = Vec::with_capacity(256);
         f.read_to_end(&mut buf)?;
 
-        let header = metrics_table_header::from_slice(&buf);
+        let header = metrics_table_header::from_bytes(&buf);
 
         let metrics = match (header.format_revision, header.content_revision) {
-            (1, 0) => GpuMetrics::V1_0(Self::get_metrics_table(&buf)),
-            (1, 1) => GpuMetrics::V1_1(Self::get_metrics_table(&buf)),
-            (1, 2) => GpuMetrics::V1_2(Self::get_metrics_table(&buf)),
+            (1, 0) => GpuMetrics::V1_0(Self::from_bytes(&buf)),
+            (1, 1) => GpuMetrics::V1_1(Self::from_bytes(&buf)),
+            (1, 2) => GpuMetrics::V1_2(Self::from_bytes(&buf)),
             (1, 3) |
-            (1, _) => GpuMetrics::V1_3(Self::get_metrics_table(&buf)),
-            (2, 0) => GpuMetrics::V2_0(Self::get_metrics_table(&buf)),
-            (2, 1) => GpuMetrics::V2_1(Self::get_metrics_table(&buf)),
-            (2, 2) => GpuMetrics::V2_2(Self::get_metrics_table(&buf)),
+            (1, _) => GpuMetrics::V1_3(Self::from_bytes(&buf)),
+            (2, 0) => GpuMetrics::V2_0(Self::from_bytes(&buf)),
+            (2, 1) => GpuMetrics::V2_1(Self::from_bytes(&buf)),
+            (2, 2) => GpuMetrics::V2_2(Self::from_bytes(&buf)),
             (2, 3) |
-            (2, _) => GpuMetrics::V2_3(Self::get_metrics_table(&buf)),
+            (2, _) => GpuMetrics::V2_3(Self::from_bytes(&buf)),
             _ => GpuMetrics::Unknown,
         };
 
         Ok(metrics)
     }
 
-    pub fn get_gpu_metrics(&self) -> io::Result<GpuMetrics> {
-        let sysfs_path = self.get_sysfs_path().unwrap();
-        Self::get_gpu_metrics_from_sysfs_path(sysfs_path)
-    }
-
-    fn get_metrics_table<T>(bytes: &[u8]) -> T {
+    pub fn from_bytes<T>(bytes: &[u8]) -> T {
         unsafe {
             let mut metrics: MaybeUninit<T> = MaybeUninit::zeroed();
             let metrics_ptr = metrics.as_mut_ptr();

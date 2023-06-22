@@ -18,7 +18,11 @@ pub use crate::bindings::{
 use crate::AMDGPU::ThrottleStatus;
 
 impl metrics_table_header {
-    pub(crate) fn from_slice(buf: &[u8]) -> Self {
+    pub(crate) fn from_bytes(buf: &[u8]) -> Self {
+        if buf.len() < 4 {
+            return Self { structure_size: 0, format_revision: 0, content_revision: 0 };
+        }
+
         Self {
             structure_size: u16::from_le_bytes([buf[0], buf[1]]),
             format_revision: buf[2],
@@ -27,7 +31,7 @@ impl metrics_table_header {
     }
 
     pub fn from_buf(buf: [u8; 4]) -> Self {
-        Self::from_slice(&buf)
+        Self::from_bytes(&buf)
     }
 
     #[cfg(feature = "std")]
