@@ -1,7 +1,7 @@
 #[cfg(feature = "std")]
 use std::fmt;
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Copy)]
 pub struct ThrottleStatus(u64);
 
 impl ThrottleStatus {
