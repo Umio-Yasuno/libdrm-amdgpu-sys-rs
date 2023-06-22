@@ -18,10 +18,10 @@ impl ThrottleStatus {
     }
 
     pub fn get_all_throttler_type(&self) -> Vec<ThrottlerType> {
-        Self::get_all_throttler_type_from_vec(&self.get_all_throttler())
+        Self::get_all_throttler_type_from_slice(&self.get_all_throttler())
     }
 
-    pub fn get_all_throttler_type_from_vec(thrs: &[ThrottlerBit]) -> Vec<ThrottlerType> {
+    pub fn get_all_throttler_type_from_slice(thrs: &[ThrottlerBit]) -> Vec<ThrottlerType> {
         use std::collections::HashSet;
         let mut set: HashSet<ThrottlerType> = HashSet::new();
 

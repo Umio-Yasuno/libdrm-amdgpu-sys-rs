@@ -107,8 +107,7 @@ impl MetricsInfo for GpuMetrics {
 
 impl DeviceHandle {
     pub fn get_gpu_metrics_from_sysfs_path<P: Into<PathBuf>>(
-        &self,
-        path: P
+        path: P,
     ) -> io::Result<GpuMetrics> {
         let mut f = File::open(path.into().join("gpu_metrics"))?;
         let mut buf: Vec<u8> = Vec::with_capacity(256);
@@ -135,7 +134,7 @@ impl DeviceHandle {
 
     pub fn get_gpu_metrics(&self) -> io::Result<GpuMetrics> {
         let sysfs_path = self.get_sysfs_path().unwrap();
-        self.get_gpu_metrics_from_sysfs_path(sysfs_path)
+        Self::get_gpu_metrics_from_sysfs_path(sysfs_path)
     }
 
     fn get_metrics_table<T>(bytes: &[u8]) -> T {
