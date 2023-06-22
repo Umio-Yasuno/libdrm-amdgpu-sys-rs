@@ -144,9 +144,14 @@ impl GpuMetrics {
         Ok(metrics)
     }
 
-    pub fn from_bytes<T>(bytes: &[u8]) -> T {
+    fn from_bytes<T>(bytes: &[u8]) -> T {
         unsafe {
-            let mut metrics: MaybeUninit<T> = MaybeUninit::zeroed();
+            let mut metrics: MaybeUninit<T> = {
+                // The fields that are not actually supported are filled with 0xFF.
+                let mut tmp = MaybeUninit::<T>::uninit();
+                tmp.as_mut_ptr().write_bytes(0xFF, 1);
+                tmp
+            };
             let metrics_ptr = metrics.as_mut_ptr();
             let size = std::cmp::min(bytes.len(), size_of::<T>());
 
