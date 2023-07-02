@@ -20,7 +20,7 @@ const AMDGPU_FAMILY_GC_10_3_6: u32 = 149; /* GC 10.3.6 */
 const AMDGPU_FAMILY_GC_10_3_7: u32 = 151; /* GC 10.3.7 */
 
 /// List of AMDGPU Family names
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
 pub enum FAMILY_NAME {
     UNKNOWN,
