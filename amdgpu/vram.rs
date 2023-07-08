@@ -104,8 +104,18 @@ impl VRAM_TYPE {
     /// ref: https://github.com/GPUOpen-Drivers/pal/blob/dev/src/core/device.cpp
     fn memory_ops_per_clock(&self) -> u64 {
         match self {
-            Self::DDR2 | Self::DDR3 | Self::DDR4 | Self::HBM | Self::LPDDR4 => 2,
-            Self::GDDR5 | Self::DDR5 | Self::LPDDR5 => 4,
+            Self::DDR2 |
+            Self::DDR3 |
+            Self::DDR4 |
+            /*
+                ref: https://gitlab.freedesktop.org/mesa/mesa/-/issues/9259#note_1978834
+            */
+            Self::DDR5 |
+            Self::HBM |
+            Self::LPDDR4 => 2,
+            Self::GDDR5 |
+            // Self::DDR5 |
+            Self::LPDDR5 => 4,
             Self::GDDR6 => 16,
             _ => 1,
         }
