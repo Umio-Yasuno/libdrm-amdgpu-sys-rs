@@ -40,7 +40,9 @@ fn build() {
 }
 
 fn main() {
+    #[cfg(feature = "link-drm")]
     println!("cargo:rustc-link-lib=drm");
+    #[cfg(feature = "link-drm")]
     println!("cargo:rustc-link-lib=drm_amdgpu");
 
     #[cfg(feature = "buildtime_bindgen")]
