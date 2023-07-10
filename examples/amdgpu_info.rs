@@ -201,12 +201,9 @@ fn main() {
 
     if let Ok(bus_info) = amdgpu_dev.get_pci_bus_info() {
         println!("\nPCI (domain:bus:dev.func): {bus_info}");
-        if let Some(cur) = bus_info.get_current_link_info_from_dpm() {
-            println!("PCI Link Speed (Current) : Gen{}x{}", cur.gen, cur.width);
-        }
         if let Some([min, max]) = bus_info.get_min_max_link_info_from_dpm() {
             println!(
-                "PCI Link Speed           : Gen{}x{} - Gen{}x{}",
+                "PCI Link Speed     (DPM) : Gen{}x{} - Gen{}x{}",
                 min.gen,
                 min.width,
                 max.gen,
