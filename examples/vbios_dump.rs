@@ -36,7 +36,7 @@ fn main() {
 
         if args.contains(&"-d".to_string()) || args.contains(&"--dump".to_string()) {
             if let Ok(vbios_image) = unsafe { amdgpu_dev.vbios_image(vbios.size) } {
-                let name = vbios.name.replace(' ', "");
+                let name = vbios.name.replace(' ', "_").replace('/', "_");
                 dump(&vbios_image, name).unwrap();
             }
         } else {
