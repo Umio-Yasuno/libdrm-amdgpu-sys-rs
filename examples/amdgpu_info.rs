@@ -70,7 +70,7 @@ fn main() {
         let gl1_cache_size = ext_info.get_gl1_cache_size();
         let l3_cache_size = ext_info.calc_l3_cache_size_mb();
         if 0 < gl1_cache_size {
-            println!("GL1cache (per SA/SH):\t{gl1_cache_size:4} KiB");
+            println!("GL1cache (per SA/SH):\t{:4} KiB", gl1_cache_size >> 10);
         }
         println!(
             "L2cache:\t\t{:4} KiB ({} Banks)",
