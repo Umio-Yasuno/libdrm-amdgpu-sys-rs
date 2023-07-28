@@ -14,7 +14,7 @@ pub struct IpHwInstance {
 }
 
 impl IpHwInstance {
-    /* ip_discovery/die/#die/#hw_id/#instance/ */
+    /// `ip_discovery/die/#die/#hw_id/#instance/`
     pub fn get_from_instance_sysfs<P: Into<PathBuf>>(sysfs_path: P) -> Option<Self> {
         let path = sysfs_path.into();
         let hw_id = {
@@ -84,6 +84,7 @@ pub struct IpHwId {
 }
 
 impl IpHwId {
+    /// `ip_discovery/die/#die/#hw_id/`
     pub fn get_from_ip_hw_sysfs(hw_id: HwId, ip_hw_path: &PathBuf) -> Result<Self, std::io::Error> {
         let inst_count = std::fs::read_dir(&ip_hw_path)?.count(); // use count for the order
 
@@ -114,6 +115,7 @@ impl IpDieEntry {
         }).collect()
     }
 
+    /// `ip_discovery/die/#die/`
     pub fn get_from_die_sysfs(sysfs_path: &PathBuf) -> Option<Self> {
         let die_id: usize = sysfs_path.file_name()?.to_str()?.parse().ok()?;
         Self::get_from_sysfs_with_die_id(die_id, &sysfs_path.join("../"))
@@ -137,7 +139,7 @@ impl IpDieEntry {
     }
 }
 
-/* drivers/gpu/drm/amd/include/soc15_hw_ip.h */
+/* ref: drivers/gpu/drm/amd/include/soc15_hw_ip.h */
 const MP1_HWID: isize = 1;
 const MP2_HWID: isize = 2;
 const THM_HWID: isize = 3;
