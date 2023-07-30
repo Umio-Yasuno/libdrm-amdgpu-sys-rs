@@ -1,4 +1,5 @@
 use std::path::PathBuf;
+use std::collections::HashMap;
 
 /* ref: drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c */
 #[derive(Debug, Clone)]
@@ -137,6 +138,10 @@ impl IpDieEntry {
 
         Some(Self{ die_id, ip_hw_ids })
     }
+
+    pub fn vec_ip_hw_id_to_hashmap(&self) -> HashMap<HwId, IpHwId> {
+        self.ip_hw_ids.iter().map(|ip_hw_id| (ip_hw_id.hw_id.clone(), ip_hw_id.clone())).collect()
+    }
 }
 
 /* ref: drivers/gpu/drm/amd/include/soc15_hw_ip.h */
@@ -218,7 +223,7 @@ const XGMI_HWID: isize = 200;
 const XGBE_HWID: isize = 216;
 const MP0_HWID: isize = 255;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Hash, Eq, PartialEq)]
 #[repr(isize)]
 pub enum HwId {
     MP1 = self::MP1_HWID,
