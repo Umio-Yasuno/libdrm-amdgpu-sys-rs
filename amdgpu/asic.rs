@@ -404,6 +404,53 @@ impl ASIC_NAME {
         }
     }
 
+    /// Target name (GPU ID, GFX ID) for LLVM
+    pub fn get_gfx_target_name(&self) -> &str {
+        match self {
+            Self::CHIP_TAHITI => "gfx600",
+            Self::CHIP_PITCAIRN |
+            Self::CHIP_VERDE => "gfx601",
+            Self::CHIP_OLAND |
+            Self::CHIP_HAINAN => "gfx602",
+            Self::CHIP_BONAIRE => "gfx704",
+            Self::CHIP_KABINI => "gfx703",
+            Self::CHIP_KAVERI => "gfx700",
+            Self::CHIP_HAWAII => "gfx701",
+            Self::CHIP_TONGA |
+            Self::CHIP_ICELAND => "gfx802",
+            Self::CHIP_CARRIZO => "gfx801",
+            Self::CHIP_FIJI => "gfx803",
+            Self::CHIP_STONEY => "gfx810",
+            Self::CHIP_POLARIS10 |
+            Self::CHIP_POLARIS11 |
+            Self::CHIP_POLARIS12 |
+            Self::CHIP_VEGAM => "gfx803",
+            Self::CHIP_VEGA10 => "gfx900",
+            Self::CHIP_RAVEN => "gfx902",
+            Self::CHIP_VEGA12 => "gfx904",
+            Self::CHIP_VEGA20 => "gfx906",
+            Self::CHIP_RAVEN2 |
+            Self::CHIP_RENOIR => "gfx909",
+            Self::CHIP_ARCTURUS => "gfx908",
+            Self::CHIP_ALDEBARAN => "gfx90a",
+            Self::CHIP_NAVI10 => "gfx1010",
+            Self::CHIP_NAVI12 => "gfx1011",
+            Self::CHIP_NAVI14 => "gfx1012",
+            Self::CHIP_NAVI21 => "gfx1030",
+            Self::CHIP_NAVI22 => "gfx1031",
+            Self::CHIP_NAVI23 => "gfx1032",
+            Self::CHIP_VANGOGH => "gfx1033",
+            Self::CHIP_NAVI24 => "gfx1034",
+            Self::CHIP_REMBRANDT => "gfx1035",
+            Self::CHIP_GFX1036 => "gfx1030",
+            Self::CHIP_GFX1100 => "gfx1100",
+            Self::CHIP_GFX1101 => "gfx1101",
+            Self::CHIP_GFX1102 => "gfx1102",
+            Self::CHIP_GFX1103_R1 |
+            Self::CHIP_GFX1103_R2 => "gfx1103",
+            _ => "",
+        }
+    }
 }
 
 #[test]

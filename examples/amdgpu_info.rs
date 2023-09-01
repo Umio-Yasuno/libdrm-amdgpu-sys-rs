@@ -22,6 +22,7 @@ fn main() {
 
         // println!("\n{ext_info:#X?}\n");
         let gpu_type = if ext_info.is_apu() { "APU" } else { "dGPU" };
+        let asic = ext_info.get_asic_name();
 
         println!(
             "DeviceID.RevID: {:#0X}.{:#0X}",
@@ -31,8 +32,9 @@ fn main() {
 
         println!();
         println!("Family:\t\t{}", ext_info.get_family_name());
-        println!("ASIC Name:\t{}", ext_info.get_asic_name());
+        println!("ASIC Name:\t{asic}");
         println!("Chip class:\t{}", ext_info.get_chip_class());
+        println!("GFX ID:\t\t{}", asic.get_gfx_target_name());
         println!("GPU Type:\t{gpu_type}");
 
         let max_good_cu_per_sa = ext_info.get_max_good_cu_per_sa();
