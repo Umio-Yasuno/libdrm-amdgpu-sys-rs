@@ -54,18 +54,17 @@ pub trait GPU_INFO {
     }
 
     fn calc_rop_count(&self) -> u32 {
-        let rop_per_rb = if self.get_asic_name().rbplus_allowed() {
-            8
-        } else {
-            4
-        };
+        let rop_per_rb = if self.get_asic_name().rbplus_allowed() { 8 } else { 4 };
 
         self.rb_pipes() * rop_per_rb
     }
 
     fn peak_gflops(&self) -> u32 {
-        /* [CU] * 64 [Lane] * 2 [ops] * [GHz] */
-        (self.cu_active_number() as u64 * 64 * 2 * (self.max_engine_clock() / 1000) / 1000) as u32
+        let cu = self.cu_active_number() as u32;
+        let lane = if self.get_chip_class() >= AMDGPU::CHIP_CLASS::GFX11 { 128 } else { 64 };
+        let mhz = (self.max_engine_clock() / 1000) as u32;
+        /* [CU] * [Lane] * 2 [ops] * [GHz] */
+        (cu * lane * 2 * mhz) / 1000
     }
 
     #[cfg(feature = "std")]
