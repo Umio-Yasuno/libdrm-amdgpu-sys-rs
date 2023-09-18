@@ -13,6 +13,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_1,
     gpu_metrics_v2_2,
     gpu_metrics_v2_3,
+    gpu_metrics_v2_4,
     NUM_HBM_INSTANCES,
 };
 use crate::AMDGPU::ThrottleStatus;
@@ -144,6 +145,22 @@ pub trait MetricsInfo {
     fn get_voltage_gfx(&self) -> Option<u16>;
     /// mV
     fn get_voltage_mem(&self) -> Option<u16>;
+
+    /// Average Temperature (unit: centi-Celsius)
+    fn get_average_temperature_gfx(&self) -> Option<u16>;
+    fn get_average_temperature_soc(&self) -> Option<u16>;
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]>;
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]>;
+
+    /// Power/Voltage (unit: mV)
+    fn get_average_cpu_voltage(&self) -> Option<u16>;
+    fn get_average_soc_voltage(&self) -> Option<u16>;
+    fn get_average_gfx_voltage(&self) -> Option<u16>;
+
+    /// Power/Current (unit: mA)
+    fn get_average_cpu_current(&self) -> Option<u16>;
+    fn get_average_soc_current(&self) -> Option<u16>;
+    fn get_average_gfx_current(&self) -> Option<u16>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
         let thr = self.get_indep_throttle_status()?;
@@ -323,6 +340,46 @@ macro_rules! v1_impl {
 
         fn get_pcie_link_spped(&self) -> Option<u16> {
             Some(self.pcie_link_speed as u16)
+        }
+
+        fn get_average_temperature_gfx(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_temperature_soc(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+            None
+        }
+
+        fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+            None
+        }
+
+        fn get_average_cpu_voltage(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_soc_voltage(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_gfx_voltage(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_cpu_current(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_soc_current(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_average_gfx_current(&self) -> Option<u16> {
+            None
         }
     }
 }
@@ -666,6 +723,46 @@ impl MetricsInfo for gpu_metrics_v2_0 {
     fn get_indep_throttle_status(&self) -> Option<u64> {
         None
     }
+
+    fn get_average_temperature_gfx(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_soc(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        None
+    }
+
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        None
+    }
+
+    fn get_average_cpu_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_cpu_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_current(&self) -> Option<u16> {
+        None
+    }
 }
 
 // Mendocino, Raphael, Rembrandt (Yellow Carp)
@@ -677,6 +774,46 @@ impl MetricsInfo for gpu_metrics_v2_1 {
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
+        None
+    }
+
+    fn get_average_temperature_gfx(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_soc(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        None
+    }
+
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        None
+    }
+
+    fn get_average_cpu_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_cpu_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_current(&self) -> Option<u16> {
         None
     }
 }
@@ -693,6 +830,46 @@ impl MetricsInfo for gpu_metrics_v2_2 {
     fn get_indep_throttle_status(&self) -> Option<u64> {
         Some(self.indep_throttle_status)
     }
+
+    fn get_average_temperature_gfx(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_soc(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        None
+    }
+
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        None
+    }
+
+    fn get_average_cpu_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_cpu_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_current(&self) -> Option<u16> {
+        None
+    }
 }
 
 // VanGogh
@@ -705,5 +882,98 @@ impl MetricsInfo for gpu_metrics_v2_3 {
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
         Some(self.indep_throttle_status)
+    }
+
+    fn get_average_temperature_gfx(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_soc(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        None
+    }
+
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        None
+    }
+
+    fn get_average_cpu_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_voltage(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_cpu_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_soc_current(&self) -> Option<u16> {
+        None
+    }
+
+    fn get_average_gfx_current(&self) -> Option<u16> {
+        None
+    }
+}
+
+// VanGogh
+impl MetricsInfo for gpu_metrics_v2_4 {
+    v2_impl!();
+
+    fn get_average_gfx_power(&self) -> Option<u16> {
+        Some(self.average_gfx_power)
+    }
+
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
+    }
+
+    fn get_average_temperature_gfx(&self) -> Option<u16> {
+        Some(self.average_temperature_gfx)
+    }
+
+    fn get_average_temperature_soc(&self) -> Option<u16> {
+        Some(self.average_temperature_soc)
+    }
+
+    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        Some(self.average_temperature_core)
+    }
+
+    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        Some(self.average_temperature_l3)
+    }
+
+    fn get_average_cpu_voltage(&self) -> Option<u16> {
+        Some(self.average_cpu_voltage)
+    }
+
+    fn get_average_soc_voltage(&self) -> Option<u16> {
+        Some(self.average_soc_voltage)
+    }
+
+    fn get_average_gfx_voltage(&self) -> Option<u16> {
+        Some(self.average_gfx_voltage)
+    }
+
+    fn get_average_cpu_current(&self) -> Option<u16> {
+        Some(self.average_cpu_current)
+    }
+
+    fn get_average_soc_current(&self) -> Option<u16> {
+        Some(self.average_soc_current)
+    }
+
+    fn get_average_gfx_current(&self) -> Option<u16> {
+        Some(self.average_gfx_current)
     }
 }

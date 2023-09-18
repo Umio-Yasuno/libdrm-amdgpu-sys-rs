@@ -9,6 +9,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_1,
     gpu_metrics_v2_2,
     gpu_metrics_v2_3,
+    gpu_metrics_v2_4,
 };
 
 use core::mem::{size_of, MaybeUninit};
@@ -32,6 +33,7 @@ pub enum GpuMetrics {
     V2_1(gpu_metrics_v2_1),
     V2_2(gpu_metrics_v2_2),
     V2_3(gpu_metrics_v2_3),
+    V2_4(gpu_metrics_v2_4),
 }
 
 macro_rules! impl_metrics {
@@ -46,6 +48,7 @@ macro_rules! impl_metrics {
                 Self::V2_1(table) => table.$name(),
                 Self::V2_2(table) => table.$name(),
                 Self::V2_3(table) => table.$name(),
+                Self::V2_4(table) => table.$name(),
                 Self::Unknown => None,
             }
         }
@@ -103,6 +106,16 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_voltage_soc, Option<u16>);
     impl_metrics!(get_voltage_gfx, Option<u16>);
     impl_metrics!(get_voltage_mem, Option<u16>);
+    impl_metrics!(get_average_temperature_gfx, Option<u16>);
+    impl_metrics!(get_average_temperature_soc, Option<u16>);
+    impl_metrics!(get_average_temperature_core, Option<[u16; 8]>);
+    impl_metrics!(get_average_temperature_l3, Option<[u16; 2]>);
+    impl_metrics!(get_average_cpu_voltage, Option<u16>);
+    impl_metrics!(get_average_soc_voltage, Option<u16>);
+    impl_metrics!(get_average_gfx_voltage, Option<u16>);
+    impl_metrics!(get_average_cpu_current, Option<u16>);
+    impl_metrics!(get_average_soc_current, Option<u16>);
+    impl_metrics!(get_average_gfx_current, Option<u16>);
 }
 
 impl DeviceHandle {
@@ -182,8 +195,9 @@ impl GpuMetrics {
             (2, 0) => GpuMetrics::V2_0(Self::from_bytes(&raw)),
             (2, 1) => GpuMetrics::V2_1(Self::from_bytes(&raw)),
             (2, 2) => GpuMetrics::V2_2(Self::from_bytes(&raw)),
-            (2, 3) |
-            (2, _) => GpuMetrics::V2_3(Self::from_bytes(&raw)),
+            (2, 3) => GpuMetrics::V2_3(Self::from_bytes(&raw)),
+            (2, 4) |
+            (2, _) => GpuMetrics::V2_4(Self::from_bytes(&raw)),
             _ => GpuMetrics::Unknown,
         }
     }
