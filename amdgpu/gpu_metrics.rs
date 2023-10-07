@@ -190,14 +190,12 @@ impl GpuMetrics {
             (1, 0) => GpuMetrics::V1_0(Self::from_bytes(&raw)),
             (1, 1) => GpuMetrics::V1_1(Self::from_bytes(&raw)),
             (1, 2) => GpuMetrics::V1_2(Self::from_bytes(&raw)),
-            (1, 3) |
-            (1, _) => GpuMetrics::V1_3(Self::from_bytes(&raw)),
+            (1, 3) => GpuMetrics::V1_3(Self::from_bytes(&raw)),
             (2, 0) => GpuMetrics::V2_0(Self::from_bytes(&raw)),
             (2, 1) => GpuMetrics::V2_1(Self::from_bytes(&raw)),
             (2, 2) => GpuMetrics::V2_2(Self::from_bytes(&raw)),
             (2, 3) => GpuMetrics::V2_3(Self::from_bytes(&raw)),
-            (2, 4) |
-            (2, _) => GpuMetrics::V2_4(Self::from_bytes(&raw)),
+            (2, 4) => GpuMetrics::V2_4(Self::from_bytes(&raw)),
             _ => GpuMetrics::Unknown,
         }
     }
