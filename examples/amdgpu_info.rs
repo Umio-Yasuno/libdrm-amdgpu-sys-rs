@@ -252,6 +252,8 @@ fn main() {
             SENSOR_TYPE::VDDGFX,
             SENSOR_TYPE::STABLE_PSTATE_GFX_SCLK,
             SENSOR_TYPE::STABLE_PSTATE_GFX_MCLK,
+            SENSOR_TYPE::PEAK_PSTATE_GFX_SCLK,
+            SENSOR_TYPE::PEAK_PSTATE_GFX_MCLK,
         ];
 
         println!("\nSensors:");
