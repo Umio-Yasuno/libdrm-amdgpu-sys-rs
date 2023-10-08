@@ -51,20 +51,21 @@ impl DeviceHandle {
         let sysfs = sysfs.into();
         let s = fs::read_to_string(sysfs.join(FILE_NAME)).ok()?;
 
-        for line in s.lines() {
-            let Some(profile) = PowerProfile::parse_line(line) else { continue };
-            if line.ends_with('*') || line.find("*:").is_some() {
-                return Some(profile);
-            }
-        }
+        s.lines().find_map(|line| {
+            let profile = PowerProfile::parse_line(line)?;
 
-        None
+            if line.ends_with('*') || line.contains("*:") {
+                Some(profile)
+            } else {
+                None
+            }
+        })
     }
 }
 
 impl PowerProfile {
     /*
-        TODO: This code does not work correctly in SMU v13.0.7 (GC 11.0.2?, Navi33?, GFX1102).
+        TODO: This code does not work correctly in SMU v13.0.7 (GC11.0.2?/Navi33?/GFX1102?).
         ref: drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c
     */
     fn parse_line(s: &str) -> Option<PowerProfile> {
@@ -95,6 +96,25 @@ impl TryFrom<u32> for PowerProfile {
             self::POWER_PROFILE_CAPPED => Ok(Self::CAPPED),
             self::POWER_PROFILE_UNCAPPED => Ok(Self::UNCAPPED),
             _ => Err(UnknownPowerProfile),
+        }
+    }
+}
+
+use std::fmt;
+impl fmt::Display for PowerProfile {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            Self::BOOTUP_DEFAULT => write!(f, "BOOTUP_DEFAULT"),
+            Self::FULLSCREEN3D => write!(f, "3D_FULL_SCREEN"),
+            Self::POWERSAVING => write!(f, "POWER_SAVING"),
+            Self::VIDEO => write!(f, "VIDEO"),
+            Self::VR => write!(f, "VR"),
+            Self::COMPUTE => write!(f, "COMPUTE"),
+            Self::CUSTOM => write!(f, "CUSTOM"),
+            Self::WINDOW3D => write!(f, "WINDOW_3D"),
+            Self::CAPPED => write!(f, "CAPPED"),
+            Self::UNCAPPED => write!(f, "UNCAPPED"),
+            Self::COUNT => write!(f, ""),
         }
     }
 }
