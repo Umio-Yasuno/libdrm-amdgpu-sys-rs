@@ -265,6 +265,9 @@ fn main() {
 
     if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
         println!("sysfs: {sysfs:?}");
+
+        let profiles = amdgpu_dev.get_all_supported_profiles_from_sysfs(&sysfs);
+        println!("Supported Power Profiles: {profiles:?}");
     }
 
     if let Some(hwmon) = amdgpu_dev.get_hwmon_path() {

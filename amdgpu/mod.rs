@@ -57,6 +57,11 @@ mod power_cap;
 pub use power_cap::*;
 
 #[cfg(feature = "std")]
+mod power_profile;
+#[cfg(feature = "std")]
+pub use power_profile::*;
+
+#[cfg(feature = "std")]
 mod ip_discovery;
 #[cfg(feature = "std")]
 pub use ip_discovery::*;
