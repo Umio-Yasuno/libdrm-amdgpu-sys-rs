@@ -127,6 +127,7 @@ fn main() {
             HW_IP_TYPE::VCN_DEC,
             HW_IP_TYPE::VCN_ENC,
             HW_IP_TYPE::VCN_JPEG,
+            HW_IP_TYPE::VPE,
         ];
 
         println!("\nHardware IP info:");
@@ -175,6 +176,7 @@ fn main() {
             FW_TYPE::TA,
             FW_TYPE::DMCUB,
             FW_TYPE::TOC,
+            FW_TYPE::VPE,
         ];
 
         println!("\nFirmware info:");

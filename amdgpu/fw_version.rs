@@ -69,6 +69,7 @@ pub use crate::bindings::{
     AMDGPU_INFO_FW_UVD,
     AMDGPU_INFO_FW_VCE,
     AMDGPU_INFO_FW_VCN,
+    AMDGPU_INFO_FW_VPE,
 };
 
 /// Used for [DeviceHandle::query_firmware_version]
@@ -95,6 +96,7 @@ pub enum FW_TYPE {
     TA = AMDGPU_INFO_FW_TA,
     DMCUB = AMDGPU_INFO_FW_DMCUB,
     TOC = AMDGPU_INFO_FW_TOC,
+    VPE = AMDGPU_INFO_FW_VPE,
 }
 
 #[cfg(feature = "std")]

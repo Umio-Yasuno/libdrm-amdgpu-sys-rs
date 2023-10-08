@@ -88,6 +88,7 @@ use crate::bindings::{
     AMDGPU_HW_IP_VCN_DEC,
     AMDGPU_HW_IP_VCN_ENC,
     AMDGPU_HW_IP_VCN_JPEG,
+    AMDGPU_HW_IP_VPE,
     // AMDGPU_HW_IP_NUM,
     // AMDGPU_HW_IP_INSTANCE_MAX_COUNT,
 };
@@ -105,6 +106,7 @@ pub enum HW_IP_TYPE {
     VCN_DEC = AMDGPU_HW_IP_VCN_DEC,
     VCN_ENC = AMDGPU_HW_IP_VCN_ENC,
     VCN_JPEG = AMDGPU_HW_IP_VCN_JPEG,
+    VPE = AMDGPU_HW_IP_VPE,
 }
 
 #[cfg(feature = "std")]
