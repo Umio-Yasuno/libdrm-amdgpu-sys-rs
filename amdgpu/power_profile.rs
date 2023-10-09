@@ -34,25 +34,33 @@ pub enum PowerProfile {
 }
 
 impl DeviceHandle {
-    pub fn get_all_supported_profiles_from_sysfs<P: Into<PathBuf>>(
-        &self,
-        sysfs: P,
-    ) -> Vec<PowerProfile> {
+    pub fn get_all_supported_profiles(&self) -> Vec<PowerProfile> {
+        let sysfs_path = self.get_sysfs_path().unwrap();
+
+        PowerProfile::get_all_supported_profiles_from_sysfs(sysfs_path)
+    }
+
+    pub fn get_current_profile(&self) -> Option<PowerProfile> {
+        let sysfs_path = self.get_sysfs_path().unwrap();
+
+        PowerProfile::get_current_profile_from_sysfs(sysfs_path)
+    }
+}
+
+impl PowerProfile {
+    pub fn get_all_supported_profiles_from_sysfs<P: Into<PathBuf>>(sysfs: P) -> Vec<Self> {
         let sysfs = sysfs.into();
         let Ok(s) = fs::read_to_string(sysfs.join(FILE_NAME)) else { return Vec::new() };
 
         s.lines().filter_map(|line| PowerProfile::parse_line(line)).collect()
     }
 
-    pub fn get_current_profile_from_sysfs<P: Into<PathBuf>>(
-        &self,
-        sysfs: P,
-    ) -> Option<PowerProfile> {
+    pub fn get_current_profile_from_sysfs<P: Into<PathBuf>>(sysfs: P) -> Option<Self> {
         let sysfs = sysfs.into();
         let s = fs::read_to_string(sysfs.join(FILE_NAME)).ok()?;
 
         s.lines().find_map(|line| {
-            let profile = PowerProfile::parse_line(line)?;
+            let profile = Self::parse_line(line)?;
 
             if line.ends_with('*') || line.contains("*:") {
                 Some(profile)
@@ -61,9 +69,7 @@ impl DeviceHandle {
             }
         })
     }
-}
 
-impl PowerProfile {
     /*
         TODO: This code does not work correctly in SMU v13.0.7 (GC11.0.2?/Navi33?/GFX1102?).
         ref: drivers/gpu/drm/amd/pm/swsmu/smu13/smu_v13_0_7_ppt.c

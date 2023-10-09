@@ -270,14 +270,16 @@ fn main() {
     if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
         println!("sysfs: {sysfs:?}");
 
-        let profiles: Vec<String> = amdgpu_dev.get_all_supported_profiles_from_sysfs(&sysfs)
+        use AMDGPU::PowerProfile;
+
+        let profiles: Vec<String> = PowerProfile::get_all_supported_profiles_from_sysfs(&sysfs)
             .iter()
             .map(|p| p.to_string())
             .collect();
 
         println!("Supported Power Profiles: {profiles:?}");
 
-        if let Some(profiles) = amdgpu_dev.get_current_profile_from_sysfs(&sysfs) {
+        if let Some(profiles) = PowerProfile::get_current_profile_from_sysfs(&sysfs) {
             println!("Current Power Profiles: {profiles}");
         }
     }
