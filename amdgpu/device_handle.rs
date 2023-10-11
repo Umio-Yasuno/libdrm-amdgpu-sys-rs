@@ -340,11 +340,8 @@ impl DeviceHandle {
         &self,
         path: P,
     ) -> Option<(u32, u32)> {
-        const MHZ: usize = "Mhz".len();
         let parse_line = |s: &str| -> Option<u32> {
-            let mut split = s.split(' ').skip(1);
-
-            split.next().and_then(|mhz| mhz[..mhz.len()-MHZ].parse::<u32>().ok())
+            s.split(' ').skip(1).next()?.trim_end_matches("Mhz").parse::<u32>().ok()
         };
 
         let s = std::fs::read_to_string(path.into()).ok()?;
