@@ -39,3 +39,30 @@ macro_rules! query_error {
         }
     };
 }
+
+#[cfg(feature = "std")]
+use std::path::PathBuf;
+
+#[cfg(feature = "std")]
+pub(crate) fn get_min_max_from_dpm<
+    T: std::cmp::Ord + std::marker::Copy,
+    P: Into<PathBuf>
+>(
+    sysfs_path: P,
+    parse: fn(&str) -> Option<T>,
+) -> Option<[T; 2]> {
+    let sysfs_path = sysfs_path.into();
+    let s = std::fs::read_to_string(sysfs_path).ok()?;
+    let mut lines = s.lines();
+
+    let first = parse(lines.next()?)?;
+    let last = match lines.last() {
+        Some(last) => parse(last)?,
+        None => return Some([first; 2]),
+    };
+
+    Some([
+        std::cmp::min(first, last),
+        std::cmp::max(first, last),
+    ])
+}

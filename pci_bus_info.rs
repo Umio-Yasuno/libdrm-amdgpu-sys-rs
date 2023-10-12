@@ -238,21 +238,12 @@ impl PCI::LINK {
     }
 
     #[cfg(feature = "std")]
-    pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<[PCI::LINK; 2]> {
-        let sysfs_path = sysfs_path.into();
-        let s = std::fs::read_to_string(sysfs_path.join(PCIE_DPM)).ok()?;
-        let mut lines = s.lines();
+    pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(
+        sysfs_path: P,
+    ) -> Option<[PCI::LINK; 2]> {
+        use crate::get_min_max_from_dpm;
 
-        let first = Self::parse_dpm_line(lines.next()?)?;
-        let last = match lines.last() {
-            Some(last) => Self::parse_dpm_line(last)?,
-            None => return Some([first; 2]),
-        };
-
-        Some([
-            std::cmp::min(first, last),
-            std::cmp::max(first, last),
-        ])
+        get_min_max_from_dpm(sysfs_path.into().join(PCIE_DPM), Self::parse_dpm_line)
     }
 
     #[cfg(feature = "std")]
