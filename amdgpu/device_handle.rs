@@ -33,7 +33,7 @@ unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
 #[cfg(feature = "std")]
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 impl DeviceHandle {
     /// Initialization.
@@ -279,84 +279,33 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    fn get_first_line<P: AsRef<Path>>(path: P) -> Result<String, std::io::Error> {
-        use std::fs::File;
-        use std::io::{BufRead, BufReader};
-
-        let f = File::open(path)?;
-        let mut first_line = String::new();
-        let mut buf = BufReader::new(f);
-        buf.read_line(&mut first_line)?;
-
-        Ok(first_line)
-    }
-
-    #[cfg(feature = "std")]
-    fn trim_dpm_clk(line: &str) -> Result<u64, std::num::ParseIntError> {
-        const MHZ: &str = "Mhz";
-        let mut tmp = String::new();
-
-        /* 0: 214Mhz */
-        for s in line.split(' ') {
-            if s.ends_with(MHZ) {
-                tmp = s.trim_end_matches(MHZ).to_string();
-            }
-        }
-
-        tmp.parse::<u64>()
-    }
-
-    #[cfg(feature = "std")]
-    fn get_min_clock(&self, pci: &PCI::BUS_INFO, file_name: &str) -> Option<u64> {
-        let path = pci.get_sysfs_path().join(file_name);
-
-        if let Ok(line) = Self::get_first_line(path) {
-            if let Ok(clk) = Self::trim_dpm_clk(&line) {
-                return Some(clk);
-            }
-        }
-
-        None
-    }
-
-    /// Get the minimum gpu core clock (MHz) from sysfs (`pp_dpm_sclk`).  
-    /// Recommend [DeviceHandle::get_min_max_gpu_clock]
-    #[cfg(feature = "std")]
-    #[deprecated(since = "0.1.2", note = "superseded by `get_min_max_gpu_clock_from_sysfs`")]
-    pub fn get_min_gpu_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
-        Self::get_min_clock(self, pci, "pp_dpm_sclk")
-    }
-
-    /// Get the minimum memory clock (MHz) from sysfs (`pp_dpm_mclk`).  
-    /// Recommend [DeviceHandle::get_min_max_memory_clock]
-    #[cfg(feature = "std")]
-    #[deprecated(since = "0.1.2", note = "superseded by `get_min_max_memory_clock_from_sysfs`")]
-    pub fn get_min_memory_clock_from_sysfs(&self, pci: &PCI::BUS_INFO) -> Option<u64> {
-        Self::get_min_clock(self, pci, "pp_dpm_mclk")
-    }
-
-    #[cfg(feature = "std")]
-    fn get_min_max_clock_from_sysfs<P: Into<PathBuf>>(
+    fn get_min_max_clock_from_dpm<P: Into<PathBuf>>(
         &self,
-        path: P,
-    ) -> Option<(u32, u32)> {
+        sysfs_path: P,
+    ) -> Option<[u32; 2]> {
         let parse_line = |s: &str| -> Option<u32> {
             s.split(' ').skip(1).next()?.trim_end_matches("Mhz").parse::<u32>().ok()
         };
 
-        let s = std::fs::read_to_string(path.into()).ok()?;
-        let mut lines = s.lines();
+        get_min_max_from_dpm(sysfs_path.into(), parse_line)
+    }
 
-        let first = parse_line(lines.next()?)?;
-        let last = match lines.last() {
-            Some(last) => parse_line(last)?,
-            None => first,
-        };
+    /// Get the min/max gpu core clock (MHz) from sysf (`pp_dpm_mclk`)
+    #[cfg(feature = "std")]
+    pub fn get_min_max_memory_clock_from_dpm<P: Into<PathBuf>>(
+        &self,
+        path: P
+    ) -> Option<[u32; 2]> {
+        self.get_min_max_clock_from_dpm(path.into().join("pp_dpm_mclk"))
+    }
 
-        let min_clk = std::cmp::min(first, last);
-        let max_clk = std::cmp::max(first, last);
-
-        Some((min_clk, max_clk))
+    /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
+    #[cfg(feature = "std")]
+    pub fn get_min_max_gpu_clock_from_dpm<P: Into<PathBuf>>(
+        &self,
+        path: P
+    ) -> Option<[u32; 2]> {
+        self.get_min_max_clock_from_dpm(path.into().join("pp_dpm_sclk"))
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
@@ -365,7 +314,9 @@ impl DeviceHandle {
         &self,
         path: P
     ) -> Option<(u32, u32)> {
-        self.get_min_max_clock_from_sysfs(path.into().join("pp_dpm_mclk"))
+        let tmp = self.get_min_max_clock_from_dpm(path.into().join("pp_dpm_mclk"))?;
+
+        Some((tmp[0], tmp[1]))
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
@@ -381,7 +332,9 @@ impl DeviceHandle {
         &self,
         path: P
     ) -> Option<(u32, u32)> {
-        self.get_min_max_clock_from_sysfs(path.into().join("pp_dpm_sclk"))
+        let tmp = self.get_min_max_clock_from_dpm(path.into().join("pp_dpm_sclk"))?;
+
+        Some((tmp[0], tmp[1]))
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
