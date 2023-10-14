@@ -265,7 +265,7 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_VCE_CLOCK_TABLE)
     }
 
-    pub fn num_vram_cpu_page_failts(&self) -> Result<u64, i32> {
+    pub fn num_vram_cpu_page_faults(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS)
     }
 
