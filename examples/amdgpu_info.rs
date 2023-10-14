@@ -112,6 +112,22 @@ fn main() {
         );
         let re_bar = if info.check_resizable_bar() { "Enabled" } else { "Disabled" };
         println!("ResizableBAR:\t\t\t{re_bar}");
+
+        if let Ok(moved) = amdgpu_dev.num_bytes_moved() {
+            println!("Number of bytes moved for TTM migration: {moved}");
+        }
+
+        if let Ok(fault_count) = amdgpu_dev.num_vram_cpu_page_faults() {
+            println!("Number of VRAM page faults on CPU access: {fault_count}");
+        }
+
+        if let Ok(e) = amdgpu_dev.num_evictions() {
+            println!("Number of TTM buffer evictions: {e}");
+        }
+
+        if let Ok(lost) = amdgpu_dev.vram_lost_counter() {
+            println!("VRAM lost counter: {lost}");
+        }
     }
 
     {

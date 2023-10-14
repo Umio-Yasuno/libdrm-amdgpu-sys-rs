@@ -15,6 +15,8 @@ pub use bindings::{
 };
 use bindings::{
     AMDGPU_INFO_NUM_BYTES_MOVED,
+    AMDGPU_INFO_NUM_EVICTIONS,
+    AMDGPU_INFO_VRAM_LOST_COUNTER,
     AMDGPU_INFO_DEV_INFO,
     AMDGPU_INFO_GDS_CONFIG,
     AMDGPU_INFO_VRAM_GTT,
@@ -265,12 +267,23 @@ impl DeviceHandle {
         Self::query(self, AMDGPU_INFO_VCE_CLOCK_TABLE)
     }
 
+    /// Number of VRAM page faults on CPU access
     pub fn num_vram_cpu_page_faults(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS)
     }
 
+    /// Number of bytes moved for TTM migration
     pub fn num_bytes_moved(&self) -> Result<u64, i32> {
         Self::query(self, AMDGPU_INFO_NUM_BYTES_MOVED)
+    }
+
+    /// Number of TTM buffer evictions
+    pub fn num_evictions(&self) -> Result<u64, i32> {
+        Self::query(self, AMDGPU_INFO_NUM_EVICTIONS)
+    }
+
+    pub fn vram_lost_counter(&self) -> Result<u32, i32> {
+        Self::query(self, AMDGPU_INFO_VRAM_LOST_COUNTER)
     }
 
     /// Get [PCI::BUS_INFO]
