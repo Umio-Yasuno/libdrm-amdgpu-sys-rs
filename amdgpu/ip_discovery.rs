@@ -46,9 +46,7 @@ impl IpHwInstance {
         let s = std::fs::read_to_string(sysfs_path.join("harvest")).ok()?;
         let len = s.len();
 
-        if len < 2 { return None }
-
-        u8::from_str_radix(&s[2..len-1], 16).ok() // "0x0\n"
+        u8::from_str_radix(s.get(2..len-1)?, 16).ok() // "0x0\n"
     }
 
     pub fn parse_base_address_file(sysfs_path: &PathBuf) -> Vec<u32> {
@@ -57,11 +55,12 @@ impl IpHwInstance {
         let lines = s.lines();
 
         for l in lines {
-            if l.len() < 2 { return base_addr }
+            /* "0x0000" */
+            let Some(addr) = l.get(2..).and_then(|s| u32::from_str_radix(s, 16).ok()) else {
+                continue
+            };
 
-            if let Ok(addr) = u32::from_str_radix(&l[2..], 16) { // "0x0000"
-                base_addr.push(addr);
-            }
+            base_addr.push(addr);
         }
 
         base_addr
@@ -74,7 +73,7 @@ impl IpHwInstance {
 
         let len = s.len();
 
-        s[..len-1].parse::<T>().ok()
+        s.get(..len-1)?.parse::<T>().ok()
     }
 }
 

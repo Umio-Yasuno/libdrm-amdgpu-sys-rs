@@ -77,7 +77,7 @@ impl PowerProfile {
     fn parse_line(s: &str) -> Option<PowerProfile> {
         let line = s.trim_start();
         let i = line.find(' ')?;
-        let profile = line[..i].parse::<u32>().ok()?;
+        let profile = line.get(..i)?.parse::<u32>().ok()?;
         
         PowerProfile::try_from(profile).ok()
     }

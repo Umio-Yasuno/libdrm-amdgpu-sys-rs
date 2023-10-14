@@ -210,7 +210,7 @@ impl PCI::LINK {
                 // "0: 2.5GT/s"
                 let Some(pos) = tmp.find(' ') else { continue };
                 gen = {
-                    let tmp = match &tmp[(pos+1)..] {
+                    let tmp = match tmp.get(pos+1..)? {
                         "2.5GT/s" => 1,
                         "5.0GT/s" => 2,
                         "8.0GT/s" => 3,
@@ -229,7 +229,7 @@ impl PCI::LINK {
                 // "x8 ", "x16 * "
                 let tmp = tmp.trim_start_matches('x');
                 let Some(space_pos) = tmp.find(' ') else { continue };
-                width = tmp[..space_pos].parse().ok();
+                width = tmp.get(..space_pos)?.parse().ok();
                 continue;
             }
         }

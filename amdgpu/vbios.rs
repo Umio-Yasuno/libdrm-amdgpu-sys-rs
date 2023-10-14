@@ -31,7 +31,7 @@ impl DeviceHandle {
         ]
         .map(|v| {
             if let Some(index) = v.iter().position(|&x| x == 0) {
-                String::from_utf8(v[..index].to_vec())
+                String::from_utf8(v.get(..index).unwrap_or_default().to_vec())
             } else {
                 String::from_utf8(v)
             }.unwrap_or_default()
