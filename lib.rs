@@ -21,9 +21,11 @@ pub mod AMDGPU {
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-mod pci_bus_info;
+mod pci;
 #[cfg(not(feature = "buildtime_bindgen"))]
-pub use pci_bus_info::*;
+pub mod PCI {
+    pub use super::pci::*;
+}
 
 #[cfg(not(feature = "buildtime_bindgen"))]
 mod drm_version;

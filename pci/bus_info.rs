@@ -1,34 +1,9 @@
-pub mod PCI {
-    /// PCI information (Domain, Bus, Device, Function)
-    #[derive(Debug, Clone, Copy, Eq, PartialEq)]
-    pub struct BUS_INFO {
-        pub domain: u16,
-        pub bus: u8,
-        pub dev: u8,
-        pub func: u8,
-    }
-
-    /// PCI link status
-    pub enum STATUS {
-        Current,
-        Max,
-    }
-
-    /// PCI link speed information
-    #[derive(Debug, Default, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
-    pub struct LINK {
-        pub gen: u8,
-        pub width: u8,
-    }
-}
+use super::{BUS_INFO, LINK, STATUS};
 
 #[cfg(feature = "std")]
 use std::path::PathBuf;
 
-#[cfg(feature = "std")]
-const PCIE_DPM: &str = "pp_dpm_pcie";
-
-impl PCI::BUS_INFO {
+impl BUS_INFO {
     pub(crate) fn drm_get_device2(
         fd: ::core::ffi::c_int,
         //  flags: u32,
@@ -41,7 +16,7 @@ impl PCI::BUS_INFO {
             pci
         };
 
-        Ok(PCI::BUS_INFO {
+        Ok(Self {
             domain: pci.domain,
             bus: pci.bus,
             dev: pci.dev,
@@ -95,22 +70,22 @@ impl PCI::BUS_INFO {
     }
 
     #[cfg(feature = "std")]
-    pub fn get_link_info(&self, status: PCI::STATUS) -> PCI::LINK {
-        PCI::LINK::get_from_sysfs_with_status(self.get_sysfs_path(), status).unwrap_or_default()
+    pub fn get_link_info(&self, status: STATUS) -> LINK {
+        LINK::get_from_sysfs_with_status(self.get_sysfs_path(), status).unwrap_or_default()
     }
 
     #[cfg(feature = "std")]
-    pub fn get_min_max_link_info_from_dpm(&self) -> Option<[PCI::LINK; 2]> {
-        PCI::LINK::get_min_max_link_info_from_dpm(self.get_sysfs_path())
+    pub fn get_min_max_link_info_from_dpm(&self) -> Option<[LINK; 2]> {
+        LINK::get_min_max_link_info_from_dpm(self.get_sysfs_path())
     }
 
     #[cfg(feature = "std")]
-    pub fn get_current_link_info_from_dpm(&self) -> Option<PCI::LINK> {
-        PCI::LINK::get_current_link_info_from_dpm(self.get_sysfs_path())
+    pub fn get_current_link_info_from_dpm(&self) -> Option<LINK> {
+        LINK::get_current_link_info_from_dpm(self.get_sysfs_path())
     }
 
     #[cfg(feature = "std")]
-    pub fn get_max_gpu_link(&self) -> Option<PCI::LINK> {
+    pub fn get_max_gpu_link(&self) -> Option<LINK> {
         let mut tmp = self.get_system_pcie_port_sysfs_path();
 
         tmp.pop();
@@ -119,7 +94,7 @@ impl PCI::BUS_INFO {
     }
 
     #[cfg(feature = "std")]
-    pub fn get_max_system_link(&self) -> Option<PCI::LINK> {
+    pub fn get_max_system_link(&self) -> Option<LINK> {
         Self::get_max_link(&self.get_system_pcie_port_sysfs_path())
     }
 
@@ -144,7 +119,7 @@ impl PCI::BUS_INFO {
     }
 
     #[cfg(feature = "std")]
-    fn get_max_link(sysfs_path: &PathBuf) -> Option<PCI::LINK> {
+    fn get_max_link(sysfs_path: &PathBuf) -> Option<LINK> {
         let [s_speed, s_width] = ["max_link_speed", "max_link_width"].map(|name| {
             let mut s = std::fs::read_to_string(sysfs_path.join(name)).ok()?;
             s.pop(); // trim `\n`
@@ -163,7 +138,7 @@ impl PCI::BUS_INFO {
         };
         let width = s_width?.parse::<u8>().ok()?;
 
-        Some(PCI::LINK { gen, width })
+        Some(LINK { gen, width })
     }
 }
 
@@ -171,7 +146,7 @@ impl PCI::BUS_INFO {
 pub struct ParseBusInfoError;
 
 #[cfg(feature = "std")]
-impl std::str::FromStr for PCI::BUS_INFO {
+impl std::str::FromStr for super::BUS_INFO {
     type Err = ParseBusInfoError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -195,7 +170,7 @@ impl std::str::FromStr for PCI::BUS_INFO {
 #[test]
 fn test_pci_bus_info_parse() {
     let s = "0000:0d:00.0".parse();
-    let bus = PCI::BUS_INFO { domain: 0x0, bus: 0xd, dev: 0x0, func: 0x0 };
+    let bus = super::BUS_INFO { domain: 0x0, bus: 0xd, dev: 0x0, func: 0x0 };
 
     assert_eq!(s, Ok(bus));
 }
@@ -203,113 +178,12 @@ fn test_pci_bus_info_parse() {
 #[cfg(feature = "std")]
 use std::fmt;
 #[cfg(feature = "std")]
-impl fmt::Display for PCI::BUS_INFO {
+impl fmt::Display for super::BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,
             "{:04x}:{:02x}:{:02x}.{:01x}",
             self.domain, self.bus, self.dev, self.func
         )
-    }
-}
-
-impl PCI::STATUS {
-    pub const fn to_sysfs_file_name(&self) -> [&str; 2] {
-        match self {
-            Self::Current => ["current_link_speed", "current_link_width"],
-            Self::Max => ["max_link_speed", "max_link_width"],
-        }
-    }
-}
-
-impl PCI::LINK {
-    #[cfg(feature = "std")]
-    pub fn get_from_sysfs_with_status<P: Into<PathBuf>>(
-        sysfs_path: P,
-        status: PCI::STATUS,
-    ) -> Option<Self> {
-        let base_path = sysfs_path.into();
-        let [s_speed, s_width] = status.to_sysfs_file_name().map(|name| {
-            let mut s = std::fs::read_to_string(base_path.join(name)).ok()?;
-            s.pop(); // trim `\n`
-
-            Some(s)
-        });
-
-        let gen = Self::speed_to_gen(&s_speed?)?;
-        let width = s_width?.parse::<u8>().ok()?;
-
-        Some(Self { gen, width })
-    }
-
-    /// Convert PCIe speed str to PCIe gen
-    #[cfg(feature = "std")]
-    pub fn speed_to_gen(speed: &str) -> Option<u8> {
-        let gen = match speed {
-            "2.5 GT/s PCIe" => 1,
-            "5.0 GT/s PCIe" => 2,
-            "8.0 GT/s PCIe" => 3,
-            "16.0 GT/s PCIe" => 4,
-            "32.0 GT/s PCIe" => 5,
-            "64.0 GT/s PCIe" => 6,
-            _ => return None,
-        };
-
-        Some(gen)
-    }
-
-    #[cfg(feature = "std")]
-    fn parse_dpm_line(s: &str) -> Option<Self> {
-        let mut gen: Option<u8> = None;
-        let mut width: Option<u8> = None;
-
-        for tmp in s.split(", ") {
-            if tmp.ends_with("GT/s") {
-                // "0: 2.5GT/s"
-                let Some(pos) = tmp.find(' ') else { continue };
-                gen = {
-                    let tmp = match tmp.get(pos+1..)? {
-                        "2.5GT/s" => 1,
-                        "5.0GT/s" => 2,
-                        "8.0GT/s" => 3,
-                        "16.0GT/s" => 4,
-                        "32.0GT/s" => 5,
-                        "64.0GT/s" => 6,
-                        _ => 0,
-                    };
-
-                    (tmp != 0).then_some(tmp)
-                };
-                continue;
-            }
-
-            if tmp.starts_with('x') {
-                // "x8 ", "x16 * "
-                let tmp = tmp.trim_start_matches('x');
-                let Some(space_pos) = tmp.find(' ') else { continue };
-                width = tmp.get(..space_pos)?.parse().ok();
-                continue;
-            }
-        }
-
-        Some(Self { gen: gen?, width: width? })
-    }
-
-    #[cfg(feature = "std")]
-    pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(
-        sysfs_path: P,
-    ) -> Option<[PCI::LINK; 2]> {
-        use crate::get_min_max_from_dpm;
-
-        get_min_max_from_dpm(sysfs_path.into().join(PCIE_DPM), Self::parse_dpm_line)
-    }
-
-    #[cfg(feature = "std")]
-    pub fn get_current_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<PCI::LINK> {
-        let sysfs_path = sysfs_path.into();
-        let s = std::fs::read_to_string(sysfs_path.join(PCIE_DPM)).ok()?;
-        let cur = s.lines().find(|&line| line.ends_with(" *"))?;
-
-        Self::parse_dpm_line(cur)
     }
 }
 
