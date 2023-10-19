@@ -379,6 +379,27 @@ impl DeviceHandle {
 
         power_cap.check_if_secondary_die()
     }
+
+    #[cfg(feature = "std")]
+    pub fn get_min_max_link_info_from_dpm(&self) -> Option<[PCI::LINK; 2]> {
+        let pci_bus = self.get_pci_bus_info().ok()?;
+
+        pci_bus.get_min_max_link_info_from_dpm()
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_max_gpu_link(&self) -> Option<PCI::LINK> {
+        let pci_bus = self.get_pci_bus_info().ok()?;
+
+        pci_bus.get_max_gpu_link()
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_max_system_link(&self) -> Option<PCI::LINK> {
+        let pci_bus = self.get_pci_bus_info().ok()?;
+
+        pci_bus.get_max_system_link()
+    }
 }
 
 impl Drop for DeviceHandle {

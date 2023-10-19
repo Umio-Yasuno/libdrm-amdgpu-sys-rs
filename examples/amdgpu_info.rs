@@ -230,15 +230,34 @@ fn main() {
 
     if let Ok(bus_info) = amdgpu_dev.get_pci_bus_info() {
         println!("\nPCI (domain:bus:dev.func): {bus_info}");
-        if let Some([min, max]) = bus_info.get_min_max_link_info_from_dpm() {
+    }
+
+    if let Some([min, max]) = amdgpu_dev.get_min_max_link_info_from_dpm() {
+        println!(
+            "PCIe Link Speed     (DPM)    : Gen{}x{} - Gen{}x{}",
+            min.gen,
+            min.width,
+            max.gen,
+            max.width,
+        );
+
+        if let Some(max_gpu_link) = amdgpu_dev.get_max_gpu_link() {
             println!(
-                "PCI Link Speed     (DPM) : Gen{}x{} - Gen{}x{}",
-                min.gen,
-                min.width,
-                max.gen,
-                max.width,
+                "PCIe Link Speed (GPU, Max)   : Gen{}x{}",
+                max_gpu_link.gen,
+                max_gpu_link.width,
             );
         }
+
+        if let Some(max_system_link) = amdgpu_dev.get_max_system_link() {
+            println!(
+                "PCIe Link Speed (System, Max): Gen{}x{}",
+                max_system_link.gen,
+                max_system_link.width,
+            );
+        }
+    } else {
+        println!("PCIe Link Speed     (DPM)    : None");
     }
 
     if let Ok(vbios) = amdgpu_dev.get_vbios_info() {

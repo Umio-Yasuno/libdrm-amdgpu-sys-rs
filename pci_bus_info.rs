@@ -108,6 +108,63 @@ impl PCI::BUS_INFO {
     pub fn get_current_link_info_from_dpm(&self) -> Option<PCI::LINK> {
         PCI::LINK::get_current_link_info_from_dpm(self.get_sysfs_path())
     }
+
+    #[cfg(feature = "std")]
+    pub fn get_max_gpu_link(&self) -> Option<PCI::LINK> {
+        let mut tmp = self.get_system_pcie_port_sysfs_path();
+
+        tmp.pop();
+
+        Self::get_max_link(&tmp)
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_max_system_link(&self) -> Option<PCI::LINK> {
+        Self::get_max_link(&self.get_system_pcie_port_sysfs_path())
+    }
+
+    #[cfg(feature = "std")]
+    fn get_system_pcie_port_sysfs_path(&self) -> PathBuf {
+        const NAVI10_UPSTREAM_PORT: &str = "0x1478\n";
+        const NAVI10_DOWNSTREAM_PORT: &str = "0x1479\n";
+
+        let mut tmp = self.get_sysfs_path().join("../"); // pcie port
+
+        for _ in 0..2 {
+            let Ok(did) = std::fs::read_to_string(&tmp.join("device")) else { break };
+
+            if &did == NAVI10_UPSTREAM_PORT || &did == NAVI10_DOWNSTREAM_PORT {
+                tmp.push("../");
+            } else {
+                break;
+            }
+        }
+
+        tmp
+    }
+
+    #[cfg(feature = "std")]
+    fn get_max_link(sysfs_path: &PathBuf) -> Option<PCI::LINK> {
+        let [s_speed, s_width] = ["max_link_speed", "max_link_width"].map(|name| {
+            let mut s = std::fs::read_to_string(sysfs_path.join(name)).ok()?;
+            s.pop(); // trim `\n`
+
+            Some(s)
+        });
+
+        let gen = match s_speed?.as_str() {
+            "2.5 GT/s PCIe" => 1,
+            "5.0 GT/s PCIe" => 2,
+            "8.0 GT/s PCIe" => 3,
+            "16.0 GT/s PCIe" => 4,
+            "32.0 GT/s PCIe" => 5,
+            "64.0 GT/s PCIe" => 6,
+            _ => 0,
+        };
+        let width = s_width?.parse::<u8>().ok()?;
+
+        Some(PCI::LINK { gen, width })
+    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
