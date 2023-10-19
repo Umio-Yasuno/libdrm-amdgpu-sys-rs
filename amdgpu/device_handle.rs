@@ -303,7 +303,7 @@ impl DeviceHandle {
         get_min_max_from_dpm(sysfs_path.into(), parse_line)
     }
 
-    /// Get the min/max gpu core clock (MHz) from sysf (`pp_dpm_mclk`)
+    /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
     #[cfg(feature = "std")]
     pub fn get_min_max_memory_clock_from_dpm<P: Into<PathBuf>>(
         &self,
