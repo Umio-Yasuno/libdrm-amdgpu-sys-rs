@@ -283,6 +283,7 @@ fn main() {
             SENSOR_TYPE::GPU_TEMP,
             SENSOR_TYPE::GPU_LOAD,
             SENSOR_TYPE::GPU_AVG_POWER,
+            SENSOR_TYPE::GPU_INPUT_POWER,
             SENSOR_TYPE::VDDNB,
             SENSOR_TYPE::VDDGFX,
             SENSOR_TYPE::STABLE_PSTATE_GFX_SCLK,
