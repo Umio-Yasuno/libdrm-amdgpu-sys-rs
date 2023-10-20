@@ -1,4 +1,6 @@
-impl super::STATUS {
+use super::STATUS;
+
+impl STATUS {
     pub const fn to_sysfs_file_name(&self) -> [&str; 2] {
         match self {
             Self::Current => ["current_link_speed", "current_link_width"],

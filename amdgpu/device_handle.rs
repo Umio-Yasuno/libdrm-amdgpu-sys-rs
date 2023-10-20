@@ -368,7 +368,7 @@ impl DeviceHandle {
     /// 
     #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
-        self.get_pci_bus_info().ok().and_then(|pci| pci.get_hwmon_path())
+        self.get_pci_bus_info().ok()?.get_hwmon_path()
     }
 
     /// ref: drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c

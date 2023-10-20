@@ -1,4 +1,4 @@
-use super::{BUS_INFO, LINK, STATUS};
+use super::{BUS_INFO, LINK};
 
 #[cfg(feature = "std")]
 use std::path::PathBuf;
@@ -37,41 +37,10 @@ impl BUS_INFO {
 
     #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
-        /*
-            use std::ffi::OsString;
-
-            let base = PathBuf::from("/sys/class/hwmon");
-            let hwmon_dir = std::fs::read_dir(&base).ok()?;
-
-            for hwmon in hwmon_dir {
-                let Ok(hwmon) = hwmon else { continue };
-                let link = std::fs::read_link(hwmon.path()).ok()?;
-                // "../../devices/pci0000:00/0000:00:01.1/0000:01:00.0/hwmon/hwmon1"
-                let pci = link.iter().skip(5).next()?;
-
-                if pci.to_os_string() == OsString::from(self.to_string()) {
-                    return std::fs::canonicalize(base.join(link)).ok();
-                }
-            }
-
-            None
-        */
         let base = self.get_sysfs_path().join("hwmon");
-        let hwmon_dir = std::fs::read_dir(base).ok()?;
+        let entry = std::fs::read_dir(base).ok()?.next()?.ok()?;
 
-        for entry in hwmon_dir {
-            let entry = entry.ok()?;
-            if entry.metadata().ok()?.is_dir() {
-                return Some(entry.path());
-            }
-        }
-
-        None
-    }
-
-    #[cfg(feature = "std")]
-    pub fn get_link_info(&self, status: STATUS) -> LINK {
-        LINK::get_from_sysfs_with_status(self.get_sysfs_path(), status).unwrap_or_default()
+        Some(entry.path())
     }
 
     #[cfg(feature = "std")]
@@ -90,14 +59,21 @@ impl BUS_INFO {
 
         tmp.pop();
 
-        Self::get_max_link(&tmp)
+        LINK::get_max_link(&tmp)
     }
 
     #[cfg(feature = "std")]
     pub fn get_max_system_link(&self) -> Option<LINK> {
-        Self::get_max_link(&self.get_system_pcie_port_sysfs_path())
+        LINK::get_max_link(&self.get_system_pcie_port_sysfs_path())
     }
 
+    /// The AMDGPU driver reports maximum number of PCIe lanes of Polaris11/Polaris12 as x16
+    /// in `pp_dpm_pcie` (actually x8), so we use `{current,max}_link_{speed,width}`.
+    /// ref: drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
+    ///
+    /// Recent AMD GPUs have multiple endpoints, and the PCIe speed/width actually
+    /// runs in that system for the GPU is output to `pp_dpm_pcie`.
+    /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
     #[cfg(feature = "std")]
     fn get_system_pcie_port_sysfs_path(&self) -> PathBuf {
         const NAVI10_UPSTREAM_PORT: &str = "0x1478\n";
@@ -117,36 +93,13 @@ impl BUS_INFO {
 
         tmp
     }
-
-    #[cfg(feature = "std")]
-    fn get_max_link(sysfs_path: &PathBuf) -> Option<LINK> {
-        let [s_speed, s_width] = ["max_link_speed", "max_link_width"].map(|name| {
-            let mut s = std::fs::read_to_string(sysfs_path.join(name)).ok()?;
-            s.pop(); // trim `\n`
-
-            Some(s)
-        });
-
-        let gen = match s_speed?.as_str() {
-            "2.5 GT/s PCIe" => 1,
-            "5.0 GT/s PCIe" => 2,
-            "8.0 GT/s PCIe" => 3,
-            "16.0 GT/s PCIe" => 4,
-            "32.0 GT/s PCIe" => 5,
-            "64.0 GT/s PCIe" => 6,
-            _ => 0,
-        };
-        let width = s_width?.parse::<u8>().ok()?;
-
-        Some(LINK { gen, width })
-    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
 pub struct ParseBusInfoError;
 
 #[cfg(feature = "std")]
-impl std::str::FromStr for super::BUS_INFO {
+impl std::str::FromStr for BUS_INFO {
     type Err = ParseBusInfoError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
@@ -170,7 +123,7 @@ impl std::str::FromStr for super::BUS_INFO {
 #[test]
 fn test_pci_bus_info_parse() {
     let s = "0000:0d:00.0".parse();
-    let bus = super::BUS_INFO { domain: 0x0, bus: 0xd, dev: 0x0, func: 0x0 };
+    let bus = BUS_INFO { domain: 0x0, bus: 0xd, dev: 0x0, func: 0x0 };
 
     assert_eq!(s, Ok(bus));
 }
@@ -178,7 +131,7 @@ fn test_pci_bus_info_parse() {
 #[cfg(feature = "std")]
 use std::fmt;
 #[cfg(feature = "std")]
-impl fmt::Display for super::BUS_INFO {
+impl fmt::Display for BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,
             "{:04x}:{:02x}:{:02x}.{:01x}",
