@@ -24,12 +24,6 @@ impl BUS_INFO {
         })
     }
 
-    /// Convert a string ("0000:01:00.0") to [PCI::BUS_INFO]
-    #[cfg(feature = "std")]
-    pub fn from_number_str(s: &str) -> Option<Self> {
-        s.parse().ok()
-    }
-
     /// Get device sysfs path
     #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> PathBuf {
