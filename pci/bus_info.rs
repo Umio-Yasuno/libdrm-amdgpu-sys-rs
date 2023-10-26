@@ -1,4 +1,4 @@
-use super::{BUS_INFO, LINK};
+use super::{BUS_INFO, LINK, STATUS};
 
 #[cfg(feature = "std")]
 use std::path::PathBuf;
@@ -30,11 +30,13 @@ impl BUS_INFO {
         s.parse().ok()
     }
 
+    /// Get device sysfs path
     #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> PathBuf {
         PathBuf::from("/sys/bus/pci/devices/").join(self.to_string())
     }
 
+    /// Get device hwmon path
     #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         let base = self.get_sysfs_path().join("hwmon");
@@ -43,16 +45,19 @@ impl BUS_INFO {
         Some(entry.path())
     }
 
+    /// Get GPU maximum/minimum link speed/width from DPM
     #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm(&self) -> Option<[LINK; 2]> {
         LINK::get_min_max_link_info_from_dpm(self.get_sysfs_path())
     }
 
+    /// Get GPU current link speed/width from DPM
     #[cfg(feature = "std")]
     pub fn get_current_link_info_from_dpm(&self) -> Option<LINK> {
         LINK::get_current_link_info_from_dpm(self.get_sysfs_path())
     }
 
+    /// Get GPU maximum link speed/width from sysfs
     #[cfg(feature = "std")]
     pub fn get_max_gpu_link(&self) -> Option<LINK> {
         let mut tmp = self.get_system_pcie_port_sysfs_path();
@@ -62,6 +67,7 @@ impl BUS_INFO {
         LINK::get_max_link(&tmp)
     }
 
+    /// Get system maximum link speed/width from sysfs
     #[cfg(feature = "std")]
     pub fn get_max_system_link(&self) -> Option<LINK> {
         LINK::get_max_link(&self.get_system_pcie_port_sysfs_path())
@@ -92,6 +98,18 @@ impl BUS_INFO {
         }
 
         tmp
+    }
+
+    /// Get GPU current link speed/width from sysfs
+    #[cfg(feature = "std")]
+    pub fn get_current_link_info(&self) -> Option<LINK> {
+        LINK::get_from_sysfs_with_status(self.get_sysfs_path(), STATUS::Current)
+    }
+
+    /// Get GPU maximum link speed/width from sysfs
+    #[cfg(feature = "std")]
+    pub fn get_max_link_info(&self) -> Option<LINK> {
+        LINK::get_from_sysfs_with_status(self.get_sysfs_path(), STATUS::Max)
     }
 }
 
