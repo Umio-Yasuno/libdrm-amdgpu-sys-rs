@@ -353,7 +353,7 @@ impl ASIC_NAME {
             Self::CHIP_NAVI23 |
             Self::CHIP_NAVI24 |
             Self::CHIP_GFX1100 |
-            // Self::CHIP_GFX1101 |
+            Self::CHIP_GFX1101 |
             Self::CHIP_GFX1102 => 4,
             _ => 0,
         }
