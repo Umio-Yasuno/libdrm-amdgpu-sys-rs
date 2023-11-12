@@ -68,11 +68,11 @@ pub trait MetricsInfo {
     /// millidegrees Celsius,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
-    fn get_temperature_core(&self) -> Option<[u16; 8]>;
+    fn get_temperature_core(&self) -> Option<Vec<u16>>;
     /// millidegrees Celsius,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
-    fn get_temperature_l3(&self) -> Option<[u16; 2]>;
+    fn get_temperature_l3(&self) -> Option<Vec<u16>>;
     fn get_average_gfx_activity(&self) -> Option<u16>;
     fn get_average_umc_activity(&self) -> Option<u16>;
     fn get_average_mm_activity(&self) -> Option<u16>;
@@ -88,7 +88,7 @@ pub trait MetricsInfo {
     /// Watts,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
-    fn get_average_core_power(&self) -> Option<[u16; 8]>;
+    fn get_average_core_power(&self) -> Option<Vec<u16>>;
     /// MHz
     fn get_average_gfxclk_frequency(&self) -> Option<u16>;
     /// MHz
@@ -124,11 +124,11 @@ pub trait MetricsInfo {
     /// MHz,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
-    fn get_current_coreclk(&self) -> Option<[u16; 8]>;
+    fn get_current_coreclk(&self) -> Option<Vec<u16>>;
     /// MHz,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
-    fn get_current_l3clk(&self) -> Option<[u16; 2]>;
+    fn get_current_l3clk(&self) -> Option<Vec<u16>>;
     fn get_throttle_status(&self) -> Option<u32>;
     fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
@@ -149,8 +149,8 @@ pub trait MetricsInfo {
     /// Average Temperature (unit: centi-Celsius)
     fn get_average_temperature_gfx(&self) -> Option<u16>;
     fn get_average_temperature_soc(&self) -> Option<u16>;
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]>;
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]>;
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>>;
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>>;
 
     /// Power/Voltage (unit: mV)
     fn get_average_cpu_voltage(&self) -> Option<u16>;
@@ -206,11 +206,11 @@ macro_rules! v1_impl {
             None
         }
 
-        fn get_temperature_core(&self) -> Option<[u16; 8]> {
+        fn get_temperature_core(&self) -> Option<Vec<u16>> {
             None
         }
 
-        fn get_temperature_l3(&self) -> Option<[u16; 2]> {
+        fn get_temperature_l3(&self) -> Option<Vec<u16>> {
             None
         }
 
@@ -246,7 +246,7 @@ macro_rules! v1_impl {
             None
         }
 
-        fn get_average_core_power(&self) -> Option<[u16; 8]> {
+        fn get_average_core_power(&self) -> Option<Vec<u16>> {
             None
         }
 
@@ -314,11 +314,11 @@ macro_rules! v1_impl {
             Some(self.current_dclk1)
         }
 
-        fn get_current_coreclk(&self) -> Option<[u16; 8]> {
+        fn get_current_coreclk(&self) -> Option<Vec<u16>> {
             None
         }
 
-        fn get_current_l3clk(&self) -> Option<[u16; 2]> {
+        fn get_current_l3clk(&self) -> Option<Vec<u16>> {
             None
         }
 
@@ -350,11 +350,11 @@ macro_rules! v1_impl {
             None
         }
 
-        fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+        fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
             None
         }
 
-        fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+        fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
             None
         }
 
@@ -550,12 +550,12 @@ macro_rules! v2_impl {
             Some(self.temperature_soc)
         }
 
-        fn get_temperature_core(&self) -> Option<[u16; 8]> {
-            Some(self.temperature_core)
+        fn get_temperature_core(&self) -> Option<Vec<u16>> {
+            Some(self.temperature_core.to_vec())
         }
 
-        fn get_temperature_l3(&self) -> Option<[u16; 2]> {
-            Some(self.temperature_l3)
+        fn get_temperature_l3(&self) -> Option<Vec<u16>> {
+            Some(self.temperature_l3.to_vec())
         }
 
         fn get_average_gfx_activity(&self) -> Option<u16> {
@@ -591,8 +591,8 @@ macro_rules! v2_impl {
             Some(self.average_gfx_power)
         }
 */
-        fn get_average_core_power(&self) -> Option<[u16; 8]> {
-            Some(self.average_core_power)
+        fn get_average_core_power(&self) -> Option<Vec<u16>> {
+            Some(self.average_core_power.to_vec())
         }
 
         fn get_average_gfxclk_frequency(&self) -> Option<u16> {
@@ -659,12 +659,12 @@ macro_rules! v2_impl {
             None
         }
 
-        fn get_current_coreclk(&self) -> Option<[u16; 8]> {
-            Some(self.current_coreclk)
+        fn get_current_coreclk(&self) -> Option<Vec<u16>> {
+            Some(self.current_coreclk.to_vec())
         }
 
-        fn get_current_l3clk(&self) -> Option<[u16; 2]> {
-            Some(self.current_l3clk)
+        fn get_current_l3clk(&self) -> Option<Vec<u16>> {
+            Some(self.current_l3clk.to_vec())
         }
 
         fn get_throttle_status(&self) -> Option<u32> {
@@ -732,11 +732,11 @@ impl MetricsInfo for gpu_metrics_v2_0 {
         None
     }
 
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
         None
     }
 
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
         None
     }
 
@@ -785,11 +785,11 @@ impl MetricsInfo for gpu_metrics_v2_1 {
         None
     }
 
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
         None
     }
 
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
         None
     }
 
@@ -839,11 +839,11 @@ impl MetricsInfo for gpu_metrics_v2_2 {
         None
     }
 
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
         None
     }
 
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
         None
     }
 
@@ -892,11 +892,11 @@ impl MetricsInfo for gpu_metrics_v2_3 {
         None
     }
 
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
         None
     }
 
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
         None
     }
 
@@ -945,12 +945,12 @@ impl MetricsInfo for gpu_metrics_v2_4 {
         Some(self.average_temperature_soc)
     }
 
-    fn get_average_temperature_core(&self) -> Option<[u16; 8]> {
-        Some(self.average_temperature_core)
+    fn get_average_temperature_core(&self) -> Option<Vec<u16>> {
+        Some(self.average_temperature_core.to_vec())
     }
 
-    fn get_average_temperature_l3(&self) -> Option<[u16; 2]> {
-        Some(self.average_temperature_l3)
+    fn get_average_temperature_l3(&self) -> Option<Vec<u16>> {
+        Some(self.average_temperature_l3.to_vec())
     }
 
     fn get_average_cpu_voltage(&self) -> Option<u16> {

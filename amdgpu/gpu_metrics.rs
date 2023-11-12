@@ -65,8 +65,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_temperature_vrmem, Option<u16>);
     impl_metrics!(get_temperature_gfx, Option<u16>);
     impl_metrics!(get_temperature_soc, Option<u16>);
-    impl_metrics!(get_temperature_core, Option<[u16; 8]>);
-    impl_metrics!(get_temperature_l3, Option<[u16; 2]>);
+    impl_metrics!(get_temperature_core, Option<Vec<u16>>);
+    impl_metrics!(get_temperature_l3, Option<Vec<u16>>);
     impl_metrics!(get_average_gfx_activity, Option<u16>);
     impl_metrics!(get_average_umc_activity, Option<u16>);
     impl_metrics!(get_average_mm_activity, Option<u16>);
@@ -75,7 +75,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_cpu_power, Option<u16>);
     impl_metrics!(get_average_soc_power, Option<u16>);
     impl_metrics!(get_average_gfx_power, Option<u16>);
-    impl_metrics!(get_average_core_power, Option<[u16; 8]>);
+    impl_metrics!(get_average_core_power, Option<Vec<u16>>);
     impl_metrics!(get_average_gfxclk_frequency, Option<u16>);
     impl_metrics!(get_average_socclk_frequency, Option<u16>);
     impl_metrics!(get_average_uclk_frequency, Option<u16>);
@@ -92,8 +92,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_current_dclk, Option<u16>);
     impl_metrics!(get_current_vclk1, Option<u16>);
     impl_metrics!(get_current_dclk1, Option<u16>);
-    impl_metrics!(get_current_coreclk, Option<[u16; 8]>);
-    impl_metrics!(get_current_l3clk, Option<[u16; 2]>);
+    impl_metrics!(get_current_coreclk, Option<Vec<u16>>);
+    impl_metrics!(get_current_l3clk, Option<Vec<u16>>);
     impl_metrics!(get_throttle_status, Option<u32>);
     impl_metrics!(get_indep_throttle_status, Option<u64>);
     impl_metrics!(get_current_fan_speed, Option<u16>);
@@ -108,8 +108,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_voltage_mem, Option<u16>);
     impl_metrics!(get_average_temperature_gfx, Option<u16>);
     impl_metrics!(get_average_temperature_soc, Option<u16>);
-    impl_metrics!(get_average_temperature_core, Option<[u16; 8]>);
-    impl_metrics!(get_average_temperature_l3, Option<[u16; 2]>);
+    impl_metrics!(get_average_temperature_core, Option<Vec<u16>>);
+    impl_metrics!(get_average_temperature_l3, Option<Vec<u16>>);
     impl_metrics!(get_average_cpu_voltage, Option<u16>);
     impl_metrics!(get_average_soc_voltage, Option<u16>);
     impl_metrics!(get_average_gfx_voltage, Option<u16>);
