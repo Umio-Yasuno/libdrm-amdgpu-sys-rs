@@ -39,6 +39,21 @@ impl BUS_INFO {
         Some(entry.path())
     }
 
+    /// Get device debug path
+    #[cfg(feature = "std")]
+    pub fn get_debug_dri_path(&self) -> Option<PathBuf> {
+        let s = format!("amdgpu dev={}", self);
+
+        std::fs::read_dir("/sys/kernel/debug/dri/")
+            .ok()?
+            .filter_map(|entry| Some(entry.ok()?.path()))
+            .find(|path| {
+                let Ok(name) = std::fs::read_to_string(path.join("name")) else { return false };
+
+                name.starts_with(&s)
+            })
+    }
+
     /// Get GPU maximum/minimum link speed/width from DPM
     #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm(&self) -> Option<[LINK; 2]> {
