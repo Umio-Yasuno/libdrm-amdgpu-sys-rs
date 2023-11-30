@@ -134,7 +134,7 @@ pub trait MetricsInfo {
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
     fn get_pcie_link_width(&self) -> Option<u16>;
-    fn get_pcie_link_spped(&self) -> Option<u16>;
+    fn get_pcie_link_speed(&self) -> Option<u16>;
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
     /// Only Aldebaran (MI200) supports it.
@@ -338,7 +338,7 @@ macro_rules! v1_impl {
             Some(self.pcie_link_width as u16)
         }
 
-        fn get_pcie_link_spped(&self) -> Option<u16> {
+        fn get_pcie_link_speed(&self) -> Option<u16> {
             Some(self.pcie_link_speed as u16)
         }
 
@@ -683,7 +683,7 @@ macro_rules! v2_impl {
             None
         }
 
-        fn get_pcie_link_spped(&self) -> Option<u16> {
+        fn get_pcie_link_speed(&self) -> Option<u16> {
             None
         }
 

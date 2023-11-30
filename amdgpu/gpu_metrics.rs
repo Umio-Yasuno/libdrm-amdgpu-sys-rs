@@ -99,7 +99,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_current_fan_speed, Option<u16>);
     impl_metrics!(get_fan_pwm, Option<u16>);
     impl_metrics!(get_pcie_link_width, Option<u16>);
-    impl_metrics!(get_pcie_link_spped, Option<u16>);
+    impl_metrics!(get_pcie_link_speed, Option<u16>);
     impl_metrics!(get_gfx_activity_acc, Option<u32>);
     impl_metrics!(get_mem_activity_acc, Option<u32>);
     impl_metrics!(get_temperature_hbm, Option<[u16; NUM_HBM_INSTANCES as usize]>);
