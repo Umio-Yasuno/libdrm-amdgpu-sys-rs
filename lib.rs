@@ -32,6 +32,11 @@ mod drm_version;
 #[cfg(not(feature = "buildtime_bindgen"))]
 pub use drm_version::*;
 
+#[cfg(not(feature = "buildtime_bindgen"))]
+mod drm_mode;
+#[cfg(not(feature = "buildtime_bindgen"))]
+pub use drm_mode::*;
+
 /// Convert `errno` to `Err(i32)`
 #[macro_export]
 macro_rules! query_error {
