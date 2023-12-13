@@ -1,4 +1,6 @@
-use super::{BUS_INFO, LINK, STATUS};
+use super::BUS_INFO;
+#[cfg(feature = "std")]
+use super::{LINK, STATUS};
 
 #[cfg(feature = "std")]
 use std::path::PathBuf;

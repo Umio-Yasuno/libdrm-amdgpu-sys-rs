@@ -33,7 +33,9 @@ mod drm_version;
 pub use drm_version::*;
 
 #[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(feature = "std")]
 mod drm_mode;
+#[cfg(feature = "std")]
 #[cfg(not(feature = "buildtime_bindgen"))]
 pub use drm_mode::*;
 

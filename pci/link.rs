@@ -4,7 +4,10 @@ use std::path::PathBuf;
 #[cfg(feature = "std")]
 const PCIE_DPM: &str = "pp_dpm_pcie";
 
-use super::{LINK, STATUS};
+use super::LINK;
+
+#[cfg(feature = "std")]
+use super::STATUS;
 
 impl LINK {
     #[cfg(feature = "std")]
