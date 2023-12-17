@@ -23,7 +23,7 @@ impl drmModeProperty {
     pub fn name(&self) -> String {
         let c_name = unsafe { addr_of!((*self.0).name).read() };
 
-        c_char_to_string(&c_name)
+        super::c_char_to_string(&c_name)
     }
 
     pub fn prop_id(&self) -> u32 {
@@ -77,16 +77,6 @@ impl Drop for drmModeProperty {
     fn drop(&mut self) {
 	    unsafe { bindings::drmModeFreeProperty(self.0); }
     }
-}
-
-fn c_char_to_string(c: &[core::ffi::c_char]) -> String {
-    let c_name: Vec<u8> = c.iter().map(|c| c.unsigned_abs()).collect();
-
-    if let Some(index) = c_name.iter().position(|&x| x == 0) {
-        String::from_utf8_lossy(c_name.get(..index).unwrap_or_default())
-    } else {
-        String::from_utf8_lossy(&c_name)
-    }.to_string()
 }
 
 pub(crate) const DRM_MODE_PROP_OBJECT: u32 = 1 << 6;
@@ -145,6 +135,6 @@ impl fmt::Display for drmModePropType {
 
 impl drm_mode_property_enum {
     pub fn name(&self) -> String {
-        c_char_to_string(&self.name)
+        super::c_char_to_string(&self.name)
     }
 }

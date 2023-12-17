@@ -1,7 +1,7 @@
 use crate::{bindings, query_error};
 use crate::drmModeObjectProperties;
 use core::ptr::addr_of;
-pub use bindings::drmModeConnectorPtr;
+pub use bindings::{drmModeConnectorPtr, drmModeModeInfo};
 
 #[derive(Debug, Clone)]
 pub struct drmModeConnector(pub(crate) drmModeConnectorPtr);
@@ -72,6 +72,13 @@ impl drmModeConnector {
             self.connector_id(),
             bindings::DRM_MODE_OBJECT_CONNECTOR,
         )
+    }
+
+    pub fn get_modes(&self) -> Vec<drmModeModeInfo> {
+        unsafe { std::slice::from_raw_parts(
+            addr_of!((*self.0).modes).read(),
+            addr_of!((*self.0).count_modes).read() as usize,
+        ) }.to_vec()
     }
 }
 
