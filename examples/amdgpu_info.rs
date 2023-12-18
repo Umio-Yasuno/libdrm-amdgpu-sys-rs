@@ -230,6 +230,13 @@ fn main() {
 
     if let Ok(bus_info) = amdgpu_dev.get_pci_bus_info() {
         println!("\nPCI (domain:bus:dev.func): {bus_info}");
+
+        if let Ok(render) = bus_info.get_drm_render_path() {
+            println!("Render: {render:?}");
+        }
+        if let Ok(card) = bus_info.get_drm_card_path() {
+            println!("Card: {card:?}");
+        }
     }
 
     if let Some([min, max]) = amdgpu_dev.get_min_max_link_info_from_dpm() {

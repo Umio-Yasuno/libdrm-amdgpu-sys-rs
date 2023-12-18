@@ -41,6 +41,28 @@ impl BUS_INFO {
         Some(entry.path())
     }
 
+    #[cfg(feature = "std")]
+    fn get_drm_path(&self, type_name: &str) -> std::io::Result<PathBuf> {
+        let base = PathBuf::from("/dev/dri/by-path");
+
+        let name = format!("pci-{}-{type_name}", self);
+        let link = std::fs::read_link(base.join(name))?;
+
+        std::fs::canonicalize(base.join(link))
+    }
+
+    /// Get DRM render path
+    #[cfg(feature = "std")]
+    pub fn get_drm_render_path(&self) -> std::io::Result<PathBuf> {
+        self.get_drm_path("render")
+    }
+
+    /// Get DRM card path
+    #[cfg(feature = "std")]
+    pub fn get_drm_card_path(&self) -> std::io::Result<PathBuf> {
+        self.get_drm_path("card")
+    }
+
     /// Get device debug path
     #[cfg(feature = "std")]
     pub fn get_debug_dri_path(&self) -> std::io::Result<PathBuf> {
