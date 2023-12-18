@@ -23,6 +23,14 @@ use bindings::{
 macro_rules! impl_mode_info {
     ($name: tt, $flag: expr) => {
         pub fn $name(&self) -> bool {
+            (self.type_ & $flag) != 0
+        }
+    }
+}
+
+macro_rules! impl_flag {
+    ($name: tt, $flag: expr) => {
+        pub fn $name(&self) -> bool {
             (self.flags & $flag) != 0
         }
     }
@@ -56,16 +64,16 @@ impl drmModeModeInfo {
     impl_mode_info!(type_is_preferred, DRM_MODE_TYPE_PREFERRED);
     impl_mode_info!(type_is_userdef, DRM_MODE_TYPE_USERDEF);
     impl_mode_info!(type_is_driver, DRM_MODE_TYPE_DRIVER);
-    impl_mode_info!(is_phsync, DRM_MODE_FLAG_PHSYNC);
-    impl_mode_info!(is_nhsync, DRM_MODE_FLAG_NHSYNC);
-    impl_mode_info!(is_pvsync, DRM_MODE_FLAG_PVSYNC);
-    impl_mode_info!(is_nvsync, DRM_MODE_FLAG_NVSYNC);
-    impl_mode_info!(is_interlace, DRM_MODE_FLAG_INTERLACE);
-    impl_mode_info!(is_dblscan, DRM_MODE_FLAG_DBLSCAN);
-    impl_mode_info!(is_csync, DRM_MODE_FLAG_CSYNC);
-    impl_mode_info!(is_pcsync, DRM_MODE_FLAG_PCSYNC);
-    impl_mode_info!(is_ncsync, DRM_MODE_FLAG_NCSYNC);
-    impl_mode_info!(is_hskew, DRM_MODE_FLAG_HSKEW);
-    impl_mode_info!(is_dblclk, DRM_MODE_FLAG_DBLCLK);
-    impl_mode_info!(is_clkdiv2, DRM_MODE_FLAG_CLKDIV2);
+    impl_flag!(is_phsync, DRM_MODE_FLAG_PHSYNC);
+    impl_flag!(is_nhsync, DRM_MODE_FLAG_NHSYNC);
+    impl_flag!(is_pvsync, DRM_MODE_FLAG_PVSYNC);
+    impl_flag!(is_nvsync, DRM_MODE_FLAG_NVSYNC);
+    impl_flag!(is_interlace, DRM_MODE_FLAG_INTERLACE);
+    impl_flag!(is_dblscan, DRM_MODE_FLAG_DBLSCAN);
+    impl_flag!(is_csync, DRM_MODE_FLAG_CSYNC);
+    impl_flag!(is_pcsync, DRM_MODE_FLAG_PCSYNC);
+    impl_flag!(is_ncsync, DRM_MODE_FLAG_NCSYNC);
+    impl_flag!(is_hskew, DRM_MODE_FLAG_HSKEW);
+    impl_flag!(is_dblclk, DRM_MODE_FLAG_DBLCLK);
+    impl_flag!(is_clkdiv2, DRM_MODE_FLAG_CLKDIV2);
 }
