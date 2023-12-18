@@ -136,3 +136,13 @@ pub mod FW_VERSION {
 pub mod SENSOR_INFO {
     pub use super::sensor_info::*;
 }
+
+#[cfg(feature = "std")]
+pub fn get_all_amdgpu_pci_bus() -> Vec<PCI::BUS_INFO> {
+    let Ok(amdgpu_devices) = std::fs::read_dir("/sys/bus/pci/drivers/amdgpu") else { return Vec::new() };
+
+    amdgpu_devices.flat_map(|v| {
+        let name = v.ok()?.file_name();
+        name.into_string().ok()?.parse::<PCI::BUS_INFO>().ok()
+    }).collect()
+}

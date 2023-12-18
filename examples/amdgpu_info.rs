@@ -1,7 +1,7 @@
 use libdrm_amdgpu_sys::*;
 
-fn main() {
-    let device_path = std::env::var("AMDGPU_PATH").unwrap_or("/dev/dri/renderD128".to_string());
+fn info(pci_bus: PCI::BUS_INFO) {
+    let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
         use std::os::fd::IntoRawFd;
@@ -343,5 +343,13 @@ fn main() {
         if let Some(mem_temp) = HwmonTemp::from_hwmon_path(&hwmon, HwmonTempType::Memory) {
             println!("{mem_temp:?}");
         }
+    }
+
+    println!();
+}
+
+fn main() {
+    for pci_bus in AMDGPU::get_all_amdgpu_pci_bus() {
+        info(pci_bus);
     }
 }
