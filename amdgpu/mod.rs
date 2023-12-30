@@ -143,6 +143,10 @@ pub fn get_all_amdgpu_pci_bus() -> Vec<PCI::BUS_INFO> {
 
     amdgpu_devices.flat_map(|v| {
         let name = v.ok()?.file_name();
+
+        /* 0000:00:00.0 */
+        if name.len() != 12 { return None; }
+
         name.into_string().ok()?.parse::<PCI::BUS_INFO>().ok()
     }).collect()
 }

@@ -349,7 +349,13 @@ fn info(pci_bus: PCI::BUS_INFO) {
 }
 
 fn main() {
-    for pci_bus in AMDGPU::get_all_amdgpu_pci_bus() {
+    let pci_devs = AMDGPU::get_all_amdgpu_pci_bus();
+
+    if pci_devs.is_empty() {
+        panic!("No AMDGPU devices.");
+    }
+
+    for pci_bus in &pci_devs {
         info(pci_bus);
     }
 }
