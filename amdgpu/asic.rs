@@ -28,7 +28,8 @@
     Commit: dda718d2bfe9309145d8e521c59c617e7674045a
 */
 
-use crate::*;
+use crate::AMDGPU::{CHIP_CLASS, FAMILY_NAME, GfxTargetVersion};
+
 
 /// List of AMDGPU ASIC name
 /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/amd_family.h>
@@ -142,8 +143,6 @@ pub enum ASIC_NAME {
     CHIP_GFX1150,
 }
 
-use crate::AMDGPU::{CHIP_CLASS, FAMILY_NAME};
-
 impl ASIC_NAME {
     /// Get the ASIC name from [FAMILY_NAME] and `chip_external_rev`
     pub fn get(family: FAMILY_NAME, chip_external_rev: u32) -> Self {
@@ -232,7 +231,7 @@ impl ASIC_NAME {
 
     /// Get [CHIP_CLASS] from [ASIC_NAME]
     pub fn chip_class(&self) -> CHIP_CLASS {
-        AMDGPU::CHIP_CLASS::from(*self)
+        CHIP_CLASS::from(*self)
     }
 
     /// Check if ASIC has RB+ (RenderBackendPlus)
@@ -407,6 +406,7 @@ impl ASIC_NAME {
     }
 
     /// Target name (GPU ID, GFX ID) for LLVM
+    /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/amd_family.c>
     pub fn get_gfx_target_name(&self) -> &str {
         match self {
             Self::CHIP_TAHITI => "gfx600",

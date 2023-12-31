@@ -1,4 +1,5 @@
 use crate::bindings::{amdgpu_gpu_info, drm_amdgpu_info_device};
+use crate::AMDGPU::GfxTargetVersion;
 use crate::*;
 
 /// Information that [amdgpu_gpu_info] and [drm_amdgpu_info_device] have in common
@@ -59,11 +60,11 @@ pub trait GPU_INFO {
         self.rb_pipes() * rop_per_rb
     }
 
+    /// \[CU\] * \[Lane\] * 2 \[ops\] * \[GHz\]
     fn peak_gflops(&self) -> u32 {
         let cu = self.cu_active_number() as u32;
         let lane = if self.get_chip_class() >= AMDGPU::CHIP_CLASS::GFX11 { 128 } else { 64 };
         let mhz = (self.max_engine_clock() / 1000) as u32;
-        /* [CU] * [Lane] * 2 [ops] * [GHz] */
         (cu * lane * 2 * mhz) / 1000
     }
 
@@ -98,6 +99,62 @@ pub trait GPU_INFO {
 
     fn get_gl1_cache_size(&self) -> u32 {
         self.get_asic_name().gl1_cache_size()
+    }
+
+    /// ref: drivers/gpu/drm/amd/amd/amdkfd/kfd_device.c
+    fn get_gfx_target_version(&self) -> Option<GfxTargetVersion> {
+        use AMDGPU::ASIC_NAME;
+
+        let asic = self.get_asic_name();
+
+        let gfx_ver = match asic {
+            ASIC_NAME::CHIP_KAVERI => (7, 0, 0),
+            ASIC_NAME::CHIP_CARRIZO => (8, 0, 1),
+            ASIC_NAME::CHIP_HAWAII => (7, 0, 1),
+            ASIC_NAME::CHIP_TONGA => (8, 0, 2),
+            ASIC_NAME::CHIP_FIJI |
+            ASIC_NAME::CHIP_POLARIS10 |
+            ASIC_NAME::CHIP_POLARIS11 |
+            ASIC_NAME::CHIP_POLARIS12 |
+            ASIC_NAME::CHIP_VEGAM => (8, 0, 3),
+            ASIC_NAME::CHIP_VEGA10 => (9, 0, 0),
+            ASIC_NAME::CHIP_RAVEN |
+            ASIC_NAME::CHIP_RAVEN2 => (9, 0, 2),
+            ASIC_NAME::CHIP_RENOIR => (9, 0, 12),
+            ASIC_NAME::CHIP_VEGA20 => (9, 0, 6),
+            ASIC_NAME::CHIP_ARCTURUS => (9, 0, 8),
+            ASIC_NAME::CHIP_ALDEBARAN => (9, 0, 10),
+            // TODO: ASIC_NAME::CHIP_GFX940
+            ASIC_NAME::CHIP_NAVI10 => (10, 1, 0),
+            ASIC_NAME::CHIP_NAVI12 => (10, 1, 1),
+            ASIC_NAME::CHIP_NAVI14 => (10, 1, 2),
+            // TODO: ASIC_NAME::CYAN_SKILLFISH
+            ASIC_NAME::CHIP_NAVI21 => (10, 3, 0),
+            ASIC_NAME::CHIP_NAVI22 => (10, 3, 1),
+            ASIC_NAME::CHIP_VANGOGH => (10, 3, 3),
+            ASIC_NAME::CHIP_NAVI23 => (10, 3, 2),
+            ASIC_NAME::CHIP_NAVI24 => (10, 3, 4),
+            ASIC_NAME::CHIP_REMBRANDT => (10, 3, 5),
+            ASIC_NAME::CHIP_GFX1036 => (10, 3, 6),
+            ASIC_NAME::CHIP_GFX1100 => (11, 0, 0),
+            ASIC_NAME::CHIP_GFX1101 => {
+                let did = self.device_id();
+                let rid = self.pci_rev_id();
+
+                match (did, rid) {
+                    (0x7460, 0x00) |
+                    (0x7461, 0x00) => (11, 0, 5),
+                    _ => (11, 0, 1),
+                }
+            },
+            ASIC_NAME::CHIP_GFX1102 => (11, 0, 2),
+            ASIC_NAME::CHIP_GFX1103_R1 |
+            ASIC_NAME::CHIP_GFX1103_R2 => (11, 0, 3),
+            ASIC_NAME::CHIP_GFX1150 => (11, 5, 0),
+            _ => return None,
+        };
+
+        Some(GfxTargetVersion::from(gfx_ver))
     }
 }
 
@@ -190,7 +247,7 @@ impl drm_amdgpu_info_device {
         self.num_tcc_blocks
     }
 
-    // num_tcc_blocks - self.tcc_disabled_mask.count_ones() = memory channels
+    /// num_tcc_blocks - self.tcc_disabled_mask.count_ones() = memory channels
     pub fn get_actual_num_tcc_blocks(&self) -> u32 {
         self.num_tcc_blocks - self.tcc_disabled_mask.count_ones()
     }
