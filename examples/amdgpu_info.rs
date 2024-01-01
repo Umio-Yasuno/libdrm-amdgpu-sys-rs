@@ -1,6 +1,6 @@
 use libdrm_amdgpu_sys::*;
 
-fn info(pci_bus: PCI::BUS_INFO) {
+fn info(pci_bus: &PCI::BUS_INFO) {
     let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
@@ -36,6 +36,10 @@ fn info(pci_bus: PCI::BUS_INFO) {
         println!("Chip class:\t{}", ext_info.get_chip_class());
         println!("GFX ID:\t\t{}", asic.get_gfx_target_name());
         println!("GPU Type:\t{gpu_type}");
+
+        if let Some(gfx_ver) = ext_info.get_gfx_target_version() {
+            println!("gfx_target_version: {gfx_ver}");
+        }
 
         let max_good_cu_per_sa = ext_info.get_max_good_cu_per_sa();
         let min_good_cu_per_sa = ext_info.get_min_good_cu_per_sa();
