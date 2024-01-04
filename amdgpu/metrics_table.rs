@@ -20,14 +20,18 @@ use crate::AMDGPU::ThrottleStatus;
 
 impl metrics_table_header {
     pub(crate) fn from_bytes(buf: &[u8]) -> Self {
-        if buf.len() < 4 {
-            return Self { structure_size: 0, format_revision: 0, content_revision: 0 };
-        }
+        let [structer_size_0, structer_size_1, format_revision, content_revision] = {
+            if let Some(tmp) = buf.get(0..4).and_then(|v| v.try_into().ok()) {
+                tmp
+            } else {
+                return Self { structure_size: 0, format_revision: 0, content_revision: 0 };
+            }
+        };
 
         Self {
-            structure_size: u16::from_le_bytes([buf[0], buf[1]]),
-            format_revision: buf[2],
-            content_revision: buf[3]
+            structure_size: u16::from_le_bytes([structer_size_0, structer_size_1]),
+            format_revision,
+            content_revision,
         }
     }
 
