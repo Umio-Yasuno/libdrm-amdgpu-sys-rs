@@ -123,6 +123,7 @@ pub enum ASIC_NAME {
     CHIP_RENOIR,    /* Ryzen 4000, 5000 */
     CHIP_ARCTURUS,  /* MI100 */
     CHIP_ALDEBARAN, /* MI200 */
+    CHIP_GFX940, /* MI300, Aqua Vanjaram */
     /* GFX10.1 (RDNA 1) */
     CHIP_NAVI10, /* Radeon 5600, 5700 */
     CHIP_NAVI12, /* Radeon Pro 5600M */
@@ -190,7 +191,12 @@ impl ASIC_NAME {
                 0x14..=0x27 => Self::CHIP_VEGA12,
                 0x28..=0x31 => Self::CHIP_VEGA20,
                 0x32..=0x3B => Self::CHIP_ARCTURUS,
-                0x3C..=0xFF => Self::CHIP_ALDEBARAN,
+                0x3C..=0x45 => Self::CHIP_ALDEBARAN,
+                /*
+                    ref: drivers/gpu/drm/amd/amdgpu/soc15.c
+                    ref: https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/ac_gpu_info.c
+                */
+                0x46..=0xFF => Self::CHIP_GFX940,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::RV => match rev {
@@ -553,8 +559,9 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_RAVEN => write!(f, "Raven"),
             Self::CHIP_RAVEN2 => write!(f, "Raven2"),
             Self::CHIP_RENOIR => write!(f, "Renoir"),
-            Self::CHIP_ARCTURUS => write!(f, "Arcturus"),
-            Self::CHIP_ALDEBARAN => write!(f, "Aldebaran"),
+            Self::CHIP_ARCTURUS => write!(f, "Arcturus/MI100"),
+            Self::CHIP_ALDEBARAN => write!(f, "Aldebaran/MI200"),
+            Self::CHIP_GFX940 => write!(f, "GFX940/MI300"),
             /* GFX10.1 (RDNA 1) */
             Self::CHIP_NAVI10 => write!(f, "Navi10"),
             Self::CHIP_NAVI12 => write!(f, "Navi12"),
