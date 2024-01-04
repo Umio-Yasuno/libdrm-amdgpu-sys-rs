@@ -167,6 +167,9 @@ pub trait MetricsInfo {
     fn get_average_soc_current(&self) -> Option<u16>;
     fn get_average_gfx_current(&self) -> Option<u16>;
 
+    /// Clock Lock Status. Each bit corresponds to clock instance
+    fn get_gfxclk_lock_status(&self) -> Option<u32>;
+
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
         let thr = self.get_indep_throttle_status()?;
         Some(ThrottleStatus::new(thr))
@@ -386,6 +389,10 @@ macro_rules! v1_impl {
         fn get_average_gfx_current(&self) -> Option<u16> {
             None
         }
+
+        fn get_gfxclk_lock_status(&self) -> Option<u32> {
+            None
+        }
     }
 }
 
@@ -433,11 +440,9 @@ macro_rules! v1_4_v1_5_impl {
             Some(self.throttle_status)
         }
 
-    /*
-        fn get_gfxclk_lock_status(&self) -> Option<_> {
-            Some(_)
+        fn get_gfxclk_lock_status(&self) -> Option<u32> {
+            Some(self.gfxclk_lock_status)
         }
-    */
 
     /*
         fn get_xgmi_link_width(&self) -> Option<_> {
@@ -988,6 +993,10 @@ macro_rules! v2_impl {
         }
 
         fn get_voltage_mem(&self) -> Option<u16> {
+            None
+        }
+
+        fn get_gfxclk_lock_status(&self) -> Option<u32> {
             None
         }
     }
