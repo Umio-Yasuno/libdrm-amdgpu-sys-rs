@@ -183,8 +183,7 @@ pub trait MetricsInfo {
     fn get_gfxclk_lock_status(&self) -> Option<u32>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
-        let thr = self.get_indep_throttle_status()?;
-        Some(ThrottleStatus::new(thr))
+        self.get_indep_throttle_status().map(|thr| ThrottleStatus::new(thr))
     }
 }
 
