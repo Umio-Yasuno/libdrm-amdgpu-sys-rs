@@ -1,4 +1,4 @@
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Eq, PartialEq)]
 pub struct GfxTargetVersion {
     pub major: u32,
     pub minor: u32,
