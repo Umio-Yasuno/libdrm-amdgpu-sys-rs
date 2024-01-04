@@ -120,6 +120,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_soc_current, Option<u16>);
     impl_metrics!(get_average_gfx_current, Option<u16>);
     impl_metrics!(get_gfxclk_lock_status, Option<u32>);
+    impl_metrics!(get_all_instances_current_gfxclk, Option<[u16; MAX_GFX_CLKS as usize]>);
 }
 
 impl DeviceHandle {

@@ -16,6 +16,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_3,
     gpu_metrics_v2_4,
     NUM_HBM_INSTANCES,
+    MAX_GFX_CLKS,
 };
 use crate::AMDGPU::ThrottleStatus;
 
@@ -181,6 +182,8 @@ pub trait MetricsInfo {
 
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_gfxclk_lock_status(&self) -> Option<u32>;
+
+    fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
         self.get_indep_throttle_status().map(|thr| ThrottleStatus::new(thr))
@@ -404,6 +407,10 @@ macro_rules! v1_impl {
         fn get_gfxclk_lock_status(&self) -> Option<u32> {
             None
         }
+
+        fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> {
+            None
+        }
     }
 }
 
@@ -455,6 +462,9 @@ macro_rules! v1_4_v1_5_impl {
             Some(self.gfxclk_lock_status)
         }
 
+        fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> {
+            Some(self.current_gfxclk)
+        }
     /*
         fn get_xgmi_link_width(&self) -> Option<_> {
             Some(_)
@@ -1008,6 +1018,10 @@ macro_rules! v2_impl {
         }
 
         fn get_gfxclk_lock_status(&self) -> Option<u32> {
+            None
+        }
+
+        fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> {
             None
         }
     }
