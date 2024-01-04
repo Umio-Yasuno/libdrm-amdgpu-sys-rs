@@ -138,7 +138,9 @@ pub trait MetricsInfo {
     fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
+    /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_width(&self) -> Option<u16>;
+    /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_speed(&self) -> Option<u16>;
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
