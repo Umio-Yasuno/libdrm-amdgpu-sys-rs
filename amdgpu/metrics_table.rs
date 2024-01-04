@@ -142,10 +142,13 @@ pub trait MetricsInfo {
     fn get_pcie_link_width(&self) -> Option<u16>;
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_speed(&self) -> Option<u16>;
+
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
+
     /// Only Aldebaran (MI200) supports it.
     fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]>;
+
     /// mV
     fn get_voltage_soc(&self) -> Option<u16>;
     /// mV
@@ -155,18 +158,25 @@ pub trait MetricsInfo {
 
     /// Average Temperature (unit: centi-Celsius)
     fn get_average_temperature_gfx(&self) -> Option<u16>;
+    /// Average Temperature (unit: centi-Celsius)
     fn get_average_temperature_soc(&self) -> Option<u16>;
+    /// Average Temperature (unit: centi-Celsius)
     fn get_average_temperature_core(&self) -> Option<Vec<u16>>;
+    /// Average Temperature (unit: centi-Celsius)
     fn get_average_temperature_l3(&self) -> Option<Vec<u16>>;
 
     /// Power/Voltage (unit: mV)
     fn get_average_cpu_voltage(&self) -> Option<u16>;
+    /// Power/Voltage (unit: mV)
     fn get_average_soc_voltage(&self) -> Option<u16>;
+    /// Power/Voltage (unit: mV)
     fn get_average_gfx_voltage(&self) -> Option<u16>;
 
     /// Power/Current (unit: mA)
     fn get_average_cpu_current(&self) -> Option<u16>;
+    /// Power/Voltage (unit: mV)
     fn get_average_soc_current(&self) -> Option<u16>;
+    /// Power/Voltage (unit: mV)
     fn get_average_gfx_current(&self) -> Option<u16>;
 
     /// Clock Lock Status. Each bit corresponds to clock instance
