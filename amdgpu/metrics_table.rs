@@ -183,10 +183,13 @@ pub trait MetricsInfo {
 
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_gfxclk_lock_status(&self) -> Option<u32>;
+    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_current_socket_power(&self) -> Option<u16>;
+
     /// All instances (XCC) current gfx clock for MI300
     fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]>;
 
-    /// Utilization (%), only MI300 supports it.
+    /// Utilization (%), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
@@ -346,6 +349,7 @@ macro_rules! v1_impl {
         fn get_average_soc_current(&self) -> Option<u16> { None }
         fn get_average_gfx_current(&self) -> Option<u16> { None }
         fn get_gfxclk_lock_status(&self) -> Option<u32> { None }
+        fn get_current_socket_power(&self) -> Option<u16> { None }
         fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
     }
@@ -377,11 +381,9 @@ macro_rules! v1_4_v1_5_impl {
             Some(self.average_umc_activity)
         }
 
-    /*
-        fn get_current_socket_power(&self) -> Option<_> {
-            Some(_)
+        fn get_current_socket_power(&self) -> Option<u16> {
+            Some(self.curr_socket_power)
         }
-    */
 
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> {
             Some(self.vcn_activity)
@@ -719,6 +721,7 @@ macro_rules! v2_impl {
         fn get_voltage_gfx(&self) -> Option<u16> { None }
         fn get_voltage_mem(&self) -> Option<u16> { None }
         fn get_gfxclk_lock_status(&self) -> Option<u32> { None }
+        fn get_current_socket_power(&self) -> Option<u16> { None }
         fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
     }
