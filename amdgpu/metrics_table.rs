@@ -146,6 +146,10 @@ pub trait MetricsInfo {
     fn get_pcie_link_width(&self) -> Option<u16>;
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_speed(&self) -> Option<u16>;
+    /// PCIE accumulated bandwidth (GB/sec), only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_pcie_bandwidth_acc(&self) -> Option<u64>;
+    /// PCIE instantaneous bandwidth (GB/sec), only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_pcie_bandwidth_inst(&self) -> Option<u64>;
 
     /// XGMI bus width and bitrate (in Gbps)
     fn get_xgmi_link_width(&self) -> Option<u16>;
@@ -353,6 +357,8 @@ macro_rules! v1_impl {
 
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
+        fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
+        fn get_pcie_bandwidth_inst(&self) -> Option<u64> { None }
         fn get_average_temperature_gfx(&self) -> Option<u16> { None }
         fn get_average_temperature_soc(&self) -> Option<u16> { None }
         fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
@@ -441,6 +447,14 @@ macro_rules! v1_4_v1_5_impl {
 
         fn get_pcie_link_speed(&self) -> Option<u16> {
             Some(self.pcie_link_speed)
+        }
+
+        fn get_pcie_bandwidth_acc(&self) -> Option<u64> {
+            Some(self.pcie_bandwidth_acc)
+        }
+
+        fn get_pcie_bandwidth_inst(&self) -> Option<u64> {
+            Some(self.pcie_bandwidth_inst)
         }
 
         fn get_xgmi_link_width(&self) -> Option<u16> {
@@ -743,6 +757,8 @@ macro_rules! v2_impl {
 
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
+        fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
+        fn get_pcie_bandwidth_inst(&self) -> Option<u64> { None }
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
         fn get_gfx_activity_acc(&self) -> Option<u32> { None }

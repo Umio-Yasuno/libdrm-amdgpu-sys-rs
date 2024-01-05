@@ -110,6 +110,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_fan_pwm, Option<u16>);
     impl_metrics!(get_pcie_link_width, Option<u16>);
     impl_metrics!(get_pcie_link_speed, Option<u16>);
+    impl_metrics!(get_pcie_bandwidth_acc, Option<u64>);
+    impl_metrics!(get_pcie_bandwidth_inst, Option<u64>);
     impl_metrics!(get_xgmi_link_width, Option<u16>);
     impl_metrics!(get_xgmi_link_speed, Option<u16>);
     impl_metrics!(get_gfx_activity_acc, Option<u32>);
