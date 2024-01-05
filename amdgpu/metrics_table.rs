@@ -17,6 +17,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_4,
     NUM_HBM_INSTANCES,
     NUM_VCN,
+    MAX_CLKS,
     MAX_GFX_CLKS,
 };
 use crate::AMDGPU::ThrottleStatus;
@@ -186,8 +187,14 @@ pub trait MetricsInfo {
     /// Only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_current_socket_power(&self) -> Option<u16>;
 
-    /// All instances (XCC) current gfx clock for MI300
+    /// All instances (XCC) current gfx clock, only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]>;
+    /// All instances current soc clock, only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]>;
+    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]>;
+    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]>;
 
     /// Utilization (%), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]>;
@@ -351,6 +358,9 @@ macro_rules! v1_impl {
         fn get_gfxclk_lock_status(&self) -> Option<u32> { None }
         fn get_current_socket_power(&self) -> Option<u16> { None }
         fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> { None }
+        fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
     }
 }
@@ -403,6 +413,18 @@ macro_rules! v1_4_v1_5_impl {
 
         fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> {
             Some(self.current_gfxclk)
+        }
+
+        fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]> {
+            Some(self.current_socclk)
+        }
+
+        fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> {
+            Some(self.current_vclk0)
+        }
+
+        fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> {
+            Some(self.current_dclk0)
         }
     /*
         fn get_xgmi_link_width(&self) -> Option<_> {
@@ -723,6 +745,9 @@ macro_rules! v2_impl {
         fn get_gfxclk_lock_status(&self) -> Option<u32> { None }
         fn get_current_socket_power(&self) -> Option<u16> { None }
         fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> { None }
+        fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
     }
 }
