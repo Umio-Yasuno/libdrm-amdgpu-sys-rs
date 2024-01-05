@@ -141,10 +141,16 @@ pub trait MetricsInfo {
     fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;
+
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_width(&self) -> Option<u16>;
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_speed(&self) -> Option<u16>;
+
+    /// XGMI bus width and bitrate (in Gbps)
+    fn get_xgmi_link_width(&self) -> Option<u16>;
+    /// XGMI bus width and bitrate (in Gbps)
+    fn get_xgmi_link_speed(&self) -> Option<u16>;
 
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
@@ -345,6 +351,8 @@ macro_rules! v1_impl {
             Some(self.pcie_link_speed as u16)
         }
 
+        fn get_xgmi_link_width(&self) -> Option<u16> { None }
+        fn get_xgmi_link_speed(&self) -> Option<u16> { None }
         fn get_average_temperature_gfx(&self) -> Option<u16> { None }
         fn get_average_temperature_soc(&self) -> Option<u16> { None }
         fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
@@ -426,15 +434,22 @@ macro_rules! v1_4_v1_5_impl {
         fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> {
             Some(self.current_dclk0)
         }
-    /*
-        fn get_xgmi_link_width(&self) -> Option<_> {
-            Some(_)
+
+        fn get_pcie_link_width(&self) -> Option<u16> {
+            Some(self.pcie_link_width)
         }
 
-        fn get_xgmi_link_speed(&self) -> Option<_> {
-            Some(_)
+        fn get_pcie_link_speed(&self) -> Option<u16> {
+            Some(self.pcie_link_speed)
         }
-    */
+
+        fn get_xgmi_link_width(&self) -> Option<u16> {
+            Some(self.xgmi_link_width)
+        }
+
+        fn get_xgmi_link_speed(&self) -> Option<u16> {
+            Some(self.xgmi_link_speed)
+        }
 
         fn get_gfx_activity_acc(&self) -> Option<u32> {
             Some(self.gfx_activity_acc)
@@ -586,14 +601,6 @@ impl MetricsInfo for gpu_metrics_v1_3 {
 }
 
 impl MetricsInfo for gpu_metrics_v1_4 {
-    fn get_pcie_link_width(&self) -> Option<u16> {
-        Some(self.pcie_link_width)
-    }
-
-    fn get_pcie_link_speed(&self) -> Option<u16> {
-        Some(self.pcie_link_speed)
-    }
-
     v1_4_v1_5_impl!();
 
 }
@@ -736,6 +743,8 @@ macro_rules! v2_impl {
 
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
+        fn get_xgmi_link_width(&self) -> Option<u16> { None }
+        fn get_xgmi_link_speed(&self) -> Option<u16> { None }
         fn get_gfx_activity_acc(&self) -> Option<u32> { None }
         fn get_mem_activity_acc(&self) -> Option<u32> { None }
         fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
