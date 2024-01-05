@@ -3,6 +3,7 @@ use crate::AMDGPU::{
     MetricsInfo,
     NUM_HBM_INSTANCES,
     NUM_VCN,
+    NUM_XGMI_LINKS,
     MAX_CLKS,
     MAX_GFX_CLKS,
 };
@@ -114,6 +115,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_pcie_bandwidth_inst, Option<u64>);
     impl_metrics!(get_xgmi_link_width, Option<u16>);
     impl_metrics!(get_xgmi_link_speed, Option<u16>);
+    impl_metrics!(get_xgmi_read_data_acc, Option<[u64; NUM_XGMI_LINKS as usize]>);
+    impl_metrics!(get_xgmi_write_data_acc, Option<[u64; NUM_XGMI_LINKS as usize]>);
     impl_metrics!(get_gfx_activity_acc, Option<u32>);
     impl_metrics!(get_mem_activity_acc, Option<u32>);
     impl_metrics!(get_temperature_hbm, Option<[u16; NUM_HBM_INSTANCES as usize]>);

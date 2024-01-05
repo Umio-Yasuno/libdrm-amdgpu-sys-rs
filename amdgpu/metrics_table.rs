@@ -17,6 +17,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_4,
     NUM_HBM_INSTANCES,
     NUM_VCN,
+    NUM_XGMI_LINKS,
     MAX_CLKS,
     MAX_GFX_CLKS,
 };
@@ -151,10 +152,16 @@ pub trait MetricsInfo {
     /// PCIE instantaneous bandwidth (GB/sec), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_pcie_bandwidth_inst(&self) -> Option<u64>;
 
-    /// XGMI bus width and bitrate (in Gbps)
+    /// XGMI bus width and bitrate (in Gbps), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_xgmi_link_width(&self) -> Option<u16>;
-    /// XGMI bus width and bitrate (in Gbps)
+    /// XGMI bus width and bitrate (in Gbps), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_xgmi_link_speed(&self) -> Option<u16>;
+    /// XGMI accumulated data transfer size(KiloBytes),
+    /// only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]>;
+    /// XGMI accumulated data transfer size(KiloBytes),
+    /// only MI300 with [gpu_metrics_v1_4] supports it.
+    fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]>;
 
     fn get_gfx_activity_acc(&self) -> Option<u32>;
     fn get_mem_activity_acc(&self) -> Option<u32>;
@@ -357,6 +364,8 @@ macro_rules! v1_impl {
 
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
+        fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
+        fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
         fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
         fn get_pcie_bandwidth_inst(&self) -> Option<u64> { None }
         fn get_average_temperature_gfx(&self) -> Option<u16> { None }
@@ -463,6 +472,14 @@ macro_rules! v1_4_v1_5_impl {
 
         fn get_xgmi_link_speed(&self) -> Option<u16> {
             Some(self.xgmi_link_speed)
+        }
+
+        fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> {
+            Some(self.xgmi_read_data_acc)
+        }
+
+        fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> {
+            Some(self.xgmi_write_data_acc)
         }
 
         fn get_gfx_activity_acc(&self) -> Option<u32> {
@@ -761,6 +778,8 @@ macro_rules! v2_impl {
         fn get_pcie_bandwidth_inst(&self) -> Option<u64> { None }
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
+        fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
+        fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
         fn get_gfx_activity_acc(&self) -> Option<u32> { None }
         fn get_mem_activity_acc(&self) -> Option<u32> { None }
         fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
