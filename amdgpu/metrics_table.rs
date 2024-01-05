@@ -149,20 +149,24 @@ pub trait MetricsInfo {
     fn get_pcie_link_width(&self) -> Option<u16>;
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_pcie_link_speed(&self) -> Option<u16>;
-    /// PCIE accumulated bandwidth (GB/sec), only MI300 with [gpu_metrics_v1_4] supports it.
+    /// PCIE accumulated bandwidth (GB/sec),
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_pcie_bandwidth_acc(&self) -> Option<u64>;
-    /// PCIE instantaneous bandwidth (GB/sec), only MI300 with [gpu_metrics_v1_4] supports it.
+    /// PCIE instantaneous bandwidth (GB/sec)
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_pcie_bandwidth_inst(&self) -> Option<u64>;
 
-    /// XGMI bus width and bitrate (in Gbps), only MI300 with [gpu_metrics_v1_4] supports it.
+    /// XGMI bus width and bitrate (in Gbps)
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_xgmi_link_width(&self) -> Option<u16>;
-    /// XGMI bus width and bitrate (in Gbps), only MI300 with [gpu_metrics_v1_4] supports it.
+    /// XGMI bus width and bitrate (in Gbps)
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_xgmi_link_speed(&self) -> Option<u16>;
     /// XGMI accumulated data transfer size(KiloBytes),
-    /// only MI300 with [gpu_metrics_v1_4] supports it.
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]>;
     /// XGMI accumulated data transfer size(KiloBytes),
-    /// only MI300 with [gpu_metrics_v1_4] supports it.
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]>;
 
     fn get_gfx_activity_acc(&self) -> Option<u32>;
@@ -203,19 +207,21 @@ pub trait MetricsInfo {
 
     /// Clock Lock Status. Each bit corresponds to clock instance
     fn get_gfxclk_lock_status(&self) -> Option<u32>;
-    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    /// Only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_current_socket_power(&self) -> Option<u16>;
 
-    /// All instances (XCC) current gfx clock, only MI300 with [gpu_metrics_v1_4] supports it.
+    /// All instances (XCC) current gfx clock,
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]>;
-    /// All instances current soc clock, only MI300 with [gpu_metrics_v1_4] supports it.
+    /// All instances current soc clock,
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]>;
-    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    /// Only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]>;
-    /// Only MI300 with [gpu_metrics_v1_4] supports it.
+    /// Only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]>;
 
-    /// Utilization (%), only MI300 with [gpu_metrics_v1_4] supports it.
+    /// Utilization (%), only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]>;
     /// Utilization (%), only MI300 with [gpu_metrics_v1_5] supports it.
     fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]>;
