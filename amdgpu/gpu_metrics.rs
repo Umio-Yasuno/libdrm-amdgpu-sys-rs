@@ -1,4 +1,10 @@
-use crate::AMDGPU::*;
+use crate::AMDGPU::{
+    DeviceHandle,
+    MetricsInfo,
+    NUM_HBM_INSTANCES,
+    NUM_VCN,
+    MAX_GFX_CLKS,
+};
 pub use crate::bindings::{
     metrics_table_header,
     gpu_metrics_v1_0,
@@ -121,6 +127,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_gfx_current, Option<u16>);
     impl_metrics!(get_gfxclk_lock_status, Option<u32>);
     impl_metrics!(get_all_instances_current_gfxclk, Option<[u16; MAX_GFX_CLKS as usize]>);
+    impl_metrics!(get_all_vcn_activity, Option<[u16; NUM_VCN as usize]>);
 }
 
 impl DeviceHandle {
