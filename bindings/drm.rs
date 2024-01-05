@@ -733,6 +733,7 @@ pub const NUM_XGMI_LINKS: u32 = 8;
 pub const MAX_GFX_CLKS: u32 = 8;
 pub const MAX_CLKS: u32 = 4;
 pub const NUM_VCN: u32 = 4;
+pub const NUM_JPEG_ENG: u32 = 32;
 pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
 pub type __u_char = ::core::ffi::c_uchar;
@@ -21946,6 +21947,412 @@ fn bindgen_test_layout_gpu_metrics_v1_4() {
         concat!(
             "Offset of field: ",
             stringify!(gpu_metrics_v1_4),
+            "::",
+            stringify!(padding)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct gpu_metrics_v1_5 {
+    pub common_header: metrics_table_header,
+    pub temperature_hotspot: u16,
+    pub temperature_mem: u16,
+    pub temperature_vrsoc: u16,
+    pub curr_socket_power: u16,
+    pub average_gfx_activity: u16,
+    pub average_umc_activity: u16,
+    pub vcn_activity: [u16; 4usize],
+    pub jpeg_activity: [u16; 32usize],
+    pub energy_accumulator: u64,
+    pub system_clock_counter: u64,
+    pub throttle_status: u32,
+    pub gfxclk_lock_status: u32,
+    pub pcie_link_width: u16,
+    pub pcie_link_speed: u16,
+    pub xgmi_link_width: u16,
+    pub xgmi_link_speed: u16,
+    pub gfx_activity_acc: u32,
+    pub mem_activity_acc: u32,
+    pub pcie_bandwidth_acc: u64,
+    pub pcie_bandwidth_inst: u64,
+    pub pcie_l0_to_recov_count_acc: u64,
+    pub pcie_replay_count_acc: u64,
+    pub pcie_replay_rover_count_acc: u64,
+    pub pcie_nak_sent_count_acc: u32,
+    pub pcie_nak_rcvd_count_acc: u32,
+    pub xgmi_read_data_acc: [u64; 8usize],
+    pub xgmi_write_data_acc: [u64; 8usize],
+    pub firmware_timestamp: u64,
+    pub current_gfxclk: [u16; 8usize],
+    pub current_socclk: [u16; 4usize],
+    pub current_vclk0: [u16; 4usize],
+    pub current_dclk0: [u16; 4usize],
+    pub current_uclk: u16,
+    pub padding: u16,
+}
+#[test]
+fn bindgen_test_layout_gpu_metrics_v1_5() {
+    const UNINIT: ::core::mem::MaybeUninit<gpu_metrics_v1_5> = ::core::mem::MaybeUninit::uninit();
+    let ptr = UNINIT.as_ptr();
+    assert_eq!(
+        ::core::mem::size_of::<gpu_metrics_v1_5>(),
+        360usize,
+        concat!("Size of: ", stringify!(gpu_metrics_v1_5))
+    );
+    assert_eq!(
+        ::core::mem::align_of::<gpu_metrics_v1_5>(),
+        8usize,
+        concat!("Alignment of ", stringify!(gpu_metrics_v1_5))
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).common_header) as usize - ptr as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(common_header)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).temperature_hotspot) as usize - ptr as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(temperature_hotspot)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).temperature_mem) as usize - ptr as usize },
+        6usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(temperature_mem)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).temperature_vrsoc) as usize - ptr as usize },
+        8usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(temperature_vrsoc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).curr_socket_power) as usize - ptr as usize },
+        10usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(curr_socket_power)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).average_gfx_activity) as usize - ptr as usize },
+        12usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(average_gfx_activity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).average_umc_activity) as usize - ptr as usize },
+        14usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(average_umc_activity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).vcn_activity) as usize - ptr as usize },
+        16usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(vcn_activity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).jpeg_activity) as usize - ptr as usize },
+        24usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(jpeg_activity)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).energy_accumulator) as usize - ptr as usize },
+        88usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(energy_accumulator)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).system_clock_counter) as usize - ptr as usize },
+        96usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(system_clock_counter)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).throttle_status) as usize - ptr as usize },
+        104usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(throttle_status)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).gfxclk_lock_status) as usize - ptr as usize },
+        108usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(gfxclk_lock_status)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_link_width) as usize - ptr as usize },
+        112usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_link_speed) as usize - ptr as usize },
+        114usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_link_speed)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).xgmi_link_width) as usize - ptr as usize },
+        116usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(xgmi_link_width)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).xgmi_link_speed) as usize - ptr as usize },
+        118usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(xgmi_link_speed)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).gfx_activity_acc) as usize - ptr as usize },
+        120usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(gfx_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).mem_activity_acc) as usize - ptr as usize },
+        124usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(mem_activity_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_bandwidth_acc) as usize - ptr as usize },
+        128usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_bandwidth_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_bandwidth_inst) as usize - ptr as usize },
+        136usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_bandwidth_inst)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_l0_to_recov_count_acc) as usize - ptr as usize },
+        144usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_l0_to_recov_count_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_replay_count_acc) as usize - ptr as usize },
+        152usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_replay_count_acc)
+        )
+    );
+    assert_eq!(
+        unsafe {
+            ::core::ptr::addr_of!((*ptr).pcie_replay_rover_count_acc) as usize - ptr as usize
+        },
+        160usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_replay_rover_count_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_nak_sent_count_acc) as usize - ptr as usize },
+        168usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_nak_sent_count_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).pcie_nak_rcvd_count_acc) as usize - ptr as usize },
+        172usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(pcie_nak_rcvd_count_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).xgmi_read_data_acc) as usize - ptr as usize },
+        176usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(xgmi_read_data_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).xgmi_write_data_acc) as usize - ptr as usize },
+        240usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(xgmi_write_data_acc)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).firmware_timestamp) as usize - ptr as usize },
+        304usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(firmware_timestamp)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_gfxclk) as usize - ptr as usize },
+        312usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(current_gfxclk)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_socclk) as usize - ptr as usize },
+        328usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(current_socclk)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_vclk0) as usize - ptr as usize },
+        336usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(current_vclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_dclk0) as usize - ptr as usize },
+        344usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(current_dclk0)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).current_uclk) as usize - ptr as usize },
+        352usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
+            "::",
+            stringify!(current_uclk)
+        )
+    );
+    assert_eq!(
+        unsafe { ::core::ptr::addr_of!((*ptr).padding) as usize - ptr as usize },
+        354usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(gpu_metrics_v1_5),
             "::",
             stringify!(padding)
         )

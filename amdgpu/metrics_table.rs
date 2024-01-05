@@ -10,6 +10,7 @@ pub use crate::bindings::{
     gpu_metrics_v1_2,
     gpu_metrics_v1_3,
     gpu_metrics_v1_4,
+    gpu_metrics_v1_5,
     gpu_metrics_v2_0,
     gpu_metrics_v2_1,
     gpu_metrics_v2_2,
@@ -633,7 +634,10 @@ impl MetricsInfo for gpu_metrics_v1_3 {
 
 impl MetricsInfo for gpu_metrics_v1_4 {
     v1_4_v1_5_impl!();
+}
 
+impl MetricsInfo for gpu_metrics_v1_5 {
+    v1_4_v1_5_impl!();
 }
 
 macro_rules! v2_impl {
