@@ -18,6 +18,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_4,
     NUM_HBM_INSTANCES,
     NUM_VCN,
+    NUM_JPEG_ENG,
     NUM_XGMI_LINKS,
     MAX_CLKS,
     MAX_GFX_CLKS,
@@ -216,6 +217,8 @@ pub trait MetricsInfo {
 
     /// Utilization (%), only MI300 with [gpu_metrics_v1_4] supports it.
     fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]>;
+    /// Utilization (%), only MI300 with [gpu_metrics_v1_5] supports it.
+    fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
         self.get_indep_throttle_status().map(|thr| ThrottleStatus::new(thr))
@@ -386,6 +389,7 @@ macro_rules! v1_impl {
         fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
+        fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> { None }
     }
 }
 
@@ -634,10 +638,16 @@ impl MetricsInfo for gpu_metrics_v1_3 {
 
 impl MetricsInfo for gpu_metrics_v1_4 {
     v1_4_v1_5_impl!();
+
+    fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> { None }
 }
 
 impl MetricsInfo for gpu_metrics_v1_5 {
     v1_4_v1_5_impl!();
+
+    fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> {
+        Some(self.jpeg_activity)
+    }
 }
 
 macro_rules! v2_impl {
@@ -797,6 +807,7 @@ macro_rules! v2_impl {
         fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
+        fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> { None }
     }
 }
 

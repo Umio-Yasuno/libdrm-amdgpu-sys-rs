@@ -3,6 +3,7 @@ use crate::AMDGPU::{
     MetricsInfo,
     NUM_HBM_INSTANCES,
     NUM_VCN,
+    NUM_JPEG_ENG,
     NUM_XGMI_LINKS,
     MAX_CLKS,
     MAX_GFX_CLKS,
@@ -143,6 +144,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_all_instances_current_vclk0, Option<[u16; MAX_CLKS as usize]>);
     impl_metrics!(get_all_instances_current_dclk0, Option<[u16; MAX_CLKS as usize]>);
     impl_metrics!(get_all_vcn_activity, Option<[u16; NUM_VCN as usize]>);
+    impl_metrics!(get_all_jpeg_activity, Option<[u16; NUM_JPEG_ENG as usize]>);
 }
 
 impl DeviceHandle {
