@@ -1205,6 +1205,10 @@ macro_rules! v3_impl {
             Some(self.average_mpipu_frequency)
         }
 
+        fn get_current_coreclk(&self) -> Option<Vec<u16>> {
+            Some(self.current_coreclk.to_vec())
+        }
+
         fn get_temperature_edge(&self) -> Option<u16> { None }
         fn get_temperature_hotspot(&self) -> Option<u16> { None }
         fn get_temperature_mem(&self) -> Option<u16> { None }
@@ -1219,7 +1223,6 @@ macro_rules! v3_impl {
         fn get_average_dclk_frequency(&self) -> Option<u16> { None }
         fn get_average_vclk1_frequency(&self) -> Option<u16> { None }
         fn get_average_dclk1_frequency(&self) -> Option<u16> { None }
-        fn get_current_coreclk(&self) -> Option<Vec<u16>> { None }
         fn get_current_l3clk(&self) -> Option<Vec<u16>> { None }
         fn get_current_gfxclk(&self) -> Option<u16> { None }
         fn get_current_socclk(&self) -> Option<u16> { None }
