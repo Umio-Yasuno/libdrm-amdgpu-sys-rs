@@ -91,10 +91,25 @@ pub trait MetricsInfo {
     fn get_average_gfx_activity(&self) -> Option<u16>;
     fn get_average_umc_activity(&self) -> Option<u16>;
     fn get_average_mm_activity(&self) -> Option<u16>;
+    /// time filtered IPU per-column busy % [0-100],
     /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
     fn get_average_ipu_activity(&self) -> Option<Vec<u16>>;
+    /// time filtered per-core C0 residency % [0-100],
     /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
     fn get_average_core_c0_activity(&self) -> Option<Vec<u16>>;
+
+    /// time filtered DRAM read bandwidth [MB/sec],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_dram_reads(&self) -> Option<u16>;
+    /// time filtered DRAM write bandwidth [MB/sec],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_dram_writes(&self) -> Option<u16>;
+    /// time filtered IPU read bandwidth [MB/sec],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_ipu_reads(&self) -> Option<u16>;
+    /// time filtered IPU write bandwidth [MB/sec],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_ipu_writes(&self) -> Option<u16>;
 
     fn get_system_clock_counter(&self) -> Option<u64>;
     /// Watts
@@ -391,6 +406,11 @@ macro_rules! v1_impl {
 
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_dram_reads(&self) -> Option<u16> { None }
+        fn get_average_dram_writes(&self) -> Option<u16> { None }
+        fn get_average_ipu_reads(&self) -> Option<u16> { None }
+        fn get_average_ipu_writes(&self) -> Option<u16> { None }
+
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
         fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
@@ -536,6 +556,10 @@ macro_rules! v1_4_v1_5_impl {
         fn get_average_mm_activity(&self) -> Option<u16> { None }
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_dram_reads(&self) -> Option<u16> { None }
+        fn get_average_dram_writes(&self) -> Option<u16> { None }
+        fn get_average_ipu_reads(&self) -> Option<u16> { None }
+        fn get_average_ipu_writes(&self) -> Option<u16> { None }
         fn get_average_socket_power(&self) -> Option<u32> { None }
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
@@ -813,6 +837,10 @@ macro_rules! v2_impl {
 
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_dram_reads(&self) -> Option<u16> { None }
+        fn get_average_dram_writes(&self) -> Option<u16> { None }
+        fn get_average_ipu_reads(&self) -> Option<u16> { None }
+        fn get_average_ipu_writes(&self) -> Option<u16> { None }
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
         fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
@@ -1009,8 +1037,25 @@ macro_rules! v3_impl {
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> {
             Some(self.average_ipu_activity.to_vec())
         }
+
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> {
             Some(self.average_core_c0_activity.to_vec())
+        }
+
+        fn get_average_dram_reads(&self) -> Option<u16> {
+            Some(self.average_dram_reads)
+        }
+
+        fn get_average_dram_writes(&self) -> Option<u16> {
+            Some(self.average_dram_writes)
+        }
+
+        fn get_average_ipu_reads(&self) -> Option<u16> {
+            Some(self.average_ipu_reads)
+        }
+
+        fn get_average_ipu_writes(&self) -> Option<u16> {
+            Some(self.average_ipu_writes)
         }
 
         fn get_system_clock_counter(&self) -> Option<u64> {
