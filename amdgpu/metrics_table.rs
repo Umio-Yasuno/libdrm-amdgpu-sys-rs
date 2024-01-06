@@ -192,20 +192,27 @@ pub trait MetricsInfo {
     fn get_average_temperature_l3(&self) -> Option<Vec<u16>>;
 
     /// Power/Voltage (unit: mV)
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_cpu_voltage(&self) -> Option<u16>;
     /// Power/Voltage (unit: mV)
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_soc_voltage(&self) -> Option<u16>;
     /// Power/Voltage (unit: mV)
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_gfx_voltage(&self) -> Option<u16>;
 
-    /// Power/Current (unit: mA)
+    /// Power/Current (unit: mA),
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_cpu_current(&self) -> Option<u16>;
     /// Power/Voltage (unit: mV)
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_soc_current(&self) -> Option<u16>;
     /// Power/Voltage (unit: mV)
+    /// only Vangogh with [gpu_metrics_v2_4] supports it.
     fn get_average_gfx_current(&self) -> Option<u16>;
 
-    /// Clock Lock Status. Each bit corresponds to clock instance
+    /// Clock Lock Status. Each bit corresponds to clock instance,
+    /// only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_gfxclk_lock_status(&self) -> Option<u32>;
     /// Only MI300 with [gpu_metrics_v1_4] or [gpu_metrics_v1_5] supports it.
     fn get_current_socket_power(&self) -> Option<u16>;
