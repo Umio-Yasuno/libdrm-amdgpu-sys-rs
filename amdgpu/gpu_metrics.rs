@@ -89,6 +89,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_gfx_activity, Option<u16>);
     impl_metrics!(get_average_umc_activity, Option<u16>);
     impl_metrics!(get_average_mm_activity, Option<u16>);
+    impl_metrics!(get_average_ipu_activity, Option<Vec<u16>>);
+    impl_metrics!(get_average_core_c0_activity, Option<Vec<u16>>);
     impl_metrics!(get_system_clock_counter, Option<u64>);
     impl_metrics!(get_average_socket_power, Option<u32>);
     impl_metrics!(get_average_cpu_power, Option<u16>);

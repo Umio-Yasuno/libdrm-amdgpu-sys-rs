@@ -91,6 +91,11 @@ pub trait MetricsInfo {
     fn get_average_gfx_activity(&self) -> Option<u16>;
     fn get_average_umc_activity(&self) -> Option<u16>;
     fn get_average_mm_activity(&self) -> Option<u16>;
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_ipu_activity(&self) -> Option<Vec<u16>>;
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_core_c0_activity(&self) -> Option<Vec<u16>>;
+
     fn get_system_clock_counter(&self) -> Option<u64>;
     /// Watts
     fn get_average_socket_power(&self) -> Option<u32>;
@@ -384,6 +389,8 @@ macro_rules! v1_impl {
             Some(self.pcie_link_speed as u16)
         }
 
+        fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
         fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
@@ -527,6 +534,8 @@ macro_rules! v1_4_v1_5_impl {
         fn get_temperature_vrgfx(&self) -> Option<u16> { None }
         fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
         fn get_average_mm_activity(&self) -> Option<u16> { None }
+        fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_socket_power(&self) -> Option<u32> { None }
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
@@ -802,6 +811,8 @@ macro_rules! v2_impl {
             Some(self.fan_pwm)
         }
 
+        fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
+        fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
         fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
@@ -829,7 +840,6 @@ macro_rules! v2_impl {
 
 impl MetricsInfo for gpu_metrics_v2_0 {
     v2_impl!();
-
     fn get_average_gfx_power(&self) -> Option<u32> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
@@ -994,6 +1004,13 @@ macro_rules! v3_impl {
 
         fn get_average_mm_activity(&self) -> Option<u16> {
             Some(self.average_vcn_activity)
+        }
+
+        fn get_average_ipu_activity(&self) -> Option<Vec<u16>> {
+            Some(self.average_ipu_activity.to_vec())
+        }
+        fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> {
+            Some(self.average_core_c0_activity.to_vec())
         }
 
         fn get_system_clock_counter(&self) -> Option<u64> {
