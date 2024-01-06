@@ -124,6 +124,23 @@ pub trait MetricsInfo {
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_average_core_power(&self) -> Option<Vec<u16>>;
+
+    /// time filtered IPU power \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_ipu_power(&self) -> Option<u16>;
+    /// time filtered APU power \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_apu_power(&self) -> Option<u32>;
+    /// time filtered dGPU power \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_dgpu_power(&self) -> Option<u32>;
+    /// time filtered sum of core power across all cores in the socket \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_all_core_power(&self) -> Option<u32>;
+    /// time filtered total system power \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_sys_power(&self) -> Option<u16>;
+
     /// MHz
     fn get_average_gfxclk_frequency(&self) -> Option<u16>;
     /// MHz
@@ -329,11 +346,6 @@ macro_rules! v1_impl {
             Some(self.average_socket_power as u32)
         }
 
-        fn get_average_cpu_power(&self) -> Option<u16> { None }
-        fn get_average_soc_power(&self) -> Option<u16> { None }
-        fn get_average_gfx_power(&self) -> Option<u32> { None }
-        fn get_average_core_power(&self) -> Option<Vec<u16>> { None }
-
         fn get_average_gfxclk_frequency(&self) -> Option<u16> {
             Some(self.average_gfxclk_frequency)
         }
@@ -425,6 +437,16 @@ macro_rules! v1_impl {
         fn get_average_dram_writes(&self) -> Option<u16> { None }
         fn get_average_ipu_reads(&self) -> Option<u16> { None }
         fn get_average_ipu_writes(&self) -> Option<u16> { None }
+
+        fn get_average_cpu_power(&self) -> Option<u16> { None }
+        fn get_average_soc_power(&self) -> Option<u16> { None }
+        fn get_average_gfx_power(&self) -> Option<u32> { None }
+        fn get_average_core_power(&self) -> Option<Vec<u16>> { None }
+        fn get_average_ipu_power(&self) -> Option<u16> { None }
+        fn get_average_apu_power(&self) -> Option<u32> { None }
+        fn get_average_dgpu_power(&self) -> Option<u32> { None }
+        fn get_average_all_core_power(&self) -> Option<u32> { None }
+        fn get_average_sys_power(&self) -> Option<u16> { None }
 
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
@@ -580,13 +602,19 @@ macro_rules! v1_4_v1_5_impl {
         fn get_average_dram_writes(&self) -> Option<u16> { None }
         fn get_average_ipu_reads(&self) -> Option<u16> { None }
         fn get_average_ipu_writes(&self) -> Option<u16> { None }
+
         fn get_average_socket_power(&self) -> Option<u32> { None }
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
         fn get_average_gfx_power(&self) -> Option<u32> { None }
         fn get_average_core_power(&self) -> Option<Vec<u16>> { None }
-        fn get_average_gfxclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_ipu_power(&self) -> Option<u16> { None }
+        fn get_average_apu_power(&self) -> Option<u32> { None }
+        fn get_average_dgpu_power(&self) -> Option<u32> { None }
+        fn get_average_all_core_power(&self) -> Option<u32> { None }
+        fn get_average_sys_power(&self) -> Option<u16> { None }
 
+        fn get_average_gfxclk_frequency(&self) -> Option<u16> { None }
         fn get_average_socclk_frequency(&self) -> Option<u16> { None }
         fn get_average_uclk_frequency(&self) -> Option<u16> { None }
         fn get_average_fclk_frequency(&self) -> Option<u16> { None }
@@ -865,6 +893,13 @@ macro_rules! v2_impl {
         fn get_average_dram_writes(&self) -> Option<u16> { None }
         fn get_average_ipu_reads(&self) -> Option<u16> { None }
         fn get_average_ipu_writes(&self) -> Option<u16> { None }
+
+        fn get_average_ipu_power(&self) -> Option<u16> { None }
+        fn get_average_apu_power(&self) -> Option<u32> { None }
+        fn get_average_dgpu_power(&self) -> Option<u32> { None }
+        fn get_average_all_core_power(&self) -> Option<u32> { None }
+        fn get_average_sys_power(&self) -> Option<u16> { None }
+
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
         fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
@@ -1096,6 +1131,26 @@ macro_rules! v3_impl {
 
         fn get_average_core_power(&self) -> Option<Vec<u16>> {
             Some(self.average_core_power.to_vec())
+        }
+
+        fn get_average_ipu_power(&self) -> Option<u16> {
+            Some(self.average_ipu_power)
+        }
+
+        fn get_average_apu_power(&self) -> Option<u32> {
+            Some(self.average_apu_power)
+        }
+
+        fn get_average_dgpu_power(&self) -> Option<u32> {
+            Some(self.average_dgpu_power)
+        }
+
+        fn get_average_all_core_power(&self) -> Option<u32> {
+            Some(self.average_all_core_power)
+        }
+
+        fn get_average_sys_power(&self) -> Option<u16> {
+            Some(self.average_sys_power)
         }
 
         fn get_average_gfxclk_frequency(&self) -> Option<u16> {
