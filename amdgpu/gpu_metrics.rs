@@ -85,6 +85,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_temperature_soc, Option<u16>);
     impl_metrics!(get_temperature_core, Option<Vec<u16>>);
     impl_metrics!(get_temperature_l3, Option<Vec<u16>>);
+    impl_metrics!(get_temperature_skin, Option<u16>);
     impl_metrics!(get_average_gfx_activity, Option<u16>);
     impl_metrics!(get_average_umc_activity, Option<u16>);
     impl_metrics!(get_average_mm_activity, Option<u16>);

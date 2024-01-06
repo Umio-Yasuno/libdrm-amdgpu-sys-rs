@@ -85,6 +85,9 @@ pub trait MetricsInfo {
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_temperature_l3(&self) -> Option<Vec<u16>>;
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_temperature_skin(&self) -> Option<u16>;
+
     fn get_average_gfx_activity(&self) -> Option<u16>;
     fn get_average_umc_activity(&self) -> Option<u16>;
     fn get_average_mm_activity(&self) -> Option<u16>;
@@ -273,6 +276,7 @@ macro_rules! v1_impl {
         fn get_temperature_soc(&self) -> Option<u16> { None }
         fn get_temperature_core(&self) -> Option<Vec<u16>> { None }
         fn get_temperature_l3(&self) -> Option<Vec<u16>> { None }
+        fn get_temperature_skin(&self) -> Option<u16> { None }
 
         fn get_average_gfx_activity(&self) -> Option<u16> {
             Some(self.average_gfx_activity)
@@ -517,6 +521,7 @@ macro_rules! v1_4_v1_5_impl {
         fn get_temperature_soc(&self) -> Option<u16> { None }
         fn get_temperature_core(&self) -> Option<Vec<u16>> { None }
         fn get_temperature_l3(&self) -> Option<Vec<u16>> { None }
+        fn get_temperature_skin(&self) -> Option<u16> { None }
         fn get_temperature_edge(&self) -> Option<u16> { None }
         fn get_temperature_vrmem(&self) -> Option<u16> { None }
         fn get_temperature_vrgfx(&self) -> Option<u16> { None }
@@ -692,6 +697,8 @@ macro_rules! v2_impl {
         fn get_temperature_l3(&self) -> Option<Vec<u16>> {
             Some(self.temperature_l3.to_vec())
         }
+
+        fn get_temperature_skin(&self) -> Option<u16> { None }
 
         fn get_average_gfx_activity(&self) -> Option<u16> {
             Some(self.average_gfx_activity)
@@ -971,6 +978,10 @@ macro_rules! v3_impl {
 
         fn get_temperature_soc(&self) -> Option<u16> {
             Some(self.temperature_soc)
+        }
+
+        fn get_temperature_skin(&self) -> Option<u16> {
+            Some(self.temperature_skin)
         }
 
         fn get_temperature_core(&self) -> Option<Vec<u16>> {
