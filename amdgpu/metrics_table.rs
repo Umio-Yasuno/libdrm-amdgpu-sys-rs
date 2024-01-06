@@ -198,6 +198,14 @@ pub trait MetricsInfo {
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
     fn get_current_l3clk(&self) -> Option<Vec<u16>>;
+
+    /// CCLK frequency limit enforced on classic cores \[MHz\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_current_core_maxfreq(&self) -> Option<u16>;
+    /// GFXCLK frequency limit enforced on GFX \[MHz\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_current_gfx_maxfreq(&self) -> Option<u16>;
+
     fn get_throttle_status(&self) -> Option<u32>;
     fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
@@ -414,6 +422,8 @@ macro_rules! v1_impl {
 
         fn get_current_coreclk(&self) -> Option<Vec<u16>> { None }
         fn get_current_l3clk(&self) -> Option<Vec<u16>> { None }
+        fn get_current_core_maxfreq(&self) -> Option<u16> { None }
+        fn get_current_gfx_maxfreq(&self) -> Option<u16> { None }
 
         fn get_throttle_status(&self) -> Option<u32> {
             Some(self.throttle_status)
@@ -641,6 +651,8 @@ macro_rules! v1_4_v1_5_impl {
         fn get_current_dclk(&self) -> Option<u16> { None }
         fn get_current_vclk1(&self) -> Option<u16> { None }
         fn get_current_dclk1(&self) -> Option<u16> { None }
+        fn get_current_core_maxfreq(&self) -> Option<u16> { None }
+        fn get_current_gfx_maxfreq(&self) -> Option<u16> { None }
         fn get_indep_throttle_status(&self) -> Option<u64> { None }
         fn get_average_temperature_gfx(&self) -> Option<u16> { None }
         fn get_average_temperature_soc(&self) -> Option<u16> { None }
@@ -911,6 +923,9 @@ macro_rules! v2_impl {
         fn get_average_sys_power(&self) -> Option<u16> { None }
         fn get_stapm_power_limit(&self) -> Option<u16> { None }
         fn get_current_stapm_power_limit(&self) -> Option<u16> { None }
+
+        fn get_current_core_maxfreq(&self) -> Option<u16> { None }
+        fn get_current_gfx_maxfreq(&self) -> Option<u16> { None }
 
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
@@ -1207,6 +1222,14 @@ macro_rules! v3_impl {
 
         fn get_current_coreclk(&self) -> Option<Vec<u16>> {
             Some(self.current_coreclk.to_vec())
+        }
+
+        fn get_current_core_maxfreq(&self) -> Option<u16> {
+            Some(self.current_core_maxfreq)
+        }
+
+        fn get_current_gfx_maxfreq(&self) -> Option<u16> {
+            Some(self.current_gfx_maxfreq)
         }
 
         fn get_temperature_edge(&self) -> Option<u16> { None }

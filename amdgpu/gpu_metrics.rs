@@ -129,6 +129,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_current_dclk1, Option<u16>);
     impl_metrics!(get_current_coreclk, Option<Vec<u16>>);
     impl_metrics!(get_current_l3clk, Option<Vec<u16>>);
+    impl_metrics!(get_current_core_maxfreq, Option<u16>);
+    impl_metrics!(get_current_gfx_maxfreq, Option<u16>);
     impl_metrics!(get_throttle_status, Option<u32>);
     impl_metrics!(get_indep_throttle_status, Option<u64>);
     impl_metrics!(get_current_fan_speed, Option<u16>);
