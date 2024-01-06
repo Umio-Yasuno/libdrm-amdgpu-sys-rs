@@ -90,7 +90,7 @@ pub trait MetricsInfo {
     fn get_average_mm_activity(&self) -> Option<u16>;
     fn get_system_clock_counter(&self) -> Option<u64>;
     /// Watts
-    fn get_average_socket_power(&self) -> Option<u16>;
+    fn get_average_socket_power(&self) -> Option<u32>;
     /// Watts
     fn get_average_cpu_power(&self) -> Option<u16>;
     /// Watts
@@ -290,8 +290,8 @@ macro_rules! v1_impl {
             Some(self.system_clock_counter)
         }
 
-        fn get_average_socket_power(&self) -> Option<u16> {
-            Some(self.average_socket_power)
+        fn get_average_socket_power(&self) -> Option<u32> {
+            Some(self.average_socket_power as u32)
         }
 
         fn get_average_cpu_power(&self) -> Option<u16> { None }
@@ -522,7 +522,7 @@ macro_rules! v1_4_v1_5_impl {
         fn get_temperature_vrgfx(&self) -> Option<u16> { None }
         fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
         fn get_average_mm_activity(&self) -> Option<u16> { None }
-        fn get_average_socket_power(&self) -> Option<u16> { None }
+        fn get_average_socket_power(&self) -> Option<u32> { None }
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
         fn get_average_gfx_power(&self) -> Option<u16> { None }
@@ -707,8 +707,8 @@ macro_rules! v2_impl {
             Some(self.system_clock_counter)
         }
 
-        fn get_average_socket_power(&self) -> Option<u16> {
-            Some(self.average_socket_power)
+        fn get_average_socket_power(&self) -> Option<u32> {
+            Some(self.average_socket_power as u32)
         }
 
         fn get_average_cpu_power(&self) -> Option<u16> {
@@ -994,12 +994,8 @@ macro_rules! v3_impl {
             Some(self.system_clock_counter)
         }
 
-        fn get_average_socket_power(&self) -> Option<u16> {
-            None
-        /*
-            TODO: u32
+        fn get_average_socket_power(&self) -> Option<u32> {
             Some(self.average_socket_power)
-        */
         }
 
         fn get_average_gfx_power(&self) -> Option<u16> {
