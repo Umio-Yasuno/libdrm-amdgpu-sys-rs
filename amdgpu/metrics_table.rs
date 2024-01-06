@@ -96,7 +96,7 @@ pub trait MetricsInfo {
     /// Watts
     fn get_average_soc_power(&self) -> Option<u16>;
     /// Watts
-    fn get_average_gfx_power(&self) -> Option<u16>;
+    fn get_average_gfx_power(&self) -> Option<u32>;
     /// Watts,  
     /// For VanGogh APU, only the first half is a valid value.  
     /// ref: `drivers/gpu/drm/amd/pm/swsmu/smu11/vangogh_ppt.c`
@@ -296,7 +296,7 @@ macro_rules! v1_impl {
 
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
-        fn get_average_gfx_power(&self) -> Option<u16> { None }
+        fn get_average_gfx_power(&self) -> Option<u32> { None }
         fn get_average_core_power(&self) -> Option<Vec<u16>> { None }
 
         fn get_average_gfxclk_frequency(&self) -> Option<u16> {
@@ -525,7 +525,7 @@ macro_rules! v1_4_v1_5_impl {
         fn get_average_socket_power(&self) -> Option<u32> { None }
         fn get_average_cpu_power(&self) -> Option<u16> { None }
         fn get_average_soc_power(&self) -> Option<u16> { None }
-        fn get_average_gfx_power(&self) -> Option<u16> { None }
+        fn get_average_gfx_power(&self) -> Option<u32> { None }
         fn get_average_core_power(&self) -> Option<Vec<u16>> { None }
         fn get_average_gfxclk_frequency(&self) -> Option<u16> { None }
 
@@ -719,11 +719,6 @@ macro_rules! v2_impl {
             Some(self.average_soc_power)
         }
 
-/*
-        fn get_average_gfx_power(&self) -> Option<u16> {
-            Some(self.average_gfx_power)
-        }
-*/
         fn get_average_core_power(&self) -> Option<Vec<u16>> {
             Some(self.average_core_power.to_vec())
         }
@@ -828,7 +823,7 @@ macro_rules! v2_impl {
 impl MetricsInfo for gpu_metrics_v2_0 {
     v2_impl!();
 
-    fn get_average_gfx_power(&self) -> Option<u16> { None }
+    fn get_average_gfx_power(&self) -> Option<u32> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
     fn get_average_temperature_soc(&self) -> Option<u16> { None }
@@ -846,8 +841,8 @@ impl MetricsInfo for gpu_metrics_v2_0 {
 impl MetricsInfo for gpu_metrics_v2_1 {
     v2_impl!();
 
-    fn get_average_gfx_power(&self) -> Option<u16> {
-        Some(self.average_gfx_power)
+    fn get_average_gfx_power(&self) -> Option<u32> {
+        Some(self.average_gfx_power as u32)
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
@@ -868,8 +863,8 @@ impl MetricsInfo for gpu_metrics_v2_2 {
     v2_impl!();
 
     /// Renoir, Lucienne, Cezanne (Green Sardine), Barcelo APU dose not support `average_gfx_power`. always returns 65535 (0xFFFF).
-    fn get_average_gfx_power(&self) -> Option<u16> {
-        Some(self.average_gfx_power)
+    fn get_average_gfx_power(&self) -> Option<u32> {
+        Some(self.average_gfx_power as u32)
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
@@ -892,8 +887,8 @@ impl MetricsInfo for gpu_metrics_v2_2 {
 impl MetricsInfo for gpu_metrics_v2_3 {
     v2_impl!();
 
-    fn get_average_gfx_power(&self) -> Option<u16> {
-        Some(self.average_gfx_power)
+    fn get_average_gfx_power(&self) -> Option<u32> {
+        Some(self.average_gfx_power as u32)
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
@@ -916,8 +911,8 @@ impl MetricsInfo for gpu_metrics_v2_3 {
 impl MetricsInfo for gpu_metrics_v2_4 {
     v2_impl!();
 
-    fn get_average_gfx_power(&self) -> Option<u16> {
-        Some(self.average_gfx_power)
+    fn get_average_gfx_power(&self) -> Option<u32> {
+        Some(self.average_gfx_power as u32)
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
@@ -998,12 +993,8 @@ macro_rules! v3_impl {
             Some(self.average_socket_power)
         }
 
-        fn get_average_gfx_power(&self) -> Option<u16> {
-            None
-        /*
-            TODO: u32
+        fn get_average_gfx_power(&self) -> Option<u32> {
             Some(self.average_gfx_power)
-        */
         }
 
         fn get_average_core_power(&self) -> Option<Vec<u16>> {
