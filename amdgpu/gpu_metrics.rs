@@ -21,6 +21,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_2,
     gpu_metrics_v2_3,
     gpu_metrics_v2_4,
+    gpu_metrics_v3_0,
 };
 
 use core::mem::{size_of, MaybeUninit};
@@ -47,6 +48,7 @@ pub enum GpuMetrics {
     V2_2(gpu_metrics_v2_2),
     V2_3(gpu_metrics_v2_3),
     V2_4(gpu_metrics_v2_4),
+    V3_0(gpu_metrics_v3_0),
 }
 
 macro_rules! impl_metrics {
@@ -64,6 +66,7 @@ macro_rules! impl_metrics {
                 Self::V2_2(table) => table.$name(),
                 Self::V2_3(table) => table.$name(),
                 Self::V2_4(table) => table.$name(),
+                Self::V3_0(table) => table.$name(),
                 Self::Unknown => None,
             }
         }
@@ -227,6 +230,7 @@ impl GpuMetrics {
             (2, 2) => GpuMetrics::V2_2(Self::from_bytes(&raw)),
             (2, 3) => GpuMetrics::V2_3(Self::from_bytes(&raw)),
             (2, 4) => GpuMetrics::V2_4(Self::from_bytes(&raw)),
+            (3, 0) => GpuMetrics::V3_0(Self::from_bytes(&raw)),
             _ => GpuMetrics::Unknown,
         }
     }

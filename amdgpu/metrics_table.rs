@@ -16,6 +16,7 @@ pub use crate::bindings::{
     gpu_metrics_v2_2,
     gpu_metrics_v2_3,
     gpu_metrics_v2_4,
+    gpu_metrics_v3_0,
     NUM_HBM_INSTANCES,
     NUM_VCN,
     NUM_JPEG_ENG,
@@ -962,4 +963,140 @@ impl MetricsInfo for gpu_metrics_v2_4 {
     fn get_average_gfx_current(&self) -> Option<u16> {
         Some(self.average_gfx_current)
     }
+}
+
+macro_rules! v3_impl {
+    () => {
+        fn get_header(&self) -> Option<metrics_table_header> {
+            Some(self.common_header.clone())
+        }
+        fn get_temperature_gfx(&self) -> Option<u16> {
+            Some(self.temperature_gfx)
+        }
+
+        fn get_temperature_soc(&self) -> Option<u16> {
+            Some(self.temperature_soc)
+        }
+
+        fn get_temperature_core(&self) -> Option<Vec<u16>> {
+            Some(self.temperature_core.to_vec())
+        }
+
+        fn get_average_gfx_activity(&self) -> Option<u16> {
+            Some(self.average_gfx_activity)
+        }
+
+        fn get_average_mm_activity(&self) -> Option<u16> {
+            Some(self.average_vcn_activity)
+        }
+
+        fn get_system_clock_counter(&self) -> Option<u64> {
+            Some(self.system_clock_counter)
+        }
+
+        fn get_average_socket_power(&self) -> Option<u16> {
+            None
+        /*
+            TODO: u32
+            Some(self.average_socket_power)
+        */
+        }
+
+        fn get_average_gfx_power(&self) -> Option<u16> {
+            None
+        /*
+            TODO: u32
+            Some(self.average_gfx_power)
+        */
+        }
+
+        fn get_average_core_power(&self) -> Option<Vec<u16>> {
+            Some(self.average_core_power.to_vec())
+        }
+
+        fn get_average_gfxclk_frequency(&self) -> Option<u16> {
+            Some(self.average_gfxclk_frequency)
+        }
+
+        fn get_average_socclk_frequency(&self) -> Option<u16> {
+            Some(self.average_socclk_frequency)
+        }
+
+        fn get_average_uclk_frequency(&self) -> Option<u16> {
+            Some(self.average_uclk_frequency)
+        }
+
+        fn get_average_fclk_frequency(&self) -> Option<u16> {
+            Some(self.average_fclk_frequency)
+        }
+
+        fn get_average_vclk_frequency(&self) -> Option<u16> {
+            Some(self.average_vclk_frequency)
+        }
+
+        fn get_temperature_edge(&self) -> Option<u16> { None }
+        fn get_temperature_hotspot(&self) -> Option<u16> { None }
+        fn get_temperature_mem(&self) -> Option<u16> { None }
+        fn get_temperature_vrgfx(&self) -> Option<u16> { None }
+        fn get_temperature_vrsoc(&self) -> Option<u16> { None }
+        fn get_temperature_vrmem(&self) -> Option<u16> { None }
+        fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
+        fn get_temperature_l3(&self) -> Option<Vec<u16>> { None }
+        fn get_average_umc_activity(&self) -> Option<u16> { None }
+        fn get_average_cpu_power(&self) -> Option<u16> { None }
+        fn get_average_soc_power(&self) -> Option<u16> { None }
+        fn get_average_dclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_vclk1_frequency(&self) -> Option<u16> { None }
+        fn get_average_dclk1_frequency(&self) -> Option<u16> { None }
+        fn get_current_coreclk(&self) -> Option<Vec<u16>> { None }
+        fn get_current_l3clk(&self) -> Option<Vec<u16>> { None }
+        fn get_current_gfxclk(&self) -> Option<u16> { None }
+        fn get_current_socclk(&self) -> Option<u16> { None }
+        fn get_current_fclk(&self) -> Option<u16> { None }
+        fn get_current_uclk(&self) -> Option<u16> { None }
+        fn get_current_vclk(&self) -> Option<u16> { None }
+        fn get_current_dclk(&self) -> Option<u16> { None }
+        fn get_current_vclk1(&self) -> Option<u16> { None }
+        fn get_current_dclk1(&self) -> Option<u16> { None }
+        fn get_average_temperature_gfx(&self) -> Option<u16> { None }
+        fn get_average_temperature_soc(&self) -> Option<u16> { None }
+        fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
+        fn get_average_temperature_l3(&self) -> Option<Vec<u16>> { None }
+        fn get_average_cpu_voltage(&self) -> Option<u16> { None }
+        fn get_average_soc_voltage(&self) -> Option<u16> { None }
+        fn get_average_gfx_voltage(&self) -> Option<u16> { None }
+        fn get_average_cpu_current(&self) -> Option<u16> { None }
+        fn get_average_soc_current(&self) -> Option<u16> { None }
+        fn get_average_gfx_current(&self) -> Option<u16> { None }
+        fn get_voltage_soc(&self) -> Option<u16> { None }
+        fn get_voltage_gfx(&self) -> Option<u16> { None }
+        fn get_voltage_mem(&self) -> Option<u16> { None }
+        fn get_current_fan_speed(&self) -> Option<u16> { None }
+        fn get_fan_pwm(&self) -> Option<u16> { None }
+        fn get_throttle_status(&self) -> Option<u32> { None }
+        fn get_indep_throttle_status(&self) -> Option<u64> { None }
+        fn get_pcie_link_width(&self) -> Option<u16> { None }
+        fn get_pcie_link_speed(&self) -> Option<u16> { None }
+        fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
+        fn get_pcie_bandwidth_inst(&self) -> Option<u64> { None }
+        fn get_xgmi_link_width(&self) -> Option<u16> { None }
+        fn get_xgmi_link_speed(&self) -> Option<u16> { None }
+        fn get_xgmi_read_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
+        fn get_xgmi_write_data_acc(&self) -> Option<[u64; NUM_XGMI_LINKS as usize]> { None }
+        fn get_gfx_activity_acc(&self) -> Option<u32> { None }
+        fn get_mem_activity_acc(&self) -> Option<u32> { None }
+        fn get_gfxclk_lock_status(&self) -> Option<u32> { None }
+        fn get_current_socket_power(&self) -> Option<u16> { None }
+        fn get_all_instances_current_gfxclk(&self) -> Option<[u16; MAX_GFX_CLKS as usize]> { None }
+        fn get_all_instances_current_socclk(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_vclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
+        fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
+        fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> { None }
+    }
+}
+
+// SMU 14.0.0
+impl MetricsInfo for gpu_metrics_v3_0 {
+    v3_impl!();
 }
