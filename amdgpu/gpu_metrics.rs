@@ -109,6 +109,9 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_dclk_frequency, Option<u16>);
     impl_metrics!(get_average_vclk1_frequency, Option<u16>);
     impl_metrics!(get_average_dclk1_frequency, Option<u16>);
+    impl_metrics!(get_average_vpeclk_frequency, Option<u16>);
+    impl_metrics!(get_average_ipuclk_frequency, Option<u16>);
+    impl_metrics!(get_average_mpipu_frequency, Option<u16>);
     impl_metrics!(get_current_gfxclk, Option<u16>);
     impl_metrics!(get_current_socclk, Option<u16>);
     impl_metrics!(get_current_uclk, Option<u16>);

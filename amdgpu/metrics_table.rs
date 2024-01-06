@@ -140,6 +140,17 @@ pub trait MetricsInfo {
     fn get_average_vclk1_frequency(&self) -> Option<u16>;
     /// MHz
     fn get_average_dclk1_frequency(&self) -> Option<u16>;
+
+    /// time filtered clocks \[MHz\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_vpeclk_frequency(&self) -> Option<u16>;
+    /// time filtered clocks \[MHz\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_ipuclk_frequency(&self) -> Option<u16>;
+    /// time filtered clocks \[MHz\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_average_mpipu_frequency(&self) -> Option<u16>;
+
     /// MHz
     fn get_current_gfxclk(&self) -> Option<u16>;
     /// MHz
@@ -404,6 +415,10 @@ macro_rules! v1_impl {
             Some(self.pcie_link_speed as u16)
         }
 
+        fn get_average_vpeclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_ipuclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_mpipu_frequency(&self) -> Option<u16> { None }
+
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_dram_reads(&self) -> Option<u16> { None }
@@ -553,6 +568,11 @@ macro_rules! v1_4_v1_5_impl {
         fn get_temperature_vrmem(&self) -> Option<u16> { None }
         fn get_temperature_vrgfx(&self) -> Option<u16> { None }
         fn get_temperature_hbm(&self) -> Option<[u16; NUM_HBM_INSTANCES as usize]> { None }
+
+        fn get_average_vpeclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_ipuclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_mpipu_frequency(&self) -> Option<u16> { None }
+
         fn get_average_mm_activity(&self) -> Option<u16> { None }
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
@@ -835,6 +855,10 @@ macro_rules! v2_impl {
             Some(self.fan_pwm)
         }
 
+        fn get_average_vpeclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_ipuclk_frequency(&self) -> Option<u16> { None }
+        fn get_average_mpipu_frequency(&self) -> Option<u16> { None }
+
         fn get_average_ipu_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_core_c0_activity(&self) -> Option<Vec<u16>> { None }
         fn get_average_dram_reads(&self) -> Option<u16> { None }
@@ -1092,6 +1116,18 @@ macro_rules! v3_impl {
 
         fn get_average_vclk_frequency(&self) -> Option<u16> {
             Some(self.average_vclk_frequency)
+        }
+
+        fn get_average_vpeclk_frequency(&self) -> Option<u16> {
+            Some(self.average_vpeclk_frequency)
+        }
+
+        fn get_average_ipuclk_frequency(&self) -> Option<u16> {
+            Some(self.average_ipuclk_frequency)
+        }
+
+        fn get_average_mpipu_frequency(&self) -> Option<u16> {
+            Some(self.average_mpipu_frequency)
         }
 
         fn get_temperature_edge(&self) -> Option<u16> { None }
