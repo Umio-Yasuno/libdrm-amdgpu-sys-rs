@@ -106,6 +106,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_dgpu_power, Option<u32>);
     impl_metrics!(get_average_all_core_power, Option<u32>);
     impl_metrics!(get_average_sys_power, Option<u16>);
+    impl_metrics!(get_stapm_power_limit, Option<u16>);
+    impl_metrics!(get_current_stapm_power_limit, Option<u16>);
     impl_metrics!(get_average_gfxclk_frequency, Option<u16>);
     impl_metrics!(get_average_socclk_frequency, Option<u16>);
     impl_metrics!(get_average_uclk_frequency, Option<u16>);

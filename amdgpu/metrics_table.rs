@@ -140,6 +140,12 @@ pub trait MetricsInfo {
     /// time filtered total system power \[mW\],
     /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
     fn get_average_sys_power(&self) -> Option<u16>;
+    /// maximum IRM defined STAPM power limit \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_stapm_power_limit(&self) -> Option<u16>;
+    /// time filtered STAPM power limit \[mW\],
+    /// SMU v14.0.0 with [gpu_metrics_v3_0] supports it.
+    fn get_current_stapm_power_limit(&self) -> Option<u16>;
 
     /// MHz
     fn get_average_gfxclk_frequency(&self) -> Option<u16>;
@@ -447,6 +453,8 @@ macro_rules! v1_impl {
         fn get_average_dgpu_power(&self) -> Option<u32> { None }
         fn get_average_all_core_power(&self) -> Option<u32> { None }
         fn get_average_sys_power(&self) -> Option<u16> { None }
+        fn get_stapm_power_limit(&self) -> Option<u16> { None }
+        fn get_current_stapm_power_limit(&self) -> Option<u16> { None }
 
         fn get_xgmi_link_width(&self) -> Option<u16> { None }
         fn get_xgmi_link_speed(&self) -> Option<u16> { None }
@@ -613,6 +621,8 @@ macro_rules! v1_4_v1_5_impl {
         fn get_average_dgpu_power(&self) -> Option<u32> { None }
         fn get_average_all_core_power(&self) -> Option<u32> { None }
         fn get_average_sys_power(&self) -> Option<u16> { None }
+        fn get_stapm_power_limit(&self) -> Option<u16> { None }
+        fn get_current_stapm_power_limit(&self) -> Option<u16> { None }
 
         fn get_average_gfxclk_frequency(&self) -> Option<u16> { None }
         fn get_average_socclk_frequency(&self) -> Option<u16> { None }
@@ -899,6 +909,8 @@ macro_rules! v2_impl {
         fn get_average_dgpu_power(&self) -> Option<u32> { None }
         fn get_average_all_core_power(&self) -> Option<u32> { None }
         fn get_average_sys_power(&self) -> Option<u16> { None }
+        fn get_stapm_power_limit(&self) -> Option<u16> { None }
+        fn get_current_stapm_power_limit(&self) -> Option<u16> { None }
 
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
@@ -1151,6 +1163,14 @@ macro_rules! v3_impl {
 
         fn get_average_sys_power(&self) -> Option<u16> {
             Some(self.average_sys_power)
+        }
+
+        fn get_stapm_power_limit(&self) -> Option<u16> {
+            Some(self.stapm_power_limit)
+        }
+
+        fn get_current_stapm_power_limit(&self) -> Option<u16> {
+            Some(self.current_stapm_power_limit)
         }
 
         fn get_average_gfxclk_frequency(&self) -> Option<u16> {
