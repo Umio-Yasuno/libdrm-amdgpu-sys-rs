@@ -46,20 +46,20 @@ impl BUS_INFO {
         let base = PathBuf::from("/dev/dri");
 
         let name = format!("by-path/pci-{}-{type_name}", self);
-        let link = std::fs::read_link(base.join(name));
-        match link {
-            Ok(l) => std::fs::canonicalize(base.join(l)),
-            Err(e) =>  {
-                std::fs::read_dir(self.get_sysfs_path().join("drm"))?.find_map(|v| {
+        let pci_by_path = std::fs::canonicalize(base.join(name));
+
+        pci_by_path.or_else(|e| {
+            std::fs::read_dir(self.get_sysfs_path().join("drm"))?
+                .find_map(|v| {
                     let file_name = v.ok()?.file_name().into_string().ok()?;
                     if file_name.starts_with(type_name) {
                         Some(base.join(file_name))
                     } else {
                         None
                     }
-                }).ok_or(e)
-            }
-        }
+                })
+                .ok_or(e)
+        })
     }
 
     /// Get DRM render path
