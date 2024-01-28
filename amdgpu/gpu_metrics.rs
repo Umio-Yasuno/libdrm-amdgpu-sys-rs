@@ -99,7 +99,8 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_average_socket_power, Option<u32>);
     impl_metrics!(get_average_cpu_power, Option<u16>);
     impl_metrics!(get_average_soc_power, Option<u16>);
-    impl_metrics!(get_average_gfx_power, Option<u32>);
+    impl_metrics!(get_average_gfx_power, Option<u16>);
+    impl_metrics!(get_average_gfx_power_u32, Option<u32>);
     impl_metrics!(get_average_core_power, Option<Vec<u16>>);
     impl_metrics!(get_average_ipu_power, Option<u16>);
     impl_metrics!(get_average_apu_power, Option<u32>);
