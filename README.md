@@ -15,10 +15,10 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 ## Examples
 ```
 let (amdgpu_dev, drm_major, drm_minor) = {
-    use std::fs::File;
+    use std::fs::OpenOptions;
     use std::os::fd::IntoRawFd;
 
-    let fd = File::open("/dev/dri/renderD128").unwrap();
+    let fd = OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
 
     AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
 };
