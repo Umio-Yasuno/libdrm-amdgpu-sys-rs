@@ -142,6 +142,7 @@ pub enum ASIC_NAME {
     CHIP_GFX1103_R1, /* Phoenix */
     CHIP_GFX1103_R2, /* Phoenix? */
     CHIP_GFX1150,
+    CHIP_GFX1151,
 }
 
 impl ASIC_NAME {
@@ -230,7 +231,11 @@ impl ASIC_NAME {
             },
             FAMILY_NAME::GC_10_3_6 |
             FAMILY_NAME::GC_10_3_7 => Self::CHIP_GFX1036,
-            FAMILY_NAME::GC_11_5_0 => Self::CHIP_GFX1150,
+            FAMILY_NAME::GC_11_5_0 => match rev {
+                0x01..=0xC0 => Self::CHIP_GFX1150,
+                0xC1..=0xFF => Self::CHIP_GFX1151,
+                _ => Self::CHIP_UNKNOWN,
+            },
             _ => Self::CHIP_UNKNOWN,
         }
     }
@@ -580,6 +585,7 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_GFX1103_R1 => write!(f, "GFX1103_R1"),
             Self::CHIP_GFX1103_R2 => write!(f, "GFX1103_R2"),
             Self::CHIP_GFX1150 => write!(f, "GFX1150"),
+            Self::CHIP_GFX1151 => write!(f, "GFX1151"),
         }
     }
 }
