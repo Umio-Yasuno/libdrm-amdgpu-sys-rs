@@ -224,7 +224,7 @@ impl ASIC_NAME {
             },
             FAMILY_NAME::YC => Self::CHIP_REMBRANDT,
             FAMILY_NAME::GC_11_0_1 => match rev {
-                0x01..=0x09 => Self::CHIP_GFX1103_R1,
+                0x01..=0x79 => Self::CHIP_GFX1103_R1,
                 0x80..=0xFF => Self::CHIP_GFX1103_R2,
                 _ => Self::CHIP_UNKNOWN,
             },
