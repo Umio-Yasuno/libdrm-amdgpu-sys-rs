@@ -28,8 +28,7 @@
     Commit: dda718d2bfe9309145d8e521c59c617e7674045a
 */
 
-use crate::AMDGPU::{CHIP_CLASS, FAMILY_NAME, GfxTargetVersion};
-
+use crate::AMDGPU::{CHIP_CLASS, FAMILY_NAME};
 
 /// List of AMDGPU ASIC name
 /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/blob/main/src/amd/common/amd_family.h>

@@ -70,6 +70,11 @@ mod ip_discovery;
 pub use ip_discovery::*;
 
 #[cfg(feature = "std")]
+mod ras_features;
+#[cfg(feature = "std")]
+pub use ras_features::*;
+
+#[cfg(feature = "std")]
 pub(crate) fn parse_hwmon<T: std::str::FromStr, P: Into<std::path::PathBuf>>(path: P) -> Option<T> {
     std::fs::read_to_string(path.into()).ok()
         .and_then(|file| file.trim_end().parse::<T>().ok())

@@ -212,7 +212,7 @@ impl DeviceHandle {
         }
     }
 
-    fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
+    pub(crate) fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
         unsafe {
             let mut dev: MaybeUninit<T> = MaybeUninit::uninit();
 

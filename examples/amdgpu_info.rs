@@ -132,6 +132,16 @@ fn info(pci_bus: &PCI::BUS_INFO) {
         if let Ok(lost) = amdgpu_dev.vram_lost_counter() {
             println!("VRAM lost counter: {lost}");
         }
+
+        if let Ok(ras) = amdgpu_dev.ras_enabled_features() {
+            use AMDGPU::RasBlock;
+
+            println!("ECC Memory: {}", if ras.is_supported(RasBlock::UMC) {
+                "supported"
+            } else {
+                "not supported"
+            });
+        }
     }
 
     {
