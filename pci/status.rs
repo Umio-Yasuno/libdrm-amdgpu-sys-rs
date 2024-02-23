@@ -1,4 +1,8 @@
-use super::STATUS;
+/// PCI link status
+pub enum STATUS {
+    Current,
+    Max,
+}
 
 impl STATUS {
     pub const fn to_sysfs_file_name(&self) -> [&str; 2] {

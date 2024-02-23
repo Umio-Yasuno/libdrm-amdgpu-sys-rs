@@ -4,7 +4,12 @@ use std::path::PathBuf;
 #[cfg(feature = "std")]
 const PCIE_DPM: &str = "pp_dpm_pcie";
 
-use super::LINK;
+/// PCI link speed information
+#[derive(Debug, Default, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
+pub struct LINK {
+    pub gen: u8,
+    pub width: u8,
+}
 
 #[cfg(feature = "std")]
 use super::STATUS;

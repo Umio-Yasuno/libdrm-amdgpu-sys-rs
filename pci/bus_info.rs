@@ -1,4 +1,12 @@
-use super::BUS_INFO;
+/// PCI information (Domain, Bus, Device, Function)
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+pub struct BUS_INFO {
+    pub domain: u16,
+    pub bus: u8,
+    pub dev: u8,
+    pub func: u8,
+}
+
 #[cfg(feature = "std")]
 use super::{LINK, STATUS};
 
