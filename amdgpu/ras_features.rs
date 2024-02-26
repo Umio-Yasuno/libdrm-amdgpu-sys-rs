@@ -1,3 +1,6 @@
+use std::fmt;
+use std::path::PathBuf;
+
 #[derive(Debug, Clone, Copy)]
 pub struct RasEnabledFeatures(u64);
 
@@ -43,6 +46,7 @@ use crate::bindings::{
     AMDGPU_INFO_RAS_ENABLED_FUSE,
 };
 
+#[derive(Debug, Clone, Copy)]
 #[repr(u32)]
 pub enum RasBlock {
     UMC = AMDGPU_INFO_RAS_ENABLED_UMC,
@@ -59,4 +63,62 @@ pub enum RasBlock {
     MP0 = AMDGPU_INFO_RAS_ENABLED_MP0,
     MP1 = AMDGPU_INFO_RAS_ENABLED_MP1,
     FUSE = AMDGPU_INFO_RAS_ENABLED_FUSE,
+}
+
+impl RasBlock {
+    /// ref: drivers/gpu/drm/amd/amdgpu/amdgpu_ras.c
+    pub fn to_sysfs_name_prefix(&self) -> &str {
+        match self {
+            Self::UMC => "umc",
+            Self::SDMA => "sdma",
+            Self::GFX => "gfx",
+            Self::MMHUB => "mmhub",
+            Self::ATHUB => "athub",
+            Self::PCIE => "pcie_bif",
+            Self::HDP => "hdp",
+            Self::XGMI => "xgmi_wafl",
+            Self::DF => "df",
+            Self::SMN => "smn",
+            Self::SEM => "sem",
+            Self::MP0 => "mp0",
+            Self::MP1 => "mp1",
+            Self::FUSE => "fuse",
+        }
+    }
+}
+
+impl fmt::Display for RasBlock {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{:?}", self)
+    }
+}
+
+#[derive(Debug, Clone)]
+pub struct RasErrorCount {
+    pub uncorrected: u64,
+    pub corrected: u64,
+}
+
+impl RasErrorCount {
+    pub fn get_from_sysfs_with_ras_block<P: Into<PathBuf>>(
+        sysfs_path: P,
+        ras_block: RasBlock,
+    ) -> Option<Self> {
+        let s = {
+            let pre = ras_block.to_sysfs_name_prefix();
+            let path = sysfs_path.into().join("ras").join(format!("{pre}_err_count"));
+
+            std::fs::read_to_string(path).ok()?
+        };
+
+        let mut lines = s.lines();
+
+        let [ue, ce] = [lines.next()?, lines.next()?].map(|l| -> Option<u64> {
+            const PRE: usize = "ue: ".len();
+
+            l.get(PRE..).and_then(|s| s.parse().ok())
+        });
+
+        Some(Self { uncorrected: ue?, corrected: ce? })
+    }
 }
