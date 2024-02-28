@@ -326,7 +326,7 @@ fn info(pci_bus: &PCI::BUS_INFO) {
     if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
         println!("sysfs: {sysfs:?}");
 
-        use AMDGPU::PowerProfile;
+        use AMDGPU::{DpmForcedLevel, PowerProfile};
 
         let profiles: Vec<String> = PowerProfile::get_all_supported_profiles_from_sysfs(&sysfs)
             .iter()
@@ -337,6 +337,10 @@ fn info(pci_bus: &PCI::BUS_INFO) {
 
         if let Some(profiles) = PowerProfile::get_current_profile_from_sysfs(&sysfs) {
             println!("Current Power Profiles: {profiles}");
+        }
+
+        if let Ok(level) = DpmForcedLevel::get_from_sysfs(&sysfs) {
+            println!("power_dpm_force_performance_lvel: {level:?}");
         }
     }
 

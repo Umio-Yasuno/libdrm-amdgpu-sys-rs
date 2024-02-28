@@ -68,6 +68,11 @@ mod power_profile;
 pub use power_profile::*;
 
 #[cfg(feature = "std")]
+mod dpm_forced_level;
+#[cfg(feature = "std")]
+pub use dpm_forced_level::*;
+
+#[cfg(feature = "std")]
 mod ip_discovery;
 #[cfg(feature = "std")]
 pub use ip_discovery::*;
