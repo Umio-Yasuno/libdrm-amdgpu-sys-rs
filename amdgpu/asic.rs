@@ -231,8 +231,8 @@ impl ASIC_NAME {
             FAMILY_NAME::GC_10_3_6 |
             FAMILY_NAME::GC_10_3_7 => Self::CHIP_GFX1036,
             FAMILY_NAME::GC_11_5_0 => match rev {
-                0x01..=0xC0 => Self::CHIP_GFX1150,
-                0xC1..=0xFF => Self::CHIP_GFX1151,
+                0x01..=0x39 => Self::CHIP_GFX1150,
+                0xC0..=0xFF => Self::CHIP_GFX1151,
                 _ => Self::CHIP_UNKNOWN,
             },
             _ => Self::CHIP_UNKNOWN,
