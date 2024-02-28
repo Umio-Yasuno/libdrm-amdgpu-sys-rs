@@ -34,6 +34,9 @@ pub use gpu_info::*;
 mod gfx_target_version;
 pub use gfx_target_version::GfxTargetVersion;
 
+mod context;
+pub use context::*;
+
 #[cfg(feature = "std")]
 mod metrics_table;
 #[cfg(feature = "std")]

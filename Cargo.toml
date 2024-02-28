@@ -39,3 +39,7 @@ required-features = ["std"]
 [[example]]
 name = "gpu_metrics"
 required-features = ["std"]
+
+[[example]]
+name = "stable_pstate"
+required-features = ["std"]
