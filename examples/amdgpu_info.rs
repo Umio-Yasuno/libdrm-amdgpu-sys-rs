@@ -342,6 +342,16 @@ fn info(pci_bus: &PCI::BUS_INFO) {
         if let Ok(level) = DpmForcedLevel::get_from_sysfs(&sysfs) {
             println!("power_dpm_force_performance_lvel: {level:?}");
         }
+
+        use AMDGPU::{RasErrorCount, RasBlock};
+
+        if let Ok(cnt) = RasErrorCount::get_from_sysfs_with_ras_block(&sysfs, RasBlock::UMC) {
+            println!(
+                "Memory Error Count: uncorrected {}, corrected {}",
+                cnt.uncorrected,
+                cnt.corrected,
+            );
+        }
     }
 
     if let Some(hwmon) = amdgpu_dev.get_hwmon_path() {

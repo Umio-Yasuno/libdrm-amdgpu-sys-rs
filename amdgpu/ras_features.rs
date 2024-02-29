@@ -1,5 +1,6 @@
 use std::fmt;
 use std::path::PathBuf;
+use std::io;
 
 #[derive(Debug, Clone, Copy)]
 pub struct RasEnabledFeatures(u64);
@@ -103,22 +104,25 @@ impl RasErrorCount {
     pub fn get_from_sysfs_with_ras_block<P: Into<PathBuf>>(
         sysfs_path: P,
         ras_block: RasBlock,
-    ) -> Option<Self> {
+    ) -> io::Result<Self> {
         let s = {
             let pre = ras_block.to_sysfs_name_prefix();
             let path = sysfs_path.into().join("ras").join(format!("{pre}_err_count"));
 
-            std::fs::read_to_string(path).ok()?
+            std::fs::read_to_string(path)?
         };
 
         let mut lines = s.lines();
 
-        let [ue, ce] = [lines.next()?, lines.next()?].map(|l| -> Option<u64> {
+        let [ue, ce] = [lines.next(), lines.next()].map(|line| -> io::Result<u64> {
             const PRE: usize = "ue: ".len();
 
-            l.get(PRE..).and_then(|s| s.parse().ok())
+            line
+                .and_then(|l| l.get(PRE..))
+                .and_then(|s| s.parse().ok())
+                .ok_or(io::Error::other(format!("parse error: {line:?}")))
         });
 
-        Some(Self { uncorrected: ue?, corrected: ce? })
+        Ok(Self { uncorrected: ue?, corrected: ce? })
     }
 }
