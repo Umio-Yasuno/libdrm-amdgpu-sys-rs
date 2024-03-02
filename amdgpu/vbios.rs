@@ -44,8 +44,8 @@ impl DeviceHandle {
         &self,
         info_id: ::core::ffi::c_uint,
     ) -> Result<T, i32> {
-        let mut vbios: MaybeUninit<T> = MaybeUninit::uninit();
-        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
+        let mut vbios: MaybeUninit<T> = MaybeUninit::zeroed();
+        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::zeroed();
 
         {
             let ptr = device_info.as_mut_ptr();
@@ -88,7 +88,7 @@ impl DeviceHandle {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
         let mut vbios_image = vec![0; vbios_size as usize];
-        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::uninit();
+        let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::zeroed();
 
         {
             let ptr = device_info.as_mut_ptr();
