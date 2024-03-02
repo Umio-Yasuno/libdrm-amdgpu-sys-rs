@@ -45,7 +45,7 @@ impl DeviceHandle {
     /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
-            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::uninit();
+            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
             let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
 
@@ -168,7 +168,7 @@ impl DeviceHandle {
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
         unsafe {
-            let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::uninit();
+            let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_gpu_info(self.0, gpu_info.as_mut_ptr());
 
@@ -182,7 +182,7 @@ impl DeviceHandle {
 
     pub fn query_gds_info(&self) -> Result<amdgpu_gds_resource_info, i32> {
         unsafe {
-            let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::uninit();
+            let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_gds_info(self.0, gds_info.as_mut_ptr());
 
@@ -214,7 +214,7 @@ impl DeviceHandle {
 
     pub(crate) fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
         unsafe {
-            let mut dev: MaybeUninit<T> = MaybeUninit::uninit();
+            let mut dev: MaybeUninit<T> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_info(
                 self.0,

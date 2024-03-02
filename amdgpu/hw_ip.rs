@@ -28,7 +28,7 @@ impl DeviceHandle {
         type_: HW_IP_TYPE,
     ) -> Result<u32, i32> {
         unsafe {
-            let mut hw_ip_count: MaybeUninit<u32> = MaybeUninit::uninit();
+            let mut hw_ip_count: MaybeUninit<u32> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_hw_ip_count(
                 self.0,
@@ -51,7 +51,7 @@ impl DeviceHandle {
         ip_instance: ::core::ffi::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32> {
         unsafe {
-            let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::uninit();
+            let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_hw_ip_info(
                 self.0,

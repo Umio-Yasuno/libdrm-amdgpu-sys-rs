@@ -8,7 +8,7 @@ pub struct ContextHandle(pub(crate) amdgpu_context_handle);
 impl DeviceHandle {
     pub fn create_context(&self) -> Result<ContextHandle, i32> {
         unsafe {
-            let mut ctx_handle: MaybeUninit<amdgpu_context_handle> = MaybeUninit::uninit();
+            let mut ctx_handle: MaybeUninit<amdgpu_context_handle> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_cs_ctx_create(self.0, ctx_handle.as_mut_ptr());
 

@@ -64,7 +64,7 @@ pub enum CAP_TYPE {
 impl DeviceHandle {
     pub fn get_video_caps(&self, type_: CAP_TYPE) -> Result<drm_amdgpu_info_video_caps, i32> {
         unsafe {
-            let mut video_caps: MaybeUninit<drm_amdgpu_info_video_caps> = MaybeUninit::uninit();
+            let mut video_caps: MaybeUninit<drm_amdgpu_info_video_caps> = MaybeUninit::zeroed();
 
             let r = bindings::amdgpu_query_video_caps_info(
                 self.0,
