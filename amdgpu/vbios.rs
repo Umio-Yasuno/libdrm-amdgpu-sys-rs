@@ -84,7 +84,7 @@ impl DeviceHandle {
     }
 
     #[cfg(feature = "std")]
-    pub unsafe fn vbios_image(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
+    pub unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
         let mut vbios_image = vec![0; vbios_size as usize];
@@ -113,5 +113,13 @@ impl DeviceHandle {
         query_error!(r);
 
         Ok(vbios_image)
+    }
+
+
+    #[cfg(feature = "std")]
+    pub fn get_vbios_image(&self) -> Result<Vec<u8>, i32> {
+        let size = unsafe { self.vbios_size()? };
+
+        unsafe { self.get_vbios_image_with_size(size) }
     }
 }
