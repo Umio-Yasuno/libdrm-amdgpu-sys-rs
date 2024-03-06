@@ -69,11 +69,16 @@ pub trait GPU_INFO {
     }
 
     #[cfg(feature = "std")]
-    fn parse_amdgpu_ids(&self) -> String {
+    fn parse_amdgpu_ids(&self) -> Option<String> {
         let did = self.device_id();
         let rid = self.pci_rev_id();
 
         parse_amdgpu_ids(did, rid)
+    }
+
+    #[cfg(feature = "std")]
+    fn parse_amdgpu_ids_or_default(&self) -> String {
+        self.parse_amdgpu_ids().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
 
     fn get_max_good_cu_per_sa(&self) -> u32 {
@@ -269,26 +274,11 @@ impl drm_amdgpu_info_device {
 }
 
 #[cfg(feature = "std")]
-pub fn parse_amdgpu_ids(device_id: u32, revision_id: u32) -> String {
+pub fn parse_amdgpu_ids(device_id: u32, revision_id: u32) -> Option<String> {
     const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
 
-    let parse_id = |id: Option<&str>| -> Option<u32> {
-        id.and_then(|v| u32::from_str_radix(v, 16).ok())
-    };
+    let id = format!("{:X},\t{:X},\t", device_id, revision_id);
+    let name = amdgpu_ids.lines().find(|s| s.starts_with(&id))?.trim_start_matches(&id);
 
-    for line in amdgpu_ids.lines() {
-        if line.is_empty() || line.starts_with('#') { continue }
-
-        let mut s = line.split(",\t");
-
-        let Some(s_did) = parse_id(s.next()) else { continue };
-        let Some(s_rid) = parse_id(s.next()) else { continue };
-
-        if device_id == s_did && revision_id == s_rid {
-            let Some(name) = s.next().map(|name| name.trim_end().to_string()) else { continue };
-            return name;
-        }
-    }
-
-    AMDGPU::DEFAULT_DEVICE_NAME.to_string()
+    Some(name.to_string())
 }

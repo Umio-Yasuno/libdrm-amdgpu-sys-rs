@@ -15,11 +15,10 @@ fn info(pci_bus: &PCI::BUS_INFO) {
         println!("{drm_ver:#?}");
     }
 
-    println!("Marketing Name: [{}]", amdgpu_dev.get_marketing_name_or_default());
-
     if let Ok(ext_info) = amdgpu_dev.device_info() {
         use AMDGPU::GPU_INFO;
 
+        println!("Marketing Name: [{}]", ext_info.parse_amdgpu_ids_or_default());
         // println!("\n{ext_info:#X?}\n");
         let gpu_type = if ext_info.is_apu() { "APU" } else { "dGPU" };
         let asic = ext_info.get_asic_name();
@@ -34,7 +33,6 @@ fn info(pci_bus: &PCI::BUS_INFO) {
         println!("Family:\t\t{}", ext_info.get_family_name());
         println!("ASIC Name:\t{asic}");
         println!("Chip class:\t{}", ext_info.get_chip_class());
-        println!("GFX ID:\t\t{}", asic.get_gfx_target_name());
         println!("GPU Type:\t{gpu_type}");
 
         if let Some(gfx_ver) = ext_info.get_gfx_target_version() {
