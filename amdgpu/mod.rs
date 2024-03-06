@@ -89,6 +89,7 @@ pub(crate) fn parse_hwmon<T: std::str::FromStr, P: Into<std::path::PathBuf>>(pat
 }
 
 mod vbios;
+mod vbios_parser;
 mod video_caps;
 mod hw_ip;
 mod fw_version;
@@ -96,6 +97,7 @@ mod sensor_info;
 
 pub mod VBIOS {
     pub use super::vbios::*;
+    pub use super::vbios_parser::*;
 }
 
 /// # Video Encode/Decode Capabilities

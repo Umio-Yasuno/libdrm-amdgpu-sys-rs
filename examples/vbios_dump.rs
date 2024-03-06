@@ -41,6 +41,26 @@ fn main() {
                 dump(&vbios_image, name).unwrap();
             }
         } else {
+            if let Ok(vbios_image) = amdgpu_dev.get_vbios_image() {
+                use AMDGPU::VBIOS::VbiosParser;
+
+                let vbios_parser = VbiosParser::new(vbios_image);
+                
+                if !vbios_parser.valid_vbios() || !vbios_parser.check_length() {
+                    panic!();
+                }
+
+                let rom_header = vbios_parser.get_atom_rom_header().unwrap();
+                println!("{rom_header:#X?}");
+
+                let data_table = vbios_parser.get_atom_data_table(&rom_header).unwrap();
+                println!("{data_table:#X?}");
+
+                let firmware_info = vbios_parser.get_atom_firmware_info(&data_table).unwrap();
+                println!("firmwareinfo: {firmware_info:#?}");
+
+                return;
+            }
             println!("If you need a VBIOS image, add \"-d\" or \"--dump\" as an argument and run.");
         }
     }
