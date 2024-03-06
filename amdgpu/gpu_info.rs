@@ -68,6 +68,8 @@ pub trait GPU_INFO {
         (cu * lane * 2 * mhz) / 1000
     }
 
+    /// Get device marketing name from `amdgpu.ids`  
+    /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
     #[cfg(feature = "std")]
     fn parse_amdgpu_ids(&self) -> Option<String> {
         let did = self.device_id();
@@ -76,6 +78,8 @@ pub trait GPU_INFO {
         parse_amdgpu_ids(did, rid)
     }
 
+    /// Returns the default marketing name ("AMD Radeon Graphics") 
+    /// when the device name is not available.
     #[cfg(feature = "std")]
     fn parse_amdgpu_ids_or_default(&self) -> String {
         self.parse_amdgpu_ids().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
