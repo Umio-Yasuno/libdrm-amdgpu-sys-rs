@@ -18,6 +18,10 @@ impl VbiosParser {
         Self(v)
     }
 
+    pub fn vbios(&self) -> Vec<u8> {
+        self.0.clone()
+    }
+
     pub fn length(&self) -> usize {
         let Some(length) = self.0.get(2) else { return 0 };
 
