@@ -18,6 +18,12 @@ impl VbiosParser {
         Self(v)
     }
 
+    pub fn length(&self) -> usize {
+        let Some(length) = self.0.get(2) else { return 0 };
+
+        usize::from(*length) << 9
+    }
+
     pub fn valid_vbios(&self) -> bool {
         let Some(p) = self.0.get(..2) else { return false };
         let Some(sig) = self.0.get(SIGNATURE_OFFSET..SIGNATURE_END) else { return false };
@@ -25,14 +31,8 @@ impl VbiosParser {
         p == VALID_VBIOS && sig == SIGNATURE
     }
 
-    pub fn length(&self) -> usize {
-        let Some(length) = self.0.get(2) else { return 0 };
-
-        usize::from(*length) << 9
-    }
-
-    pub fn get_rom_table_ptr(&self) -> Option<usize> {
-        self.read_u16(ROM_TABLE_PTR).map(|v| v as usize)
+    pub fn check_length(&self) -> bool {
+        self.length() == self.0.len()
     }
 
     fn read_u16(&self, offset: usize) -> Option<u16> {

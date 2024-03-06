@@ -46,6 +46,10 @@ fn main() {
 
                 let vbios_parser = VbiosParser::new(vbios_image);
                 
+                if !vbios_parser.valid_vbios() || !vbios_parser.check_length() {
+                    panic!();
+                }
+
                 let rom_header = vbios_parser.get_atom_rom_header().unwrap();
                 println!("{rom_header:#X?}");
 
@@ -54,10 +58,6 @@ fn main() {
 
                 let firmware_info = vbios_parser.get_atom_firmware_info(&data_table).unwrap();
                 println!("firmwareinfo: {firmware_info:#?}");
-
-                if !vbios_parser.valid_vbios() {
-                    panic!();
-                }
 
                 return;
             }
