@@ -36,11 +36,11 @@ impl DpmForcedLevel {
                     "min_sclk\n" => Self::ProfileMinSclk,
                     "min_mclk\n" => Self::ProfileMinMclk,
                     "exit\n" => Self::ProfileExit,
-                    _ => return Err(io::Error::other(format!("unknown level: {s}"))),
+                    _ => return Err(io::Error::other("Unknown Level")),
                 }
             },
             "perf" => Self::PerfDeterminism,
-            _ => return Err(io::Error::other(format!("unknown level: {s}"))),
+            _ => return Err(io::Error::other("Unknown Level")),
         };
 
         Ok(level)

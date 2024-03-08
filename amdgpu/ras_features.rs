@@ -120,7 +120,7 @@ impl RasErrorCount {
             line
                 .and_then(|l| l.get(PRE..))
                 .and_then(|s| s.parse().ok())
-                .ok_or(io::Error::other(format!("parse error: {line:?}")))
+                .ok_or(io::Error::other("Parse Error"))
         });
 
         Ok(Self { uncorrected: ue?, corrected: ce? })
