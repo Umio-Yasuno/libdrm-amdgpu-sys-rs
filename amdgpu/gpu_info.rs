@@ -68,21 +68,40 @@ pub trait GPU_INFO {
         (cu * lane * 2 * mhz) / 1000
     }
 
-    /// Get device marketing name from `amdgpu.ids`  
+    /// Find device marketing name from `amdgpu.ids`  
     /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
     #[cfg(feature = "std")]
-    fn parse_amdgpu_ids(&self) -> Option<String> {
+    fn find_device_name(&self) -> Option<String> {
         let did = self.device_id();
         let rid = self.pci_rev_id();
 
-        parse_amdgpu_ids(did, rid)
+        find_device_name(did, rid)
     }
 
     /// Returns the default marketing name ("AMD Radeon Graphics") 
     /// when the device name is not available.
     #[cfg(feature = "std")]
+    fn find_device_name_or_default(&self) -> String {
+        self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
+    }
+
+    /// Get device marketing name from `amdgpu.ids`  
+    /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
+    #[cfg(feature = "std")]
+    #[deprecated(since = "0.6.0", note = "superseded by `find_device_name`")]
+    fn parse_amdgpu_ids(&self) -> Option<String> {
+        let did = self.device_id();
+        let rid = self.pci_rev_id();
+
+        find_device_name(did, rid)
+    }
+
+    /// Returns the default marketing name ("AMD Radeon Graphics") 
+    /// when the device name is not available.
+    #[cfg(feature = "std")]
+    #[deprecated(since = "0.6.0", note = "superseded by `find_device_name`")]
     fn parse_amdgpu_ids_or_default(&self) -> String {
-        self.parse_amdgpu_ids().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
+        self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
 
     fn get_max_good_cu_per_sa(&self) -> u32 {
@@ -278,7 +297,7 @@ impl drm_amdgpu_info_device {
 }
 
 #[cfg(feature = "std")]
-pub fn parse_amdgpu_ids(device_id: u32, revision_id: u32) -> Option<String> {
+pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
     use bindings::AMDGPU_IDS;
 
     let (_, _, name) = AMDGPU_IDS.iter().find(|(did, rid, _)| (did, rid) == (&device_id, &revision_id))?;
