@@ -279,10 +279,9 @@ impl drm_amdgpu_info_device {
 
 #[cfg(feature = "std")]
 pub fn parse_amdgpu_ids(device_id: u32, revision_id: u32) -> Option<String> {
-    const amdgpu_ids: &str = include_str!("../bindings/amdgpu.ids");
+    use bindings::AMDGPU_IDS;
 
-    let id = format!("{:X},\t{:X},\t", device_id, revision_id);
-    let name = amdgpu_ids.lines().find(|s| s.starts_with(&id))?.trim_start_matches(&id);
+    let (_, _, name) = AMDGPU_IDS.iter().find(|(did, rid, _)| (did, rid) == (&device_id, &revision_id))?;
 
     Some(name.to_string())
 }

@@ -11,6 +11,9 @@
 mod bindings {
     mod drm;
     pub use drm::*;
+
+    mod amdgpu_ids;
+    pub use amdgpu_ids::AMDGPU_IDS;
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]

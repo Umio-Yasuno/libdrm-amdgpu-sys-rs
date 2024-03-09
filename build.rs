@@ -37,6 +37,29 @@ fn build() {
     bindings
         .write_to_file(out_path.join(&format!("drm.rs")))
         .expect("Couldn't write bindings!");
+
+    convert_amdgpu_ids();
+}
+
+fn convert_amdgpu_ids() {
+    use std::fmt::Write;
+    const AMDGPU_IDS: &str = include_str!("bindings/amdgpu.ids");
+
+    let mut s = String::from("pub const AMDGPU_IDS: &[(u32, u32, &str)] = &[\n");
+
+    for line in AMDGPU_IDS.lines() {
+        if line.starts_with('#') { continue }
+
+        let mut split = line.split(",\t");
+
+        if let [Some(did), Some(rid), Some(name)] = [split.next(), split.next(), split.next()] {
+            writeln!(s, "    (0x{did}, 0x{rid}, {name:?}),").unwrap();
+        }
+    }
+
+    writeln!(s, "];").unwrap();
+
+    std::fs::write("bindings/amdgpu_ids.rs", s).unwrap();
 }
 
 fn main() {
