@@ -41,6 +41,7 @@ fn build() {
     convert_amdgpu_ids();
 }
 
+#[cfg(feature = "buildtime_bindgen")]
 fn convert_amdgpu_ids() {
     use std::fmt::Write;
     const AMDGPU_IDS: &str = include_str!("bindings/amdgpu.ids");
