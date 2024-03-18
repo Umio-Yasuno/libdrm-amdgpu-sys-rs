@@ -21344,7 +21344,7 @@ fn bindgen_test_layout_atom_master_command_function_v2_1() {
     );
 }
 #[doc = " Structures used in every command function"]
-#[repr(C, packed)]
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct atom_function_attribute {
     pub _bitfield_align_1: [u8; 0],
@@ -43761,7 +43761,7 @@ fn bindgen_test_layout_atom_vram_info_header_v3_0() {
         )
     );
 }
-#[repr(C, packed)]
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct atom_umc_register_addr_info {
     pub _bitfield_align_1: [u8; 0],
@@ -43884,7 +43884,7 @@ fn bindgen_test_layout_atom_umc_register_addr_info_access() {
         )
     );
 }
-#[repr(C, packed)]
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct atom_umc_reg_setting_id_config {
     pub _bitfield_align_1: [u8; 0],
@@ -46490,7 +46490,7 @@ fn bindgen_test_layout_atom_voltage_objects_info_v4_1() {
         )
     );
 }
-#[repr(C, packed)]
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct asic_init_engine_parameters {
     pub _bitfield_align_1: [u8; 0],
@@ -46549,7 +46549,7 @@ impl asic_init_engine_parameters {
         __bindgen_bitfield_unit
     }
 }
-#[repr(C, packed)]
+#[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct asic_init_mem_parameters {
     pub _bitfield_align_1: [u8; 0],

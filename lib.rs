@@ -14,6 +14,13 @@ mod bindings {
 
     mod amdgpu_ids;
     pub use amdgpu_ids::AMDGPU_IDS;
+
+    pub mod ppt {
+        pub mod smu_v11_0_0_ppt;
+        pub mod smu_v11_0_7_ppt;
+        pub mod smu_v13_0_0_ppt;
+        pub mod smu_v13_0_7_ppt;
+    }
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
