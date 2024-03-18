@@ -2,6 +2,9 @@ use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4};
 
+pub use crate::bindings::ppt::smu_v11_0_7_ppt::smu_11_0_7_powerplay_table;
+pub use crate::bindings::ppt::smu_v13_0_0_ppt::smu_13_0_0_powerplay_table;
+
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
 
 const SIGNATURE: &[u8] = b" 761295520";
@@ -39,10 +42,30 @@ impl VbiosParser {
         self.length() == self.0.len()
     }
 
+    fn to_struct<T>(bin: &[u8], size: usize) -> T {
+        unsafe {
+            let mut s = MaybeUninit::<T>::zeroed();
+
+            ptr::copy_nonoverlapping(
+                bin.as_ptr(),
+                s.as_mut_ptr() as *mut u8,
+                size,
+            );
+
+            s.assume_init()
+        }
+    }
+
     fn read_u16(&self, offset: usize) -> Option<u16> {
         self.0.get(offset..offset+2)
             .and_then(|r| r.try_into().ok())
             .map(|arr| u16::from_le_bytes(arr))
+    }
+
+    fn get_size_from_header(&self, offset: usize) -> Option<usize> {
+        let size = self.read_header(offset)?.structuresize as usize;
+
+        Some(size)
     }
 
     pub fn read_header(&self, offset: usize) -> Option<atom_common_table_header> {
@@ -53,47 +76,31 @@ impl VbiosParser {
 
         let h = self.0.get(range)?;
 
-        unsafe {
-            let mut header = MaybeUninit::<atom_common_table_header>::zeroed();
+        Some(Self::to_struct(h, size))
+    }
 
-            ptr::copy_nonoverlapping(
-                h.as_ptr(),
-                header.as_mut_ptr() as *mut u8,
-                size,
-            );
+    fn read_table_unchecked_size<T>(&self, offset: usize) -> Option<T> {
+        let size = self.get_size_from_header(offset)?;
+        let t = self.0.get(offset..offset+size)?;
 
-            Some(header.assume_init())
-        }
+        Some(Self::to_struct(t, size))
     }
 
     pub fn read_table<T>(&self, offset: usize) -> Option<T> {
-        if offset == 0 { return None }
+        let size = self.get_size_from_header(offset)?;
 
-        let size = {
-            let header = self.read_header(offset)?;
-            header.structuresize as usize
-        };
-        let range = offset..offset+size;
+        if size != size_of::<T>() { return None }
 
-        let t = self.0.get(range)?;
+        let t = self.0.get(offset..offset+size)?;
 
-        unsafe {
-            let mut table = MaybeUninit::<T>::zeroed();
-
-            ptr::copy_nonoverlapping(
-                t.as_ptr(),
-                table.as_mut_ptr() as *mut u8,
-                size,
-            );
-
-            Some(table.assume_init())
-        }
+        Some(Self::to_struct(t, size))
     }
 
     pub fn get_atom_rom_header(&self) -> Option<atom_rom_header_v2_2> {
         let offset = self.read_u16(ROM_TABLE_PTR)?;
 
-        let rom_header = self.read_table::<atom_rom_header_v2_2>(offset as usize)?;
+        /* only `atom_rom_header_v2_2` is defined */
+        let rom_header = self.read_table_unchecked_size::<atom_rom_header_v2_2>(offset as usize)?;
 
         if &rom_header.atom_bios_string == b"ATOM" {
             Some(rom_header)
@@ -114,5 +121,19 @@ impl VbiosParser {
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<atom_firmware_info_v3_4> {
         self.read_table(data_table.listOfdatatables.firmwareinfo as usize)
+    }
+
+    pub fn get_smu_11_0_7_powerplay_table(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<smu_11_0_7_powerplay_table> {
+        self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
+    }
+
+    pub fn get_smu_13_0_0_powerplay_table(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<smu_13_0_0_powerplay_table> {
+        self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
     }
 }
