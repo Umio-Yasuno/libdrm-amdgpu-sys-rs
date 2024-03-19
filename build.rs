@@ -71,6 +71,22 @@ fn build() {
             .expect("Couldn't write bindings!");
     }
 
+    {
+        let smu_v13_0_7_ppt = bindgen::Builder::default()
+            .header("wrapper/wrapper_atomfirmware.h")
+            .header("wrapper/smu13_driver_if_v13_0_7.h")
+            .header("wrapper/smu_v13_0_7_pptable.h")
+            .clang_args(config.iter())
+            .use_core()
+            .ctypes_prefix("::core::ffi")
+            .generate()
+            .expect("Unable to generate bindings: {wrapper_name}");
+
+        smu_v13_0_7_ppt
+            .write_to_file(out_path.join("ppt").join("smu_v13_0_7_ppt.rs"))
+            .expect("Couldn't write bindings!");
+    }
+
     convert_amdgpu_ids();
 }
 

@@ -67,6 +67,10 @@ fn main() {
                     println!("smu_13_0_0 ppt: {ppt:#?}");
                 }
 
+                if let Some(ppt) = vbios_parser.get_smu_13_0_7_powerplay_table(&data_table) {
+                    println!("smu_13_0_7 ppt: {ppt:#?}");
+                }
+
                 return;
             }
             println!("If you need a VBIOS image, add \"-d\" or \"--dump\" as an argument and run.");

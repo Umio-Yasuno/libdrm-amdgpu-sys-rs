@@ -17,10 +17,8 @@ mod bindings {
 
     pub mod ppt {
         pub mod smu_v11_0_7_ppt;
-        // pub use smu_v11_0_7_ppt::*;
-
         pub mod smu_v13_0_0_ppt;
-        // pub use smu_v13_0_0_ppt::*;
+        pub mod smu_v13_0_7_ppt;
     }
 }
 

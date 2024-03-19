@@ -2,8 +2,11 @@ use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4};
 
-pub use crate::bindings::ppt::smu_v11_0_7_ppt::smu_11_0_7_powerplay_table;
-pub use crate::bindings::ppt::smu_v13_0_0_ppt::smu_13_0_0_powerplay_table;
+pub use crate::bindings::ppt::{
+    smu_v11_0_7_ppt::smu_11_0_7_powerplay_table,
+    smu_v13_0_0_ppt::smu_13_0_0_powerplay_table,
+    smu_v13_0_7_ppt::smu_13_0_7_powerplay_table,
+};
 
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
 
@@ -134,6 +137,13 @@ impl VbiosParser {
         &self,
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<smu_13_0_0_powerplay_table> {
+        self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
+    }
+
+    pub fn get_smu_13_0_7_powerplay_table(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<smu_13_0_7_powerplay_table> {
         self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
     }
 }
