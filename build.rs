@@ -40,6 +40,21 @@ fn build() {
     }
 
     {
+        let smu_v11_0_0_ppt = bindgen::Builder::default()
+            .header("wrapper/wrapper_atomfirmware.h")
+            .header("wrapper/smu11_driver_if_navi10.h")
+            .header("wrapper/smu_v11_0_pptable.h")
+            .use_core()
+            .ctypes_prefix("::core::ffi")
+            .generate()
+            .expect("Unable to generate bindings: {wrapper_name}");
+
+        smu_v11_0_0_ppt
+            .write_to_file(out_path.join("ppt").join("smu_v11_0_0_ppt.rs"))
+            .expect("Couldn't write bindings!");
+    }
+
+    {
         let smu_v11_0_7_ppt = bindgen::Builder::default()
             .header("wrapper/wrapper_atomfirmware.h")
             .header("wrapper/smu11_driver_if_sienna_cichlid.h")
