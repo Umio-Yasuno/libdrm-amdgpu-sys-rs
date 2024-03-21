@@ -45,7 +45,7 @@ fn main() {
                 use AMDGPU::VBIOS::VbiosParser;
 
                 let vbios_parser = VbiosParser::new(vbios_image);
-                
+
                 if !vbios_parser.valid_vbios() || !vbios_parser.check_length() {
                     panic!();
                 }

@@ -10,12 +10,14 @@ pub use crate::bindings::ppt::{
 };
 
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
+// ref: drivers/gpu/drm/amd/amdgpu/atom.c
 
 const SIGNATURE: &[u8] = b" 761295520";
 const SIGNATURE_OFFSET: usize = 0x30;
 const SIGNATURE_END: usize = SIGNATURE_OFFSET + SIGNATURE.len();
 const VALID_VBIOS: &[u8] = &[0x55, 0xAA];
 const ROM_TABLE_PTR: usize = 0x48;
+const VBIOS_DATE_OFFSET: usize = 0x50;
 
 #[derive(Debug, Clone)]
 pub struct VbiosParser(Vec<u8>);
@@ -44,6 +46,28 @@ impl VbiosParser {
 
     pub fn check_length(&self) -> bool {
         self.length() == self.0.len()
+    }
+
+    pub fn get_date(&self) -> Option<Vec<u8>> {
+        let rom = self.0.get(VBIOS_DATE_OFFSET..VBIOS_DATE_OFFSET+14)?;
+
+        let mut date: [u8; 16] = [
+            b'2', b'0', 0, 0, b'/', 0, 0, b'/', 0, 0, b' ', 0, 0, 0, 0, 0, // b'\0',
+        ];
+
+        date[2] = rom[6];
+        date[3] = rom[7];
+        date[5] = rom[0];
+        date[6] = rom[1];
+        date[8] = rom[3];
+        date[9] = rom[4];
+        date[11] = rom[9];
+        date[12] = rom[10];
+        date[13] = rom[11];
+        date[14] = rom[12];
+        date[15] = rom[13];
+
+        Some(date.to_vec())
     }
 
     fn to_struct<T>(bin: &[u8], size: usize) -> T {
