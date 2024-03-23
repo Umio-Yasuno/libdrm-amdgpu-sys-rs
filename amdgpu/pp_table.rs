@@ -22,7 +22,13 @@ impl PPTable {
     pub fn from_bytes(bytes: &[u8]) -> Self {
         const HEADER_SIZE: usize = size_of::<atom_common_table_header>();
 
-        let Some(bin) = bytes.get(0..HEADER_SIZE) else { return Self::Invalid };
+        let Some(bin) = bytes.get(0..HEADER_SIZE) else {
+            if cfg!(debug_assertions) {
+                println!("The binary is smaller than header size.");
+            }
+
+            return Self::Invalid;
+        };
         let header;
 
         unsafe {
@@ -35,6 +41,18 @@ impl PPTable {
             );
 
             header = h.assume_init();
+        }
+
+        if bytes.len() < header.structuresize as usize {
+            if cfg!(debug_assertions) {
+                println!(
+                    "bytes ({}) < header.structuresize ({})",
+                    bytes.len(),
+                    header.structuresize as usize,
+                );
+            }
+
+            return Self::Invalid;
         }
 
         match header.format_revision {
@@ -66,6 +84,14 @@ impl PPTable {
             );
 
             t.assume_init()
+        }
+    }
+
+    pub fn is_valid(&self) -> bool {
+        match self {
+            Self::Unknown(_) |
+            Self::Invalid => false,
+            _ => true,
         }
     }
 }
