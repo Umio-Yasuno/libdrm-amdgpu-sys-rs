@@ -95,6 +95,7 @@ mod hw_ip;
 mod fw_version;
 mod sensor_info;
 pub mod pp_table;
+pub use pp_table::PPTable;
 
 pub mod VBIOS {
     pub use super::vbios::*;

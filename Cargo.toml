@@ -43,3 +43,7 @@ required-features = ["std"]
 [[example]]
 name = "stable_pstate"
 required-features = ["std"]
+
+[[example]]
+name = "pp_table"
+required-features = ["std"]
