@@ -150,6 +150,13 @@ impl VbiosParser {
         self.read_table(data_table.listOfdatatables.firmwareinfo as usize)
     }
 
+    pub fn get_smu_11_0_powerplay_table(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<smu_11_0_powerplay_table> {
+        self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
+    }
+
     pub fn get_smu_11_0_7_powerplay_table(
         &self,
         data_table: &atom_master_data_table_v2_1,
