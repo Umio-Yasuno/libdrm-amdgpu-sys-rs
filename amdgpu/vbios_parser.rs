@@ -2,6 +2,7 @@ use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4};
 use super::pp_table::{
+    PPTable,
     smu_11_0_powerplay_table,
     smu_11_0_7_powerplay_table,
     smu_13_0_0_powerplay_table,
@@ -147,7 +148,7 @@ impl VbiosParser {
         &self,
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<atom_firmware_info_v3_4> {
-        self.read_table(data_table.listOfdatatables.firmwareinfo as usize)
+        self.read_table_unchecked_size(data_table.listOfdatatables.firmwareinfo as usize)
     }
 
     pub fn get_smu_11_0_powerplay_table(
@@ -176,5 +177,16 @@ impl VbiosParser {
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<smu_13_0_7_powerplay_table> {
         self.read_table(data_table.listOfdatatables.powerplayinfo as usize)
+    }
+
+    pub fn get_powerplay_table(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<PPTable> {
+        let offset = data_table.listOfdatatables.powerplayinfo as usize;
+        if offset == 0 { return None }
+        let bytes = self.0.get(offset..)?;
+
+        Some(PPTable::from_bytes(bytes))
     }
 }

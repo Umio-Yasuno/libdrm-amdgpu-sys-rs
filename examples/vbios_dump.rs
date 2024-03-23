@@ -59,16 +59,8 @@ fn main() {
                 let firmware_info = vbios_parser.get_atom_firmware_info(&data_table).unwrap();
                 println!("firmwareinfo: {firmware_info:#?}");
 
-                if let Some(ppt) = vbios_parser.get_smu_11_0_7_powerplay_table(&data_table) {
-                    println!("smu_11_0_7 ppt: {ppt:#?}");
-                }
-
-                if let Some(ppt) = vbios_parser.get_smu_13_0_0_powerplay_table(&data_table) {
-                    println!("smu_13_0_0 ppt: {ppt:#?}");
-                }
-
-                if let Some(ppt) = vbios_parser.get_smu_13_0_7_powerplay_table(&data_table) {
-                    println!("smu_13_0_7 ppt: {ppt:#?}");
+                if let Some(ppt) = vbios_parser.get_powerplay_table(&data_table) {
+                    println!("ppt: {ppt:#?}");
                 }
 
                 return;
