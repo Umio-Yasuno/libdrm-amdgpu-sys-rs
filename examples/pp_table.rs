@@ -1,4 +1,5 @@
 use libdrm_amdgpu_sys::*;
+use AMDGPU::{IpHwId, HwId};
 use std::fs::File;
 
 fn main() {
@@ -11,7 +12,14 @@ fn main() {
         AMDGPU::DeviceHandle::init(f.into_raw_fd()).unwrap()
     };
 
-    let f = std::fs::read(amdgpu_dev.get_sysfs_path().unwrap().join("pp_table")).unwrap();
+    let sysfs = amdgpu_dev.get_sysfs_path().unwrap();
+    if let Ok(smu) = IpHwId::get_from_die_id_sysfs(HwId::MP0, &sysfs.join("ip_discovery/die/0/")) {
+        if let Some(inst) = smu.instances.get(0) {
+            println!("SMU (MP0) version: {}.{}.{}", inst.major, inst.minor, inst.revision);
+        }
+    };
+
+    let f = std::fs::read(&sysfs.join("pp_table")).unwrap();
     let pp_table = AMDGPU::PPTable::from_bytes(&f);
 
     println!("{pp_table:#?}");
