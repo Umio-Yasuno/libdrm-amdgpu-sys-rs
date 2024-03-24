@@ -19,8 +19,23 @@ fn main() {
         }
     };
 
-    let f = std::fs::read(&sysfs.join("pp_table")).unwrap();
-    let pp_table = AMDGPU::PPTable::from_bytes(&f);
+    let pp_table;
+
+    if let Ok(f) = std::fs::read(&sysfs.join("pp_table")) {
+        pp_table = AMDGPU::PPTable::from_bytes(&f);
+        println!("from sysfs");
+    } else if let Ok(vbios_image) = amdgpu_dev.get_vbios_image() {
+        use AMDGPU::VBIOS::VbiosParser;
+
+        let vbios_parser = VbiosParser::new(vbios_image);
+        let rom_header = vbios_parser.get_atom_rom_header().unwrap();
+        let data_table = vbios_parser.get_atom_data_table(&rom_header).unwrap();
+
+        pp_table = vbios_parser.get_powerplay_table(&data_table).unwrap();
+        println!("from VBIOS");
+    } else {
+        return;
+    }
 
     println!("{pp_table:#?}");
 }
