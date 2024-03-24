@@ -37,6 +37,10 @@ name = "vbios_dump"
 required-features = ["std"]
 
 [[example]]
+name = "vbios_parser"
+required-features = ["std"]
+
+[[example]]
 name = "gpu_metrics"
 required-features = ["std"]
 

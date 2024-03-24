@@ -1,12 +1,6 @@
 use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4};
-use super::pp_table::{
-    smu_11_0_powerplay_table,
-    smu_11_0_7_powerplay_table,
-    smu_13_0_0_powerplay_table,
-    smu_13_0_7_powerplay_table,
-};
 use crate::AMDGPU::PPTable;
 
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
