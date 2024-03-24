@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::collections::HashMap;
 
 /* ref: drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c */
@@ -42,16 +42,16 @@ impl IpHwInstance {
         })
     }
 
-    pub fn parse_harvest_file(sysfs_path: &PathBuf) -> Option<u8> {
-        let s = std::fs::read_to_string(sysfs_path.join("harvest")).ok()?;
+    pub fn parse_harvest_file<P: AsRef<Path>>(sysfs_path: P) -> Option<u8> {
+        let s = std::fs::read_to_string(sysfs_path.as_ref().join("harvest")).ok()?;
         let len = s.len();
 
         u8::from_str_radix(s.get(2..len-1)?, 16).ok() // "0x0\n"
     }
 
-    pub fn parse_base_address_file(sysfs_path: &PathBuf) -> Vec<u32> {
+    pub fn parse_base_address_file<P: AsRef<Path>>(sysfs_path: P) -> Vec<u32> {
         let mut base_addr = Vec::with_capacity(8);
-        let Ok(s) = std::fs::read_to_string(sysfs_path.join("base_addr")) else { return base_addr };
+        let Ok(s) = std::fs::read_to_string(sysfs_path.as_ref().join("base_addr")) else { return base_addr };
         let lines = s.lines();
 
         for l in lines {
@@ -84,15 +84,21 @@ pub struct IpHwId {
 }
 
 impl IpHwId {
-    /// `ip_discovery/die/#die/#hw_id/`
-    pub fn get_from_ip_hw_sysfs(hw_id: HwId, ip_hw_path: &PathBuf) -> Result<Self, std::io::Error> {
-        let inst_count = std::fs::read_dir(&ip_hw_path)?.count(); // use count for the order
+    /// die_id_path: `ip_discovery/die/#die/`
+    pub fn get_from_die_id_sysfs<P: AsRef<Path>>(hw_id: HwId, die_id_path: P) -> Result<Self, std::io::Error> {
+        Self::get_from_ip_hw_sysfs(hw_id, &die_id_path.as_ref().join(hw_id.to_string()))
+    }
+
+    /// ip_hw_path: `ip_discovery/die/#die/#hw_id/`
+    pub fn get_from_ip_hw_sysfs<P: AsRef<Path>>(hw_id: HwId, ip_hw_path: P) -> Result<Self, std::io::Error> {
+        let path = ip_hw_path.as_ref();
+        let inst_count = std::fs::read_dir(path)?.count(); // use count for the order
 
         Ok(IpHwId {
             hw_id,
             instances: (0..inst_count).filter_map(|i| {
-                let path = ip_hw_path.join(i.to_string());
-                IpHwInstance::get_from_instance_sysfs(&path)
+                let path = path.join(i.to_string());
+                IpHwInstance::get_from_instance_sysfs(path)
             }).collect(),
         })
     }
@@ -116,13 +122,14 @@ impl IpDieEntry {
     }
 
     /// `ip_discovery/die/#die/`
-    pub fn get_from_die_sysfs(sysfs_path: &PathBuf) -> Option<Self> {
-        let die_id: usize = sysfs_path.file_name()?.to_str()?.parse().ok()?;
-        Self::get_from_sysfs_with_die_id(die_id, &sysfs_path.join("../"))
+    pub fn get_from_die_sysfs<P: AsRef<Path>>(sysfs_path: P) -> Option<Self> {
+        let path = sysfs_path.as_ref();
+        let die_id: usize = path.file_name()?.to_str()?.parse().ok()?;
+        Self::get_from_sysfs_with_die_id(die_id, path.join("../"))
     }
 
-    pub fn get_from_sysfs_with_die_id(die_id: usize, sysfs_path: &PathBuf) -> Option<Self> {
-        let die_path = sysfs_path.join(die_id.to_string());
+    pub fn get_from_sysfs_with_die_id<P: AsRef<Path>>(die_id: usize, sysfs_path: P) -> Option<Self> {
+        let die_path = sysfs_path.as_ref().join(die_id.to_string());
         let die = std::fs::read_dir(&die_path).ok()?;
         let mut ip_hw: Vec<isize> = die.filter_map(|ip_hw| {
             ip_hw.ok()?.file_name().to_str()?.parse().ok()
