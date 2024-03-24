@@ -7,6 +7,7 @@ use super::pp_table::{
     smu_13_0_0_powerplay_table,
     smu_13_0_7_powerplay_table,
 };
+use crate::AMDGPU::PPTable;
 
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
 // ref: drivers/gpu/drm/amd/amdgpu/atom.c
