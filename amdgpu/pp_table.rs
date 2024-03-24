@@ -3,7 +3,7 @@ use core::ptr;
 use crate::bindings::atom_common_table_header;
 pub use crate::bindings::ppt::{
     smu_v11_0_0_ppt::{smu_11_0_powerplay_table, PPTable_t as PPTable_smu_11_0_t},
-    smu_v11_0_7_ppt::{smu_11_0_7_powerplay_table, PPTable_t as PPTable_smu_11_0_7_t},
+    smu_v11_0_7_ppt::{smu_11_0_7_powerplay_table, PPTable_t as PPTable_smu_11_0_7_t, PPTable_beige_goby_t},
     smu_v13_0_0_ppt::{smu_13_0_0_powerplay_table, PPTable_t as PPTable_smu_13_0_0_t},
     smu_v13_0_7_ppt::{smu_13_0_7_powerplay_table, PPTable_t as PPTable_smu_13_0_7_t},
 };
@@ -55,16 +55,17 @@ impl PPTable {
             return Self::Invalid;
         }
 
+        // ref: https://github.com/sibradzic/upp/blob/master/src/upp/decode.py
         match header.format_revision {
             // Navi10: 12
             // Navi12: 14
-            // Navi14: ?
-            12 => Self::V11_0_0(Self::to_pptable(&bytes)),
+            // Navi14: 12?
+            12 | 14 => Self::V11_0_0(Self::to_pptable(&bytes)),
             // Navi21: 15
-            // Navi22: ?
+            // Navi22: 16?
             // Navi23: 18
-            // Navi24: ?
-            15 | 18 => Self::V11_0_7(Self::to_pptable(&bytes)),
+            // Navi24: 19?
+            15 | 16 | 18 | 19 => Self::V11_0_7(Self::to_pptable(&bytes)),
             // Navi31: 20
             // Navi32: ?
             // Navi33: ?
