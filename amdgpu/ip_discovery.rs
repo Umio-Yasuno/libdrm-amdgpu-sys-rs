@@ -75,6 +75,10 @@ impl IpHwInstance {
 
         s.get(..len-1)?.parse::<T>().ok()
     }
+
+    pub fn version(&self) -> (u8, u8, u8) {
+        (self.major, self.minor, self.revision)
+    }
 }
 
 #[derive(Debug, Clone)]

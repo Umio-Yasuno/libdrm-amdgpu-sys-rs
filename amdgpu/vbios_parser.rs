@@ -145,14 +145,22 @@ impl VbiosParser {
         self.read_table_unchecked_size(data_table.listOfdatatables.firmwareinfo as usize)
     }
 
+    pub fn get_powerplay_table_bytes(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<&[u8]> {
+        let offset = data_table.listOfdatatables.powerplayinfo as usize;
+        if offset == 0 { return None }
+
+        self.0.get(offset..)
+    }
+
     pub fn get_powerplay_table(
         &self,
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<PPTable> {
-        let offset = data_table.listOfdatatables.powerplayinfo as usize;
-        if offset == 0 { return None }
-        let bytes = self.0.get(offset..)?;
+        let bytes = self.get_powerplay_table_bytes(data_table)?;
 
-        Some(PPTable::from_bytes(bytes))
+        Some(PPTable::decode(bytes))
     }
 }

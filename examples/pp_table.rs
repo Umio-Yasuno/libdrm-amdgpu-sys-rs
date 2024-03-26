@@ -13,29 +13,31 @@ fn main() {
     };
 
     let sysfs = amdgpu_dev.get_sysfs_path().unwrap();
-    if let Ok(smu) = IpHwId::get_from_die_id_sysfs(HwId::MP0, &sysfs.join("ip_discovery/die/0/")) {
-        if let Some(inst) = smu.instances.get(0) {
-            println!("SMU (MP0) version: {}.{}.{}", inst.major, inst.minor, inst.revision);
-        }
-    };
-
-    let pp_table;
-
-    if let Ok(f) = std::fs::read(&sysfs.join("pp_table")) {
-        pp_table = AMDGPU::PPTable::from_bytes(&f);
+    let bytes = if let Ok(bytes) = std::fs::read(&sysfs.join("pp_table")) {
         println!("from sysfs");
+
+        bytes
     } else if let Ok(vbios_image) = amdgpu_dev.get_vbios_image() {
         use AMDGPU::VBIOS::VbiosParser;
+
+        println!("from VBIOS");
 
         let vbios_parser = VbiosParser::new(vbios_image);
         let rom_header = vbios_parser.get_atom_rom_header().unwrap();
         let data_table = vbios_parser.get_atom_data_table(&rom_header).unwrap();
 
-        pp_table = vbios_parser.get_powerplay_table(&data_table).unwrap();
-        println!("from VBIOS");
+        vbios_parser.get_powerplay_table_bytes(&data_table).unwrap().to_vec()
     } else {
         return;
-    }
+    };
+
+    let pp_table = if let Some(smu) = IpHwId::get_from_die_id_sysfs(HwId::MP1, &sysfs.join("ip_discovery/die/0/")).ok().and_then(|smu| smu.instances.get(0).map(|v| v.clone())) {
+        println!("SMU (MP1) version: {}.{}.{}", smu.major, smu.minor, smu.revision);
+
+        AMDGPU::PPTable::decode_with_smu_version(&bytes, smu.version())
+    } else {
+        AMDGPU::PPTable::decode(&bytes)
+    };
 
     println!("{pp_table:#?}");
 }

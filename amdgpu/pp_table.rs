@@ -19,7 +19,7 @@ pub enum PPTable {
 }
 
 impl PPTable {
-    pub fn from_bytes(bytes: &[u8]) -> Self {
+    fn get_header(bytes: &[u8]) -> Option<atom_common_table_header> {
         const HEADER_SIZE: usize = size_of::<atom_common_table_header>();
 
         let Some(bin) = bytes.get(0..HEADER_SIZE) else {
@@ -27,9 +27,8 @@ impl PPTable {
                 println!("The binary is smaller than header size.");
             }
 
-            return Self::Invalid;
+            return None;
         };
-        let header;
 
         unsafe {
             let mut h = MaybeUninit::<atom_common_table_header>::zeroed();
@@ -40,18 +39,27 @@ impl PPTable {
                 HEADER_SIZE,
             );
 
-            header = h.assume_init();
+            Some(h.assume_init())
         }
+    }
 
-        if bytes.len() < header.structuresize as usize {
-            if cfg!(debug_assertions) {
-                println!(
-                    "bytes ({}) < header.structuresize ({})",
-                    bytes.len(),
-                    header.structuresize as usize,
-                );
-            }
+    fn check_length(header: &atom_common_table_header, len: usize) -> bool {
+        let b = header.structuresize as usize <= len;
 
+        debug_assert!(
+            b,
+            "header.structuresize ({:?}) <= bytes ({})",
+            header,
+            len,
+        );
+
+        b
+    }
+
+    pub fn decode(bytes: &[u8]) -> Self {
+        let Some(header) = Self::get_header(bytes) else { return Self::Invalid };
+
+        if !Self::check_length(&header, bytes.len()) {
             return Self::Invalid;
         }
 
@@ -70,6 +78,30 @@ impl PPTable {
             // Navi32: ?
             // Navi33: ?
             20 => Self::V13_0_0(Self::to_pptable(&bytes)),
+            _ => Self::Unknown(header),
+        }
+    }
+
+    pub fn decode_with_smu_version(bytes: &[u8], smu_ver: (u8, u8, u8)) -> Self {
+        let Some(header) = Self::get_header(bytes) else { return Self::Invalid };
+
+        if !Self::check_length(&header, bytes.len()) {
+            return Self::Invalid;
+        }
+
+        match smu_ver {
+            (11, 0, 0) | /* Navi10 */
+            (11, 0, 5) | /* Navi14 */
+            (11, 0, 9) /* Navi12 */
+                => Self::V11_0_0(Self::to_pptable(&bytes)),
+            (11, 0, 7) | /* Navi21 */
+            (11, 0, 11) | /* Navi22 */
+            (11, 0, 12) | /* Navi23 */
+            (11, 0, 13) /* Navi24 */
+                => Self::V11_0_7(Self::to_pptable(&bytes)),
+            (13, 0, 0) |
+            (13, 0, 10) => Self::V13_0_0(Self::to_pptable(&bytes)),
+            (13, 0, 7) => Self::V13_0_7(Self::to_pptable(&bytes)),
             _ => Self::Unknown(header),
         }
     }
