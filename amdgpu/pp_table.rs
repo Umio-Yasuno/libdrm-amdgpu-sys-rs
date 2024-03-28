@@ -28,13 +28,7 @@ impl PPTable {
     fn get_header(bytes: &[u8]) -> Option<atom_common_table_header> {
         const HEADER_SIZE: usize = size_of::<atom_common_table_header>();
 
-        let Some(bin) = bytes.get(0..HEADER_SIZE) else {
-            if cfg!(debug_assertions) {
-                println!("The binary is smaller than header size.");
-            }
-
-            return None;
-        };
+        let Some(bin) = bytes.get(0..HEADER_SIZE) else { return None };
 
         unsafe {
             let mut h = MaybeUninit::<atom_common_table_header>::zeroed();
@@ -50,16 +44,7 @@ impl PPTable {
     }
 
     fn check_length(header: &atom_common_table_header, len: usize) -> bool {
-        let b = header.structuresize as usize <= len;
-
-        debug_assert!(
-            b,
-            "header.structuresize ({:?}) <= bytes ({})",
-            header,
-            len,
-        );
-
-        b
+        header.structuresize as usize <= len
     }
 
     pub fn decode(bytes: &[u8]) -> Result<Self, PPTableDecodeError> {
