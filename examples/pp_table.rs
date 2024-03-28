@@ -13,31 +13,34 @@ fn main() {
     };
 
     let sysfs = amdgpu_dev.get_sysfs_path().unwrap();
-    let bytes = if let Ok(bytes) = std::fs::read(&sysfs.join("pp_table")) {
-        println!("from sysfs");
+    let smu = IpHwId::get_from_die_id_sysfs(HwId::MP1, &sysfs.join("ip_discovery/die/0/")).ok().and_then(|smu| smu.instances.get(0).map(|v| v.clone()));
 
-        bytes
-    } else if let Ok(vbios_image) = amdgpu_dev.get_vbios_image() {
+    if let Some(smu) = &smu {
+        println!("SMU (MP1) version: {}.{}.{}", smu.major, smu.minor, smu.revision);
+    }
+
+    let pp_table_bytes_sysfs = std::fs::read(&sysfs.join("pp_table")).ok();
+    let pp_table_bytes_vbios = amdgpu_dev.get_vbios_image().ok().and_then(|vbios_image| {
         use AMDGPU::VBIOS::VbiosParser;
 
-        println!("from VBIOS");
-
         let vbios_parser = VbiosParser::new(vbios_image);
-        let rom_header = vbios_parser.get_atom_rom_header().unwrap();
-        let data_table = vbios_parser.get_atom_data_table(&rom_header).unwrap();
+        let rom_header = vbios_parser.get_atom_rom_header()?;
+        let data_table = vbios_parser.get_atom_data_table(&rom_header)?;
 
-        vbios_parser.get_powerplay_table_bytes(&data_table).unwrap().to_vec()
-    } else {
-        return;
-    };
+        Some(vbios_parser.get_powerplay_table_bytes(&data_table)?.to_vec())
+    });
 
-    let pp_table = if let Some(smu) = IpHwId::get_from_die_id_sysfs(HwId::MP1, &sysfs.join("ip_discovery/die/0/")).ok().and_then(|smu| smu.instances.get(0).map(|v| v.clone())) {
-        println!("SMU (MP1) version: {}.{}.{}", smu.major, smu.minor, smu.revision);
+    for (bytes, src) in [
+        (pp_table_bytes_sysfs, "sysfs"),
+        (pp_table_bytes_vbios, "VBIOS"),
+    ] {
+        let Some(bytes) = bytes else { continue };
+        let pp_table = if let Some(smu) = &smu {
+            AMDGPU::PPTable::decode_with_smu_version(&bytes, smu.version())
+        } else {
+            AMDGPU::PPTable::decode(&bytes)
+        };
 
-        AMDGPU::PPTable::decode_with_smu_version(&bytes, smu.version())
-    } else {
-        AMDGPU::PPTable::decode(&bytes)
-    };
-
-    println!("{pp_table:#?}");
+        println!("from {src}: {pp_table:#?}");
+    }
 }
