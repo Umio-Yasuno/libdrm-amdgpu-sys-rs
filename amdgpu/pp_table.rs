@@ -8,6 +8,12 @@ pub use crate::bindings::ppt::{
     smu_v13_0_7_ppt::{smu_13_0_7_powerplay_table, PPTable_t as PPTable_smu_13_0_7_t},
 };
 
+#[derive(Clone, Copy, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+pub enum PPTableDecodeError {
+    SmallerThanHeader,
+    SmallerThanStructureSizeInHeader,
+}
+
 #[derive(Debug, Clone)]
 pub enum PPTable {
     V11_0_0(smu_11_0_powerplay_table),
@@ -56,15 +62,15 @@ impl PPTable {
         b
     }
 
-    pub fn decode(bytes: &[u8]) -> Self {
-        let Some(header) = Self::get_header(bytes) else { return Self::Invalid };
+    pub fn decode(bytes: &[u8]) -> Result<Self, PPTableDecodeError> {
+        let Some(header) = Self::get_header(bytes) else { return Err(PPTableDecodeError::SmallerThanHeader) };
 
         if !Self::check_length(&header, bytes.len()) {
-            return Self::Invalid;
+            return Err(PPTableDecodeError::SmallerThanStructureSizeInHeader);
         }
 
         // ref: https://github.com/sibradzic/upp/blob/master/src/upp/decode.py
-        match header.format_revision {
+        let ppt = match header.format_revision {
             // Navi10: 12
             // Navi12: 14
             // Navi14: 12?
@@ -79,17 +85,20 @@ impl PPTable {
             // Navi33: ?
             20 => Self::V13_0_0(Self::to_pptable(&bytes)),
             _ => Self::Unknown(header),
-        }
+        };
+
+        Ok(ppt)
     }
 
-    pub fn decode_with_smu_version(bytes: &[u8], smu_ver: (u8, u8, u8)) -> Self {
-        let Some(header) = Self::get_header(bytes) else { return Self::Invalid };
+    pub fn decode_with_smu_version(bytes: &[u8], smu_ver: (u8, u8, u8)) -> Result<Self, PPTableDecodeError> {
+        let Some(header) = Self::get_header(bytes) else { return Err(PPTableDecodeError::SmallerThanHeader) };
 
         if !Self::check_length(&header, bytes.len()) {
-            return Self::Invalid;
+            return Err(PPTableDecodeError::SmallerThanStructureSizeInHeader);
         }
 
-        match smu_ver {
+        // ref: https://github.com/sibradzic/upp/blob/master/src/upp/decode.py
+        let ppt = match smu_ver {
             (11, 0, 0) | /* Navi10 */
             (11, 0, 5) | /* Navi14 */
             (11, 0, 9) /* Navi12 */
@@ -103,7 +112,9 @@ impl PPTable {
             (13, 0, 10) => Self::V13_0_0(Self::to_pptable(&bytes)),
             (13, 0, 7) => Self::V13_0_7(Self::to_pptable(&bytes)),
             _ => Self::Unknown(header),
-        }
+        };
+
+        Ok(ppt)
     }
 
     fn to_pptable<T>(bytes: &[u8]) -> T {

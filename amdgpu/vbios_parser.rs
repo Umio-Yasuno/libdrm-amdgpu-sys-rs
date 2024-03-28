@@ -161,6 +161,6 @@ impl VbiosParser {
     ) -> Option<PPTable> {
         let bytes = self.get_powerplay_table_bytes(data_table)?;
 
-        Some(PPTable::decode(bytes))
+        PPTable::decode(bytes).ok()
     }
 }
