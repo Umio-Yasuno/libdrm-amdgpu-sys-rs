@@ -21,6 +21,10 @@ fn main() {
             panic!();
         }
 
+        if let Some(name) = vbios_parser.get_vbios_name() {
+            println!("name: {name:?}");
+        }
+
         let rom_header = vbios_parser.get_atom_rom_header().unwrap();
         println!("{rom_header:#X?}");
 
@@ -29,9 +33,5 @@ fn main() {
 
         let firmware_info = vbios_parser.get_atom_firmware_info(&data_table).unwrap();
         println!("firmwareinfo: {firmware_info:#?}");
-
-        if let Some(ppt) = vbios_parser.get_powerplay_table(&data_table) {
-            println!("ppt: {ppt:#?}");
-        }
     }
 }

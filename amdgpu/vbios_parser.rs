@@ -42,6 +42,38 @@ impl VbiosParser {
         self.length() == self.0.len()
     }
 
+    pub fn get_vbios_name(&self) -> Option<String> {
+        const OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS: usize = 0x2F;
+        const OFFSET_TO_GET_ATOMBIOS_STRING_START: usize = 0x6E;
+        const STRLEN_LONG: usize = 64;
+
+        let str_num = self.0.get(OFFSET_TO_GET_ATOMBIOS_NUMBER_OF_STRINGS)?;
+        let offset_str_start = self.read_u16(OFFSET_TO_GET_ATOMBIOS_STRING_START)? as usize;
+        let mut skip_str = 0usize;
+
+        for _i in 0..*str_num {
+            while let Some(s) = self.0.get(offset_str_start+skip_str) {
+                if *s != 0 {
+                    skip_str += 1;
+                } else {
+                    break;
+                }
+            }
+
+            skip_str += 1;
+        }
+
+        // skip: 0x0D 0x0A
+        skip_str += 2;
+
+        let offset = offset_str_start+skip_str;
+        let s = self.0.get(offset..offset+STRLEN_LONG)?;
+        let padding_pos = s.iter().rev().position(|&x| x != b' ')?;
+        let s = s.get(..STRLEN_LONG-padding_pos)?;
+
+        String::from_utf8(s.to_vec()).ok()
+    }
+
     pub fn get_date(&self) -> Option<Vec<u8>> {
         let rom = self.0.get(VBIOS_DATE_OFFSET..VBIOS_DATE_OFFSET+14)?;
 
