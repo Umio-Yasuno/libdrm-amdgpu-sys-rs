@@ -125,10 +125,42 @@ impl BUS_INFO {
         LINK::get_max_link(&self.get_system_pcie_port_sysfs_path())
     }
 
-    /// The AMDGPU driver reports maximum number of PCIe lanes of Polaris11/Polaris12 as x16
-    /// in `pp_dpm_pcie` (actually x8), so we use `{current,max}_link_{speed,width}`.
-    /// ref: drivers/gpu/drm/amd/pm/powerplay/hwmgr/smu7_hwmgr.c
-    ///
+    #[cfg(feature = "std")]
+    fn from_pathbuf(path: PathBuf) -> Option<Self> {
+        path
+            .canonicalize().ok()?
+            .file_name()?
+            .to_str()?
+            .parse().ok()
+    }
+
+    /// Recent AMD GPUs have multiple endpoints, and the PCIe speed/width actually
+    /// runs in that system for the GPU is output to `pp_dpm_pcie`.
+    /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
+    #[cfg(feature = "std")]
+    pub fn get_gpu_pcie_port_bus(&self) -> Self {
+        let mut path = self.get_system_pcie_port_sysfs_path();
+
+        path.pop();
+
+        if let Some(pci) = Self::from_pathbuf(path) {
+            pci
+        } else {
+            *self
+        }
+    }
+
+    #[cfg(feature = "std")]
+    pub fn get_system_pcie_port_bus(&self) -> Self {
+        let path = self.get_system_pcie_port_sysfs_path();
+
+        if let Some(pci) = Self::from_pathbuf(path) {
+            pci
+        } else {
+            *self
+        }
+    }
+
     /// Recent AMD GPUs have multiple endpoints, and the PCIe speed/width actually
     /// runs in that system for the GPU is output to `pp_dpm_pcie`.
     /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
