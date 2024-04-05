@@ -8,6 +8,7 @@ authors = ["Umio Yasuno <coelacanth_dream@proton.me>"]
 description = "libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D."
 repository = "https://github.com/Umio-Yasuno/libdrm-amdgpu-sys-rs"
 keywords = ["amdgpu", "libdrm"]
+links = "drm, drm_amdgpu"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
