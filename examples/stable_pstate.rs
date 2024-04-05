@@ -16,12 +16,17 @@ fn info(pci_bus: &PCI::BUS_INFO) {
     {
         let ctx = amdgpu_dev.create_context().unwrap();
         let current_stable_pstate = ctx.get_stable_pstate().unwrap();
-        println!("{current_stable_pstate:?}");
+        println!("Current Stable PState: {current_stable_pstate:?}");
 
-        ctx.set_stable_pstate(AMDGPU::StablePstateFlag::STANDARD).unwrap();
-        let p = ctx.get_stable_pstate().unwrap();
+        println!("Set STANDARD PState");
 
-        println!("  {p:?}");
+        match ctx.set_stable_pstate(AMDGPU::StablePstateFlag::STANDARD) {
+            Ok(_) => {
+            },
+            Err(err) => println!("    Error: {err}"),
+        }
+
+        println!("Press enter to revert stable_pstate");
 
         let mut input = String::new();
         std::io::stdin().read_line(&mut input).unwrap();
