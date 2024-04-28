@@ -12,6 +12,17 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
 
 ## Documentation
  * [libdrm_amdgpu_sys - Rust](https://docs.rs/libdrm_amdgpu_sys/latest/libdrm_amdgpu_sys/)
+
+## Dependent dynamic libraries
+ * libdrm
+ * libdrm_amdgpu
+
+### Distribution specific instructions
+#### Debian/Ubuntu
+```
+sudo apt install libdrm-dev
+```
+
 ## Examples
 ```
 let (amdgpu_dev, drm_major, drm_minor) = {
