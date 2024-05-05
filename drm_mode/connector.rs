@@ -75,10 +75,14 @@ impl drmModeConnector {
     }
 
     pub fn get_modes(&self) -> Vec<drmModeModeInfo> {
-        unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).modes).read(),
-            addr_of!((*self.0).count_modes).read() as usize,
-        ) }.to_vec()
+        let ptr = unsafe { addr_of!((*self.0).modes).read() };
+        let len = unsafe { addr_of!((*self.0).count_modes).read() } as usize;
+
+        if ptr.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(ptr, len) }.to_vec()
+        }
     }
 }
 

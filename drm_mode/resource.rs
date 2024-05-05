@@ -16,10 +16,14 @@ impl drmModeRes {
     }
 
     pub fn get_all_connector_current(&self, fd: i32) -> Vec<drmModeConnector> {
-        let connectors = unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).connectors).read(),
-            addr_of!((*self.0).count_connectors).read() as usize,
-        ) };
+        let ptr = unsafe { addr_of!((*self.0).connectors).read() };
+
+        if ptr.is_null() {
+            return Vec::new();
+        }
+
+        let count = unsafe { addr_of!((*self.0).count_connectors).read() as usize };
+        let connectors = unsafe { std::slice::from_raw_parts(ptr, count) };
 
         connectors.iter().filter_map(|connector_id| {
             drmModeConnector::get_current(fd, *connector_id)
@@ -27,10 +31,14 @@ impl drmModeRes {
     }
 
     pub fn get_all_connector(&self, fd: i32) -> Vec<drmModeConnector> {
-        let connectors = unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).connectors).read(),
-            addr_of!((*self.0).count_connectors).read() as usize,
-        ) };
+        let ptr = unsafe { addr_of!((*self.0).connectors).read() };
+
+        if ptr.is_null() {
+            return Vec::new();
+        }
+
+        let count = unsafe { addr_of!((*self.0).count_connectors).read() as usize };
+        let connectors = unsafe { std::slice::from_raw_parts(ptr, count) };
 
         connectors.iter().filter_map(|connector_id| {
             drmModeConnector::get(fd, *connector_id)

@@ -30,11 +30,13 @@ impl drmModePropertyBlob {
 
     pub fn data(&self) -> Vec<u8> {
         let ptr = unsafe { addr_of!((*self.0).data).read() };
+        let len = self.length() as usize;
 
-        unsafe { std::slice::from_raw_parts(
-            ptr as *const u8,
-            self.length() as usize,
-        ) }.to_vec()
+        if ptr.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(ptr as *const u8, len) }.to_vec()
+        }
     }
 }
 

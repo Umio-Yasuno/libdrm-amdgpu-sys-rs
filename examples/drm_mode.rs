@@ -21,17 +21,23 @@ fn main() {
             connector.connector_type_id(),
             connector.connection(),
         );
-        println!("    Modes");
-        for mode in connector.get_modes() {
-            println!(
-                "        {}x{}@{:.2}{}{}",
-                mode.vdisplay,
-                mode.hdisplay,
-                mode.refresh_rate(),
-                if mode.type_is_preferred() { " preferred" } else { "" },
-                if mode.type_is_driver() { " driver" } else { "" },
-            );
+
+        let modes = connector.get_modes();
+
+        if !modes.is_empty() {
+            println!("    Modes");
+            for mode in connector.get_modes() {
+                println!(
+                    "        {}x{}@{:.2}{}{}",
+                    mode.vdisplay,
+                    mode.hdisplay,
+                    mode.refresh_rate(),
+                    if mode.type_is_preferred() { " preferred" } else { "" },
+                    if mode.type_is_driver() { " driver" } else { "" },
+                );
+            }
         }
+
         if let Some(conn_prop) = connector.get_connector_props(fd) {
             let mode_props = conn_prop.get_mode_property(fd);
 

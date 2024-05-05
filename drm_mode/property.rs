@@ -52,24 +52,36 @@ impl drmModeProperty {
     }
 
     pub fn values(&self) -> Vec<u64> {
-        unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).values).read(),
-            addr_of!((*self.0).count_values).read() as usize,
-        ) }.to_vec()
+        let ptr = unsafe { addr_of!((*self.0).values).read() };
+        let count = unsafe { addr_of!((*self.0).count_values).read() as usize };
+
+        if ptr.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(ptr, count) }.to_vec()
+        }
     }
 
     pub fn blob_ids(&self) -> Vec<u32> {
-        unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).blob_ids).read(),
-            addr_of!((*self.0).count_blobs).read() as usize,
-        ) }.to_vec()
+        let ptr = unsafe { addr_of!((*self.0).blob_ids).read() };
+        let count = unsafe { addr_of!((*self.0).count_blobs).read() as usize };
+
+        if ptr.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(ptr, count) }.to_vec()
+        }
     }
 
     pub fn enums(&self) -> Vec<drm_mode_property_enum> {
-        unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).enums).read(),
-            addr_of!((*self.0).count_enums).read() as usize,
-        ) }.to_vec()
+        let ptr = unsafe { addr_of!((*self.0).enums).read() };
+        let count = unsafe { addr_of!((*self.0).count_enums).read() as usize };
+
+        if ptr.is_null() {
+            Vec::new()
+        } else {
+            unsafe { std::slice::from_raw_parts(ptr, count) }.to_vec()
+        }
     }
 }
 

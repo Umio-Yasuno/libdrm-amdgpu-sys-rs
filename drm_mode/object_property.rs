@@ -43,14 +43,17 @@ impl drmModeObjectProperties {
     }
 
     pub fn get_mode_property(&self, fd: i32) -> Vec<(drmModeProperty, u64)> {
-        let props = unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).props).read(),
-            addr_of!((*self.0).count_props).read() as usize,
-        ) };
-        let values = unsafe { std::slice::from_raw_parts(
-            addr_of!((*self.0).prop_values).read(),
-            addr_of!((*self.0).count_props).read() as usize,
-        ) };
+        let props_ptr = unsafe { addr_of!((*self.0).props).read() };
+        let values_ptr = unsafe { addr_of!((*self.0).prop_values).read() };
+
+        if props_ptr.is_null() || values_ptr.is_null() {
+            return Vec::new();
+        }
+
+        let count = unsafe { addr_of!((*self.0).count_props).read() as usize };
+
+        let props = unsafe { std::slice::from_raw_parts(props_ptr, count) };
+        let values = unsafe { std::slice::from_raw_parts(values_ptr, count) };
 
         props.iter().zip(values.iter()).filter_map(|(prop_id, value)| {
             let prop = drmModeProperty::get(fd, *prop_id)?;
