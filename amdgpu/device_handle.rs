@@ -297,7 +297,7 @@ impl DeviceHandle {
         sysfs_path: P,
     ) -> Option<[u32; 2]> {
         let parse_line = |s: &str| -> Option<u32> {
-            s.split(' ').skip(1).next()?.trim_end_matches("Mhz").parse::<u32>().ok()
+            s.split(' ').nth(1)?.trim_end_matches("Mhz").parse::<u32>().ok()
         };
 
         get_min_max_from_dpm(sysfs_path.into(), parse_line)

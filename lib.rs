@@ -6,7 +6,9 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
+#[allow(unused_imports)]
 #[allow(dead_code)]
+#[allow(clippy::all)]
 #[cfg(not(feature = "buildtime_bindgen"))]
 mod bindings {
     mod drm;

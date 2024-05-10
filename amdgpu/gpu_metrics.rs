@@ -231,21 +231,21 @@ impl GpuMetrics {
     }
 
     pub fn from_raw(raw: &[u8]) -> Self {
-        let header = metrics_table_header::from_bytes(&raw);
+        let header = metrics_table_header::from_bytes(raw);
 
         match (header.format_revision, header.content_revision) {
-            (1, 0) => GpuMetrics::V1_0(Self::from_bytes(&raw)),
-            (1, 1) => GpuMetrics::V1_1(Self::from_bytes(&raw)),
-            (1, 2) => GpuMetrics::V1_2(Self::from_bytes(&raw)),
-            (1, 3) => GpuMetrics::V1_3(Self::from_bytes(&raw)),
-            (1, 4) => GpuMetrics::V1_4(Self::from_bytes(&raw)),
-            (1, 5) => GpuMetrics::V1_5(Self::from_bytes(&raw)),
-            (2, 0) => GpuMetrics::V2_0(Self::from_bytes(&raw)),
-            (2, 1) => GpuMetrics::V2_1(Self::from_bytes(&raw)),
-            (2, 2) => GpuMetrics::V2_2(Self::from_bytes(&raw)),
-            (2, 3) => GpuMetrics::V2_3(Self::from_bytes(&raw)),
-            (2, 4) => GpuMetrics::V2_4(Self::from_bytes(&raw)),
-            (3, 0) => GpuMetrics::V3_0(Self::from_bytes(&raw)),
+            (1, 0) => GpuMetrics::V1_0(Self::from_bytes(raw)),
+            (1, 1) => GpuMetrics::V1_1(Self::from_bytes(raw)),
+            (1, 2) => GpuMetrics::V1_2(Self::from_bytes(raw)),
+            (1, 3) => GpuMetrics::V1_3(Self::from_bytes(raw)),
+            (1, 4) => GpuMetrics::V1_4(Self::from_bytes(raw)),
+            (1, 5) => GpuMetrics::V1_5(Self::from_bytes(raw)),
+            (2, 0) => GpuMetrics::V2_0(Self::from_bytes(raw)),
+            (2, 1) => GpuMetrics::V2_1(Self::from_bytes(raw)),
+            (2, 2) => GpuMetrics::V2_2(Self::from_bytes(raw)),
+            (2, 3) => GpuMetrics::V2_3(Self::from_bytes(raw)),
+            (2, 4) => GpuMetrics::V2_4(Self::from_bytes(raw)),
+            (3, 0) => GpuMetrics::V3_0(Self::from_bytes(raw)),
             _ => GpuMetrics::Unknown,
         }
     }
@@ -254,6 +254,6 @@ impl GpuMetrics {
         let mut f = File::open(path.into())?;
         f.read_to_end(buf)?;
 
-        Ok(Self::from_raw(&buf))
+        Ok(Self::from_raw(buf))
     }
 }

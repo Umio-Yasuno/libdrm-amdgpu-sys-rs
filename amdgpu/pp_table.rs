@@ -28,7 +28,7 @@ impl PPTable {
     fn get_header(bytes: &[u8]) -> Option<atom_common_table_header> {
         const HEADER_SIZE: usize = size_of::<atom_common_table_header>();
 
-        let Some(bin) = bytes.get(0..HEADER_SIZE) else { return None };
+        let bin = bytes.get(0..HEADER_SIZE)?;
 
         unsafe {
             let mut h = MaybeUninit::<atom_common_table_header>::zeroed();
@@ -59,16 +59,16 @@ impl PPTable {
             // Navi10: 12
             // Navi12: 14
             // Navi14: 12?
-            12 | 14 => Self::V11_0_0(Self::to_pptable(&bytes)),
+            12 | 14 => Self::V11_0_0(Self::to_pptable(bytes)),
             // Navi21: 15
             // Navi22: 16?
             // Navi23: 18
             // Navi24: 19?
-            15 | 16 | 18 | 19 => Self::V11_0_7(Self::to_pptable(&bytes)),
+            15 | 16 | 18 | 19 => Self::V11_0_7(Self::to_pptable(bytes)),
             // Navi31: 20
             // Navi32: ?
             // Navi33: ?
-            20 => Self::V13_0_0(Self::to_pptable(&bytes)),
+            20 => Self::V13_0_0(Self::to_pptable(bytes)),
             _ => Self::Unknown(header),
         };
 
@@ -87,15 +87,15 @@ impl PPTable {
             (11, 0, 0) | /* Navi10 */
             (11, 0, 5) | /* Navi14 */
             (11, 0, 9) /* Navi12 */
-                => Self::V11_0_0(Self::to_pptable(&bytes)),
+                => Self::V11_0_0(Self::to_pptable(bytes)),
             (11, 0, 7) | /* Navi21 */
             (11, 0, 11) | /* Navi22 */
             (11, 0, 12) | /* Navi23 */
             (11, 0, 13) /* Navi24 */
-                => Self::V11_0_7(Self::to_pptable(&bytes)),
+                => Self::V11_0_7(Self::to_pptable(bytes)),
             (13, 0, 0) |
-            (13, 0, 10) => Self::V13_0_0(Self::to_pptable(&bytes)),
-            (13, 0, 7) => Self::V13_0_7(Self::to_pptable(&bytes)),
+            (13, 0, 10) => Self::V13_0_0(Self::to_pptable(bytes)),
+            (13, 0, 7) => Self::V13_0_7(Self::to_pptable(bytes)),
             _ => Self::Unknown(header),
         };
 

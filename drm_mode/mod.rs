@@ -14,6 +14,7 @@ mod property_blob;
 pub use property_blob::*;
 
 mod mode_info;
+#[allow(unused_imports)]
 pub use mode_info::*;
 
 // TODO: crtc, encoder
