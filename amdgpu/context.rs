@@ -85,7 +85,7 @@ use crate::bindings::{
 };
 
 #[repr(u32)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum StablePstateFlag {
     NONE = AMDGPU_CTX_STABLE_PSTATE_NONE,
     STANDARD = AMDGPU_CTX_STABLE_PSTATE_STANDARD,
