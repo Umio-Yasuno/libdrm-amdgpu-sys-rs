@@ -338,7 +338,7 @@ fn info(pci_bus: &PCI::BUS_INFO) {
         }
 
         if let Ok(level) = DpmForcedLevel::get_from_sysfs(&sysfs) {
-            println!("power_dpm_force_performance_lvel: {level:?}");
+            println!("power_dpm_force_performance_level: {level:?}");
         }
 
         use AMDGPU::{RasErrorCount, RasBlock};
