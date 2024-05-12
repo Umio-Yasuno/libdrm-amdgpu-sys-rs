@@ -3,7 +3,7 @@ use std::path::PathBuf;
 
 const SYSFS_NAME: &str = "power_dpm_force_performance_level";
 
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, Eq, PartialEq)]
 pub enum DpmForcedLevel {
     Auto,
     Manual,
