@@ -274,16 +274,7 @@ impl drm_amdgpu_info_device {
             ASIC_NAME::CHIP_REMBRANDT => (10, 3, 5),
             ASIC_NAME::CHIP_GFX1036 => (10, 3, 6),
             ASIC_NAME::CHIP_GFX1100 => (11, 0, 0),
-            ASIC_NAME::CHIP_GFX1101 => {
-                let did = self.device_id();
-                let rid = self.pci_rev_id();
-
-                match (did, rid) {
-                    (0x7460, 0x00) |
-                    (0x7461, 0x00) => (11, 0, 5),
-                    _ => (11, 0, 1),
-                }
-            },
+            ASIC_NAME::CHIP_GFX1101 => (11, 0, 1),
             ASIC_NAME::CHIP_GFX1102 => (11, 0, 2),
             ASIC_NAME::CHIP_GFX1103_R1 |
             ASIC_NAME::CHIP_GFX1103_R2 => (11, 0, 3),
