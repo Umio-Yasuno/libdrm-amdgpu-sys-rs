@@ -4,6 +4,9 @@ pub use resource::*;
 mod connector;
 pub use connector::*;
 
+mod crtc;
+pub use crtc::*;
+
 mod object_property;
 pub use object_property::*;
 
@@ -17,7 +20,7 @@ mod mode_info;
 #[allow(unused_imports)]
 pub use mode_info::*;
 
-// TODO: crtc, encoder
+// TODO: encoder
 
 pub(crate) fn c_char_to_string(c: &[core::ffi::c_char]) -> String {
     let c_name: Vec<u8> = c.iter().map(|c| *c as u8).collect();

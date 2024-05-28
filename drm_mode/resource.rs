@@ -1,4 +1,4 @@
-use crate::{bindings, drmModeConnector};
+use crate::{bindings, drmModeConnector, drmModeCrtc};
 use core::ptr::addr_of;
 
 pub use bindings::{drmModeResPtr, drmModeObjectPropertiesPtr, drmModePropertyPtr};
@@ -42,6 +42,21 @@ impl drmModeRes {
 
         connectors.iter().filter_map(|connector_id| {
             drmModeConnector::get(fd, *connector_id)
+        }).collect()
+    }
+
+    pub fn get_all_crtcs(&self, fd: i32) -> Vec<drmModeCrtc> {
+        let ptr = unsafe { addr_of!((*self.0).crtcs).read() };
+
+        if ptr.is_null() {
+            return Vec::new();
+        }
+
+        let count = unsafe { addr_of!((*self.0).count_crtcs).read() as usize };
+        let crtcs = unsafe { std::slice::from_raw_parts(ptr, count) };
+
+        crtcs.iter().filter_map(|crtc_id| {
+            drmModeCrtc::get(fd, *crtc_id)
         }).collect()
     }
 }

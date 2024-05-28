@@ -53,8 +53,7 @@ fn main() {
                 );
 
                 match type_ {
-                    drmModePropType::RANGE =>
-                        println!("        values: {:?}", prop.values()),
+                    drmModePropType::RANGE => println!("        values: {:?}", prop.values()),
                     drmModePropType::ENUM => {
                         print!("        enums: [");
                         for enum_ in prop.enums().iter() {
