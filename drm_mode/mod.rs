@@ -31,3 +31,31 @@ pub(crate) fn c_char_to_string(c: &[core::ffi::c_char]) -> String {
         String::from_utf8_lossy(&c_name)
     }.to_string()
 }
+
+use crate::bindings;
+
+pub use crate::bindings::{
+    DRM_CLIENT_CAP_STEREO_3D,
+    DRM_CLIENT_CAP_UNIVERSAL_PLANES,
+    DRM_CLIENT_CAP_ATOMIC,
+    DRM_CLIENT_CAP_ASPECT_RATIO,
+    DRM_CLIENT_CAP_WRITEBACK_CONNECTORS,
+    DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT,
+};
+
+pub fn set_client_caps(fd: i32, cap: u64, val: u64) -> i32 {
+    unsafe { bindings::drmSetClientCap(fd, cap, val) }
+}
+
+pub fn set_all_client_caps(fd: i32) {
+    for cap in [
+        DRM_CLIENT_CAP_STEREO_3D,
+        DRM_CLIENT_CAP_UNIVERSAL_PLANES,
+        DRM_CLIENT_CAP_ATOMIC,
+        DRM_CLIENT_CAP_ASPECT_RATIO,
+        DRM_CLIENT_CAP_WRITEBACK_CONNECTORS,
+        DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT,
+    ] {
+        let _ = unsafe { bindings::drmSetClientCap(fd, cap as u64, 1) };
+    }
+}

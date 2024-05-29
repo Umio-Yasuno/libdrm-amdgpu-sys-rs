@@ -51,7 +51,6 @@ impl drmModeObjectProperties {
         }
 
         let count = unsafe { addr_of!((*self.0).count_props).read() as usize };
-
         let props = unsafe { std::slice::from_raw_parts(props_ptr, count) };
         let values = unsafe { std::slice::from_raw_parts(values_ptr, count) };
 

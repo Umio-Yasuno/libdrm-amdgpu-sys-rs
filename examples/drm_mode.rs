@@ -1,4 +1,4 @@
-use libdrm_amdgpu_sys::{drmModeRes, drmModePropertyBlob, drmModePropType};
+use libdrm_amdgpu_sys::{drmVersion, drmModeRes, drmModePropertyBlob, drmModePropType};
 use std::fs::File;
 
 fn main() {
@@ -10,6 +10,7 @@ fn main() {
         f.into_raw_fd()
     };
 
+    libdrm_amdgpu_sys::set_all_client_caps(fd);
     let drm_mode_res = drmModeRes::get(fd).unwrap();
     let current_connectors = drm_mode_res.get_all_connector_current(fd);
 
