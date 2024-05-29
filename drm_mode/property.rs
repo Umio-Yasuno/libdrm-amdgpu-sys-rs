@@ -41,6 +41,11 @@ impl drmModeProperty {
         drmModePropType::from(type_)
     }
 
+    pub fn is_atomic(&self) -> bool {
+        let flags = self.flags();
+        (flags & DRM_MODE_PROP_ATOMIC) != 0
+    }
+
     pub fn is_pending(&self) -> bool {
         let flags = self.flags();
         (flags & DRM_MODE_PROP_PENDING) != 0
@@ -118,7 +123,7 @@ pub enum drmModePropType {
     ATOMIC = DRM_MODE_PROP_ATOMIC,
     OBJECT = DRM_MODE_PROP_OBJECT,
     SIGNED_RANGE = DRM_MODE_PROP_SIGNED_RANGE,
-    UNKNOWN,
+    UNKNOWN(u32),
 }
 
 impl From<u32> for drmModePropType {
@@ -131,7 +136,9 @@ impl From<u32> for drmModePropType {
             DRM_MODE_PROP_LEGACY_TYPE => Self::LEGACY_TYPE,
             DRM_MODE_PROP_EXTENDED_TYPE => Self::EXTENDED_TYPE,
             DRM_MODE_PROP_ATOMIC => Self::ATOMIC,
-            _ => Self::UNKNOWN,
+            DRM_MODE_PROP_OBJECT => Self::OBJECT,
+            DRM_MODE_PROP_SIGNED_RANGE => Self::SIGNED_RANGE,
+            _ => Self::UNKNOWN(value),
         }
     }
 }
