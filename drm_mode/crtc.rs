@@ -1,5 +1,5 @@
 use crate::{bindings, query_error};
-use core::ptr::addr_of;
+use crate::drmModeObjectProperties;
 use bindings::drmModeCrtcPtr;
 pub use bindings::drmModeCrtc;
 
@@ -24,5 +24,13 @@ impl drmModeCrtc {
 
     pub fn mode_valid(&self) -> bool {
         self.mode_valid == 1
+    }
+
+    pub fn get_crtc_props(&self, fd: i32) -> Option<drmModeObjectProperties> {
+        drmModeObjectProperties::get(
+            fd,
+            self.crtc_id,
+            bindings::DRM_MODE_OBJECT_CRTC,
+        )
     }
 }
