@@ -1,4 +1,4 @@
-use crate::{bindings, query_error};
+use crate::bindings;
 use crate::drmModeObjectProperties;
 use bindings::drmModeCrtcPtr;
 pub use bindings::drmModeCrtc;
