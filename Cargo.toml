@@ -52,3 +52,7 @@ required-features = ["std"]
 [[example]]
 name = "pp_table"
 required-features = ["std"]
+
+[[example]]
+name = "decode"
+required-features = ["std"]
