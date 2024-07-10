@@ -19,6 +19,8 @@ use bindings::{
     AMDGPU_FAMILY_GC_11_5_0,
 };
 
+const AMDGPU_FAMILY_GC_12_0_0: u32 = 152;
+
 /// List of AMDGPU Family names
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
 #[repr(u32)]
@@ -39,6 +41,7 @@ pub enum FAMILY_NAME {
     GC_10_3_6 = AMDGPU_FAMILY_GC_10_3_6,
     GC_10_3_7 = AMDGPU_FAMILY_GC_10_3_7,
     GC_11_5_0 = AMDGPU_FAMILY_GC_11_5_0,
+    GC_12_0_0 = AMDGPU_FAMILY_GC_12_0_0,
 }
 
 impl From<u32> for FAMILY_NAME {
@@ -59,6 +62,7 @@ impl From<u32> for FAMILY_NAME {
             AMDGPU_FAMILY_GC_10_3_6 => Self::GC_10_3_6,
             AMDGPU_FAMILY_GC_10_3_7 => Self::GC_10_3_7,
             AMDGPU_FAMILY_GC_11_5_0 => Self::GC_11_5_0,
+            AMDGPU_FAMILY_GC_12_0_0 => Self::GC_12_0_0,
             AMDGPU_FAMILY_UNKNOWN | _ => Self::UNKNOWN,
         }
     }
@@ -92,6 +96,7 @@ impl fmt::Display for FAMILY_NAME {
             Self::GC_10_3_6 => write!(f, "GC 10.3.6"),
             Self::GC_10_3_7 => write!(f, "GC 10.3.7"),
             Self::GC_11_5_0 => write!(f, "GC 11.5.0"),
+            Self::GC_12_0_0 => write!(f, "GC 12.0.0"),
             Self::UNKNOWN => write!(f, "Unknown"),
         }
     }
