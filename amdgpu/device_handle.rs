@@ -65,8 +65,9 @@ impl DeviceHandle {
         }
     }
 
-    fn deinit(&self) -> Result<i32, i32> {
-        let r = unsafe { bindings::amdgpu_device_deinitialize(self.0) };
+    /// This method can result in double-freeing of DeviceHandle.
+    pub unsafe fn deinit(&self) -> Result<i32, i32> {
+        let r = bindings::amdgpu_device_deinitialize(self.0);
 
         query_error!(r);
 
@@ -404,7 +405,7 @@ impl DeviceHandle {
 
 impl Drop for DeviceHandle {
     fn drop(&mut self) {
-        self.deinit().unwrap();
+        unsafe { self.deinit().unwrap(); }
     }
 }
 
