@@ -1,5 +1,5 @@
 /// PCI information (Domain, Bus, Device, Function)
-#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
 pub struct BUS_INFO {
     pub domain: u16,
     pub bus: u8,
