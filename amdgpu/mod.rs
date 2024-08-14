@@ -38,11 +38,6 @@ mod context;
 pub use context::*;
 
 #[cfg(feature = "std")]
-mod metrics_table;
-#[cfg(feature = "std")]
-pub use metrics_table::*;
-
-#[cfg(feature = "std")]
 mod gpu_metrics;
 #[cfg(feature = "std")]
 pub use gpu_metrics::*;

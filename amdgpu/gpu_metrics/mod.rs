@@ -1,14 +1,16 @@
-use crate::AMDGPU::{
-    DeviceHandle,
-    MetricsInfo,
+#[cfg(feature = "std")]
+mod metrics_table;
+#[cfg(feature = "std")]
+pub use metrics_table::*;
+
+use crate::AMDGPU::DeviceHandle;
+pub use crate::bindings::{
     NUM_HBM_INSTANCES,
     NUM_VCN,
     NUM_JPEG_ENG,
     NUM_XGMI_LINKS,
     MAX_CLKS,
     MAX_GFX_CLKS,
-};
-pub use crate::bindings::{
     metrics_table_header,
     gpu_metrics_v1_0,
     gpu_metrics_v1_1,
