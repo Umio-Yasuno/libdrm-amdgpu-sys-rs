@@ -205,14 +205,18 @@ impl BUS_INFO {
         u32::from_str_radix(id.trim_start_matches("0x").trim_end(), 16).ok()
     }
 
+    /// Get PCI Device ID from sysfs
     pub fn get_device_id(&self) -> Option<u32> {
         self.parse_id("device")
     }
 
+    /// Get PCI Revision ID from sysfs
     pub fn get_revision_id(&self) -> Option<u32> {
         self.parse_id("revision")
     }
 
+    /// Find device marketing name from `amdgpu.ids`  
+    /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
     pub fn find_device_name(&self) -> Option<String> {
         let device_id = self.get_device_id()?;
         let revision_id = self.get_revision_id()?;

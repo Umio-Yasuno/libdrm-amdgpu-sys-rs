@@ -288,6 +288,8 @@ impl drm_amdgpu_info_device {
     }
 }
 
+/// Find device marketing name from `amdgpu.ids`  
+/// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
 #[cfg(feature = "std")]
 pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
     use bindings::AMDGPU_IDS;
