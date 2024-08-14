@@ -1,3 +1,5 @@
+use crate::AMDGPU;
+
 /// PCI information (Domain, Bus, Device, Function)
 #[derive(Debug, Clone, Copy, Eq, PartialEq, Hash)]
 pub struct BUS_INFO {
@@ -194,6 +196,32 @@ impl BUS_INFO {
     #[cfg(feature = "std")]
     pub fn get_max_link_info(&self) -> Option<LINK> {
         LINK::get_from_sysfs_with_status(self.get_sysfs_path(), STATUS::Max)
+    }
+
+    fn parse_id(&self, file_name: &str) -> Option<u32> {
+        let sysfs_path = self.get_sysfs_path();
+        let id = std::fs::read_to_string(sysfs_path.join(file_name)).ok()?;
+
+        u32::from_str_radix(id.trim_start_matches("0x").trim_end(), 16).ok()
+    }
+
+    pub fn get_device_id(&self) -> Option<u32> {
+        self.parse_id("device")
+    }
+
+    pub fn get_revision_id(&self) -> Option<u32> {
+        self.parse_id("revision")
+    }
+
+    pub fn find_device_name(&self) -> Option<String> {
+        let device_id = self.get_device_id()?;
+        let revision_id = self.get_revision_id()?;
+
+        AMDGPU::find_device_name(device_id, revision_id)
+    }
+
+    pub fn find_device_name_or_default_name(&self) -> String {
+        self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
 }
 
