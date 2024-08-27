@@ -227,6 +227,13 @@ impl BUS_INFO {
     pub fn find_device_name_or_default_name(&self) -> String {
         self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
+
+    pub fn check_if_device_is_active(&self) -> bool {
+        let path = self.get_sysfs_path().join("power/runtime_status");
+        let Ok(s) = std::fs::read_to_string(path) else { return false };
+
+        s.starts_with("active")
+    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
