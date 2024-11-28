@@ -145,6 +145,8 @@ pub enum ASIC_NAME {
     CHIP_GFX1150,
     CHIP_GFX1151,
     CHIP_GFX1152,
+    CHIP_GFX1200,
+    CHIP_GFX1201,
 }
 
 impl ASIC_NAME {
@@ -239,6 +241,11 @@ impl ASIC_NAME {
                 0x01..=0x39 => Self::CHIP_GFX1150,
                 0x40..=0x49 => Self::CHIP_GFX1152,
                 0xC0..=0xFF => Self::CHIP_GFX1151,
+                _ => Self::CHIP_UNKNOWN,
+            },
+            FAMILY_NAME::GC_12_0_0 => match rev {
+                0x40..=0x49 => Self::CHIP_GFX1200,
+                0x50..=0xFF => Self::CHIP_GFX1201,
                 _ => Self::CHIP_UNKNOWN,
             },
             _ => Self::CHIP_UNKNOWN,
@@ -355,7 +362,9 @@ impl ASIC_NAME {
 
     /// L2 (Texture) cache line size, Byte
     pub fn l2_cache_line_size(&self) -> u32 {
-        if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
+        if *self >= Self::CHIP_GFX1200 {
+            256
+        } else if *self >= Self::CHIP_NAVI10 || *self == Self::CHIP_ALDEBARAN {
             128
         } else {
             64
@@ -364,6 +373,7 @@ impl ASIC_NAME {
 
     /// L3 cache (MALL, Infinity Cache) size per memory channel, MiB
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
+        /* TODO: GFX1200, GFX1201 */
         match self {
             Self::CHIP_NAVI21 |
             Self::CHIP_NAVI22 => 8,
@@ -596,6 +606,9 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_GFX1150 => write!(f, "GFX1150"),
             Self::CHIP_GFX1151 => write!(f, "GFX1151"),
             Self::CHIP_GFX1152 => write!(f, "GFX1152"),
+            /* GFX12 (RDNA 4) */
+            Self::CHIP_GFX1200 => write!(f, "GFX1200"),
+            Self::CHIP_GFX1201 => write!(f, "GFX1201"),
         }
     }
 }
