@@ -58,7 +58,7 @@ impl From<u32> for VRAM_TYPE {
 
 impl VRAM_TYPE {
     /* https://www.kernel.org/doc/html/latest/gpu/amdgpu/thermal.html#pp-od-clk-voltage */
-    pub fn clk_rate(&self) -> u64 {
+    pub fn clock_rate(&self) -> u64 {
         match self {
             Self::GDDR6 => 2,
             _ => 1,
