@@ -138,8 +138,10 @@ pub enum ASIC_NAME {
     CHIP_GFX1100, /* Navi31 */
     CHIP_GFX1101, /* Navi32 */
     CHIP_GFX1102, /* Navi33 */
-    CHIP_GFX1103_R1, /* Phoenix */
-    CHIP_GFX1103_R2, /* Phoenix? */
+    CHIP_GFX1103_R1, /* Phoenix1 */
+    CHIP_GFX1103_R2, /* Phoenix2 */
+    CHIP_GFX1103_R1X, /* Hawk Point1 */
+    CHIP_GFX1103_R2X, /* Hawk Point2 */
     CHIP_GFX1150,
     CHIP_GFX1151,
     CHIP_GFX1152,
@@ -226,7 +228,9 @@ impl ASIC_NAME {
             FAMILY_NAME::YC => Self::CHIP_REMBRANDT,
             FAMILY_NAME::GC_11_0_1 => match rev {
                 0x01..=0x79 => Self::CHIP_GFX1103_R1,
-                0x80..=0xFF => Self::CHIP_GFX1103_R2,
+                0x80..=0xB9 => Self::CHIP_GFX1103_R2,
+                0xC0..=0xE9 => Self::CHIP_GFX1103_R1X,
+                0xF0..=0xFF => Self::CHIP_GFX1103_R2X,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::GC_10_3_6 |
@@ -580,11 +584,15 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI24 => write!(f, "Beige Goby/Navi24"),
             Self::CHIP_REMBRANDT => write!(f, "Yellow Carp/Rembrandt"),
             Self::CHIP_GFX1036 => write!(f, "GFX1036/Raphael/Mendocino"),
+            /* GFX11 (RDNA 3) */
             Self::CHIP_GFX1100 => write!(f, "GFX1100/Navi31"),
             Self::CHIP_GFX1101 => write!(f, "GFX1101/Navi32"),
             Self::CHIP_GFX1102 => write!(f, "GFX1102/Navi33"),
-            Self::CHIP_GFX1103_R1 => write!(f, "GFX1103_R1"),
-            Self::CHIP_GFX1103_R2 => write!(f, "GFX1103_R2"),
+            Self::CHIP_GFX1103_R1 => write!(f, "GFX1103_R1/Phoenix1"),
+            Self::CHIP_GFX1103_R2 => write!(f, "GFX1103_R2/Phoenix2"),
+            Self::CHIP_GFX1103_R1X => write!(f, "GFX1103_R1X/Hawk Point1"),
+            Self::CHIP_GFX1103_R2X => write!(f, "GFX1103_R2X/Hawk Point2"),
+            /* GFX11.5 (RDMA 3.5) */
             Self::CHIP_GFX1150 => write!(f, "GFX1150"),
             Self::CHIP_GFX1151 => write!(f, "GFX1151"),
             Self::CHIP_GFX1152 => write!(f, "GFX1152"),
