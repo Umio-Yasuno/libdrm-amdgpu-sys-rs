@@ -168,15 +168,19 @@ impl BUS_INFO {
     /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
     #[cfg(feature = "std")]
     fn get_system_pcie_port_sysfs_path(&self) -> PathBuf {
-        const NAVI10_UPSTREAM_PORT: &str = "0x1478\n";
-        const NAVI10_DOWNSTREAM_PORT: &str = "0x1479\n";
+        const VENDOR_ATI: &str = "0x1002\n";
+        // 0x6: Bridge, 0x4: PCI-to-PCI Bridge
+        const CLASS: &str = "0x060400\n";
 
         let mut tmp = self.get_sysfs_path().join("../"); // pcie port
 
         for _ in 0..2 {
-            let Ok(did) = std::fs::read_to_string(&tmp.join("device")) else { break };
+            let [Ok(vendor), Ok(class)] = [
+                std::fs::read_to_string(&tmp.join("vendor")),
+                std::fs::read_to_string(&tmp.join("class")),
+            ] else { break };
 
-            if did == NAVI10_UPSTREAM_PORT || did == NAVI10_DOWNSTREAM_PORT {
+            if vendor == VENDOR_ATI && class == CLASS {
                 tmp.push("../");
             } else {
                 break;
