@@ -160,6 +160,7 @@ impl ASIC_NAME {
         let rev = chip_external_rev;
 
         match family {
+            #[allow(non_contiguous_range_endpoints)]
             FAMILY_NAME::SI => match rev {
                 0x05..0x14 => Self::CHIP_TAHITI,
                 0x15..0x28 => Self::CHIP_PITCAIRN,
@@ -204,6 +205,7 @@ impl ASIC_NAME {
                 0x46..0xFF => Self::CHIP_GFX940,
                 _ => Self::CHIP_UNKNOWN,
             },
+            #[allow(non_contiguous_range_endpoints)]
             FAMILY_NAME::RV => match rev {
                 0x01..0x81 => Self::CHIP_RAVEN,
                 0x81..0x90 => Self::CHIP_RAVEN2,
