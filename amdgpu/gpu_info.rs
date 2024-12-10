@@ -281,6 +281,7 @@ impl drm_amdgpu_info_device {
             ASIC_NAME::CHIP_GFX1150 => (11, 5, 0),
             ASIC_NAME::CHIP_GFX1151 => (11, 5, 1),
             ASIC_NAME::CHIP_GFX1152 => (11, 5, 2),
+            ASIC_NAME::CHIP_GFX1153 => (11, 5, 3),
             ASIC_NAME::CHIP_GFX1200 => (12, 0, 0),
             ASIC_NAME::CHIP_GFX1201 => (12, 0, 1),
             _ => return None,

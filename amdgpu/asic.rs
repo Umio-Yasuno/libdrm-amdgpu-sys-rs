@@ -145,6 +145,7 @@ pub enum ASIC_NAME {
     CHIP_GFX1150,
     CHIP_GFX1151,
     CHIP_GFX1152,
+    CHIP_GFX1153,
     CHIP_GFX1200,
     CHIP_GFX1201,
 }
@@ -240,6 +241,7 @@ impl ASIC_NAME {
             FAMILY_NAME::GC_11_5_0 => match rev {
                 0x01..=0x39 => Self::CHIP_GFX1150,
                 0x40..=0x49 => Self::CHIP_GFX1152,
+                0x50..=0xBF => Self::CHIP_GFX1153,
                 0xC0..=0xFF => Self::CHIP_GFX1151,
                 _ => Self::CHIP_UNKNOWN,
             },
@@ -606,6 +608,7 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_GFX1150 => write!(f, "GFX1150"),
             Self::CHIP_GFX1151 => write!(f, "GFX1151"),
             Self::CHIP_GFX1152 => write!(f, "GFX1152"),
+            Self::CHIP_GFX1153 => write!(f, "GFX1153"),
             /* GFX12 (RDNA 4) */
             Self::CHIP_GFX1200 => write!(f, "GFX1200"),
             Self::CHIP_GFX1201 => write!(f, "GFX1201"),
