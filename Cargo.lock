@@ -92,7 +92,7 @@ checksum = "5aaeb2981e0606ca11d79718f8bb01164f1d6ed75080182d3abf017e6d244b6d"
 
 [[package]]
 name = "libdrm_amdgpu_sys"
-version = "0.7.6"
+version = "0.7.7"
 dependencies = [
  "bindgen",
  "libc",
