@@ -21,6 +21,7 @@ link-drm = []
 [lib]
 # name = "libdrm_amdgpu_sys"
 path = "lib.rs"
+doctest = false
 
 [dependencies]
 libc = { version = "0.2", default-features = false }

@@ -49,6 +49,7 @@ pub enum CHIP_CLASS {
     GFX10,
     GFX10_3,
     GFX11,
+    GFX11_5,
     GFX12,
 }
 
@@ -56,6 +57,8 @@ impl From<ASIC_NAME> for CHIP_CLASS {
     fn from(asic_name: ASIC_NAME) -> Self {
         if asic_name >= ASIC_NAME::CHIP_GFX1200 {
             Self::GFX12
+        } else if asic_name >= ASIC_NAME::CHIP_GFX1150 {
+            Self::GFX11_5
         } else if asic_name >= ASIC_NAME::CHIP_GFX1100 {
             Self::GFX11
         } else if asic_name >= ASIC_NAME::CHIP_NAVI21 {
@@ -92,7 +95,10 @@ impl CHIP_CLASS {
 
 #[test]
 fn test_amdgpu_chip_class() {
-    assert_eq!(ASIC_NAME::CHIP_POLARIS11.chip_class(), CHIP_CLASS::GFX8,)
+    assert_eq!(ASIC_NAME::CHIP_GFX1200.chip_class(), CHIP_CLASS::GFX12);
+    assert_eq!(ASIC_NAME::CHIP_GFX1150.chip_class(), CHIP_CLASS::GFX11_5);
+    assert_eq!(ASIC_NAME::CHIP_GFX1100.chip_class(), CHIP_CLASS::GFX11);
+    assert_eq!(ASIC_NAME::CHIP_POLARIS11.chip_class(), CHIP_CLASS::GFX8);
 }
 
 #[cfg(feature = "std")]
@@ -116,6 +122,7 @@ impl fmt::Display for CHIP_CLASS {
             Self::GFX10 => write!(f, "GFX10"),
             Self::GFX10_3 => write!(f, "GFX10_3"),
             Self::GFX11 => write!(f, "GFX11"),
+            Self::GFX11_5 => write!(f, "GFX11_5"),
             Self::GFX12 => write!(f, "GFX12"),
         }
     }
