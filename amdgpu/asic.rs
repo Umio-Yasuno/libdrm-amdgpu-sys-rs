@@ -329,7 +329,9 @@ impl ASIC_NAME {
 
     /// RDNA L1 cache per ShaderArray, Byte
     pub fn gl1_cache_size(&self) -> u32 {
-        if *self >= Self::CHIP_GFX1100 {
+        if *self >= Self::CHIP_GFX1200 {
+            0
+        } else if *self >= Self::CHIP_GFX1100 {
             256 * 1024 // KiB
         } else if *self >= Self::CHIP_NAVI10 {
             128 * 1024 // KiB
