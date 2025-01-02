@@ -301,3 +301,10 @@ pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
 
     Some(name.to_string())
 }
+
+/// Returns the default marketing name ("AMD Radeon Graphics") 
+/// when the device name is not available.
+#[cfg(feature = "std")]
+pub fn find_device_name_or_default(device_id: u32, revision_id: u32) -> String {
+    find_device_name(device_id, revision_id).unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
+}
