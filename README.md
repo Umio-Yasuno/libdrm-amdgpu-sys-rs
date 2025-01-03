@@ -25,38 +25,26 @@ sudo apt install libdrm-dev
 
 ## Examples
 ```
+use libdrm_amdgpu_sys::LibDrmAmdgpu;
 use libdrm_amdgpu_sys::AMDGPU::DeviceHandle;
 use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
+let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
 let (amdgpu_dev, drm_major, drm_minor) = {
     use std::fs::OpenOptions;
     use std::os::fd::IntoRawFd;
 
     let fd = OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
 
-    DeviceHandle::init(fd.into_raw_fd()).unwrap()
+    libdrm_amdgpu.init_device_handle(fd.into_raw_fd()).unwrap()
 };
 let device_info = amdgpu_dev.device_info().unwrap();
 let device_name = device_info.find_device_name_or_default();
 ```
 ### Dynamic Loading
+#### Cargo.toml
 ```
-use libdrm_amdgpu_sys::*;
-use AMDGPU::GPU_INFO;
-
-let drm_amdgpu = LibDrmAmdgpu::new().unwrap();
-let fd = {
-    use std::fs;
-    use std::os::fd::IntoRawFd;
-
-    let f = fs::OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
-
-    f.into_raw_fd()
-};
-let (amdgpu_dev, _major, _minor) = drm_amdgpu.init_device_handle(fd).unwrap();
-let device_info = amdgpu_dev.device_info().unwrap();
-let device_name = device_info.find_device_name_or_default();
-}
+libdrm_amdgpu_sys = { version = "0.8", default-features = false, features = ["dynamic_loading"] }
 ```
 ### amdgpu_info
 ```

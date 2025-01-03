@@ -1,6 +1,7 @@
 use libdrm_amdgpu_sys::*;
 
 fn info(pci_bus: &PCI::BUS_INFO) {
+    let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
     let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
@@ -8,7 +9,7 @@ fn info(pci_bus: &PCI::BUS_INFO) {
 
         let fd = File::open(device_path).unwrap();
 
-        AMDGPU::DeviceHandle::init(fd.into_raw_fd()).unwrap()
+        libdrm_amdgpu.init_device_handle(f.into_raw_fd()).unwrap()
     };
 
     println!("Marketing Name: [{}]", amdgpu_dev.get_marketing_name_or_default());

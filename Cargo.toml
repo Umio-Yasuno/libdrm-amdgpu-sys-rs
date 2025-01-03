@@ -33,27 +33,27 @@ pkg-config = { version = "0.3", optional = true }
 
 [[example]]
 name = "amdgpu_info"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "vbios_dump"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "vbios_parser"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "gpu_metrics"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "stable_pstate"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "pp_table"
-required-features = ["link_drm"]
+required-features = []
 
 [[example]]
 name = "dynamic_loading"

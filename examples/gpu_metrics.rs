@@ -1,14 +1,16 @@
+use libdrm_amdgpu_sys::LibDrmAmdgpu;
 use libdrm_amdgpu_sys::AMDGPU::{self, GPU_INFO, MetricsInfo};
 use std::fs::File;
 
 fn main() {
+    let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
     let device_path = std::env::var("AMDGPU_PATH").unwrap_or("/dev/dri/renderD128".to_string());
     let (amdgpu_dev, _, _) = {
         use std::os::fd::IntoRawFd;
 
         let f = File::open(device_path).unwrap();
 
-        AMDGPU::DeviceHandle::init(f.into_raw_fd()).unwrap()
+        libdrm_amdgpu.init_device_handle(f.into_raw_fd()).unwrap()
     };
 
     let path = amdgpu_dev.get_sysfs_path().unwrap();
