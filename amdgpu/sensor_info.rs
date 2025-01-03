@@ -4,7 +4,7 @@ use core::mem::{size_of, MaybeUninit};
 
 impl DeviceHandle {
     pub fn sensor_info(&self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_query_sensor_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_sensor_info;

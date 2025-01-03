@@ -16,7 +16,7 @@ pub struct ContextHandle {
 
 impl DeviceHandle {
     pub fn create_context(&self) -> Result<ContextHandle, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_cs_ctx_create;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_cs_ctx_create;
@@ -45,7 +45,7 @@ impl ContextHandle {
     }
 
     unsafe fn free(&self) -> Result<(), i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_cs_ctx_free;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_cs_ctx_free;
@@ -62,7 +62,7 @@ impl ContextHandle {
         op: u32,
         pstate_flag: StablePstateFlag,
     ) -> Result<StablePstateFlag, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_cs_ctx_stable_pstate;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_cs_ctx_stable_pstate;

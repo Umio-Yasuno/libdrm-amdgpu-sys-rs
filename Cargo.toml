@@ -13,10 +13,10 @@ links = "drm, drm_amdgpu"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [features]
-default = ["std", "link-drm"]
+default = ["std", "link_drm"]
 std = []
 buildtime_bindgen = ["bindgen", "pkg-config"]
-link-drm = []
+link_drm = []
 dynamic_loading = ["std", "libloading"]
 
 [lib]
@@ -34,27 +34,27 @@ pkg-config = { version = "0.3", optional = true }
 
 [[example]]
 name = "amdgpu_info"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "vbios_dump"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "vbios_parser"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "gpu_metrics"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "stable_pstate"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "pp_table"
-required-features = ["std"]
+required-features = ["std", "link_drm"]
 
 [[example]]
 name = "dynamic_link"

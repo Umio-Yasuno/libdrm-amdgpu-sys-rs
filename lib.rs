@@ -11,9 +11,9 @@
 #[allow(clippy::all)]
 #[cfg(not(feature = "buildtime_bindgen"))]
 mod bindings {
-    #[cfg(feature = "link-drm")]
+    #[cfg(feature = "link_drm")]
     mod drm;
-    #[cfg(feature = "link-drm")]
+    #[cfg(feature = "link_drm")]
     pub use drm::*;
 
     #[cfg(feature = "dynamic_loading")]
@@ -113,12 +113,12 @@ pub use drm_version::*;
 /// TODO: dynamic link
 #[cfg(not(feature = "buildtime_bindgen"))]
 #[cfg(feature = "std")]
-#[cfg(feature = "link-drm")]
+#[cfg(feature = "link_drm")]
 mod drm_mode;
 /// TODO: dynamic link
-#[cfg(all(feature = "std", feature = "link-drm"))]
+#[cfg(all(feature = "std", feature = "link_drm"))]
 #[cfg(feature = "std")]
-#[cfg(feature = "link-drm")]
+#[cfg(feature = "link_drm")]
 pub use drm_mode::*;
 
 /// Convert `errno` to `Err(i32)`

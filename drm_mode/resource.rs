@@ -29,7 +29,7 @@ impl LibDrm {
 }
 
 impl drmModeRes {
-    #[cfg(feature = "link-drm")]
+    #[cfg(feature = "link_drm")]
     pub fn get(fd: i32) -> Option<Self> {
         let drm_mode_res_ptr = unsafe { bindings::drmModeGetResources(fd) };
 
@@ -86,7 +86,7 @@ impl drmModeRes {
 
 impl Drop for drmModeRes {
     fn drop(&mut self) {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::drmModeFreeResources;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmModeFreeResources;

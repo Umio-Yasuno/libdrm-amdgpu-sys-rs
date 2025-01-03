@@ -20,7 +20,7 @@ impl DeviceHandle {
         ip_instance: ::core::ffi::c_uint,
         index: ::core::ffi::c_uint,
     ) -> Result<FwVer, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_query_firmware_version;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_firmware_version;

@@ -176,12 +176,12 @@ fn convert_amdgpu_ids() {
 }
 
 fn main() {
-    #[cfg(all(feature = "link-drm", feature = "dynamic_loading"))]
-    compile_error!("feature \"link-drm\" and feature \"dynamic_loading\" cannot be enabled at the same time");
+    #[cfg(all(feature = "link_drm", feature = "dynamic_loading"))]
+    compile_error!("feature \"link_drm\" and feature \"dynamic_loading\" cannot be enabled at the same time");
 
-    #[cfg(feature = "link-drm")]
+    #[cfg(feature = "link_drm")]
     println!("cargo:rustc-link-lib=drm");
-    #[cfg(feature = "link-drm")]
+    #[cfg(feature = "link_drm")]
     println!("cargo:rustc-link-lib=drm_amdgpu");
 
     #[cfg(feature = "buildtime_bindgen")]

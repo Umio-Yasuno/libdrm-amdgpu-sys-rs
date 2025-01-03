@@ -1,4 +1,3 @@
-#[cfg(feature = "link-drm")]
 use crate::AMDGPU;
 
 /// PCI information (Domain, Bus, Device, Function)
@@ -202,7 +201,6 @@ impl BUS_INFO {
 
     /// Find device marketing name from `amdgpu.ids`  
     /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
-    #[cfg(feature = "link-drm")]
     pub fn find_device_name(&self) -> Option<String> {
         let device_id = self.get_device_id()?;
         let revision_id = self.get_revision_id()?;
@@ -210,7 +208,6 @@ impl BUS_INFO {
         AMDGPU::find_device_name(device_id, revision_id)
     }
 
-    #[cfg(feature = "link-drm")]
     pub fn find_device_name_or_default_name(&self) -> String {
         self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }

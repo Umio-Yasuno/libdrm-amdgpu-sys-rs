@@ -1,4 +1,4 @@
-#[cfg(feature = "link-drm")]
+#[cfg(feature = "link_drm")]
 use crate::bindings;
 use crate::AMDGPU::DeviceHandle;
 use core::ffi::CStr;
@@ -17,7 +17,7 @@ pub struct drmVersion {
 #[cfg(feature = "std")]
 impl DeviceHandle {
     pub fn get_drm_version_struct(&self) -> Result<drmVersion, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let (get_func, free_func) = (bindings::drmGetVersion, bindings::drmFreeVersion);
         #[cfg(feature = "dynamic_loading")]
         let (get_func, free_func) = (self.libdrm.drmGetVersion, self.libdrm.drmFreeVersion);

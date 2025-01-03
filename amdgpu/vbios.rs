@@ -44,7 +44,7 @@ impl DeviceHandle {
         &self,
         info_id: ::core::ffi::c_uint,
     ) -> Result<T, i32> {
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::drmCommandWrite;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmCommandWrite;
@@ -92,7 +92,7 @@ impl DeviceHandle {
     unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
-        #[cfg(feature = "link-drm")]
+        #[cfg(feature = "link_drm")]
         let func = bindings::drmCommandWrite;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmCommandWrite;
