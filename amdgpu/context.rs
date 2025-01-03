@@ -3,16 +3,30 @@ use crate::query_error;
 use crate::bindings::{self, amdgpu_context_handle};
 use core::mem::MaybeUninit;
 
-pub struct ContextHandle(pub(crate) amdgpu_context_handle);
+#[cfg(feature = "dynamic_loading")]
+use std::sync::Arc;
+#[cfg(feature = "dynamic_loading")]
+use crate::DynLibDrmAmdgpu;
+
+pub struct ContextHandle {
+    pub(crate) ctx_handle: amdgpu_context_handle,
+    #[cfg(feature = "dynamic_loading")]
+    pub(crate) libdrm_amdgpu: Arc<DynLibDrmAmdgpu>,
+}
 
 impl DeviceHandle {
     pub fn create_context(&self) -> Result<ContextHandle, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_cs_ctx_create;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_cs_ctx_create;
+
         unsafe {
             let mut ctx_handle: MaybeUninit<amdgpu_context_handle> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_cs_ctx_create(self.0, ctx_handle.as_mut_ptr());
+            let r = func(self.amdgpu_dev, ctx_handle.as_mut_ptr());
 
-            let ctx_handle = ContextHandle::new(ctx_handle.assume_init());
+            let ctx_handle = ContextHandle::new(&self, ctx_handle.assume_init());
 
             query_error!(r);
 
@@ -22,12 +36,21 @@ impl DeviceHandle {
 }
 
 impl ContextHandle {
-    pub fn new(ctx_handle: amdgpu_context_handle) -> Self {
-        Self(ctx_handle)
+    pub fn new(_amdgpu_dev: &DeviceHandle, ctx_handle: amdgpu_context_handle) -> Self {
+        Self {
+            ctx_handle,
+            #[cfg(feature = "dynamic_loading")]
+            libdrm_amdgpu: _amdgpu_dev.libdrm_amdgpu.clone(),
+        }
     }
 
     unsafe fn free(&self) -> Result<(), i32> {
-        let r = bindings::amdgpu_cs_ctx_free(self.0);
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_cs_ctx_free;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_cs_ctx_free;
+
+        let r = func(self.ctx_handle);
 
         query_error!(r);
 
@@ -39,11 +62,16 @@ impl ContextHandle {
         op: u32,
         pstate_flag: StablePstateFlag,
     ) -> Result<StablePstateFlag, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_cs_ctx_stable_pstate;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_cs_ctx_stable_pstate;
+
         unsafe {
             let mut out_flags: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_cs_ctx_stable_pstate(
-                self.0,
+            let r = func(
+                self.ctx_handle,
                 op,
                 pstate_flag as u32,
                 out_flags.as_mut_ptr(),

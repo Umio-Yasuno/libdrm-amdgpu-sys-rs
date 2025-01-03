@@ -4,7 +4,7 @@ use crate::*;
 use core::mem::{size_of, MaybeUninit};
 use core::ptr;
 
-use bindings::{AMDGPU_INFO_VBIOS, DRM_AMDGPU_INFO, drmCommandWrite, drm_amdgpu_info};
+use bindings::{AMDGPU_INFO_VBIOS, DRM_AMDGPU_INFO, drm_amdgpu_info};
 
 /// VBIOS information
 #[cfg(feature = "std")]
@@ -44,6 +44,11 @@ impl DeviceHandle {
         &self,
         info_id: ::core::ffi::c_uint,
     ) -> Result<T, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::drmCommandWrite;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmCommandWrite;
+
         let mut vbios: MaybeUninit<T> = MaybeUninit::zeroed();
         let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::zeroed();
 
@@ -57,8 +62,8 @@ impl DeviceHandle {
             ptr::addr_of_mut!((*ptr).__bindgen_anon_1.vbios_info.type_).write(info_id);
         }
 
-        let r = drmCommandWrite(
-            self.1,
+        let r = func(
+            self.fd,
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info>() as u64,
@@ -87,6 +92,11 @@ impl DeviceHandle {
     unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
+        #[cfg(feature = "link-drm")]
+        let func = bindings::drmCommandWrite;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmCommandWrite;
+
         let mut vbios_image = vec![0; vbios_size as usize];
         let mut device_info: MaybeUninit<drm_amdgpu_info> = MaybeUninit::zeroed();
 
@@ -101,8 +111,8 @@ impl DeviceHandle {
                 .write(AMDGPU_INFO_VBIOS_IMAGE);
         }
 
-        let r = drmCommandWrite(
-            self.1,
+        let r = func(
+            self.fd,
             DRM_AMDGPU_INFO as u64,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
             size_of::<drm_amdgpu_info>() as u64,

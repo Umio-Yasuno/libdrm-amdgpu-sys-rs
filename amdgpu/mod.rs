@@ -89,6 +89,7 @@ mod video_caps;
 mod hw_ip;
 mod fw_version;
 mod sensor_info;
+
 pub mod pp_table;
 pub use pp_table::PPTable;
 
@@ -141,7 +142,6 @@ pub mod VBIOS {
 pub mod VIDEO_CAPS {
     pub use super::video_caps::*;
 }
-
 pub mod HW_IP {
     pub use super::hw_ip::*;
 }

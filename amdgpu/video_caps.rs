@@ -63,11 +63,16 @@ pub enum CAP_TYPE {
 
 impl DeviceHandle {
     pub fn get_video_caps(&self, type_: CAP_TYPE) -> Result<drm_amdgpu_info_video_caps, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_video_caps_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_video_caps_info;
+
         unsafe {
             let mut video_caps: MaybeUninit<drm_amdgpu_info_video_caps> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_video_caps_info(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 type_ as u32,
                 size_of::<drm_amdgpu_info_video_caps>() as u32,
                 video_caps.as_mut_ptr() as *mut ::core::ffi::c_void,

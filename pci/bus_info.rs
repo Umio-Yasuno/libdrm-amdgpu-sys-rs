@@ -1,3 +1,4 @@
+#[cfg(feature = "link-drm")]
 use crate::AMDGPU;
 
 /// PCI information (Domain, Bus, Device, Function)
@@ -16,26 +17,6 @@ use super::{LINK, STATUS};
 use std::path::PathBuf;
 
 impl BUS_INFO {
-    pub(crate) fn drm_get_device2(
-        fd: ::core::ffi::c_int,
-        //  flags: u32,
-    ) -> Result<Self, i32> {
-        let pci = unsafe {
-            let mut dev_info = __drmGetDevice2(fd, 0)?;
-            let pci = core::ptr::read((*dev_info).businfo.pci);
-            __drmFreeDevice(&mut dev_info);
-
-            pci
-        };
-
-        Ok(Self {
-            domain: pci.domain,
-            bus: pci.bus,
-            dev: pci.dev,
-            func: pci.func,
-        })
-    }
-
     /// Get device sysfs path
     #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> PathBuf {
@@ -221,6 +202,7 @@ impl BUS_INFO {
 
     /// Find device marketing name from `amdgpu.ids`  
     /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
+    #[cfg(feature = "link-drm")]
     pub fn find_device_name(&self) -> Option<String> {
         let device_id = self.get_device_id()?;
         let revision_id = self.get_revision_id()?;
@@ -228,6 +210,7 @@ impl BUS_INFO {
         AMDGPU::find_device_name(device_id, revision_id)
     }
 
+    #[cfg(feature = "link-drm")]
     pub fn find_device_name_or_default_name(&self) -> String {
         self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
@@ -283,28 +266,4 @@ impl fmt::Display for BUS_INFO {
             self.domain, self.bus, self.dev, self.func
         )
     }
-}
-
-use crate::bindings::{self, drmDevicePtr, drmFreeDevice};
-use crate::query_error;
-use core::mem::MaybeUninit;
-
-unsafe fn __drmGetDevice2(fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
-    let mut drm_dev_info: MaybeUninit<drmDevicePtr> = MaybeUninit::uninit();
-
-    let r = bindings::drmGetDevice2(fd, flags, drm_dev_info.as_mut_ptr());
-
-    let drm_dev_info = drm_dev_info.assume_init();
-
-    if drm_dev_info.is_null() {
-        return Err(r);
-    }
-
-    query_error!(r);
-
-    Ok(drm_dev_info)
-}
-
-unsafe fn __drmFreeDevice(device: *mut drmDevicePtr) {
-    drmFreeDevice(device)
 }

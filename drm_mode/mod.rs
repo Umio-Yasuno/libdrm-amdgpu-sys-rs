@@ -43,10 +43,12 @@ pub use crate::bindings::{
     DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT,
 };
 
+#[cfg(feature = "link-drm")]
 pub fn set_client_caps(fd: i32, cap: u64, val: u64) -> i32 {
     unsafe { bindings::drmSetClientCap(fd, cap, val) }
 }
 
+#[cfg(feature = "link-drm")]
 pub fn set_all_client_caps(fd: i32) {
     for cap in [
         DRM_CLIENT_CAP_STEREO_3D,

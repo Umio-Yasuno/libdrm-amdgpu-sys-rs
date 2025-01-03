@@ -1,6 +1,11 @@
 use crate::AMDGPU::DEVICE_HANDLE;
 use crate::*;
+#[cfg(feature = "dynamic_loading")]
+use std::sync::Arc;
+#[cfg(feature = "dynamic_loading")]
+use bindings::{DynLibDrm, DynLibDrmAmdgpu};
 
+use crate::bindings::drmDevicePtr;
 pub use bindings::{
     amdgpu_device_handle,
     // amdgpu_device_initialize,
@@ -29,7 +34,14 @@ use bindings::{
 };
 use core::mem::{size_of, MaybeUninit};
 
-pub struct DeviceHandle(pub(crate) DEVICE_HANDLE, pub(crate) i32);
+pub struct DeviceHandle {
+    #[cfg(feature = "dynamic_loading")]
+    pub(crate) libdrm: Arc<DynLibDrm>,
+    #[cfg(feature = "dynamic_loading")]
+    pub(crate) libdrm_amdgpu: Arc<DynLibDrmAmdgpu>,
+    pub(crate) amdgpu_dev: DEVICE_HANDLE,
+    pub(crate) fd: i32,
+}
 
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
@@ -37,12 +49,43 @@ unsafe impl Sync for DeviceHandle {}
 #[cfg(feature = "std")]
 use std::path::PathBuf;
 
+#[cfg(feature = "dynamic_loading")]
+impl LibDrmAmdgpu {
+    pub fn init_device_handle(&self, fd: i32) -> Result<(DeviceHandle, u32, u32), i32> {
+        unsafe {
+            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
+            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = self.libdrm_amdgpu.amdgpu_device_initialize(
+                fd,
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
+                amdgpu_dev.as_mut_ptr(),
+            );
+
+            let [major, minor] = [major.assume_init(), minor.assume_init()];
+            let device_handle = DeviceHandle {
+                libdrm: self.libdrm.clone(),
+                libdrm_amdgpu: self.libdrm_amdgpu.clone(),
+                amdgpu_dev: amdgpu_dev.assume_init(),
+                fd,
+            };
+
+            query_error!(r);
+
+            Ok((device_handle, major, minor))
+        }
+    }
+}
+
 impl DeviceHandle {
     /// Initialization.
     /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`  
     /// It may require a write option (`std::fs::OpenOptions::new().read(true).write(true)`)
     /// for GUI context.  
     /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
+    #[cfg(feature = "link-drm")]
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
@@ -57,16 +100,24 @@ impl DeviceHandle {
             );
 
             let [major, minor] = [major.assume_init(), minor.assume_init()];
-            let amdgpu_dev = Self(amdgpu_dev.assume_init(), fd);
+            let device_handle = Self {
+                amdgpu_dev: amdgpu_dev.assume_init(),
+                fd,
+            };
 
             query_error!(r);
 
-            Ok((amdgpu_dev, major, minor))
+            Ok((device_handle, major, minor))
         }
     }
 
     fn deinit(&self) -> Result<i32, i32> {
-        let r = unsafe { bindings::amdgpu_device_deinitialize(self.0) };
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_device_deinitialize;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_device_deinitialize;
+
+        let r = unsafe { func(self.amdgpu_dev) };
 
         query_error!(r);
 
@@ -74,13 +125,14 @@ impl DeviceHandle {
     }
 
     pub fn get_fd(&self) -> i32 {
-        self.1
+        self.fd
     }
 
     /// (`major`, `minor`, `patchlevel`)
+    #[cfg(feature = "link-drm")]
     #[deprecated(since = "0.1.3", note = "superseded by `get_drm_version_struct`")]
     pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
-        let fd = self.1;
+        let fd = self.fd;
         let drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
 
         if drm_ver_ptr.is_null() {
@@ -98,19 +150,19 @@ impl DeviceHandle {
         Ok(ver)
     }
 
-    #[cfg(feature = "std")]
-    pub fn get_drm_version_struct(&self) -> Result<drmVersion, i32> {
-        drmVersion::get(self.1)
-    }
-
     /// Returns the result of reading the register at the specified offset.
     /// If the offset is not allowed, returns `Err(i32)`.
     pub fn read_mm_registers(&self, offset: u32) -> Result<u32, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_read_mm_registers;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_read_mm_registers;
+
         unsafe {
             let mut out: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_read_mm_registers(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 offset, // DWORD offset
                 1, // count
                 0xFFFF_FFFF, // instance mask, full mask
@@ -130,11 +182,12 @@ impl DeviceHandle {
     ///  if there is no name that matches amdgpu.ids  
     /// <https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a>
     #[cfg(feature = "std")]
+    #[cfg(feature = "link-drm")]
     #[deprecated(since = "0.1.3",  note = "superseded by `get_marketing_name_or_default`")]
     pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
         use core::ffi::CStr;
 
-        let mark_name = unsafe { bindings::amdgpu_get_marketing_name(self.0) };
+        let mark_name = unsafe { bindings::amdgpu_get_marketing_name(self.amdgpu_dev) };
 
         if mark_name.is_null() {
             eprintln!("libdrm_amdgpu_sys: ASIC not found in amdgpu.ids");
@@ -149,10 +202,11 @@ impl DeviceHandle {
     /// Returns the default marketing name ("AMD Radeon Graphics") 
     /// when the device name is not available.
     #[cfg(feature = "std")]
+    #[cfg(feature = "link-drm")]
     pub fn get_marketing_name_or_default(&self) -> String {
         use core::ffi::CStr;
 
-        let mark_name_ptr = unsafe { bindings::amdgpu_get_marketing_name(self.0) };
+        let mark_name_ptr = unsafe { bindings::amdgpu_get_marketing_name(self.amdgpu_dev) };
 
         if mark_name_ptr.is_null() {
             return AMDGPU::DEFAULT_DEVICE_NAME.to_string();
@@ -167,10 +221,15 @@ impl DeviceHandle {
     }
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_gpu_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_gpu_info;
+
         unsafe {
             let mut gpu_info: MaybeUninit<amdgpu_gpu_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gpu_info(self.0, gpu_info.as_mut_ptr());
+            let r = func(self.amdgpu_dev, gpu_info.as_mut_ptr());
 
             let gpu_info = gpu_info.assume_init();
 
@@ -181,10 +240,15 @@ impl DeviceHandle {
     }
 
     pub fn query_gds_info(&self) -> Result<amdgpu_gds_resource_info, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_gds_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_gds_info;
+
         unsafe {
             let mut gds_info: MaybeUninit<amdgpu_gds_resource_info> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_gds_info(self.0, gds_info.as_mut_ptr());
+            let r = func(self.amdgpu_dev, gds_info.as_mut_ptr());
 
             let gds_info = gds_info.assume_init();
 
@@ -195,11 +259,16 @@ impl DeviceHandle {
     }
 
     pub fn query_sw_info(&self, info: amdgpu_sw_info) -> Result<u32, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_sw_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_sw_info;
+
         unsafe {
             let mut val: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_sw_info(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 info as u32,
                 val.as_mut_ptr() as *mut ::core::ffi::c_void,
             );
@@ -213,11 +282,16 @@ impl DeviceHandle {
     }
 
     pub(crate) fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_info;
+
         unsafe {
             let mut dev: MaybeUninit<T> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_info(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 info_id,
                 size_of::<T>() as u32,
                 dev.as_mut_ptr() as *mut ::core::ffi::c_void,
@@ -237,7 +311,6 @@ impl DeviceHandle {
 
     /// Note: `usable_heap_size` equal `real_size - pin_size - reserved_size`, is not fixed.
     pub fn vram_gtt_info(&self) -> Result<drm_amdgpu_info_vram_gtt, i32> {
-        // return 
         Self::query(self, AMDGPU_INFO_VRAM_GTT)
     }
 
@@ -288,7 +361,54 @@ impl DeviceHandle {
 
     /// Get [PCI::BUS_INFO]
     pub fn get_pci_bus_info(&self) -> Result<PCI::BUS_INFO, i32> {
-        PCI::BUS_INFO::drm_get_device2(self.1)
+        self.drm_get_device2()
+    }
+
+    fn drm_get_device2(&self) -> Result<PCI::BUS_INFO, i32> {
+        let pci = unsafe {
+            let mut dev_info = self.__drmGetDevice2(self.fd, 0)?;
+            let pci = core::ptr::read((*dev_info).businfo.pci);
+            self.__drmFreeDevice(&mut dev_info);
+
+            pci
+        };
+
+        Ok(PCI::BUS_INFO {
+            domain: pci.domain,
+            bus: pci.bus,
+            dev: pci.dev,
+            func: pci.func,
+        })
+    }
+
+    unsafe fn __drmGetDevice2(&self, fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::drmGetDevice2;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmGetDevice2;
+
+        let mut drm_dev_info: MaybeUninit<drmDevicePtr> = MaybeUninit::uninit();
+
+        let r = func(fd, flags, drm_dev_info.as_mut_ptr());
+
+        let drm_dev_info = drm_dev_info.assume_init();
+
+        if drm_dev_info.is_null() {
+            return Err(r);
+        }
+
+        query_error!(r);
+
+        Ok(drm_dev_info)
+    }
+
+    unsafe fn __drmFreeDevice(&self, device: *mut drmDevicePtr) {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::drmFreeDevice;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmFreeDevice;
+
+        func(device)
     }
 
     #[cfg(feature = "std")]

@@ -4,11 +4,16 @@ use core::mem::{size_of, MaybeUninit};
 
 impl DeviceHandle {
     pub fn sensor_info(&self, sensor_type: SENSOR_TYPE) -> Result<u32, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_sensor_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_sensor_info;
+
         unsafe {
             let mut val: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_sensor_info(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 sensor_type as u32,
                 size_of::<u32>() as u32,
                 val.as_mut_ptr() as *mut ::core::ffi::c_void,

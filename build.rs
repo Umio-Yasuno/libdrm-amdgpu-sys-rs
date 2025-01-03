@@ -40,6 +40,57 @@ fn build() {
     }
 
     {
+        let bindings = bindgen::Builder::default()
+            // Do not generate unstable Rust code that
+            // requires a nightly rustc and enabling
+            // unstable features.
+            // .no_unstable_rust()
+            // The input header we would like to generate
+            // bindings for.
+            .header("wrapper/wrapper_drm.h")
+            .clang_args(config.iter())
+            .use_core()
+            .ctypes_prefix("::core::ffi")
+            .dynamic_library_name("DynLibDrm")
+            .dynamic_link_require_all(true)
+            // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+            // Finish the builder and generate the bindings.
+            .generate()
+            // Unwrap the Result and panic on failure.
+            .expect("Unable to generate bindings: {wrapper_name}");
+
+        bindings
+            .write_to_file(out_path.join("dyn_drm.rs"))
+            .expect("Couldn't write bindings!");
+    }
+    {
+        let bindings = bindgen::Builder::default()
+            // Do not generate unstable Rust code that
+            // requires a nightly rustc and enabling
+            // unstable features.
+            // .no_unstable_rust()
+            // The input header we would like to generate
+            // bindings for.
+            // .header("wrapper/wrapper_drm.h")
+            .header("wrapper/wrapper_amdgpu.h")
+            .header("wrapper/wrapper_gpu_metrics.h")
+            .clang_args(config.iter())
+            .use_core()
+            .ctypes_prefix("::core::ffi")
+            .dynamic_library_name("DynLibDrmAmdgpu")
+            .dynamic_link_require_all(true)
+            // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
+            // Finish the builder and generate the bindings.
+            .generate()
+            // Unwrap the Result and panic on failure.
+            .expect("Unable to generate bindings: {wrapper_name}");
+
+        bindings
+            .write_to_file(out_path.join("dyn_drm_amdgpu.rs"))
+            .expect("Couldn't write bindings!");
+    }
+
+    {
         let smu_v11_0_0_ppt = bindgen::Builder::default()
             .header("wrapper/wrapper_atomfirmware.h")
             .header("wrapper/smu11_driver_if_navi10.h")
@@ -125,6 +176,9 @@ fn convert_amdgpu_ids() {
 }
 
 fn main() {
+    #[cfg(all(feature = "link-drm", feature = "dynamic_loading"))]
+    compile_error!("feature \"link-drm\" and feature \"dynamic_loading\" cannot be enabled at the same time");
+
     #[cfg(feature = "link-drm")]
     println!("cargo:rustc-link-lib=drm");
     #[cfg(feature = "link-drm")]

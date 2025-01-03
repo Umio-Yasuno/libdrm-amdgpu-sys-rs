@@ -1,3 +1,8 @@
+#[cfg(feature = "link-drm")]
+use crate::bindings;
+use crate::AMDGPU::DeviceHandle;
+use core::ffi::CStr;
+
 #[cfg(feature = "std")]
 #[derive(Debug, Clone)]
 pub struct drmVersion {
@@ -10,12 +15,14 @@ pub struct drmVersion {
 }
 
 #[cfg(feature = "std")]
-impl drmVersion {
-    pub fn get(fd: i32) -> Result<drmVersion, i32> {
-        use crate::bindings;
-        use core::ffi::CStr;
+impl DeviceHandle {
+    pub fn get_drm_version_struct(&self) -> Result<drmVersion, i32> {
+        #[cfg(feature = "link-drm")]
+        let (get_func, free_func) = (bindings::drmGetVersion, bindings::drmFreeVersion);
+        #[cfg(feature = "dynamic_loading")]
+        let (get_func, free_func) = (self.libdrm.drmGetVersion, self.libdrm.drmFreeVersion);
 
-        let drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
+        let drm_ver_ptr = unsafe { get_func(self.fd) };
 
         if drm_ver_ptr.is_null() {
             return Err(-libc::EFAULT);
@@ -31,9 +38,9 @@ impl drmVersion {
             }
         });
 
-        unsafe { bindings::drmFreeVersion(drm_ver_ptr) }
+        unsafe { free_func(drm_ver_ptr) }
 
-        Ok(Self {
+        Ok(drmVersion {
             version_major: ver.version_major,
             version_minor: ver.version_minor,
             version_patchlevel: ver.version_patchlevel,

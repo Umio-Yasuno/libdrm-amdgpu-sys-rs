@@ -17,6 +17,7 @@ default = ["std", "link-drm"]
 std = []
 buildtime_bindgen = ["bindgen", "pkg-config"]
 link-drm = []
+dynamic_loading = ["std", "libloading"]
 
 [lib]
 # name = "libdrm_amdgpu_sys"
@@ -25,6 +26,7 @@ doctest = false
 
 [dependencies]
 libc = { version = "0.2", default-features = false }
+libloading = { version = "0.8", optional = true }
 
 [build-dependencies]
 bindgen = { version = "0.70", optional = true }
@@ -53,3 +55,7 @@ required-features = ["std"]
 [[example]]
 name = "pp_table"
 required-features = ["std"]
+
+[[example]]
+name = "dynamic_link"
+required-features = ["std", "dynamic_loading"]

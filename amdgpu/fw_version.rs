@@ -20,12 +20,17 @@ impl DeviceHandle {
         ip_instance: ::core::ffi::c_uint,
         index: ::core::ffi::c_uint,
     ) -> Result<FwVer, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_firmware_version;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_firmware_version;
+
         unsafe {
             let mut version: MaybeUninit<u32> = MaybeUninit::zeroed();
             let mut feature: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_firmware_version(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 fw_type as u32,
                 ip_instance,
                 index,

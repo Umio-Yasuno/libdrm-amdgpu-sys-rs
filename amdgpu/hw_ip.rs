@@ -27,11 +27,16 @@ impl DeviceHandle {
         &self,
         type_: HW_IP_TYPE,
     ) -> Result<u32, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_hw_ip_count;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_hw_ip_count;
+
         unsafe {
             let mut hw_ip_count: MaybeUninit<u32> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_hw_ip_count(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 type_ as ::core::ffi::c_uint,
                 hw_ip_count.as_mut_ptr(),
             );
@@ -50,11 +55,16 @@ impl DeviceHandle {
         type_: HW_IP_TYPE,
         ip_instance: ::core::ffi::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32> {
+        #[cfg(feature = "link-drm")]
+        let func = bindings::amdgpu_query_hw_ip_info;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm_amdgpu.amdgpu_query_hw_ip_info;
+
         unsafe {
             let mut hw_ip_info: MaybeUninit<drm_amdgpu_info_hw_ip> = MaybeUninit::zeroed();
 
-            let r = bindings::amdgpu_query_hw_ip_info(
-                self.0,
+            let r = func(
+                self.amdgpu_dev,
                 type_ as ::core::ffi::c_uint,
                 ip_instance as ::core::ffi::c_uint,
                 hw_ip_info.as_mut_ptr(),
