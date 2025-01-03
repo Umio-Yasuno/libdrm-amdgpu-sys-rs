@@ -14,9 +14,9 @@ links = "drm, drm_amdgpu"
 
 [features]
 default = ["link_drm"]
-buildtime_bindgen = ["bindgen", "pkg-config"]
+buildtime_bindgen = ["dep:bindgen", "dep:pkg-config"]
 link_drm = []
-dynamic_loading = ["libloading"]
+dynamic_loading = ["dep:libloading"]
 
 [lib]
 # name = "libdrm_amdgpu_sys"
