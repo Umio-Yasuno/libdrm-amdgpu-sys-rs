@@ -1,7 +1,5 @@
 #![doc = include_str!("./README.md")]
 
-#![cfg_attr(not(feature = "std"), no_std)]
-
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
@@ -86,38 +84,29 @@ impl LibDrmAmdgpu {
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 mod amdgpu;
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 pub mod AMDGPU {
     pub use super::amdgpu::*;
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 mod pci;
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 pub mod PCI {
     pub use super::pci::*;
 }
 
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 mod drm_version;
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 pub use drm_version::*;
 
 /// TODO: dynamic link
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "std")]
 #[cfg(feature = "link_drm")]
 mod drm_mode;
 /// TODO: dynamic link
-#[cfg(all(feature = "std", feature = "link_drm"))]
-#[cfg(feature = "std")]
 #[cfg(feature = "link_drm")]
 pub use drm_mode::*;
 
@@ -131,10 +120,8 @@ macro_rules! query_error {
     };
 }
 
-#[cfg(feature = "std")]
 use std::path::PathBuf;
 
-#[cfg(feature = "std")]
 pub(crate) fn get_min_max_from_dpm<
     T: std::cmp::Ord + std::marker::Copy,
     P: Into<PathBuf>

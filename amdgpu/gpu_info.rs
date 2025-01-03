@@ -70,7 +70,6 @@ pub trait GPU_INFO {
 
     /// Find device marketing name from `amdgpu.ids`  
     /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
-    #[cfg(feature = "std")]
     fn find_device_name(&self) -> Option<String> {
         let did = self.device_id();
         let rid = self.pci_rev_id();
@@ -80,7 +79,6 @@ pub trait GPU_INFO {
 
     /// Returns the default marketing name ("AMD Radeon Graphics") 
     /// when the device name is not available.
-    #[cfg(feature = "std")]
     fn find_device_name_or_default(&self) -> String {
         self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
@@ -274,7 +272,6 @@ impl drm_amdgpu_info_device {
 
 /// Find device marketing name from `amdgpu.ids`  
 /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
-#[cfg(feature = "std")]
 pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
     use bindings::AMDGPU_IDS;
 
@@ -285,7 +282,6 @@ pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
 
 /// Returns the default marketing name ("AMD Radeon Graphics") 
 /// when the device name is not available.
-#[cfg(feature = "std")]
 pub fn find_device_name_or_default(device_id: u32, revision_id: u32) -> String {
     find_device_name(device_id, revision_id).unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
 }

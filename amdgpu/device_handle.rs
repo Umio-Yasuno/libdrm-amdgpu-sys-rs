@@ -46,7 +46,6 @@ pub struct DeviceHandle {
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
-#[cfg(feature = "std")]
 use std::path::PathBuf;
 
 #[cfg(feature = "dynamic_loading")]
@@ -347,7 +346,6 @@ impl DeviceHandle {
         func(device)
     }
 
-    #[cfg(feature = "std")]
     fn get_min_max_clock_from_dpm<P: Into<PathBuf>>(
         &self,
         sysfs_path: P,
@@ -360,7 +358,6 @@ impl DeviceHandle {
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_memory_clock_from_dpm<P: Into<PathBuf>>(
         &self,
         path: P
@@ -369,7 +366,6 @@ impl DeviceHandle {
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_gpu_clock_from_dpm<P: Into<PathBuf>>(
         &self,
         path: P
@@ -378,7 +374,6 @@ impl DeviceHandle {
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_memory_clock_from_sysfs<P: Into<PathBuf>>(
         &self,
         path: P
@@ -389,14 +384,12 @@ impl DeviceHandle {
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_memory_clock(&self) -> Option<(u32, u32)> {
         let sysfs_path = self.get_sysfs_path().ok()?;
         self.get_min_max_memory_clock_from_sysfs(sysfs_path)
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_gpu_clock_from_sysfs<P: Into<PathBuf>>(
         &self,
         path: P
@@ -407,14 +400,12 @@ impl DeviceHandle {
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_sclk`)
-    #[cfg(feature = "std")]
     pub fn get_min_max_gpu_clock(&self) -> Option<(u32, u32)> {
         let sysfs_path = self.get_sysfs_path().ok()?;
         self.get_min_max_gpu_clock_from_sysfs(sysfs_path)
     }
 
     /// 
-    #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> Result<PathBuf, i32> {
         let path = self.get_pci_bus_info()?.get_sysfs_path();
 
@@ -422,35 +413,30 @@ impl DeviceHandle {
     }
 
     /// 
-    #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         self.get_pci_bus_info().ok()?.get_hwmon_path()
     }
 
     /// ref: drivers/gpu/drm/amd/pm/swsmu/smu13/aldebaran_ppt.c
     /// ref: <https://github.com/RadeonOpenCompute/rocm_smi_lib/blob/master/python_smi_tools/rocm_smi.py>
-    #[cfg(feature = "std")]
     pub fn check_if_secondary_die(&self) -> bool {
         let Some(power_cap) = self.get_power_cap() else { return false };
 
         power_cap.check_if_secondary_die()
     }
 
-    #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm(&self) -> Option<[PCI::LINK; 2]> {
         let pci_bus = self.get_pci_bus_info().ok()?;
 
         pci_bus.get_min_max_link_info_from_dpm()
     }
 
-    #[cfg(feature = "std")]
     pub fn get_max_gpu_link(&self) -> Option<PCI::LINK> {
         let pci_bus = self.get_pci_bus_info().ok()?;
 
         pci_bus.get_max_gpu_link()
     }
 
-    #[cfg(feature = "std")]
     pub fn get_max_system_link(&self) -> Option<PCI::LINK> {
         let pci_bus = self.get_pci_bus_info().ok()?;
 

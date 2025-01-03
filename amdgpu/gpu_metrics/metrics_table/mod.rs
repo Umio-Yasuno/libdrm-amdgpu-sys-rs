@@ -51,7 +51,6 @@ impl metrics_table_header {
         Self::from_bytes(&buf)
     }
 
-    #[cfg(feature = "std")]
     pub fn from_sysfs_path<P: Into<PathBuf>>(path: P) -> io::Result<Self> {
         let mut f = File::open(path.into())?;
         let mut buf = [0u8; 4];

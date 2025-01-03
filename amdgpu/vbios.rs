@@ -7,7 +7,6 @@ use core::ptr;
 use bindings::{AMDGPU_INFO_VBIOS, DRM_AMDGPU_INFO, drm_amdgpu_info};
 
 /// VBIOS information
-#[cfg(feature = "std")]
 #[derive(Debug, Clone)]
 pub struct VbiosInfo {
     pub name: String,
@@ -18,7 +17,6 @@ pub struct VbiosInfo {
 }
 
 impl DeviceHandle {
-    #[cfg(feature = "std")]
     pub fn get_vbios_info(&self) -> Result<VbiosInfo, i32> {
         let vbios = self.vbios_info()?;
         let size = self.vbios_size()?;
@@ -88,7 +86,6 @@ impl DeviceHandle {
         unsafe { Self::query_vbios(self, AMDGPU_INFO_VBIOS_SIZE) }
     }
 
-    #[cfg(feature = "std")]
     unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
@@ -126,7 +123,6 @@ impl DeviceHandle {
     }
 
 
-    #[cfg(feature = "std")]
     pub fn get_vbios_image(&self) -> Result<Vec<u8>, i32> {
         let size = self.vbios_size()?;
 

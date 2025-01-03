@@ -3,7 +3,6 @@ use crate::bindings;
 use crate::AMDGPU::DeviceHandle;
 use core::ffi::CStr;
 
-#[cfg(feature = "std")]
 #[derive(Debug, Clone)]
 pub struct drmVersion {
     pub version_major: i32,
@@ -14,7 +13,6 @@ pub struct drmVersion {
     pub desc: String,
 }
 
-#[cfg(feature = "std")]
 impl DeviceHandle {
     pub fn get_drm_version_struct(&self) -> Result<drmVersion, i32> {
         #[cfg(feature = "link_drm")]

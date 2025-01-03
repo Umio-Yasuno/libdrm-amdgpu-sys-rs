@@ -171,10 +171,8 @@ impl From<u32> for drmModeConnectorType {
     }
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
 
-#[cfg(feature = "std")]
 impl fmt::Display for drmModeConnectorType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
@@ -199,7 +197,6 @@ pub enum drmModeConnection {
     DRM_MODE_UNKNOWNCONNECTION = drmModeConnection_DRM_MODE_UNKNOWNCONNECTION,
 }
 
-#[cfg(feature = "std")]
 impl fmt::Display for drmModeConnection {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{}", match self {

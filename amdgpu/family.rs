@@ -75,9 +75,7 @@ impl FAMILY_NAME {
     }
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for FAMILY_NAME {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {

@@ -1,4 +1,3 @@
-#[cfg(feature = "std")]
 use std::fmt;
 
 #[derive(Debug, Clone, Copy)]
@@ -185,7 +184,6 @@ impl From<u8> for ThrottlerBit {
     }
 }
 
-#[cfg(feature = "std")]
 impl fmt::Display for ThrottlerBit {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)
@@ -201,7 +199,6 @@ pub enum ThrottlerType {
     Other,
 }
 
-#[cfg(feature = "std")]
 impl fmt::Display for ThrottlerType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

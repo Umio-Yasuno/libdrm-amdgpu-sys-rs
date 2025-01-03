@@ -60,9 +60,7 @@ pub enum SENSOR_TYPE {
     GPU_INPUT_POWER = 0xC,
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for SENSOR_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

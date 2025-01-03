@@ -1,7 +1,5 @@
-#[cfg(feature = "std")]
 use std::path::PathBuf;
 
-#[cfg(feature = "std")]
 const PCIE_DPM: &str = "pp_dpm_pcie";
 
 /// PCI link speed information
@@ -11,11 +9,9 @@ pub struct LINK {
     pub width: u8,
 }
 
-#[cfg(feature = "std")]
 use super::STATUS;
 
 impl LINK {
-    #[cfg(feature = "std")]
     pub fn get_from_sysfs_with_status<P: Into<PathBuf>>(
         sysfs_path: P,
         status: STATUS,
@@ -35,7 +31,6 @@ impl LINK {
     }
 
     /// Convert PCIe speed str to PCIe gen
-    #[cfg(feature = "std")]
     pub fn speed_to_gen(speed: &str) -> Option<u8> {
         let gen = match speed {
             "2.5 GT/s PCIe" => 1,
@@ -50,7 +45,6 @@ impl LINK {
         Some(gen)
     }
 
-    #[cfg(feature = "std")]
     fn parse_dpm_line(s: &str) -> Option<Self> {
         let mut gen: Option<u8> = None;
         let mut width: Option<u8> = None;
@@ -87,14 +81,12 @@ impl LINK {
         Some(Self { gen: gen?, width: width? })
     }
 
-    #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<[LINK; 2]> {
         use crate::get_min_max_from_dpm;
 
         get_min_max_from_dpm(sysfs_path.into().join(PCIE_DPM), Self::parse_dpm_line)
     }
 
-    #[cfg(feature = "std")]
     pub fn get_current_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<LINK> {
         let sysfs_path = sysfs_path.into();
         let s = std::fs::read_to_string(sysfs_path.join(PCIE_DPM)).ok()?;
@@ -103,7 +95,6 @@ impl LINK {
         Self::parse_dpm_line(cur)
     }
 
-    #[cfg(feature = "std")]
     pub(crate) fn get_max_link(sysfs_path: &PathBuf) -> Option<Self> {
         let [s_speed, s_width] = STATUS::Max.to_sysfs_file_name().map(|name| {
             let mut s = std::fs::read_to_string(sysfs_path.join(name)).ok()?;

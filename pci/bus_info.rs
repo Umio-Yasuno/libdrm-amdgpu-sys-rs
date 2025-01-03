@@ -9,21 +9,17 @@ pub struct BUS_INFO {
     pub func: u8,
 }
 
-#[cfg(feature = "std")]
 use super::{LINK, STATUS};
 
-#[cfg(feature = "std")]
 use std::path::PathBuf;
 
 impl BUS_INFO {
     /// Get device sysfs path
-    #[cfg(feature = "std")]
     pub fn get_sysfs_path(&self) -> PathBuf {
         PathBuf::from("/sys/bus/pci/devices/").join(self.to_string())
     }
 
     /// Get device hwmon path
-    #[cfg(feature = "std")]
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         let base = self.get_sysfs_path().join("hwmon");
         let entry = std::fs::read_dir(base).ok()?.next()?.ok()?;
@@ -31,7 +27,6 @@ impl BUS_INFO {
         Some(entry.path())
     }
 
-    #[cfg(feature = "std")]
     fn get_drm_path(&self, type_name: &str) -> std::io::Result<PathBuf> {
         let base = PathBuf::from("/dev/dri");
 
@@ -53,19 +48,16 @@ impl BUS_INFO {
     }
 
     /// Get DRM render path
-    #[cfg(feature = "std")]
     pub fn get_drm_render_path(&self) -> std::io::Result<PathBuf> {
         self.get_drm_path("render")
     }
 
     /// Get DRM card path
-    #[cfg(feature = "std")]
     pub fn get_drm_card_path(&self) -> std::io::Result<PathBuf> {
         self.get_drm_path("card")
     }
 
     /// Get device debug path
-    #[cfg(feature = "std")]
     pub fn get_debug_dri_path(&self) -> std::io::Result<PathBuf> {
         let s = format!("amdgpu dev={}", self);
 
@@ -80,19 +72,16 @@ impl BUS_INFO {
     }
 
     /// Get GPU maximum/minimum link speed/width from DPM
-    #[cfg(feature = "std")]
     pub fn get_min_max_link_info_from_dpm(&self) -> Option<[LINK; 2]> {
         LINK::get_min_max_link_info_from_dpm(self.get_sysfs_path())
     }
 
     /// Get GPU current link speed/width from DPM
-    #[cfg(feature = "std")]
     pub fn get_current_link_info_from_dpm(&self) -> Option<LINK> {
         LINK::get_current_link_info_from_dpm(self.get_sysfs_path())
     }
 
     /// Get GPU maximum link speed/width from sysfs
-    #[cfg(feature = "std")]
     pub fn get_max_gpu_link(&self) -> Option<LINK> {
         let mut tmp = self.get_system_pcie_port_sysfs_path();
 
@@ -102,12 +91,10 @@ impl BUS_INFO {
     }
 
     /// Get system maximum link speed/width from sysfs
-    #[cfg(feature = "std")]
     pub fn get_max_system_link(&self) -> Option<LINK> {
         LINK::get_max_link(&self.get_system_pcie_port_sysfs_path())
     }
 
-    #[cfg(feature = "std")]
     fn from_pathbuf(path: PathBuf) -> Option<Self> {
         path
             .canonicalize().ok()?
@@ -119,7 +106,6 @@ impl BUS_INFO {
     /// Recent AMD GPUs have multiple endpoints, and the PCIe speed/width actually
     /// runs in that system for the GPU is output to `pp_dpm_pcie`.
     /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
-    #[cfg(feature = "std")]
     pub fn get_gpu_pcie_port_bus(&self) -> Self {
         let mut path = self.get_system_pcie_port_sysfs_path();
 
@@ -132,7 +118,6 @@ impl BUS_INFO {
         }
     }
 
-    #[cfg(feature = "std")]
     pub fn get_system_pcie_port_bus(&self) -> Self {
         let path = self.get_system_pcie_port_sysfs_path();
 
@@ -146,7 +131,6 @@ impl BUS_INFO {
     /// Recent AMD GPUs have multiple endpoints, and the PCIe speed/width actually
     /// runs in that system for the GPU is output to `pp_dpm_pcie`.
     /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/1967>
-    #[cfg(feature = "std")]
     fn get_system_pcie_port_sysfs_path(&self) -> PathBuf {
         const VENDOR_ATI: &str = "0x1002\n";
         // 0x6: Bridge, 0x4: PCI-to-PCI Bridge
@@ -171,13 +155,11 @@ impl BUS_INFO {
     }
 
     /// Get GPU current link speed/width from sysfs
-    #[cfg(feature = "std")]
     pub fn get_current_link_info(&self) -> Option<LINK> {
         LINK::get_from_sysfs_with_status(self.get_sysfs_path(), STATUS::Current)
     }
 
     /// Get GPU maximum link speed/width from sysfs
-    #[cfg(feature = "std")]
     pub fn get_max_link_info(&self) -> Option<LINK> {
         LINK::get_from_sysfs_with_status(self.get_sysfs_path(), STATUS::Max)
     }
@@ -223,7 +205,6 @@ impl BUS_INFO {
 #[derive(Debug, PartialEq, Eq)]
 pub struct ParseBusInfoError;
 
-#[cfg(feature = "std")]
 impl std::str::FromStr for BUS_INFO {
     type Err = ParseBusInfoError;
 
@@ -253,9 +234,7 @@ fn test_pci_bus_info_parse() {
     assert_eq!(s, Ok(bus));
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for BUS_INFO {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f,

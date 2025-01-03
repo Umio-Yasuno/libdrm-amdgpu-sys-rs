@@ -143,9 +143,7 @@ impl From<u32> for drmModePropType {
     }
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for drmModePropType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

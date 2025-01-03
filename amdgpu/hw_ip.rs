@@ -119,9 +119,7 @@ pub enum HW_IP_TYPE {
     VPE = AMDGPU_HW_IP_VPE,
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for HW_IP_TYPE {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "{:?}", self)

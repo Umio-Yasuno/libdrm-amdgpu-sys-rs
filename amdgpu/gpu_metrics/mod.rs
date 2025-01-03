@@ -1,6 +1,4 @@
-#[cfg(feature = "std")]
 mod metrics_table;
-#[cfg(feature = "std")]
 pub use metrics_table::*;
 
 use crate::AMDGPU::DeviceHandle;

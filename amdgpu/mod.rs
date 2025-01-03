@@ -37,47 +37,30 @@ pub use gfx_target_version::GfxTargetVersion;
 mod context;
 pub use context::*;
 
-#[cfg(feature = "std")]
 mod gpu_metrics;
-#[cfg(feature = "std")]
 pub use gpu_metrics::*;
 
-#[cfg(feature = "std")]
 mod throttle_status;
-#[cfg(feature = "std")]
 pub use throttle_status::*;
 
-#[cfg(feature = "std")]
 mod hwmon_temp;
-#[cfg(feature = "std")]
 pub use hwmon_temp::*;
 
-#[cfg(feature = "std")]
 mod power_cap;
-#[cfg(feature = "std")]
 pub use power_cap::*;
 
-#[cfg(feature = "std")]
 mod power_profile;
-#[cfg(feature = "std")]
 pub use power_profile::*;
 
-#[cfg(feature = "std")]
 mod dpm_forced_level;
-#[cfg(feature = "std")]
 pub use dpm_forced_level::*;
 
-#[cfg(feature = "std")]
 mod ip_discovery;
-#[cfg(feature = "std")]
 pub use ip_discovery::*;
 
-#[cfg(feature = "std")]
 mod ras_features;
-#[cfg(feature = "std")]
 pub use ras_features::*;
 
-#[cfg(feature = "std")]
 pub(crate) fn parse_hwmon<T: std::str::FromStr, P: Into<std::path::PathBuf>>(path: P) -> Option<T> {
     std::fs::read_to_string(path.into()).ok()
         .and_then(|file| file.trim_end().parse::<T>().ok())
@@ -152,7 +135,6 @@ pub mod SENSOR_INFO {
     pub use super::sensor_info::*;
 }
 
-#[cfg(feature = "std")]
 pub fn get_all_amdgpu_pci_bus() -> Vec<PCI::BUS_INFO> {
     let Ok(amdgpu_devices) = std::fs::read_dir("/sys/bus/pci/drivers/amdgpu") else { return Vec::new() };
 

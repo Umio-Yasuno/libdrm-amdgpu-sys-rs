@@ -30,9 +30,7 @@ impl From<(u32, u32, u32)> for GfxTargetVersion {
     }
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for GfxTargetVersion {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "gfx{}{}{:x}", self.major, self.minor, self.stepping)

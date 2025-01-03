@@ -392,7 +392,6 @@ impl ASIC_NAME {
     }
 
     /// Processor name for LLVM
-    #[cfg(feature = "std")]
     pub fn get_llvm_processor_name(&self, llvm_major_ver: usize) -> &str {
         match self {
             Self::CHIP_TAHITI => "tahiti",
@@ -494,9 +493,7 @@ fn test_asic_name_get() {
     );
 }
 
-#[cfg(feature = "std")]
 use std::fmt;
-#[cfg(feature = "std")]
 impl fmt::Display for ASIC_NAME {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
