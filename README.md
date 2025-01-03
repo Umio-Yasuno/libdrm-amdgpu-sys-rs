@@ -26,6 +26,7 @@ sudo apt install libdrm-dev
 ## Examples
 ```
 use libdrm_amdgpu_sys::AMDGPU::DeviceHandle;
+use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 
 let (amdgpu_dev, drm_major, drm_minor) = {
     use std::fs::OpenOptions;
@@ -35,8 +36,27 @@ let (amdgpu_dev, drm_major, drm_minor) = {
 
     DeviceHandle::init(fd.into_raw_fd()).unwrap()
 };
-let mark_name = amdgpu_dev.get_marketing_name().unwrap();
 let device_info = amdgpu_dev.device_info().unwrap();
+let device_name = device_info.find_device_name_or_default();
+```
+### Dynamic Loading
+```
+use libdrm_amdgpu_sys::*;
+use AMDGPU::GPU_INFO;
+
+let drm_amdgpu = LibDrmAmdgpu::new().unwrap();
+let fd = {
+    use std::fs;
+    use std::os::fd::IntoRawFd;
+
+    let f = fs::OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
+
+    f.into_raw_fd()
+};
+let (amdgpu_dev, _major, _minor) = drm_amdgpu.init_device_handle(fd).unwrap();
+let device_info = amdgpu_dev.device_info().unwrap();
+let device_name = device_info.find_device_name_or_default();
+}
 ```
 ### amdgpu_info
 ```
