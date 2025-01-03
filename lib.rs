@@ -40,6 +40,7 @@ use std::sync::Arc;
 #[cfg(feature = "dynamic_loading")]
 use bindings::{DynLibDrm, DynLibDrmAmdgpu};
 
+#[derive(Clone)]
 pub struct LibDrm {
     #[cfg(feature = "dynamic_loading")]
     pub(crate) libdrm: Arc<DynLibDrm>,
@@ -61,13 +62,16 @@ impl LibDrm {
     }
 }
 
-#[cfg(feature = "dynamic_loading")]
 impl From<LibDrmAmdgpu> for LibDrm {
-    fn from(lib: LibDrmAmdgpu) -> Self {
-        Self { libdrm: lib.libdrm.clone() }
+    fn from(_lib: LibDrmAmdgpu) -> Self {
+        Self {
+            #[cfg(feature = "dynamic_loading")]
+            libdrm: _lib.libdrm.clone(),
+        }
     }
 }
 
+#[derive(Clone)]
 pub struct LibDrmAmdgpu {
     #[cfg(feature = "dynamic_loading")]
     pub(crate) libdrm: Arc<DynLibDrm>,
@@ -78,6 +82,10 @@ pub struct LibDrmAmdgpu {
 #[cfg(feature = "link_drm")]
 impl LibDrmAmdgpu {
     pub fn new() -> Result<Self, ()> {
+        Ok(Self {})
+    }
+
+    pub fn new_with_libdrm(_lib: LibDrm) -> Result<Self, ()> {
         Ok(Self {})
     }
 }
