@@ -128,28 +128,6 @@ impl DeviceHandle {
         self.fd
     }
 
-    /// (`major`, `minor`, `patchlevel`)
-    #[cfg(feature = "link-drm")]
-    #[deprecated(since = "0.1.3", note = "superseded by `get_drm_version_struct`")]
-    pub fn get_drm_version(&self) -> Result<(i32, i32, i32), ()> {
-        let fd = self.fd;
-        let drm_ver_ptr = unsafe { bindings::drmGetVersion(fd) };
-
-        if drm_ver_ptr.is_null() {
-            return Err(());
-        }
-
-        let ver = unsafe { (
-            (*drm_ver_ptr).version_major,
-            (*drm_ver_ptr).version_minor,
-            (*drm_ver_ptr).version_patchlevel,
-        ) };
-
-        unsafe { bindings::drmFreeVersion(drm_ver_ptr) }
-
-        Ok(ver)
-    }
-
     /// Returns the result of reading the register at the specified offset.
     /// If the offset is not allowed, returns `Err(i32)`.
     pub fn read_mm_registers(&self, offset: u32) -> Result<u32, i32> {
@@ -176,48 +154,6 @@ impl DeviceHandle {
 
             Ok(out)
         }
-    }
-
-    /// From libdrm-2.4.114, it returns the default name ("AMD Radeon Graphics")
-    ///  if there is no name that matches amdgpu.ids  
-    /// <https://gitlab.freedesktop.org/mesa/drm/-/commit/a81b9ab8f3fb6840b36f732c1dd25fe5e0d68d0a>
-    #[cfg(feature = "std")]
-    #[cfg(feature = "link-drm")]
-    #[deprecated(since = "0.1.3",  note = "superseded by `get_marketing_name_or_default`")]
-    pub fn get_marketing_name(&self) -> Result<String, std::str::Utf8Error> {
-        use core::ffi::CStr;
-
-        let mark_name = unsafe { bindings::amdgpu_get_marketing_name(self.amdgpu_dev) };
-
-        if mark_name.is_null() {
-            eprintln!("libdrm_amdgpu_sys: ASIC not found in amdgpu.ids");
-            return Ok("".to_string());
-        }
-
-        let c_str = unsafe { CStr::from_ptr(mark_name) };
-
-        Ok(c_str.to_str()?.to_string())
-    }
-
-    /// Returns the default marketing name ("AMD Radeon Graphics") 
-    /// when the device name is not available.
-    #[cfg(feature = "std")]
-    #[cfg(feature = "link-drm")]
-    pub fn get_marketing_name_or_default(&self) -> String {
-        use core::ffi::CStr;
-
-        let mark_name_ptr = unsafe { bindings::amdgpu_get_marketing_name(self.amdgpu_dev) };
-
-        if mark_name_ptr.is_null() {
-            return AMDGPU::DEFAULT_DEVICE_NAME.to_string();
-        }
-
-        let c_str = unsafe { CStr::from_ptr(mark_name_ptr) };
-
-        match c_str.to_str() {
-            Ok(name) => name,
-            Err(_) => AMDGPU::DEFAULT_DEVICE_NAME,
-        }.to_string()
     }
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {

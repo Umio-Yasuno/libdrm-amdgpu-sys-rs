@@ -85,25 +85,6 @@ pub trait GPU_INFO {
         self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
     }
 
-    /// Get device marketing name from `amdgpu.ids`  
-    /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
-    #[cfg(feature = "std")]
-    #[deprecated(since = "0.6.0", note = "superseded by `find_device_name`")]
-    fn parse_amdgpu_ids(&self) -> Option<String> {
-        let did = self.device_id();
-        let rid = self.pci_rev_id();
-
-        find_device_name(did, rid)
-    }
-
-    /// Returns the default marketing name ("AMD Radeon Graphics") 
-    /// when the device name is not available.
-    #[cfg(feature = "std")]
-    #[deprecated(since = "0.6.0", note = "superseded by `find_device_name`")]
-    fn parse_amdgpu_ids_or_default(&self) -> String {
-        self.find_device_name().unwrap_or(AMDGPU::DEFAULT_DEVICE_NAME.to_string())
-    }
-
     fn get_max_good_cu_per_sa(&self) -> u32 {
         let cu_group = self.get_chip_class().cu_group() as u32;
         let max_sa = self.max_se() * self.max_sa_per_se();
