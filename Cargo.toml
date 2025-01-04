@@ -54,7 +54,3 @@ required-features = []
 [[example]]
 name = "pp_table"
 required-features = []
-
-[[example]]
-name = "dynamic_loading"
-required-features = ["dynamic_loading"]
