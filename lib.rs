@@ -125,12 +125,9 @@ mod drm_version;
 #[cfg(not(feature = "buildtime_bindgen"))]
 pub use drm_version::*;
 
-/// TODO: dynamic link
 #[cfg(not(feature = "buildtime_bindgen"))]
-#[cfg(feature = "link_drm")]
 mod drm_mode;
-/// TODO: dynamic link
-#[cfg(feature = "link_drm")]
+#[cfg(not(feature = "buildtime_bindgen"))]
 pub use drm_mode::*;
 
 /// Convert `errno` to `Err(i32)`
@@ -143,8 +140,10 @@ macro_rules! query_error {
     };
 }
 
+#[cfg(not(feature = "buildtime_bindgen"))]
 use std::path::PathBuf;
 
+#[cfg(not(feature = "buildtime_bindgen"))]
 pub(crate) fn get_min_max_from_dpm<
     T: std::cmp::Ord + std::marker::Copy,
     P: Into<PathBuf>

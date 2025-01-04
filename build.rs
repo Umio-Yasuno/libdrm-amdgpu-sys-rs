@@ -79,6 +79,13 @@ fn build() {
             .ctypes_prefix("::core::ffi")
             .dynamic_library_name("DynLibDrmAmdgpu")
             .dynamic_link_require_all(true)
+            .blocklist_var("DRM_MODE_CONNECTOR_.*")
+            .blocklist_var("DRM_CLIENT_CAP_.*")
+            .blocklist_var("DRM_MODE_OBJECT_.*")
+            .blocklist_var("DRM_MODE_PROP_.*")
+            .blocklist_var("DRM_MODE_FLAG_.*")
+            .blocklist_var("DRM_MODE_TYPE_.*")
+            .blocklist_type("drm_mode_property_enum")
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
             // Finish the builder and generate the bindings.
             .generate()

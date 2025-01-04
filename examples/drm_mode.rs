@@ -1,4 +1,4 @@
-use libdrm_amdgpu_sys::{drmVersion, drmModeRes, drmModePropertyBlob, drmModePropType};
+use libdrm_amdgpu_sys::{drmModePropType, LibDrm};
 use std::fs::File;
 
 fn main() {
@@ -10,9 +10,10 @@ fn main() {
         f.into_raw_fd()
     };
 
-    libdrm_amdgpu_sys::set_all_client_caps(fd);
-    let drm_mode_res = drmModeRes::get(fd).unwrap();
-    let current_connectors = drm_mode_res.get_all_connector_current(fd);
+    let libdrm = LibDrm::new().unwrap();
+    libdrm.set_all_client_caps(fd);
+    let drm_mode_res = libdrm.get_drm_mode_resources(fd).unwrap();
+    let current_connectors = drm_mode_res.get_drm_mode_all_connector_current(fd);
 
     for connector in current_connectors.iter() {
         println!(
@@ -39,7 +40,7 @@ fn main() {
             }
         }
 
-        if let Some(conn_prop) = connector.get_connector_props(fd) {
+        if let Some(conn_prop) = connector.get_drm_mode_connector_properties(fd) {
             let mode_props = conn_prop.get_mode_property(fd);
 
             for (prop, value) in mode_props {
@@ -63,7 +64,7 @@ fn main() {
                         println!("] ");
                     },
                     drmModePropType::BLOB => {
-                        if let Some(b) = drmModePropertyBlob::get(fd, value as u32) {
+                        if let Some(b) = libdrm.get_drm_mode_property_blob(fd, value as u32) {
                             print!("        blob:");
 
                             for (i, byte) in b.data().iter().enumerate() {

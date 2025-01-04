@@ -1,12 +1,34 @@
-use crate::bindings;
+use crate::{bindings, LibDrm};
 use core::ptr::addr_of;
 
 pub use bindings::{drmModePropertyPtr, drm_mode_property_enum};
 
-#[derive(Debug, Clone)]
-pub struct drmModeProperty(pub(crate) drmModePropertyPtr);
+#[allow(dead_code)]
+#[derive(Clone)]
+pub struct drmModeProperty {
+    pub(crate) ptr: drmModePropertyPtr,
+    pub(crate) lib: LibDrm,
+}
+
+impl LibDrm {
+    pub fn get_drm_mode_property(&self, fd: i32, property_id: u32) -> Option<drmModeProperty> {
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeGetProperty;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmModeGetProperty;
+
+        let prop_ptr = unsafe { func(fd, property_id) };
+
+        if prop_ptr.is_null() {
+            None
+        } else {
+            Some(drmModeProperty { ptr: prop_ptr, lib: self.clone() })
+        }
+    }
+}
 
 impl drmModeProperty {
+    #[cfg(feature = "link_drm")]
     pub fn get(fd: i32, property_id: u32) -> Option<Self> {
         let prop_ptr = unsafe { bindings::drmModeGetProperty(
             fd,
@@ -16,22 +38,22 @@ impl drmModeProperty {
         if prop_ptr.is_null() {
             None
         } else {
-            Some(Self(prop_ptr))
+            Some(Self { ptr: prop_ptr, lib: LibDrm::new().unwrap() })
         }
     }
 
     pub fn name(&self) -> String {
-        let c_name = unsafe { addr_of!((*self.0).name).read() };
+        let c_name = unsafe { addr_of!((*self.ptr).name).read() };
 
         super::c_char_to_string(&c_name)
     }
 
     pub fn prop_id(&self) -> u32 {
-        unsafe { addr_of!((*self.0).prop_id).read() }
+        unsafe { addr_of!((*self.ptr).prop_id).read() }
     }
 
     pub fn flags(&self) -> u32 {
-        unsafe { addr_of!((*self.0).flags).read() }
+        unsafe { addr_of!((*self.ptr).flags).read() }
     }
 
     pub fn property_type(&self) -> drmModePropType {
@@ -57,8 +79,8 @@ impl drmModeProperty {
     }
 
     pub fn values(&self) -> Vec<u64> {
-        let ptr = unsafe { addr_of!((*self.0).values).read() };
-        let count = unsafe { addr_of!((*self.0).count_values).read() as usize };
+        let ptr = unsafe { addr_of!((*self.ptr).values).read() };
+        let count = unsafe { addr_of!((*self.ptr).count_values).read() as usize };
 
         if ptr.is_null() {
             Vec::new()
@@ -68,8 +90,8 @@ impl drmModeProperty {
     }
 
     pub fn blob_ids(&self) -> Vec<u32> {
-        let ptr = unsafe { addr_of!((*self.0).blob_ids).read() };
-        let count = unsafe { addr_of!((*self.0).count_blobs).read() as usize };
+        let ptr = unsafe { addr_of!((*self.ptr).blob_ids).read() };
+        let count = unsafe { addr_of!((*self.ptr).count_blobs).read() as usize };
 
         if ptr.is_null() {
             Vec::new()
@@ -79,8 +101,8 @@ impl drmModeProperty {
     }
 
     pub fn enums(&self) -> Vec<drm_mode_property_enum> {
-        let ptr = unsafe { addr_of!((*self.0).enums).read() };
-        let count = unsafe { addr_of!((*self.0).count_enums).read() as usize };
+        let ptr = unsafe { addr_of!((*self.ptr).enums).read() };
+        let count = unsafe { addr_of!((*self.ptr).count_enums).read() as usize };
 
         if ptr.is_null() {
             Vec::new()
@@ -92,7 +114,12 @@ impl drmModeProperty {
 
 impl Drop for drmModeProperty {
     fn drop(&mut self) {
-	    unsafe { bindings::drmModeFreeProperty(self.0); }
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeFreeProperty;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.lib.libdrm.drmModeFreeProperty;
+
+	    unsafe { func(self.ptr); }
     }
 }
 

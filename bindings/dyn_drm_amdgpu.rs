@@ -232,12 +232,6 @@ pub const DRM_CAP_CRTC_IN_VBLANK_EVENT: u32 = 18;
 pub const DRM_CAP_SYNCOBJ: u32 = 19;
 pub const DRM_CAP_SYNCOBJ_TIMELINE: u32 = 20;
 pub const DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP: u32 = 21;
-pub const DRM_CLIENT_CAP_STEREO_3D: u32 = 1;
-pub const DRM_CLIENT_CAP_UNIVERSAL_PLANES: u32 = 2;
-pub const DRM_CLIENT_CAP_ATOMIC: u32 = 3;
-pub const DRM_CLIENT_CAP_ASPECT_RATIO: u32 = 4;
-pub const DRM_CLIENT_CAP_WRITEBACK_CONNECTORS: u32 = 5;
-pub const DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT: u32 = 6;
 pub const DRM_SYNCOBJ_CREATE_SIGNALED: u32 = 1;
 pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE: u32 = 1;
 pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE: u32 = 1;
@@ -251,38 +245,6 @@ pub const DRM_CRTC_SEQUENCE_NEXT_ON_MISS: u32 = 2;
 pub const DRM_CONNECTOR_NAME_LEN: u32 = 32;
 pub const DRM_DISPLAY_MODE_LEN: u32 = 32;
 pub const DRM_PROP_NAME_LEN: u32 = 32;
-pub const DRM_MODE_TYPE_BUILTIN: u32 = 1;
-pub const DRM_MODE_TYPE_CLOCK_C: u32 = 3;
-pub const DRM_MODE_TYPE_CRTC_C: u32 = 5;
-pub const DRM_MODE_TYPE_PREFERRED: u32 = 8;
-pub const DRM_MODE_TYPE_DEFAULT: u32 = 16;
-pub const DRM_MODE_TYPE_USERDEF: u32 = 32;
-pub const DRM_MODE_TYPE_DRIVER: u32 = 64;
-pub const DRM_MODE_TYPE_ALL: u32 = 104;
-pub const DRM_MODE_FLAG_PHSYNC: u32 = 1;
-pub const DRM_MODE_FLAG_NHSYNC: u32 = 2;
-pub const DRM_MODE_FLAG_PVSYNC: u32 = 4;
-pub const DRM_MODE_FLAG_NVSYNC: u32 = 8;
-pub const DRM_MODE_FLAG_INTERLACE: u32 = 16;
-pub const DRM_MODE_FLAG_DBLSCAN: u32 = 32;
-pub const DRM_MODE_FLAG_CSYNC: u32 = 64;
-pub const DRM_MODE_FLAG_PCSYNC: u32 = 128;
-pub const DRM_MODE_FLAG_NCSYNC: u32 = 256;
-pub const DRM_MODE_FLAG_HSKEW: u32 = 512;
-pub const DRM_MODE_FLAG_BCAST: u32 = 1024;
-pub const DRM_MODE_FLAG_PIXMUX: u32 = 2048;
-pub const DRM_MODE_FLAG_DBLCLK: u32 = 4096;
-pub const DRM_MODE_FLAG_CLKDIV2: u32 = 8192;
-pub const DRM_MODE_FLAG_3D_MASK: u32 = 507904;
-pub const DRM_MODE_FLAG_3D_NONE: u32 = 0;
-pub const DRM_MODE_FLAG_3D_FRAME_PACKING: u32 = 16384;
-pub const DRM_MODE_FLAG_3D_FIELD_ALTERNATIVE: u32 = 32768;
-pub const DRM_MODE_FLAG_3D_LINE_ALTERNATIVE: u32 = 49152;
-pub const DRM_MODE_FLAG_3D_SIDE_BY_SIDE_FULL: u32 = 65536;
-pub const DRM_MODE_FLAG_3D_L_DEPTH: u32 = 81920;
-pub const DRM_MODE_FLAG_3D_L_DEPTH_GFX_GFX_DEPTH: u32 = 98304;
-pub const DRM_MODE_FLAG_3D_TOP_AND_BOTTOM: u32 = 114688;
-pub const DRM_MODE_FLAG_3D_SIDE_BY_SIDE_HALF: u32 = 131072;
 pub const DRM_MODE_PICTURE_ASPECT_NONE: u32 = 0;
 pub const DRM_MODE_PICTURE_ASPECT_4_3: u32 = 1;
 pub const DRM_MODE_PICTURE_ASPECT_16_9: u32 = 2;
@@ -293,13 +255,6 @@ pub const DRM_MODE_CONTENT_TYPE_GRAPHICS: u32 = 1;
 pub const DRM_MODE_CONTENT_TYPE_PHOTO: u32 = 2;
 pub const DRM_MODE_CONTENT_TYPE_CINEMA: u32 = 3;
 pub const DRM_MODE_CONTENT_TYPE_GAME: u32 = 4;
-pub const DRM_MODE_FLAG_PIC_AR_MASK: u32 = 7864320;
-pub const DRM_MODE_FLAG_PIC_AR_NONE: u32 = 0;
-pub const DRM_MODE_FLAG_PIC_AR_4_3: u32 = 524288;
-pub const DRM_MODE_FLAG_PIC_AR_16_9: u32 = 1048576;
-pub const DRM_MODE_FLAG_PIC_AR_64_27: u32 = 1572864;
-pub const DRM_MODE_FLAG_PIC_AR_256_135: u32 = 2097152;
-pub const DRM_MODE_FLAG_ALL: u32 = 521215;
 pub const DRM_MODE_DPMS_ON: u32 = 0;
 pub const DRM_MODE_DPMS_STANDBY: u32 = 1;
 pub const DRM_MODE_DPMS_SUSPEND: u32 = 2;
@@ -338,45 +293,6 @@ pub const DRM_MODE_ENCODER_VIRTUAL: u32 = 5;
 pub const DRM_MODE_ENCODER_DSI: u32 = 6;
 pub const DRM_MODE_ENCODER_DPMST: u32 = 7;
 pub const DRM_MODE_ENCODER_DPI: u32 = 8;
-pub const DRM_MODE_CONNECTOR_Unknown: u32 = 0;
-pub const DRM_MODE_CONNECTOR_VGA: u32 = 1;
-pub const DRM_MODE_CONNECTOR_DVII: u32 = 2;
-pub const DRM_MODE_CONNECTOR_DVID: u32 = 3;
-pub const DRM_MODE_CONNECTOR_DVIA: u32 = 4;
-pub const DRM_MODE_CONNECTOR_Composite: u32 = 5;
-pub const DRM_MODE_CONNECTOR_SVIDEO: u32 = 6;
-pub const DRM_MODE_CONNECTOR_LVDS: u32 = 7;
-pub const DRM_MODE_CONNECTOR_Component: u32 = 8;
-pub const DRM_MODE_CONNECTOR_9PinDIN: u32 = 9;
-pub const DRM_MODE_CONNECTOR_DisplayPort: u32 = 10;
-pub const DRM_MODE_CONNECTOR_HDMIA: u32 = 11;
-pub const DRM_MODE_CONNECTOR_HDMIB: u32 = 12;
-pub const DRM_MODE_CONNECTOR_TV: u32 = 13;
-pub const DRM_MODE_CONNECTOR_eDP: u32 = 14;
-pub const DRM_MODE_CONNECTOR_VIRTUAL: u32 = 15;
-pub const DRM_MODE_CONNECTOR_DSI: u32 = 16;
-pub const DRM_MODE_CONNECTOR_DPI: u32 = 17;
-pub const DRM_MODE_CONNECTOR_WRITEBACK: u32 = 18;
-pub const DRM_MODE_CONNECTOR_SPI: u32 = 19;
-pub const DRM_MODE_CONNECTOR_USB: u32 = 20;
-pub const DRM_MODE_PROP_PENDING: u32 = 1;
-pub const DRM_MODE_PROP_RANGE: u32 = 2;
-pub const DRM_MODE_PROP_IMMUTABLE: u32 = 4;
-pub const DRM_MODE_PROP_ENUM: u32 = 8;
-pub const DRM_MODE_PROP_BLOB: u32 = 16;
-pub const DRM_MODE_PROP_BITMASK: u32 = 32;
-pub const DRM_MODE_PROP_LEGACY_TYPE: u32 = 58;
-pub const DRM_MODE_PROP_EXTENDED_TYPE: u32 = 65472;
-pub const DRM_MODE_PROP_ATOMIC: u32 = 2147483648;
-pub const DRM_MODE_OBJECT_CRTC: u32 = 3435973836;
-pub const DRM_MODE_OBJECT_CONNECTOR: u32 = 3233857728;
-pub const DRM_MODE_OBJECT_ENCODER: u32 = 3772834016;
-pub const DRM_MODE_OBJECT_MODE: u32 = 3739147998;
-pub const DRM_MODE_OBJECT_PROPERTY: u32 = 2964369584;
-pub const DRM_MODE_OBJECT_FB: u32 = 4227595259;
-pub const DRM_MODE_OBJECT_BLOB: u32 = 3149642683;
-pub const DRM_MODE_OBJECT_PLANE: u32 = 4008636142;
-pub const DRM_MODE_OBJECT_ANY: u32 = 0;
 pub const DRM_MODE_FB_INTERLACED: u32 = 1;
 pub const DRM_MODE_FB_MODIFIERS: u32 = 2;
 pub const DRM_MODE_FB_DIRTY_ANNOTATE_COPY: u32 = 1;
@@ -2817,23 +2733,6 @@ const _: () = {
         [::core::mem::offset_of!(drm_mode_get_connector, subpixel) - 72usize];
     ["Offset of field: drm_mode_get_connector::pad"]
         [::core::mem::offset_of!(drm_mode_get_connector, pad) - 76usize];
-};
-#[doc = " struct drm_mode_property_enum - Description for an enum/bitfield entry.\n @value: numeric value for this enum entry.\n @name: symbolic name for this enum entry.\n\n See struct drm_property_enum for details."]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_mode_property_enum {
-    pub value: __u64,
-    pub name: [::core::ffi::c_char; 32usize],
-}
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-    ["Size of drm_mode_property_enum"][::core::mem::size_of::<drm_mode_property_enum>() - 40usize];
-    ["Alignment of drm_mode_property_enum"]
-        [::core::mem::align_of::<drm_mode_property_enum>() - 8usize];
-    ["Offset of field: drm_mode_property_enum::value"]
-        [::core::mem::offset_of!(drm_mode_property_enum, value) - 0usize];
-    ["Offset of field: drm_mode_property_enum::name"]
-        [::core::mem::offset_of!(drm_mode_property_enum, name) - 8usize];
 };
 #[doc = " struct drm_mode_get_property - Get property metadata.\n\n User-space can perform a GETPROPERTY ioctl to retrieve information about a\n property. The same property may be attached to multiple objects, see\n \"Modeset Base Object Abstraction\".\n\n The meaning of the @values_ptr field changes depending on the property type.\n See &drm_property.flags for more details.\n\n The @enum_blob_ptr and @count_enum_blobs fields are only meaningful when the\n property has the type &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK. For\n backwards compatibility, the kernel will always set @count_enum_blobs to\n zero when the property has the type &DRM_MODE_PROP_BLOB. User-space must\n ignore these two fields if the property has a different type.\n\n User-space is expected to retrieve values and enums by performing this ioctl\n at least twice: the first time to retrieve the number of elements, the\n second time to retrieve the elements themselves.\n\n To retrieve the number of elements, set @count_values and @count_enum_blobs\n to zero, then call the ioctl. @count_values will be updated with the number\n of elements. If the property has the type &DRM_MODE_PROP_ENUM or\n &DRM_MODE_PROP_BITMASK, @count_enum_blobs will be updated as well.\n\n To retrieve the elements themselves, allocate an array for @values_ptr and\n set @count_values to its capacity. If the property has the type\n &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK, allocate an array for\n @enum_blob_ptr and set @count_enum_blobs to its capacity. Calling the ioctl\n again will fill the arrays."]
 #[repr(C)]

@@ -1,28 +1,97 @@
-use crate::{bindings, query_error};
+use crate::{bindings, query_error, LibDrm};
 use crate::drmModeObjectProperties;
 use core::ptr::addr_of;
 pub use bindings::{drmModeConnectorPtr, drmModeModeInfo};
 
-#[derive(Debug, Clone)]
-pub struct drmModeConnector(pub(crate) drmModeConnectorPtr);
+#[derive(Clone)]
+pub struct drmModeConnector {
+    pub(crate) ptr: drmModeConnectorPtr,
+    pub(crate) lib: LibDrm,
+}
+
+impl LibDrm {
+    pub fn get_drm_mode_connector(&self, fd: i32, connector_id: u32) -> Option<drmModeConnector> {
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeGetConnector;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmModeGetConnector;
+
+        let c_ptr = unsafe { func(fd, connector_id) };
+
+        if c_ptr.is_null() { return None; }
+
+        Some(drmModeConnector {
+            ptr: c_ptr,
+            lib: self.clone(),
+        })
+    }
+
+    pub fn get_drm_mode_connector_current(&self, fd: i32, connector_id: u32) -> Option<drmModeConnector> {
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeGetConnectorCurrent;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmModeGetConnectorCurrent;
+
+        let c_ptr = unsafe { func(fd, connector_id) };
+
+        if c_ptr.is_null() { return None; }
+
+        Some(drmModeConnector {
+            ptr: c_ptr,
+            lib: self.clone(),
+        })
+    }
+
+    pub fn set_drm_mode_connector_property(
+        &self,
+        fd: i32,
+        connector_id: u32,
+        property_id: u32,
+        value: u64,
+    ) -> Result<(), i32> {
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeConnectorSetProperty;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.libdrm.drmModeConnectorSetProperty;
+
+        let r = unsafe { func(fd, connector_id, property_id, value) };
+
+        query_error!(r);
+
+        Ok(())
+    }
+}
 
 impl drmModeConnector {
+    pub fn get_drm_mode_connector_properties(&self, fd: i32) -> Option<drmModeObjectProperties> {
+        self.lib.get_drm_mode_object_properties(
+            fd,
+            self.connector_id(),
+            bindings::DRM_MODE_OBJECT_CONNECTOR,
+        )
+    }
+}
+
+impl drmModeConnector {
+    #[cfg(feature = "link_drm")]
     pub fn get(fd: i32, connector_id: u32) -> Option<Self> {
         let c_ptr = unsafe { bindings::drmModeGetConnector(fd, connector_id) };
 
         if c_ptr.is_null() { return None; }
 
-        Some(Self(c_ptr))
+        Some(Self{ ptr: c_ptr, lib: LibDrm::new().unwrap() })
     }
 
+    #[cfg(feature = "link_drm")]
     pub fn get_current(fd: i32, connector_id: u32) -> Option<Self> {
         let c_ptr = unsafe { bindings::drmModeGetConnectorCurrent(fd, connector_id) };
 
         if c_ptr.is_null() { return None; }
 
-        Some(Self(c_ptr))
+        Some(Self{ ptr: c_ptr, lib: LibDrm::new().unwrap() })
     }
 
+    #[cfg(feature = "link_drm")]
     pub fn set(
         fd: i32,
         connector_id: u32,
@@ -39,33 +108,34 @@ impl drmModeConnector {
     }
 
     pub fn connection(&self) -> drmModeConnection {
-        drmModeConnection::from(unsafe { addr_of!((*self.0).connection).read() })
+        drmModeConnection::from(unsafe { addr_of!((*self.ptr).connection).read() })
     }
 
     pub fn connector_type(&self) -> drmModeConnectorType {
-        drmModeConnectorType::from(unsafe { addr_of!((*self.0).connector_type).read() })
+        drmModeConnectorType::from(unsafe { addr_of!((*self.ptr).connector_type).read() })
     }
 
     pub fn connector_id(&self) -> u32 {
-        unsafe { addr_of!((*self.0).connector_id).read() }
+        unsafe { addr_of!((*self.ptr).connector_id).read() }
     }
 
     pub fn connector_type_id(&self) -> u32 {
-        unsafe { addr_of!((*self.0).connector_type_id).read() }
+        unsafe { addr_of!((*self.ptr).connector_type_id).read() }
     }
 
     pub fn encoder_id(&self) -> u32 {
-        unsafe { addr_of!((*self.0).encoder_id).read() }
+        unsafe { addr_of!((*self.ptr).encoder_id).read() }
     }
 
     pub fn mmWidth(&self) -> u32 {
-        unsafe { addr_of!((*self.0).mmWidth).read() }
+        unsafe { addr_of!((*self.ptr).mmWidth).read() }
     }
 
     pub fn mmHeight(&self) -> u32 {
-        unsafe { addr_of!((*self.0).mmHeight).read() }
+        unsafe { addr_of!((*self.ptr).mmHeight).read() }
     }
 
+    #[cfg(feature = "link_drm")]
     pub fn get_connector_props(&self, fd: i32) -> Option<drmModeObjectProperties> {
         drmModeObjectProperties::get(
             fd,
@@ -75,8 +145,8 @@ impl drmModeConnector {
     }
 
     pub fn get_modes(&self) -> Vec<drmModeModeInfo> {
-        let ptr = unsafe { addr_of!((*self.0).modes).read() };
-        let len = unsafe { addr_of!((*self.0).count_modes).read() } as usize;
+        let ptr = unsafe { addr_of!((*self.ptr).modes).read() };
+        let len = unsafe { addr_of!((*self.ptr).count_modes).read() } as usize;
 
         if ptr.is_null() {
             Vec::new()
@@ -88,7 +158,12 @@ impl drmModeConnector {
 
 impl Drop for drmModeConnector {
     fn drop(&mut self) {
-	    unsafe { bindings::drmModeFreeConnector(self.0); }
+        #[cfg(feature = "link_drm")]
+        let func = bindings::drmModeFreeConnector;
+        #[cfg(feature = "dynamic_loading")]
+        let func = self.lib.libdrm.drmModeFreeConnector;
+
+	    unsafe { func(self.ptr); }
     }
 }
 
@@ -172,7 +247,6 @@ impl From<u32> for drmModeConnectorType {
 }
 
 use std::fmt;
-
 impl fmt::Display for drmModeConnectorType {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match self {
