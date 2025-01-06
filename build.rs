@@ -25,6 +25,7 @@ fn build() {
             .header("wrapper/wrapper_drm.h")
             .header("wrapper/wrapper_amdgpu.h")
             .header("wrapper/wrapper_gpu_metrics.h")
+            .blocklist_function("amdgpu_device_get_fd")
             .clang_args(config.iter())
             .use_core()
             .ctypes_prefix("::core::ffi")
@@ -86,6 +87,7 @@ fn build() {
             .blocklist_var("DRM_MODE_FLAG_.*")
             .blocklist_var("DRM_MODE_TYPE_.*")
             .blocklist_type("drm_mode_property_enum")
+            .blocklist_function("amdgpu_device_get_fd")
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
             // Finish the builder and generate the bindings.
             .generate()

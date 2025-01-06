@@ -6467,9 +6467,6 @@ extern "C" {
     pub fn amdgpu_device_deinitialize(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
 }
 extern "C" {
-    pub fn amdgpu_device_get_fd(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
-}
-extern "C" {
     pub fn amdgpu_bo_alloc(
         dev: amdgpu_device_handle,
         alloc_buffer: *mut amdgpu_bo_alloc_request,

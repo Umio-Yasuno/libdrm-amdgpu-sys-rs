@@ -17468,8 +17468,6 @@ pub struct DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int,
     pub amdgpu_device_deinitialize:
         unsafe extern "C" fn(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int,
-    pub amdgpu_device_get_fd:
-        unsafe extern "C" fn(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int,
     pub amdgpu_bo_alloc: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         alloc_buffer: *mut amdgpu_bo_alloc_request,
@@ -17875,7 +17873,6 @@ impl DynLibDrmAmdgpu {
         let amdgpu_device_deinitialize = __library
             .get(b"amdgpu_device_deinitialize\0")
             .map(|sym| *sym)?;
-        let amdgpu_device_get_fd = __library.get(b"amdgpu_device_get_fd\0").map(|sym| *sym)?;
         let amdgpu_bo_alloc = __library.get(b"amdgpu_bo_alloc\0").map(|sym| *sym)?;
         let amdgpu_bo_set_metadata = __library.get(b"amdgpu_bo_set_metadata\0").map(|sym| *sym)?;
         let amdgpu_bo_query_info = __library.get(b"amdgpu_bo_query_info\0").map(|sym| *sym)?;
@@ -18046,7 +18043,6 @@ impl DynLibDrmAmdgpu {
             __library,
             amdgpu_device_initialize,
             amdgpu_device_deinitialize,
-            amdgpu_device_get_fd,
             amdgpu_bo_alloc,
             amdgpu_bo_set_metadata,
             amdgpu_bo_query_info,
@@ -18139,12 +18135,6 @@ impl DynLibDrmAmdgpu {
         device_handle: amdgpu_device_handle,
     ) -> ::core::ffi::c_int {
         (self.amdgpu_device_deinitialize)(device_handle)
-    }
-    pub unsafe fn amdgpu_device_get_fd(
-        &self,
-        device_handle: amdgpu_device_handle,
-    ) -> ::core::ffi::c_int {
-        (self.amdgpu_device_get_fd)(device_handle)
     }
     pub unsafe fn amdgpu_bo_alloc(
         &self,
