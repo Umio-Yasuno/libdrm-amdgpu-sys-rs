@@ -40,6 +40,11 @@ use std::sync::Arc;
 #[cfg(feature = "dynamic_loading")]
 use bindings::{DynLibDrm, DynLibDrmAmdgpu};
 
+#[cfg(feature = "dynamic_loading")]
+const LIBDRM_NAME: &str = "libdrm.so.2";
+#[cfg(feature = "dynamic_loading")]
+const LIBDRM_AMDGPU_NAME: &str = "libdrm_amdgpu.so.1";
+
 #[derive(Clone)]
 pub struct LibDrm {
     #[cfg(feature = "dynamic_loading")]
@@ -56,7 +61,7 @@ impl LibDrm {
 #[cfg(feature = "dynamic_loading")]
 impl LibDrm {
     pub fn new() -> Result<Self, ::libloading::Error> {
-        let libdrm = unsafe { Arc::new(DynLibDrm::new("libdrm.so")?) };
+        let libdrm = unsafe { Arc::new(DynLibDrm::new(LIBDRM_NAME)?) };
 
         Ok(Self { libdrm })
     }
@@ -93,14 +98,14 @@ impl LibDrmAmdgpu {
 #[cfg(feature = "dynamic_loading")]
 impl LibDrmAmdgpu {
     pub fn new() -> Result<Self, ::libloading::Error> {
-        let libdrm = unsafe { Arc::new(DynLibDrm::new("libdrm.so")?) };
-        let libdrm_amdgpu = unsafe { Arc::new(DynLibDrmAmdgpu::new("libdrm_amdgpu.so")?) };
+        let libdrm = unsafe { Arc::new(DynLibDrm::new(LIBDRM_NAME)?) };
+        let libdrm_amdgpu = unsafe { Arc::new(DynLibDrmAmdgpu::new(LIBDRM_AMDGPU_NAME)?) };
 
         Ok(Self { libdrm, libdrm_amdgpu })
     }
 
     pub fn new_with_libdrm(lib: LibDrm) -> Result<Self, ::libloading::Error> {
-        let libdrm_amdgpu = unsafe { Arc::new(DynLibDrmAmdgpu::new("libdrm_amdgpu.so")?) };
+        let libdrm_amdgpu = unsafe { Arc::new(DynLibDrmAmdgpu::new(LIBDRM_AMDGPU_NAME)?) };
 
         Ok(Self { libdrm: lib.libdrm.clone(), libdrm_amdgpu })
     }
