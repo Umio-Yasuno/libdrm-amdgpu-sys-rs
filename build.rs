@@ -88,6 +88,8 @@ fn build() {
             .blocklist_var("DRM_MODE_TYPE_.*")
             .blocklist_type("drm_mode_property_enum")
             .blocklist_function("amdgpu_device_get_fd")
+            .blocklist_function("amdgpu_va_get_start_addr")
+            .blocklist_function("amdgpu_query_gpuvm_fault_info")
             // .parse_callbacks(Box::new(bindgen::CargoCallbacks))
             // Finish the builder and generate the bindings.
             .generate()

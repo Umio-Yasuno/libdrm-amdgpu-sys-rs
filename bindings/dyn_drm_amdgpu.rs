@@ -17656,11 +17656,6 @@ pub struct DynLibDrmAmdgpu {
         size: ::core::ffi::c_uint,
         value: *mut ::core::ffi::c_void,
     ) -> ::core::ffi::c_int,
-    pub amdgpu_query_gpuvm_fault_info: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        size: ::core::ffi::c_uint,
-        value: *mut ::core::ffi::c_void,
-    ) -> ::core::ffi::c_int,
     pub amdgpu_read_mm_registers: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         dword_offset: ::core::ffi::c_uint,
@@ -17681,7 +17676,6 @@ pub struct DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int,
     pub amdgpu_va_range_free:
         unsafe extern "C" fn(va_range_handle: amdgpu_va_handle) -> ::core::ffi::c_int,
-    pub amdgpu_va_get_start_addr: unsafe extern "C" fn(va_handle: amdgpu_va_handle) -> u64,
     pub amdgpu_va_range_query: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         type_: amdgpu_gpu_va_range,
@@ -17946,17 +17940,11 @@ impl DynLibDrmAmdgpu {
         let amdgpu_query_video_caps_info = __library
             .get(b"amdgpu_query_video_caps_info\0")
             .map(|sym| *sym)?;
-        let amdgpu_query_gpuvm_fault_info = __library
-            .get(b"amdgpu_query_gpuvm_fault_info\0")
-            .map(|sym| *sym)?;
         let amdgpu_read_mm_registers = __library
             .get(b"amdgpu_read_mm_registers\0")
             .map(|sym| *sym)?;
         let amdgpu_va_range_alloc = __library.get(b"amdgpu_va_range_alloc\0").map(|sym| *sym)?;
         let amdgpu_va_range_free = __library.get(b"amdgpu_va_range_free\0").map(|sym| *sym)?;
-        let amdgpu_va_get_start_addr = __library
-            .get(b"amdgpu_va_get_start_addr\0")
-            .map(|sym| *sym)?;
         let amdgpu_va_range_query = __library.get(b"amdgpu_va_range_query\0").map(|sym| *sym)?;
         let amdgpu_bo_va_op = __library.get(b"amdgpu_bo_va_op\0").map(|sym| *sym)?;
         let amdgpu_bo_va_op_raw = __library.get(b"amdgpu_bo_va_op_raw\0").map(|sym| *sym)?;
@@ -18082,11 +18070,9 @@ impl DynLibDrmAmdgpu {
             amdgpu_query_gds_info,
             amdgpu_query_sensor_info,
             amdgpu_query_video_caps_info,
-            amdgpu_query_gpuvm_fault_info,
             amdgpu_read_mm_registers,
             amdgpu_va_range_alloc,
             amdgpu_va_range_free,
-            amdgpu_va_get_start_addr,
             amdgpu_va_range_query,
             amdgpu_bo_va_op,
             amdgpu_bo_va_op_raw,
@@ -18440,14 +18426,6 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         (self.amdgpu_query_video_caps_info)(dev, cap_type, size, value)
     }
-    pub unsafe fn amdgpu_query_gpuvm_fault_info(
-        &self,
-        dev: amdgpu_device_handle,
-        size: ::core::ffi::c_uint,
-        value: *mut ::core::ffi::c_void,
-    ) -> ::core::ffi::c_int {
-        (self.amdgpu_query_gpuvm_fault_info)(dev, size, value)
-    }
     pub unsafe fn amdgpu_read_mm_registers(
         &self,
         dev: amdgpu_device_handle,
@@ -18486,9 +18464,6 @@ impl DynLibDrmAmdgpu {
         va_range_handle: amdgpu_va_handle,
     ) -> ::core::ffi::c_int {
         (self.amdgpu_va_range_free)(va_range_handle)
-    }
-    pub unsafe fn amdgpu_va_get_start_addr(&self, va_handle: amdgpu_va_handle) -> u64 {
-        (self.amdgpu_va_get_start_addr)(va_handle)
     }
     pub unsafe fn amdgpu_va_range_query(
         &self,
