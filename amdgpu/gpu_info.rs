@@ -244,7 +244,7 @@ impl drm_amdgpu_info_device {
             ASIC_NAME::CHIP_NAVI10 => (10, 1, 0),
             ASIC_NAME::CHIP_NAVI12 => (10, 1, 1),
             ASIC_NAME::CHIP_NAVI14 => (10, 1, 2),
-            // TODO: ASIC_NAME::CYAN_SKILLFISH
+            ASIC_NAME::CHIP_CYAN_SKILLFISH => (10, 1, 3),
             ASIC_NAME::CHIP_NAVI21 => (10, 3, 0),
             ASIC_NAME::CHIP_NAVI22 => (10, 3, 1),
             ASIC_NAME::CHIP_VANGOGH => (10, 3, 3),

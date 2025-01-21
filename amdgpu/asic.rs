@@ -133,6 +133,7 @@ pub enum ASIC_NAME {
     CHIP_VANGOGH,   /* Steam Deck */
     CHIP_NAVI23,    /* Radeon 6600 */
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
+    CHIP_CYAN_SKILLFISH, /* BC-250 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
     CHIP_GFX1036, /* Raphael, Mendocino */
     CHIP_GFX1100, /* Navi31 */
@@ -220,6 +221,7 @@ impl ASIC_NAME {
                 0x32..0x3C => Self::CHIP_NAVI22,
                 0x3C..0x46 => Self::CHIP_NAVI23,
                 0x46..0x50 => Self::CHIP_NAVI24,
+                0x84 => Self::CHIP_CYAN_SKILLFISH,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
@@ -420,6 +422,7 @@ impl ASIC_NAME {
             Self::CHIP_NAVI10 => "gfx1010",
             Self::CHIP_NAVI12 => "gfx1011",
             Self::CHIP_NAVI14 => "gfx1012",
+            Self::CHIP_CYAN_SKILLFISH => "gfx1013",
             Self::CHIP_NAVI21 => "gfx1030",
             Self::CHIP_NAVI22 => if llvm_major_ver >= 12 { "gfx1031" } else { "gfx1030" },
             Self::CHIP_NAVI23 => if llvm_major_ver >= 12 { "gfx1032" } else { "gfx1030" },
@@ -468,6 +471,7 @@ impl ASIC_NAME {
             Self::CHIP_NAVI10 => "gfx1010",
             Self::CHIP_NAVI12 => "gfx1011",
             Self::CHIP_NAVI14 => "gfx1012",
+            Self::CHIP_CYAN_SKILLFISH => "gfx1013",
             Self::CHIP_NAVI21 => "gfx1030",
             Self::CHIP_NAVI22 => "gfx1031",
             Self::CHIP_NAVI23 => "gfx1032",
@@ -588,6 +592,7 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI10 => write!(f, "Navi10"),
             Self::CHIP_NAVI12 => write!(f, "Navi12"),
             Self::CHIP_NAVI14 => write!(f, "Navi14"),
+            Self::CHIP_CYAN_SKILLFISH => write!(f, "Cyan Skillfish/BC-250"),
             /* GFX10.3 (RDNA 2) */
             Self::CHIP_NAVI21 => write!(f, "Sienna Cichlid/Navi21"),
             Self::CHIP_NAVI22 => write!(f, "Navy Flounder/Navi22"),
