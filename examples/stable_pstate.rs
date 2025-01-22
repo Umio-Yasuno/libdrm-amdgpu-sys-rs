@@ -1,4 +1,5 @@
 use libdrm_amdgpu_sys::*;
+use AMDGPU::GPU_INFO;
 
 fn info(pci_bus: &PCI::BUS_INFO) {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
@@ -9,10 +10,11 @@ fn info(pci_bus: &PCI::BUS_INFO) {
 
         let fd = File::open(device_path).unwrap();
 
-        libdrm_amdgpu.init_device_handle(f.into_raw_fd()).unwrap()
+        libdrm_amdgpu.init_device_handle(fd.into_raw_fd()).unwrap()
     };
 
-    println!("Marketing Name: [{}]", amdgpu_dev.get_marketing_name_or_default());
+    let ext_info = amdgpu_dev.device_info().unwrap();
+    println!("Marketing Name: [{}]", ext_info.find_device_name_or_default());
 
     {
         let ctx = amdgpu_dev.create_context().unwrap();
