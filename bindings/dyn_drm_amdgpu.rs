@@ -17717,8 +17717,6 @@ pub struct DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int,
     pub amdgpu_cs_destroy_semaphore:
         unsafe extern "C" fn(sem: amdgpu_semaphore_handle) -> ::core::ffi::c_int,
-    pub amdgpu_get_marketing_name:
-        unsafe extern "C" fn(dev: amdgpu_device_handle) -> *const ::core::ffi::c_char,
     pub amdgpu_cs_create_syncobj2: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         flags: u32,
@@ -17960,9 +17958,6 @@ impl DynLibDrmAmdgpu {
         let amdgpu_cs_destroy_semaphore = __library
             .get(b"amdgpu_cs_destroy_semaphore\0")
             .map(|sym| *sym)?;
-        let amdgpu_get_marketing_name = __library
-            .get(b"amdgpu_get_marketing_name\0")
-            .map(|sym| *sym)?;
         let amdgpu_cs_create_syncobj2 = __library
             .get(b"amdgpu_cs_create_syncobj2\0")
             .map(|sym| *sym)?;
@@ -18080,7 +18075,6 @@ impl DynLibDrmAmdgpu {
             amdgpu_cs_signal_semaphore,
             amdgpu_cs_wait_semaphore,
             amdgpu_cs_destroy_semaphore,
-            amdgpu_get_marketing_name,
             amdgpu_cs_create_syncobj2,
             amdgpu_cs_create_syncobj,
             amdgpu_cs_destroy_syncobj,
@@ -18528,12 +18522,6 @@ impl DynLibDrmAmdgpu {
         sem: amdgpu_semaphore_handle,
     ) -> ::core::ffi::c_int {
         (self.amdgpu_cs_destroy_semaphore)(sem)
-    }
-    pub unsafe fn amdgpu_get_marketing_name(
-        &self,
-        dev: amdgpu_device_handle,
-    ) -> *const ::core::ffi::c_char {
-        (self.amdgpu_get_marketing_name)(dev)
     }
     pub unsafe fn amdgpu_cs_create_syncobj2(
         &self,
