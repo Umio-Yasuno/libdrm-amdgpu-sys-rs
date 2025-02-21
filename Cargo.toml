@@ -9,7 +9,7 @@ description = "libdrm_amdgpu bindings for Rust, and some methods ported from Mes
 repository = "https://github.com/Umio-Yasuno/libdrm-amdgpu-sys-rs"
 keywords = ["amdgpu", "libdrm"]
 links = "drm, drm_amdgpu"
-rust-version = "1.80.0"
+# rust-version = "1.80.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -29,7 +29,7 @@ libc = { version = "0.2", default-features = false }
 libloading = { version = "0.8", optional = true }
 
 [build-dependencies]
-bindgen = { version = "0.70", optional = true }
+bindgen = { version = "0.71", optional = true }
 pkg-config = { version = "0.3", optional = true }
 
 [[example]]
