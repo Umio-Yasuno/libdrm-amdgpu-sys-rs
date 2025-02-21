@@ -33,12 +33,12 @@ where
         Self::extract_bit(byte, index)
     }
     #[inline]
-    pub unsafe fn raw_get_bit(this: *const Self, index: usize) -> bool {
+    pub unsafe fn raw_get_bit(this: *const Self, index: usize) -> bool { unsafe {
         debug_assert!(index / 8 < core::mem::size_of::<Storage>());
         let byte_index = index / 8;
         let byte = *(core::ptr::addr_of!((*this).storage) as *const u8).offset(byte_index as isize);
         Self::extract_bit(byte, index)
-    }
+    }}
     #[inline]
     fn change_bit(byte: u8, index: usize, val: bool) -> u8 {
         let bit_index = if cfg!(target_endian = "big") {
@@ -61,13 +61,13 @@ where
         *byte = Self::change_bit(*byte, index, val);
     }
     #[inline]
-    pub unsafe fn raw_set_bit(this: *mut Self, index: usize, val: bool) {
+    pub unsafe fn raw_set_bit(this: *mut Self, index: usize, val: bool) { unsafe {
         debug_assert!(index / 8 < core::mem::size_of::<Storage>());
         let byte_index = index / 8;
         let byte =
             (core::ptr::addr_of_mut!((*this).storage) as *mut u8).offset(byte_index as isize);
         *byte = Self::change_bit(*byte, index, val);
-    }
+    }}
     #[inline]
     pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
         debug_assert!(bit_width <= 64);
@@ -87,7 +87,7 @@ where
         val
     }
     #[inline]
-    pub unsafe fn raw_get(this: *const Self, bit_offset: usize, bit_width: u8) -> u64 {
+    pub unsafe fn raw_get(this: *const Self, bit_offset: usize, bit_width: u8) -> u64 { unsafe {
         debug_assert!(bit_width <= 64);
         debug_assert!(bit_offset / 8 < core::mem::size_of::<Storage>());
         debug_assert!((bit_offset + (bit_width as usize)) / 8 <= core::mem::size_of::<Storage>());
@@ -103,7 +103,7 @@ where
             }
         }
         val
-    }
+    }}
     #[inline]
     pub fn set(&mut self, bit_offset: usize, bit_width: u8, val: u64) {
         debug_assert!(bit_width <= 64);
@@ -121,7 +121,7 @@ where
         }
     }
     #[inline]
-    pub unsafe fn raw_set(this: *mut Self, bit_offset: usize, bit_width: u8, val: u64) {
+    pub unsafe fn raw_set(this: *mut Self, bit_offset: usize, bit_width: u8, val: u64) { unsafe {
         debug_assert!(bit_width <= 64);
         debug_assert!(bit_offset / 8 < core::mem::size_of::<Storage>());
         debug_assert!((bit_offset + (bit_width as usize)) / 8 <= core::mem::size_of::<Storage>());
@@ -135,7 +135,7 @@ where
             };
             Self::raw_set_bit(this, index + bit_offset, val_bit_is_set);
         }
-    }
+    }}
 }
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;

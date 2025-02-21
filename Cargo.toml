@@ -1,7 +1,7 @@
 [package]
 name = "libdrm_amdgpu_sys"
 version = "0.8.3"
-edition = "2021"
+edition = "2024"
 build = "build.rs"
 license = "MIT"
 authors = ["Umio Yasuno <coelacanth_dream@proton.me>"]

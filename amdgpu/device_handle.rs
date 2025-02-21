@@ -322,7 +322,7 @@ impl DeviceHandle {
         })
     }
 
-    unsafe fn __drmGetDevice2(&self, fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> {
+    unsafe fn __drmGetDevice2(&self, fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> { unsafe {
         #[cfg(feature = "link_drm")]
         let func = bindings::drmGetDevice2;
         #[cfg(feature = "dynamic_loading")]
@@ -341,16 +341,16 @@ impl DeviceHandle {
         query_error!(r);
 
         Ok(drm_dev_info)
-    }
+    }}
 
-    unsafe fn __drmFreeDevice(&self, device: *mut drmDevicePtr) {
+    unsafe fn __drmFreeDevice(&self, device: *mut drmDevicePtr) { unsafe {
         #[cfg(feature = "link_drm")]
         let func = bindings::drmFreeDevice;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmFreeDevice;
 
         func(device)
-    }
+    }}
 
     fn get_min_max_clock_from_dpm<P: Into<PathBuf>>(
         &self,

@@ -15,7 +15,7 @@ fn main() {
 
     let path = amdgpu_dev.get_sysfs_path().unwrap();
 
-    if let Ok(metrics) = amdgpu_dev.get_gpu_metrics_from_sysfs_path(&path) {
+    match amdgpu_dev.get_gpu_metrics_from_sysfs_path(&path) { Ok(metrics) => {
         println!("{:#?}", metrics);
 
         if let Some(socket_power) = metrics.get_average_socket_power() {
@@ -25,11 +25,11 @@ fn main() {
         if let Some(thr) = metrics.get_throttle_status_info() {
             println!("Throttle Status: {:?}", thr.get_all_throttler());
         }
-    } else {
+    } _ => {
         let ext_info = amdgpu_dev.device_info().unwrap();
         let asic_name = ext_info.get_asic_name();
 
         println!("{asic_name} dose not support GPU metrics.");
         println!("Vega12 (dGPU) or later, Renoir (APU) or later supports GPU metrics.")
-    }
+    }}
 }

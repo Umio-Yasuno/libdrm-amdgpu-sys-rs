@@ -138,7 +138,7 @@ pub use drm_mode::*;
 /// Convert `errno` to `Err(i32)`
 #[macro_export]
 macro_rules! query_error {
-    ($r: expr) => {
+    ($r: expr_2021) => {
         if $r != 0 {
             return Err($r);
         }

@@ -44,7 +44,7 @@ impl ContextHandle {
         }
     }
 
-    unsafe fn free(&self) -> Result<(), i32> {
+    unsafe fn free(&self) -> Result<(), i32> { unsafe {
         #[cfg(feature = "link_drm")]
         let func = bindings::amdgpu_cs_ctx_free;
         #[cfg(feature = "dynamic_loading")]
@@ -55,7 +55,7 @@ impl ContextHandle {
         query_error!(r);
 
         Ok(())
-    }
+    }}
 
     fn stable_pstate(
         &self,

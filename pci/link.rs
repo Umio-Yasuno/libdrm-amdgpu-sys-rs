@@ -5,7 +5,7 @@ const PCIE_DPM: &str = "pp_dpm_pcie";
 /// PCI link speed information
 #[derive(Debug, Default, Clone, Copy, Eq, PartialEq, Ord, PartialOrd)]
 pub struct LINK {
-    pub gen: u8,
+    pub r#gen: u8,
     pub width: u8,
 }
 
@@ -24,15 +24,15 @@ impl LINK {
             Some(s)
         });
 
-        let gen = Self::speed_to_gen(&s_speed?)?;
+        let r#gen = Self::speed_to_gen(&s_speed?)?;
         let width = s_width?.parse::<u8>().ok()?;
 
-        Some(Self { gen, width })
+        Some(Self { r#gen, width })
     }
 
     /// Convert PCIe speed str to PCIe gen
     pub fn speed_to_gen(speed: &str) -> Option<u8> {
-        let gen = match speed {
+        let r#gen = match speed {
             "2.5 GT/s PCIe" => 1,
             "5.0 GT/s PCIe" => 2,
             "8.0 GT/s PCIe" => 3,
@@ -42,18 +42,18 @@ impl LINK {
             _ => return None,
         };
 
-        Some(gen)
+        Some(r#gen)
     }
 
     fn parse_dpm_line(s: &str) -> Option<Self> {
-        let mut gen: Option<u8> = None;
+        let mut r#gen: Option<u8> = None;
         let mut width: Option<u8> = None;
 
         for tmp in s.split(", ") {
             if tmp.ends_with("GT/s") {
                 // "0: 2.5GT/s"
                 let Some(pos) = tmp.find(' ') else { continue };
-                gen = {
+                r#gen = {
                     let tmp = match tmp.get(pos+1..)? {
                         "2.5GT/s" => 1,
                         "5.0GT/s" => 2,
@@ -78,7 +78,7 @@ impl LINK {
             }
         }
 
-        Some(Self { gen: gen?, width: width? })
+        Some(Self { r#gen: r#gen?, width: width? })
     }
 
     pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<[LINK; 2]> {
@@ -103,9 +103,9 @@ impl LINK {
             Some(s)
         });
 
-        let gen = Self::speed_to_gen(&s_speed?)?;
+        let r#gen = Self::speed_to_gen(&s_speed?)?;
         let width = s_width?.parse::<u8>().ok()?;
 
-        Some(Self { gen, width })
+        Some(Self { r#gen, width })
     }
 }

@@ -41,7 +41,7 @@ impl DeviceHandle {
     unsafe fn query_vbios<T>(
         &self,
         info_id: ::core::ffi::c_uint,
-    ) -> Result<T, i32> {
+    ) -> Result<T, i32> { unsafe {
         #[cfg(feature = "link_drm")]
         let func = bindings::drmCommandWrite;
         #[cfg(feature = "dynamic_loading")]
@@ -72,7 +72,7 @@ impl DeviceHandle {
         query_error!(r);
 
         Ok(vbios)
-    }
+    }}
 
     pub fn vbios_info(&self) -> Result<bindings::drm_amdgpu_info_vbios, i32> {
         use bindings::AMDGPU_INFO_VBIOS_INFO;
@@ -86,7 +86,7 @@ impl DeviceHandle {
         unsafe { Self::query_vbios(self, AMDGPU_INFO_VBIOS_SIZE) }
     }
 
-    unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> {
+    unsafe fn get_vbios_image_with_size(&self, vbios_size: u32) -> Result<Vec<u8>, i32> { unsafe {
         use bindings::AMDGPU_INFO_VBIOS_IMAGE;
 
         #[cfg(feature = "link_drm")]
@@ -120,7 +120,7 @@ impl DeviceHandle {
         query_error!(r);
 
         Ok(vbios_image)
-    }
+    }}
 
 
     pub fn get_vbios_image(&self) -> Result<Vec<u8>, i32> {

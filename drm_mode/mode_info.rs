@@ -21,7 +21,7 @@ use bindings::{
 };
 
 macro_rules! impl_mode_info {
-    ($name: tt, $flag: expr) => {
+    ($name: tt, $flag: expr_2021) => {
         pub fn $name(&self) -> bool {
             (self.type_ & $flag) != 0
         }
@@ -29,7 +29,7 @@ macro_rules! impl_mode_info {
 }
 
 macro_rules! impl_flag {
-    ($name: tt, $flag: expr) => {
+    ($name: tt, $flag: expr_2021) => {
         pub fn $name(&self) -> bool {
             (self.flags & $flag) != 0
         }
