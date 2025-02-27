@@ -224,7 +224,52 @@ impl MetricsInfo for gpu_metrics_v2_1 {
         Some(self.average_gfx_power as u32)
     }
 
-    fn get_indep_throttle_status(&self) -> Option<u64> { None }
+    fn get_indep_throttle_status(&self) -> Option<u64> {
+        use crate::amdgpu::throttle_status::ThrottlerBit;
+
+        // ref: drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_yellow_carp.h
+        // ref: drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_4.h
+        // ref: drivers/gpu/drm/amd/pm/swsmu/inc/pmfw_if/smu13_driver_if_v13_0_5.h
+        const SPL: u64 = 0;
+        const FPPT: u64 = 1;
+        const SPPT: u64 = 2;
+        const SPPT_APU: u64 = 3;
+        const THM_CORE: u64 = 4;
+        const THM_GFX: u64 = 5;
+        const THM_SOC: u64 = 6;
+        const TDC_VDD: u64 = 7;
+        const TDC_SOC: u64 = 8;
+        const PROCHOT_CPU: u64 = 9;
+        const PROCHOT_GFX: u64 = 10;
+        const EDC_CPU: u64 = 11;
+        const EDC_GFX: u64 = 12;
+
+        let thr_status = self.get_throttle_status()?;
+        let mut indep = 0u64;
+
+        for (thr_bit, indep_thr_bit) in [
+            (SPL, ThrottlerBit::SPL),
+            (FPPT, ThrottlerBit::FPPT),
+            (SPPT, ThrottlerBit::SPPT),
+            (SPPT_APU, ThrottlerBit::SPPT_APU),
+            (THM_CORE, ThrottlerBit::TEMP_CORE),
+            (THM_GFX, ThrottlerBit::TEMP_GPU),
+            (THM_SOC, ThrottlerBit::TEMP_SOC),
+            (TDC_VDD, ThrottlerBit::TDC_VDD),
+            (TDC_SOC, ThrottlerBit::TDC_SOC),
+            (PROCHOT_CPU, ThrottlerBit::PROCHOT_CPU),
+            (PROCHOT_GFX, ThrottlerBit::PROCHOT_GPU),
+            (EDC_CPU, ThrottlerBit::EDC_CPU),
+            (EDC_GFX, ThrottlerBit::EDC_GFX),
+        ] {
+            let mask = 1 << thr_bit;
+            let bit = (thr_status & mask) >> thr_bit;
+            indep |= (bit as u64) << (indep_thr_bit as u64);
+        }
+
+        Some(indep)
+    }
+
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
     fn get_average_temperature_soc(&self) -> Option<u16> { None }
     fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
