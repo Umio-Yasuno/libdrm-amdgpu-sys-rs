@@ -135,7 +135,7 @@ pub enum ASIC_NAME {
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
     CHIP_CYAN_SKILLFISH, /* BC-250 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
-    CHIP_GFX1036, /* Raphael, Mendocino */
+    CHIP_GFX1036, /* Raphael, Mendocino, Granite Ridge */
     CHIP_GFX1100, /* Navi31 */
     CHIP_GFX1101, /* Navi32 */
     CHIP_GFX1102, /* Navi33 */
@@ -143,8 +143,8 @@ pub enum ASIC_NAME {
     CHIP_GFX1103_R2, /* Phoenix2 */
     CHIP_GFX1103_R1X, /* Hawk Point1 */
     CHIP_GFX1103_R2X, /* Hawk Point2 */
-    CHIP_GFX1150,
-    CHIP_GFX1151,
+    CHIP_GFX1150, /* Strix Point */
+    CHIP_GFX1151, /* Strix Halo */
     CHIP_GFX1152,
     CHIP_GFX1153,
     CHIP_GFX1200,
@@ -600,7 +600,7 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI23 => write!(f, "Dimgrey Cavefish/Navi23"),
             Self::CHIP_NAVI24 => write!(f, "Beige Goby/Navi24"),
             Self::CHIP_REMBRANDT => write!(f, "Yellow Carp/Rembrandt"),
-            Self::CHIP_GFX1036 => write!(f, "GFX1036/Raphael/Mendocino"),
+            Self::CHIP_GFX1036 => write!(f, "GFX1036/Raphael/Mendocino/Granite Ridge"),
             /* GFX11 (RDNA 3) */
             Self::CHIP_GFX1100 => write!(f, "GFX1100/Navi31"),
             Self::CHIP_GFX1101 => write!(f, "GFX1101/Navi32"),
@@ -610,8 +610,8 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_GFX1103_R1X => write!(f, "GFX1103_R1X/Hawk Point1"),
             Self::CHIP_GFX1103_R2X => write!(f, "GFX1103_R2X/Hawk Point2"),
             /* GFX11.5 (RDMA 3.5) */
-            Self::CHIP_GFX1150 => write!(f, "GFX1150"),
-            Self::CHIP_GFX1151 => write!(f, "GFX1151"),
+            Self::CHIP_GFX1150 => write!(f, "GFX1150/Strix Point"),
+            Self::CHIP_GFX1151 => write!(f, "GFX1151/Strix Halo"),
             Self::CHIP_GFX1152 => write!(f, "GFX1152"),
             Self::CHIP_GFX1153 => write!(f, "GFX1153"),
             /* GFX12 (RDNA 4) */
