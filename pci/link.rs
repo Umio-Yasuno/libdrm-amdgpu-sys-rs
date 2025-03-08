@@ -1,4 +1,4 @@
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 const PCIE_DPM: &str = "pp_dpm_pcie";
 
@@ -95,7 +95,7 @@ impl LINK {
         Self::parse_dpm_line(cur)
     }
 
-    pub(crate) fn get_max_link(sysfs_path: &PathBuf) -> Option<Self> {
+    pub(crate) fn get_max_link(sysfs_path: &Path) -> Option<Self> {
         let [s_speed, s_width] = STATUS::Max.to_sysfs_file_name().map(|name| {
             let mut s = std::fs::read_to_string(sysfs_path.join(name)).ok()?;
             s.pop(); // trim `\n`

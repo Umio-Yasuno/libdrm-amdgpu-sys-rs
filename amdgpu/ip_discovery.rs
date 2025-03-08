@@ -90,7 +90,7 @@ pub struct IpHwId {
 impl IpHwId {
     /// die_id_path: `ip_discovery/die/#die/`
     pub fn get_from_die_id_sysfs<P: AsRef<Path>>(hw_id: HwId, die_id_path: P) -> Result<Self, std::io::Error> {
-        Self::get_from_ip_hw_sysfs(hw_id, &die_id_path.as_ref().join(hw_id.to_string()))
+        Self::get_from_ip_hw_sysfs(hw_id, die_id_path.as_ref().join(hw_id.to_string()))
     }
 
     /// ip_hw_path: `ip_discovery/die/#die/#hw_id/`
@@ -150,7 +150,7 @@ impl IpDieEntry {
     }
 
     pub fn vec_ip_hw_id_to_hashmap(&self) -> HashMap<HwId, IpHwId> {
-        self.ip_hw_ids.iter().map(|ip_hw_id| (ip_hw_id.hw_id.clone(), ip_hw_id.clone())).collect()
+        self.ip_hw_ids.iter().map(|ip_hw_id| (ip_hw_id.hw_id, ip_hw_id.clone())).collect()
     }
 }
 

@@ -62,7 +62,7 @@ pub trait GPU_INFO {
 
     /// \[CU\] * \[Lane\] * 2 \[ops\] * \[GHz\]
     fn peak_gflops(&self) -> u32 {
-        let cu = self.cu_active_number() as u32;
+        let cu = self.cu_active_number();
         let lane = if self.get_chip_class() >= AMDGPU::CHIP_CLASS::GFX11 { 128 } else { 64 };
         let mhz = (self.max_engine_clock() / 1000) as u32;
         (cu * lane * 2 * mhz) / 1000
@@ -86,11 +86,8 @@ pub trait GPU_INFO {
     fn get_max_good_cu_per_sa(&self) -> u32 {
         let cu_group = self.get_chip_class().cu_group() as u32;
         let max_sa = self.max_se() * self.max_sa_per_se();
-        let div_round_up = |n: u32, d: u32| -> u32 {
-            (n + d - 1) / d
-        };
 
-        div_round_up(self.cu_active_number(), max_sa * cu_group) * cu_group
+        self.cu_active_number().div_ceil(max_sa * cu_group) * cu_group
     }
 
     fn get_min_good_cu_per_sa(&self) -> u32 {

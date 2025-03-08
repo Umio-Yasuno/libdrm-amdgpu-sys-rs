@@ -140,8 +140,8 @@ impl BUS_INFO {
 
         for _ in 0..2 {
             let [Ok(vendor), Ok(class)] = [
-                std::fs::read_to_string(&tmp.join("vendor")),
-                std::fs::read_to_string(&tmp.join("class")),
+                std::fs::read_to_string(tmp.join("vendor")),
+                std::fs::read_to_string(tmp.join("class")),
             ] else { break };
 
             if vendor == VENDOR_ATI && class == CLASS {
