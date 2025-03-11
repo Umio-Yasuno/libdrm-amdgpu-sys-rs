@@ -7,7 +7,7 @@
 #[allow(unused_imports)]
 #[allow(dead_code)]
 #[allow(clippy::all)]
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod bindings {
     #[cfg(feature = "link_drm")]
     mod drm;
@@ -111,28 +111,28 @@ impl LibDrmAmdgpu {
     }
 }
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod amdgpu;
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 pub mod AMDGPU {
     pub use super::amdgpu::*;
 }
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod pci;
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 pub mod PCI {
     pub use super::pci::*;
 }
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod drm_version;
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 pub use drm_version::*;
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod drm_mode;
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 pub use drm_mode::*;
 
 /// Convert `errno` to `Err(i32)`
@@ -145,10 +145,10 @@ macro_rules! query_error {
     };
 }
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 use std::path::PathBuf;
 
-#[cfg(not(feature = "buildtime_bindgen"))]
+#[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 pub(crate) fn get_min_max_from_dpm<
     T: std::cmp::Ord + std::marker::Copy,
     P: Into<PathBuf>
