@@ -270,9 +270,16 @@ impl drm_amdgpu_info_device {
 /// Find device marketing name from `amdgpu.ids`  
 /// Link: <https://gitlab.freedesktop.org/mesa/drm/-/blob/main/data/amdgpu.ids>
 pub fn find_device_name(device_id: u32, revision_id: u32) -> Option<String> {
-    use bindings::AMDGPU_IDS;
+    use bindings::{AMDGPU_IDS, AMDGPU_IDS_2};
 
-    let (_, _, name) = AMDGPU_IDS.iter().find(|(did, rid, _)| (did, rid) == (&device_id, &revision_id))?;
+    let (_, _, name) = AMDGPU_IDS
+        .iter()
+        .find(|(did, rid, _)| (did, rid) == (&device_id, &revision_id))
+        .or_else(|| {
+            AMDGPU_IDS_2
+                .iter()
+                .find(|(did, rid, _)| (did, rid) == (&device_id, &revision_id))
+        })?;
 
     Some(name.to_string())
 }

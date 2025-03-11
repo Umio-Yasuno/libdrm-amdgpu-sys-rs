@@ -26,6 +26,8 @@ mod bindings {
 
     mod amdgpu_ids;
     pub use amdgpu_ids::AMDGPU_IDS;
+    mod amdgpu_ids_2;
+    pub use amdgpu_ids_2::AMDGPU_IDS_2;
 
     pub mod ppt {
         pub mod smu_v11_0_0_ppt;
