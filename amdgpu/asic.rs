@@ -127,13 +127,13 @@ pub enum ASIC_NAME {
     CHIP_NAVI10, /* Radeon 5600, 5700 */
     CHIP_NAVI12, /* Radeon Pro 5600M */
     CHIP_NAVI14, /* Radeon 5300, 5500 */
+    CHIP_CYAN_SKILLFISH, /* BC-250 */
     /* GFX10.3 (RDNA 2) */
     CHIP_NAVI21,    /* Radeon 6800, 6900 */
     CHIP_NAVI22,    /* Radeon 6700 */
     CHIP_VANGOGH,   /* Steam Deck */
     CHIP_NAVI23,    /* Radeon 6600 */
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
-    CHIP_CYAN_SKILLFISH, /* BC-250 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
     CHIP_GFX1036, /* Raphael, Mendocino, Granite Ridge */
     CHIP_GFX1100, /* Navi31 */
