@@ -97,7 +97,11 @@ impl CHIP_CLASS {
 fn test_amdgpu_chip_class() {
     assert_eq!(ASIC_NAME::CHIP_GFX1200.chip_class(), CHIP_CLASS::GFX12);
     assert_eq!(ASIC_NAME::CHIP_GFX1150.chip_class(), CHIP_CLASS::GFX11_5);
+    assert_eq!(ASIC_NAME::CHIP_GFX1103_R2X.chip_class(), CHIP_CLASS::GFX11);
     assert_eq!(ASIC_NAME::CHIP_GFX1100.chip_class(), CHIP_CLASS::GFX11);
+    assert_eq!(ASIC_NAME::CHIP_GFX1036.chip_class(), CHIP_CLASS::GFX10_3);
+    assert_eq!(ASIC_NAME::CHIP_GFX1013.chip_class(), CHIP_CLASS::GFX10);
+    assert_eq!(ASIC_NAME::CHIP_GFX940.chip_class(), CHIP_CLASS::GFX9);
     assert_eq!(ASIC_NAME::CHIP_POLARIS11.chip_class(), CHIP_CLASS::GFX8);
 }
 

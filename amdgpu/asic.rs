@@ -127,7 +127,7 @@ pub enum ASIC_NAME {
     CHIP_NAVI10, /* Radeon 5600, 5700 */
     CHIP_NAVI12, /* Radeon Pro 5600M */
     CHIP_NAVI14, /* Radeon 5300, 5500 */
-    CHIP_CYAN_SKILLFISH, /* BC-250 */
+    CHIP_GFX1013, /* BC-250 */
     /* GFX10.3 (RDNA 2) */
     CHIP_NAVI21,    /* Radeon 6800, 6900 */
     CHIP_NAVI22,    /* Radeon 6700 */
@@ -136,6 +136,7 @@ pub enum ASIC_NAME {
     CHIP_NAVI24,    /* Radeon 6400, 6500 */
     CHIP_REMBRANDT, /* Ryzen 6000 */
     CHIP_GFX1036, /* Raphael, Mendocino, Granite Ridge */
+    /* GFX11 (RDNA 3) */
     CHIP_GFX1100, /* Navi31 */
     CHIP_GFX1101, /* Navi32 */
     CHIP_GFX1102, /* Navi33 */
@@ -143,15 +144,19 @@ pub enum ASIC_NAME {
     CHIP_GFX1103_R2, /* Phoenix2 */
     CHIP_GFX1103_R1X, /* Hawk Point1 */
     CHIP_GFX1103_R2X, /* Hawk Point2 */
+    /* GFX11.5 (RDNA 3.5) */
     CHIP_GFX1150, /* Strix Point */
     CHIP_GFX1151, /* Strix Halo */
     CHIP_GFX1152,
     CHIP_GFX1153,
+    /* GFX12 (RDNA 4) */
     CHIP_GFX1200,
     CHIP_GFX1201,
 }
 
 impl ASIC_NAME {
+    pub const CHIP_CYAN_SKILLFISH: Self = Self::CHIP_GFX1013;
+
     /// Get the ASIC name from [FAMILY_NAME] and `chip_external_rev`
     pub fn get(family: FAMILY_NAME, chip_external_rev: u32) -> Self {
         /*
@@ -221,7 +226,7 @@ impl ASIC_NAME {
                 0x32..0x3C => Self::CHIP_NAVI22,
                 0x3C..0x46 => Self::CHIP_NAVI23,
                 0x46..0x50 => Self::CHIP_NAVI24,
-                0x84 => Self::CHIP_CYAN_SKILLFISH,
+                0x84 => Self::CHIP_GFX1013,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
@@ -423,7 +428,7 @@ impl ASIC_NAME {
             Self::CHIP_NAVI10 => "gfx1010",
             Self::CHIP_NAVI12 => "gfx1011",
             Self::CHIP_NAVI14 => "gfx1012",
-            Self::CHIP_CYAN_SKILLFISH => "gfx1013",
+            Self::CHIP_GFX1013 => "gfx1013",
             Self::CHIP_NAVI21 => "gfx1030",
             Self::CHIP_NAVI22 => if llvm_major_ver >= 12 { "gfx1031" } else { "gfx1030" },
             Self::CHIP_NAVI23 => if llvm_major_ver >= 12 { "gfx1032" } else { "gfx1030" },
@@ -472,7 +477,7 @@ impl ASIC_NAME {
             Self::CHIP_NAVI10 => "gfx1010",
             Self::CHIP_NAVI12 => "gfx1011",
             Self::CHIP_NAVI14 => "gfx1012",
-            Self::CHIP_CYAN_SKILLFISH => "gfx1013",
+            Self::CHIP_GFX1013 => "gfx1013",
             Self::CHIP_NAVI21 => "gfx1030",
             Self::CHIP_NAVI22 => "gfx1031",
             Self::CHIP_NAVI23 => "gfx1032",
@@ -593,7 +598,7 @@ impl fmt::Display for ASIC_NAME {
             Self::CHIP_NAVI10 => write!(f, "Navi10"),
             Self::CHIP_NAVI12 => write!(f, "Navi12"),
             Self::CHIP_NAVI14 => write!(f, "Navi14"),
-            Self::CHIP_CYAN_SKILLFISH => write!(f, "Cyan Skillfish/BC-250"),
+            Self::CHIP_GFX1013 => write!(f, "GFX1013/Cyan Skillfish"),
             /* GFX10.3 (RDNA 2) */
             Self::CHIP_NAVI21 => write!(f, "Sienna Cichlid/Navi21"),
             Self::CHIP_NAVI22 => write!(f, "Navy Flounder/Navi22"),
