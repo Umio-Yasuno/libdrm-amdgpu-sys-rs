@@ -1,6 +1,5 @@
-use crate::bindings::{amdgpu_gpu_info, drm_amdgpu_info_device};
-use crate::AMDGPU::GfxTargetVersion;
-use crate::*;
+use crate::bindings::{self, amdgpu_gpu_info, drm_amdgpu_info_device};
+use crate::AMDGPU::{self, ASIC_NAME, GfxTargetVersion};
 
 /// Information that [amdgpu_gpu_info] and [drm_amdgpu_info_device] have in common
 pub trait GPU_INFO {
@@ -191,6 +190,22 @@ impl GPU_INFO for drm_amdgpu_info_device {
 }
 
 impl drm_amdgpu_info_device {
+    pub fn get_l1_cache_size(&self) -> u32 {
+        if self.is_gfx11_or_later() && self.tcp_cache_size != 0 {
+            self.tcp_cache_size
+        } else {
+            self.get_asic_name().l1_cache_size()
+        }
+    }
+
+    pub fn get_gl1_cache_size(&self) -> u32 {
+        if self.is_gfx11_or_later() && self.gl1c_cache_size != 0 {
+            self.gl1c_cache_size
+        } else {
+            self.get_asic_name().gl1_cache_size()
+        }
+    }
+
     pub fn get_max_tcc_blocks(&self) -> u32 {
         self.num_tcc_blocks
     }
@@ -201,11 +216,23 @@ impl drm_amdgpu_info_device {
     }
 
     pub fn calc_l2_cache_size(&self) -> u32 {
-        self.get_actual_num_tcc_blocks() * self.get_asic_name().l2_cache_size_per_block()
+        if self.is_gfx11_or_later() && self.gl2c_cache_size != 0 {
+            self.gl2c_cache_size
+        } else {
+            self.get_actual_num_tcc_blocks() * self.get_asic_name().l2_cache_size_per_block()
+        }
     }
 
     pub fn calc_l3_cache_size_mb(&self) -> u32 {
-        self.get_actual_num_tcc_blocks() * self.get_asic_name().l3_cache_size_mb_per_channel()
+        if self.is_gfx11_or_later() && self.mall_size != 0 {
+            (self.mall_size >> 20) as u32
+        } else {
+            self.get_actual_num_tcc_blocks() * self.get_asic_name().l3_cache_size_mb_per_channel()
+        }
+    }
+
+    fn is_gfx11_or_later(&self) -> bool {
+        self.get_asic_name() >= ASIC_NAME::CHIP_GFX1100
     }
 
     /// ref: drivers/gpu/drm/amd/amd/amdkfd/kfd_device.c
