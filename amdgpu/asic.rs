@@ -367,7 +367,8 @@ impl ASIC_NAME {
             | Self::CHIP_FIJI
             | Self::CHIP_POLARIS12
             | Self::CHIP_VEGAM => 128 * 1024,
-            Self::CHIP_REMBRANDT => 512 * 1024,
+            Self::CHIP_REMBRANDT |
+            Self::CHIP_GFX1201 => 512 * 1024,
             _ => 256 * 1024,
         }
     }
