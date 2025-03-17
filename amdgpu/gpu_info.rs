@@ -192,7 +192,7 @@ impl GPU_INFO for drm_amdgpu_info_device {
 impl drm_amdgpu_info_device {
     pub fn get_l1_cache_size(&self) -> u32 {
         if self.is_gfx11_or_later() && self.tcp_cache_size != 0 {
-            self.tcp_cache_size
+            self.tcp_cache_size << 10
         } else {
             self.get_asic_name().l1_cache_size()
         }
@@ -200,7 +200,7 @@ impl drm_amdgpu_info_device {
 
     pub fn get_gl1_cache_size(&self) -> u32 {
         if self.is_gfx11_or_later() && self.gl1c_cache_size != 0 {
-            self.gl1c_cache_size
+            self.gl1c_cache_size << 10
         } else {
             self.get_asic_name().gl1_cache_size()
         }
@@ -217,7 +217,7 @@ impl drm_amdgpu_info_device {
 
     pub fn calc_l2_cache_size(&self) -> u32 {
         if self.is_gfx11_or_later() && self.gl2c_cache_size != 0 {
-            self.gl2c_cache_size
+            self.gl2c_cache_size << 10
         } else {
             self.get_actual_num_tcc_blocks() * self.get_asic_name().l2_cache_size_per_block()
         }
