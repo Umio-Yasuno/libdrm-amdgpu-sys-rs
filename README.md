@@ -17,6 +17,15 @@ libdrm_amdgpu bindings for Rust, and some methods ported from Mesa3D (mainly [ac
  * libdrm
  * libdrm_amdgpu
 
+## Feature flags
+ * `link_drm`
+   * Dynamically linking `libdrm.so.2` and `libdrm_amdgpu.so.1`
+   * enabled by default
+ * `dynamic_loading`
+   * Dynamically loading `libdrm.so.2` and `libdrm_amdgpu.so.1`
+   * `link_drm` and `dynamic_loading` cannot be enabled at the same time.
+   * `cargo add libdrm_amdgpu_sys --no-default-features -F "dynamic_loading"`
+
 ### Distribution specific instructions
 #### Debian/Ubuntu
 ```
