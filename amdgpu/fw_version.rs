@@ -78,7 +78,7 @@ pub use crate::bindings::{
 };
 
 /// Used for [DeviceHandle::query_firmware_version]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, Eq, PartialEq, PartialOrd)]
 #[repr(u32)]
 pub enum FW_TYPE {
     VCE = AMDGPU_INFO_FW_VCE,

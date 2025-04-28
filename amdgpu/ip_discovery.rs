@@ -176,6 +176,7 @@ const DCEAZ_HWID: isize = 18;
 const DAZ_HWID: isize = 274;
 const SDPMUX_HWID: isize = 19;
 const NTB_HWID: isize = 20;
+const VPE_HWID: isize = 21;
 const IOHC_HWID: isize = 24;
 const L2IMU_HWID: isize = 28;
 const VCE_HWID: isize = 32;
@@ -258,6 +259,7 @@ pub enum HwId {
     SDPMUX = self::SDPMUX_HWID,
     NTB = self::NTB_HWID,
     IOHC = self::IOHC_HWID,
+    VPE = self::VPE_HWID,
     L2IMU = self::L2IMU_HWID,
     VCE = self::VCE_HWID,
     MMHUB = self::MMHUB_HWID,
@@ -340,6 +342,7 @@ impl From<isize> for HwId {
             self::SDPMUX_HWID => Self::SDPMUX,
             self::NTB_HWID => Self::NTB,
             self::IOHC_HWID => Self::IOHC,
+            self::VPE_HWID => Self::VPE,
             self::L2IMU_HWID => Self::L2IMU,
             self::VCE_HWID => Self::VCE,
             self::MMHUB_HWID => Self::MMHUB,
