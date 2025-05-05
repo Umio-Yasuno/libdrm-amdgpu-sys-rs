@@ -4,6 +4,10 @@
 # device_id,	revision_id,	product_name        <-- single tab after comma
 
 1.0.0
+1114,	C2,	AMD Radeon 860M Graphics
+1114,	C3,	AMD Radeon 840M Graphics
+1114,	D2,	AMD Radeon 860M Graphics
+1114,	D3,	AMD Radeon 840M Graphics
 1309,	00,	AMD Radeon R7 Graphics
 130A,	00,	AMD Radeon R6 Graphics
 130B,	00,	AMD Radeon R4 Graphics
@@ -41,6 +45,13 @@
 150E,	D1,	AMD Radeon 890M Graphics
 150E,	D2,	AMD Radeon 890M Graphics
 150E,	D3,	AMD Radeon 890M Graphics
+1586,	C1,	Radeon 8060S Graphics
+1586,	C2,	Radeon 8050S Graphics
+1586,	C4,	Radeon 8050S Graphics
+1586,	D1,	Radeon 8060S Graphics
+1586,	D2,	Radeon 8050S Graphics
+1586,	D4,	Radeon 8050S Graphics
+1586,	D5,	Radeon 8040S Graphics
 15BF,	00,	AMD Radeon 780M Graphics
 15BF,	01,	AMD Radeon 760M Graphics
 15BF,	02,	AMD Radeon 780M Graphics
@@ -186,6 +197,8 @@
 1900,	B7,	AMD Radeon 760M Graphics
 1900,	B8,	AMD Radeon 760M Graphics
 1900,	B9,	AMD Radeon 780M Graphics
+1900,	BA,	AMD Radeon 780M Graphics
+1900,	BB,	AMD Radeon 780M Graphics
 1900,	C0,	AMD Radeon 780M Graphics
 1900,	C1,	AMD Radeon 760M Graphics
 1900,	C2,	AMD Radeon 780M Graphics
@@ -228,6 +241,7 @@
 1901,	C7,	AMD Radeon 740M Graphics
 1901,	C8,	AMD Radeon 740M Graphics
 1901,	C9,	AMD Radeon 740M Graphics
+1901,	CA,	AMD Radeon 740M Graphics
 1901,	D1,	AMD Radeon 740M Graphics
 1901,	D2,	AMD Radeon 740M Graphics
 1901,	D3,	AMD Radeon 740M Graphics
@@ -557,6 +571,7 @@
 7480,	00,	AMD Radeon Pro W7600
 7480,	C0,	AMD Radeon RX 7600 XT
 7480,	C1,	AMD Radeon RX 7700S
+7480,	C2,	AMD Radeon RX 7650 GRE
 7480,	C3,	AMD Radeon RX 7600S
 7480,	C7,	AMD Radeon RX 7600M XT
 7480,	CF,	AMD Radeon RX 7600
@@ -573,6 +588,8 @@
 74B5,	00,	AMD Instinct MI300X VF
 74B6,	00,	AMD Instinct MI308X
 74BD,	00,	AMD Instinct MI300X HF
+7550,	C0,	AMD Radeon RX 9070 XT
+7550,	C3,	AMD Radeon RX 9070
 9830,	00,	AMD Radeon HD 8400 / R3 Series
 9831,	00,	AMD Radeon HD 8400E
 9832,	00,	AMD Radeon HD 8330
