@@ -396,6 +396,7 @@ impl ASIC_NAME {
             Self::CHIP_GFX1101 |
             Self::CHIP_GFX1102 |
             Self::CHIP_GFX1201 => 4,
+            Self::CHIP_GFX1151 => 2,
             _ => 0,
         }
     }
