@@ -53,10 +53,16 @@ pub trait GPU_INFO {
         self.peak_memory_bw() / 1000
     }
 
-    fn calc_rop_count(&self) -> u32 {
-        let rop_per_rb = if self.get_asic_name().rbplus_allowed() { 8 } else { 4 };
+    fn rop_per_rb(&self) -> u32 {
+        if self.get_asic_name().rbplus_allowed() {
+            8
+        } else {
+            4
+        }
+    }
 
-        self.rb_pipes() * rop_per_rb
+    fn calc_rop_count(&self) -> u32 {
+        self.rb_pipes() * self.rop_per_rb()
     }
 
     /// \[CU\] * \[Lane\] * 2 \[ops\] * \[GHz\]
