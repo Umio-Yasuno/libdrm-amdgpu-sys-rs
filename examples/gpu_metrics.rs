@@ -1,5 +1,5 @@
 use libdrm_amdgpu_sys::LibDrmAmdgpu;
-use libdrm_amdgpu_sys::AMDGPU::{self, GPU_INFO, MetricsInfo};
+use libdrm_amdgpu_sys::AMDGPU::{GPU_INFO, MetricsInfo};
 use std::fs::File;
 
 fn main() {
