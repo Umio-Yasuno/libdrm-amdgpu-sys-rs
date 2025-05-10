@@ -1,7 +1,7 @@
 mod metrics_table;
 pub use metrics_table::*;
 
-use crate::AMDGPU::DeviceHandle;
+use crate::AMDGPU::{DeviceHandle, ThrottleStatus};
 pub use crate::bindings::{
     NUM_HBM_INSTANCES,
     NUM_VCN,
@@ -134,6 +134,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_current_gfx_maxfreq, Option<u16>);
     impl_metrics!(get_throttle_status, Option<u32>);
     impl_metrics!(get_indep_throttle_status, Option<u64>);
+    impl_metrics!(get_throttle_status_info, Option<ThrottleStatus>);
     impl_metrics!(get_current_fan_speed, Option<u16>);
     impl_metrics!(get_fan_pwm, Option<u16>);
     impl_metrics!(get_pcie_link_width, Option<u16>);
