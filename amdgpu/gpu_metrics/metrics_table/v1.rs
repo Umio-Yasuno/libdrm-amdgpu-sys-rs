@@ -300,7 +300,7 @@ impl MetricsInfo for gpu_metrics_v1_3 {
         if temp_hotspot_flag && self.temperature_hotspot >= 90 {
             indep |= 1 << TEMP_HOTSPOT_BIT;
         } else {
-            indep &= !(1 << TEMP_HOTSPOT_BIT as u64);
+            indep &= !(1 << TEMP_HOTSPOT_BIT);
         }
 
         Some(ThrottleStatus::new(indep))
