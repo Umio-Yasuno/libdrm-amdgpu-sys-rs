@@ -304,6 +304,21 @@ pub trait MetricsInfo {
     /// Utilization (%), only MI300 with [gpu_metrics_v1_5] supports it.
     fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]>;
 
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_prochot(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_spl(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_fppt(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_sppt(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_thm_core(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_thm_gfx(&self) -> Option<u32>;
+    /// Strix Point, Krackan Point and Strix Halo supports it.
+    fn get_throttle_residency_thm_soc(&self) -> Option<u32>;
+
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
         self.get_indep_throttle_status().map(|thr| ThrottleStatus::new(thr))
     }

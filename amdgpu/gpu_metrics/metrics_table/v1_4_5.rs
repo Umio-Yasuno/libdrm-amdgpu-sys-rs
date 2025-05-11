@@ -188,6 +188,13 @@ macro_rules! v1_4_v1_5_impl {
         fn get_voltage_mem(&self) -> Option<u16> { None }
         fn get_current_fan_speed(&self) -> Option<u16> { None }
         fn get_fan_pwm(&self) -> Option<u16> { None }
+        fn get_throttle_residency_prochot(&self) -> Option<u32> { None }
+        fn get_throttle_residency_spl(&self) -> Option<u32> { None }
+        fn get_throttle_residency_fppt(&self) -> Option<u32> { None }
+        fn get_throttle_residency_sppt(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_core(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_gfx(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_soc(&self) -> Option<u32> { None }
     }
 }
 
