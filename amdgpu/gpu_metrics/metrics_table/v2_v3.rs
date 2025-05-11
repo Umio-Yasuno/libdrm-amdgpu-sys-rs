@@ -192,6 +192,13 @@ macro_rules! v2_impl {
         fn get_all_instances_current_dclk0(&self) -> Option<[u16; MAX_CLKS as usize]> { None }
         fn get_all_vcn_activity(&self) -> Option<[u16; NUM_VCN as usize]> { None }
         fn get_all_jpeg_activity(&self) -> Option<[u16; NUM_JPEG_ENG as usize]> { None }
+        fn get_throttle_residency_prochot(&self) -> Option<u32> { None }
+        fn get_throttle_residency_spl(&self) -> Option<u32> { None }
+        fn get_throttle_residency_fppt(&self) -> Option<u32> { None }
+        fn get_throttle_residency_sppt(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_core(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_gfx(&self) -> Option<u32> { None }
+        fn get_throttle_residency_thm_soc(&self) -> Option<u32> { None }
     }
 }
 
@@ -539,6 +546,34 @@ macro_rules! v3_impl {
 
         fn get_current_gfx_maxfreq(&self) -> Option<u16> {
             Some(self.current_gfx_maxfreq)
+        }
+
+        fn get_throttle_residency_prochot(&self) -> Option<u32> {
+            Some(self.throttle_residency_prochot)
+        }
+
+        fn get_throttle_residency_spl(&self) -> Option<u32> {
+            Some(self.throttle_residency_spl)
+        }
+
+        fn get_throttle_residency_fppt(&self) -> Option<u32> {
+            Some(self.throttle_residency_fppt)
+        }
+
+        fn get_throttle_residency_sppt(&self) -> Option<u32> {
+            Some(self.throttle_residency_sppt)
+        }
+
+        fn get_throttle_residency_thm_core(&self) -> Option<u32> {
+            Some(self.throttle_residency_thm_core)
+        }
+
+        fn get_throttle_residency_thm_gfx(&self) -> Option<u32> {
+            Some(self.throttle_residency_thm_gfx)
+        }
+
+        fn get_throttle_residency_thm_soc(&self) -> Option<u32> {
+            Some(self.throttle_residency_thm_soc)
         }
 
         fn get_temperature_edge(&self) -> Option<u16> { None }

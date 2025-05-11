@@ -169,6 +169,13 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_all_instances_current_dclk0, Option<[u16; MAX_CLKS as usize]>);
     impl_metrics!(get_all_vcn_activity, Option<[u16; NUM_VCN as usize]>);
     impl_metrics!(get_all_jpeg_activity, Option<[u16; NUM_JPEG_ENG as usize]>);
+    impl_metrics!(get_throttle_residency_prochot, Option<u32>);
+    impl_metrics!(get_throttle_residency_spl, Option<u32>);
+    impl_metrics!(get_throttle_residency_fppt, Option<u32>);
+    impl_metrics!(get_throttle_residency_sppt, Option<u32>);
+    impl_metrics!(get_throttle_residency_thm_core, Option<u32>);
+    impl_metrics!(get_throttle_residency_thm_gfx, Option<u32>);
+    impl_metrics!(get_throttle_residency_thm_soc, Option<u32>);
 }
 
 impl DeviceHandle {
