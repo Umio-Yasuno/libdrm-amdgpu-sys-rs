@@ -158,15 +158,15 @@ pub trait MetricsInfo {
     fn get_average_socclk_frequency(&self) -> Option<u16>;
     /// UMC Clock, MHz
     fn get_average_uclk_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// Fabric Clock, MHz
     fn get_average_fclk_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// Video Clock, MHz
     fn get_average_vclk_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// Display Clock, MHz
     fn get_average_dclk_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// Video Clock, MHz
     fn get_average_vclk1_frequency(&self) -> Option<u16>;
-    /// MHz
+    /// Display Clock, MHz
     fn get_average_dclk1_frequency(&self) -> Option<u16>;
 
     /// time filtered clocks \[MHz\],
@@ -183,17 +183,17 @@ pub trait MetricsInfo {
     fn get_current_gfxclk(&self) -> Option<u16>;
     /// MHz
     fn get_current_socclk(&self) -> Option<u16>;
-    /// MHz
+    /// UMC Clock, MHz
     fn get_current_uclk(&self) -> Option<u16>;
-    /// MHz
+    /// Fablic Clock, MHz
     fn get_current_fclk(&self) -> Option<u16>;
-    /// MHz
+    /// Video Clock, MHz
     fn get_current_vclk(&self) -> Option<u16>;
-    /// MHz
+    /// Display Clock, MHz
     fn get_current_dclk(&self) -> Option<u16>;
-    /// MHz
+    /// Video Clock, MHz
     fn get_current_vclk1(&self) -> Option<u16>;
-    /// MHz
+    /// Display Clock, MHz
     fn get_current_dclk1(&self) -> Option<u16>;
     /// MHz,  
     /// For VanGogh APU, only the first half is a valid value.  
