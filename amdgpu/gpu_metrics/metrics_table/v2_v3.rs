@@ -252,6 +252,11 @@ impl MetricsInfo for gpu_metrics_v2_1 {
         const EDC_GFX: u64 = 12;
 
         let thr_status = self.get_throttle_status()?;
+
+        if thr_status == u32::MAX {
+            return None;
+        }
+
         let mut indep = 0u64;
 
         for (thr_bit, indep_thr_bit) in [
@@ -303,7 +308,11 @@ impl MetricsInfo for gpu_metrics_v2_2 {
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
-        Some(self.indep_throttle_status)
+        if self.indep_throttle_status == u64::MAX {
+            None
+        } else {
+            Some(self.indep_throttle_status)
+        }
     }
 
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
@@ -331,7 +340,11 @@ impl MetricsInfo for gpu_metrics_v2_3 {
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
-        Some(self.indep_throttle_status)
+        if self.indep_throttle_status == u64::MAX {
+            None
+        } else {
+            Some(self.indep_throttle_status)
+        }
     }
 
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
@@ -359,7 +372,11 @@ impl MetricsInfo for gpu_metrics_v2_4 {
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
-        Some(self.indep_throttle_status)
+        if self.indep_throttle_status == u64::MAX {
+            None
+        } else {
+            Some(self.indep_throttle_status)
+        }
     }
 
     fn get_average_temperature_gfx(&self) -> Option<u16> {

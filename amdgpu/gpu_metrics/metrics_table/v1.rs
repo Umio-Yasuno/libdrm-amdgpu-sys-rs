@@ -293,7 +293,11 @@ impl MetricsInfo for gpu_metrics_v1_3 {
     }
 
     fn get_indep_throttle_status(&self) -> Option<u64> {
-        Some(self.indep_throttle_status)
+        if self.indep_throttle_status == u64::MAX {
+            None
+        } else {
+            Some(self.indep_throttle_status)
+        }
     }
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
