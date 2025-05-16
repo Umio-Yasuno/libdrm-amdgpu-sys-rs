@@ -320,6 +320,6 @@ pub trait MetricsInfo {
     fn get_throttle_residency_thm_soc(&self) -> Option<u32>;
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {
-        self.get_indep_throttle_status().map(|thr| ThrottleStatus::new(thr))
+        self.get_indep_throttle_status().map(ThrottleStatus::new)
     }
 }
