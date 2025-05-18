@@ -305,12 +305,11 @@ impl MetricsInfo for gpu_metrics_v1_3 {
         let mut indep = self.indep_throttle_status;
         let temp_hotspot_flag = ((indep >> TEMP_HOTSPOT_BIT) & 0b1) == 1;
 
+        // Workaround:
         // ThrottlingPercentage for TEMP_HOTSPOT on SMU v13.0.0/7 is almost always greater then or equal to 1.
         // So the AMDGPU driver set the TEMP_HOTSPOT bit even in idle state.
         // ref: https://gitlab.freedesktop.org/drm/amd/-/issues/3251
-        if temp_hotspot_flag && self.temperature_hotspot >= 90 {
-            indep |= 1 << TEMP_HOTSPOT_BIT;
-        } else {
+        if temp_hotspot_flag && self.temperature_hotspot < 90 {
             indep &= !(1 << TEMP_HOTSPOT_BIT);
         }
 
