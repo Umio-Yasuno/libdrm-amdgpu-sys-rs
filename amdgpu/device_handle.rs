@@ -437,12 +437,14 @@ impl DeviceHandle {
         pci_bus.get_min_max_link_info_from_dpm()
     }
 
+    /// [PCI::BUS_INFO::get_max_gpu_link]
     pub fn get_max_gpu_link(&self) -> Option<PCI::LINK> {
         let pci_bus = self.get_pci_bus_info().ok()?;
 
         pci_bus.get_max_gpu_link()
     }
 
+    /// [PCI::BUS_INFO::get_max_system_link]
     pub fn get_max_system_link(&self) -> Option<PCI::LINK> {
         let pci_bus = self.get_pci_bus_info().ok()?;
 
