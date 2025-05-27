@@ -386,7 +386,6 @@ impl ASIC_NAME {
 
     /// L3 cache (MALL, Infinity Cache) size per memory channel, MiB
     pub fn l3_cache_size_mb_per_channel(&self) -> u32 {
-        /* TODO: GFX1200 */
         match self {
             Self::CHIP_NAVI21 |
             Self::CHIP_NAVI22 => 8,
@@ -395,6 +394,7 @@ impl ASIC_NAME {
             Self::CHIP_GFX1100 |
             Self::CHIP_GFX1101 |
             Self::CHIP_GFX1102 |
+            Self::CHIP_GFX1200 |
             Self::CHIP_GFX1201 => 4,
             Self::CHIP_GFX1151 => 2,
             _ => 0,
