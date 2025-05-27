@@ -12,5 +12,8 @@ pub const AMDGPU_IDS_2: &[(u32, u32, &str)] = &[
     (0x1114, 0xD2, "AMD Radeon(TM) 860M Graphics"),
     (0x1114, 0xD3, "AMD Radeon(TM) 840M Graphics"),
     (0x7550, 0xC0, "AMD Radeon RX 9070 XT"),
+    (0x7550, 0xC2, "AMD Radeon RX 9070 GRE"),
     (0x7550, 0xC3, "AMD Radeon RX 9070"),
+    (0x7551, 0xC0, "AMD Radeon AI PRO R9700"),
+    (0x7590, 0xC0, "AMD Radeon RX 9060 XT"),
 ];
