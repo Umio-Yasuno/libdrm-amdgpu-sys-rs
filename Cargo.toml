@@ -30,7 +30,7 @@ libc = { version = "0.2", default-features = false }
 libloading = { version = "0.8", optional = true }
 
 [build-dependencies]
-bindgen = { version = "0.71", optional = true }
+bindgen = { version = "0.72", optional = true }
 pkg-config = { version = "0.3", optional = true }
 
 [[example]]

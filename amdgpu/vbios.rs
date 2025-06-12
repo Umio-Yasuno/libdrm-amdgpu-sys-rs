@@ -62,9 +62,9 @@ impl DeviceHandle {
 
         let r = func(
             self.fd,
-            DRM_AMDGPU_INFO as u64,
+            DRM_AMDGPU_INFO as ::core::ffi::c_ulong,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
-            size_of::<drm_amdgpu_info>() as u64,
+            size_of::<drm_amdgpu_info>() as ::core::ffi::c_ulong,
         );
 
         let (_, vbios) = (device_info.assume_init(), vbios.assume_init());
@@ -110,9 +110,9 @@ impl DeviceHandle {
 
         let r = func(
             self.fd,
-            DRM_AMDGPU_INFO as u64,
+            DRM_AMDGPU_INFO as ::core::ffi::c_ulong,
             device_info.as_mut_ptr() as *mut ::core::ffi::c_void,
-            size_of::<drm_amdgpu_info>() as u64,
+            size_of::<drm_amdgpu_info>() as ::core::ffi::c_ulong,
         );
 
         let _ = device_info.assume_init();
