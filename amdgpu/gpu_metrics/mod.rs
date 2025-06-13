@@ -134,6 +134,7 @@ impl MetricsInfo for GpuMetrics {
     impl_metrics!(get_current_gfx_maxfreq, Option<u16>);
     impl_metrics!(get_throttle_status, Option<u32>);
     impl_metrics!(get_indep_throttle_status, Option<u64>);
+    impl_metrics!(get_indep_throttle_status_without_check, Option<u64>);
     impl_metrics!(get_throttle_status_info, Option<ThrottleStatus>);
     impl_metrics!(get_current_fan_speed, Option<u16>);
     impl_metrics!(get_fan_pwm, Option<u16>);

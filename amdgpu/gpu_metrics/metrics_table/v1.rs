@@ -221,6 +221,7 @@ impl MetricsInfo for gpu_metrics_v1_0 {
     fn get_voltage_gfx(&self) -> Option<u16> { None }
     fn get_voltage_mem(&self) -> Option<u16> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
 }
 
 impl MetricsInfo for gpu_metrics_v1_1 {
@@ -242,6 +243,7 @@ impl MetricsInfo for gpu_metrics_v1_1 {
     fn get_voltage_gfx(&self) -> Option<u16> { None }
     fn get_voltage_mem(&self) -> Option<u16> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
 }
 
 impl MetricsInfo for gpu_metrics_v1_2 {
@@ -263,6 +265,7 @@ impl MetricsInfo for gpu_metrics_v1_2 {
     fn get_voltage_gfx(&self) -> Option<u16> { None }
     fn get_voltage_mem(&self) -> Option<u16> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
 }
 
 impl MetricsInfo for gpu_metrics_v1_3 {
@@ -298,6 +301,10 @@ impl MetricsInfo for gpu_metrics_v1_3 {
         } else {
             Some(self.indep_throttle_status)
         }
+    }
+
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
     }
 
     fn get_throttle_status_info(&self) -> Option<ThrottleStatus> {

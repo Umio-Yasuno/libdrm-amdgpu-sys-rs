@@ -173,6 +173,7 @@ macro_rules! v1_4_v1_5_impl {
         fn get_current_core_maxfreq(&self) -> Option<u16> { None }
         fn get_current_gfx_maxfreq(&self) -> Option<u16> { None }
         fn get_indep_throttle_status(&self) -> Option<u64> { None }
+        fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
         fn get_average_temperature_gfx(&self) -> Option<u16> { None }
         fn get_average_temperature_soc(&self) -> Option<u16> { None }
         fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }

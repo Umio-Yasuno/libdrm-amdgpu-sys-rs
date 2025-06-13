@@ -207,6 +207,7 @@ impl MetricsInfo for gpu_metrics_v2_0 {
     fn get_average_gfx_power(&self) -> Option<u16> { None }
     fn get_average_gfx_power_u32(&self) -> Option<u32> { None }
     fn get_indep_throttle_status(&self) -> Option<u64> { None }
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
     fn get_average_temperature_soc(&self) -> Option<u16> { None }
     fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
@@ -282,6 +283,10 @@ impl MetricsInfo for gpu_metrics_v2_1 {
         Some(indep)
     }
 
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> {
+        None
+    }
+
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
     fn get_average_temperature_soc(&self) -> Option<u16> { None }
     fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
@@ -313,6 +318,10 @@ impl MetricsInfo for gpu_metrics_v2_2 {
         } else {
             Some(self.indep_throttle_status)
         }
+    }
+
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
     }
 
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
@@ -347,6 +356,10 @@ impl MetricsInfo for gpu_metrics_v2_3 {
         }
     }
 
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
+    }
+
     fn get_average_temperature_gfx(&self) -> Option<u16> { None }
     fn get_average_temperature_soc(&self) -> Option<u16> { None }
     fn get_average_temperature_core(&self) -> Option<Vec<u16>> { None }
@@ -377,6 +390,10 @@ impl MetricsInfo for gpu_metrics_v2_4 {
         } else {
             Some(self.indep_throttle_status)
         }
+    }
+
+    fn get_indep_throttle_status_without_check(&self) -> Option<u64> {
+        Some(self.indep_throttle_status)
     }
 
     fn get_average_temperature_gfx(&self) -> Option<u16> {
@@ -633,6 +650,7 @@ macro_rules! v3_impl {
         fn get_fan_pwm(&self) -> Option<u16> { None }
         fn get_throttle_status(&self) -> Option<u32> { None }
         fn get_indep_throttle_status(&self) -> Option<u64> { None }
+        fn get_indep_throttle_status_without_check(&self) -> Option<u64> { None }
         fn get_pcie_link_width(&self) -> Option<u16> { None }
         fn get_pcie_link_speed(&self) -> Option<u16> { None }
         fn get_pcie_bandwidth_acc(&self) -> Option<u64> { None }
