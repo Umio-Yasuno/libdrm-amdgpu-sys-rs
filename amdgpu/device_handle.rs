@@ -50,7 +50,7 @@ use std::path::PathBuf;
 
 impl LibDrmAmdgpu {
     pub fn init_device_handle(&self, fd: i32) -> Result<(DeviceHandle, u32, u32), i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let init = bindings::amdgpu_device_initialize;
         #[cfg(feature = "dynamic_loading")]
         let init = self.libdrm_amdgpu.amdgpu_device_initialize;
@@ -90,7 +90,7 @@ impl DeviceHandle {
     /// It may require a write option (`std::fs::OpenOptions::new().read(true).write(true)`)
     /// for GUI context.  
     /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
-    #[cfg(feature = "link_drm")]
+    #[cfg(not(feature = "dynamic_loading"))]
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
@@ -117,7 +117,7 @@ impl DeviceHandle {
     }
 
     fn deinit(&self) -> Result<i32, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_device_deinitialize;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_device_deinitialize;
@@ -136,7 +136,7 @@ impl DeviceHandle {
     /// Returns the result of reading the register at the specified offset.
     /// If the offset is not allowed, returns `Err(i32)`.
     pub fn read_mm_registers(&self, offset: u32) -> Result<u32, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_read_mm_registers;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_read_mm_registers;
@@ -162,7 +162,7 @@ impl DeviceHandle {
     }
 
     pub fn query_gpu_info(&self) -> Result<amdgpu_gpu_info, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_gpu_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_gpu_info;
@@ -181,7 +181,7 @@ impl DeviceHandle {
     }
 
     pub fn query_gds_info(&self) -> Result<amdgpu_gds_resource_info, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_gds_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_gds_info;
@@ -200,7 +200,7 @@ impl DeviceHandle {
     }
 
     pub fn query_sw_info(&self, info: amdgpu_sw_info) -> Result<u32, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_sw_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_sw_info;
@@ -223,7 +223,7 @@ impl DeviceHandle {
     }
 
     pub(crate) fn query<T>(&self, info_id: ::core::ffi::c_uint) -> Result<T, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_info;
@@ -323,7 +323,7 @@ impl DeviceHandle {
     }
 
     unsafe fn __drmGetDevice2(&self, fd: ::core::ffi::c_int, flags: u32) -> Result<drmDevicePtr, i32> { unsafe {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::drmGetDevice2;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmGetDevice2;
@@ -344,7 +344,7 @@ impl DeviceHandle {
     }}
 
     unsafe fn __drmFreeDevice(&self, device: *mut drmDevicePtr) { unsafe {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::drmFreeDevice;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm.drmFreeDevice;
