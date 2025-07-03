@@ -128,13 +128,17 @@ pub mod PCI {
 }
 
 #[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
+#[cfg(any(feature = "link_drm", feature = "dynamic_loading"))]
 mod drm_version;
 #[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
+#[cfg(any(feature = "link_drm", feature = "dynamic_loading"))]
 pub use drm_version::*;
 
 #[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
+#[cfg(any(feature = "link_drm", feature = "dynamic_loading"))]
 mod drm_mode;
 #[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
+#[cfg(any(feature = "link_drm", feature = "dynamic_loading"))]
 pub use drm_mode::*;
 
 /// Convert `errno` to `Err(i32)`
