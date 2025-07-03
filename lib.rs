@@ -9,9 +9,9 @@
 #[allow(clippy::all)]
 #[cfg(not(any(feature = "buildtime_bindgen", feature = "convert_amdgpu_ids")))]
 mod bindings {
-    #[cfg(feature = "link_drm")]
+    #[cfg(not(feature = "dynamic_loading"))]
     mod drm;
-    #[cfg(feature = "link_drm")]
+    #[cfg(not(feature = "dynamic_loading"))]
     pub use drm::*;
 
     #[cfg(feature = "dynamic_loading")]

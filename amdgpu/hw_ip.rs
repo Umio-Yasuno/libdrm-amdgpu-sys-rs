@@ -27,7 +27,7 @@ impl DeviceHandle {
         &self,
         type_: HW_IP_TYPE,
     ) -> Result<u32, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_hw_ip_count;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_hw_ip_count;
@@ -55,7 +55,7 @@ impl DeviceHandle {
         type_: HW_IP_TYPE,
         ip_instance: ::core::ffi::c_uint,
     ) -> Result<drm_amdgpu_info_hw_ip, i32> {
-        #[cfg(feature = "link_drm")]
+        #[cfg(not(feature = "dynamic_loading"))]
         let func = bindings::amdgpu_query_hw_ip_info;
         #[cfg(feature = "dynamic_loading")]
         let func = self.libdrm_amdgpu.amdgpu_query_hw_ip_info;
