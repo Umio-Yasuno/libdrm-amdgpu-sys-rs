@@ -42,7 +42,7 @@ impl DpmClockRange {
     }
 
     fn parse_fine_grained_dpm(clk_type: DpmClockType, lines: Vec<&str>) -> Option<Self> {
-        let mut clks = [0u32; 3];
+        let mut clks = [0u32; 2];
         let mut cur_index = 0usize;
 
         for (i, (l, clk)) in lines.iter().zip(clks.iter_mut()).enumerate() {
@@ -57,7 +57,7 @@ impl DpmClockRange {
 
         Some(Self {
             clk_type,
-            current_mhz: clks[cur_index],
+            current_mhz: clks.get(cur_index).copied().unwrap_or(last_mhz),
             min_mhz: std::cmp::min(clks[0], last_mhz),
             max_mhz: std::cmp::max(clks[0], last_mhz),
         })
