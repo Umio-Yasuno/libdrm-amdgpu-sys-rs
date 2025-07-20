@@ -323,6 +323,8 @@ fn info(libdrm_amdgpu: &LibDrmAmdgpu, pci_bus: &PCI::BUS_INFO) {
     }
 
     if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
+        // let f = AMDGPU::DpmClockRange::from_sysfs(AMDGPU::DpmClockType::FCLK, &sysfs);
+        // println!("{f:?}");
         use AMDGPU::{DpmForcedLevel, PowerProfile};
 
         let profiles: Vec<String> = PowerProfile::get_all_supported_profiles_from_sysfs(&sysfs)

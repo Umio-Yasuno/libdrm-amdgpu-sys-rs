@@ -35,9 +35,11 @@ pub struct DpmClockRange {
 
 impl DpmClockRange {
     fn parse_mhz(s: &str) -> Option<u32> {
-        let mut chars = s.chars();
+        // For SMU v13.0.6, the line might start with an "S:".
+        // ref: https://www.kernel.org/doc/html/v6.16-rc6/gpu/amdgpu/thermal.html#pp-dpm
+        let mut chars = s.chars().skip(1);
         let mhz_pos = chars.position(|c| c.is_ascii_alphabetic())?;
-        let s = s.get(3..mhz_pos)?;
+        let s = s.get(3..mhz_pos+1)?;
         s.parse::<u32>().ok()
     }
 
