@@ -82,7 +82,7 @@ impl LINK {
     }
 
     pub fn get_min_max_link_info_from_dpm<P: Into<PathBuf>>(sysfs_path: P) -> Option<[LINK; 2]> {
-        use crate::get_min_max_from_dpm;
+        use crate::AMDGPU::get_min_max_from_dpm;
 
         get_min_max_from_dpm(sysfs_path.into().join(PCIE_DPM), Self::parse_dpm_line)
     }

@@ -360,7 +360,7 @@ impl DeviceHandle {
             s.split(' ').nth(1)?.trim_end_matches("Mhz").parse::<u32>().ok()
         };
 
-        get_min_max_from_dpm(sysfs_path.into(), parse_line)
+        AMDGPU::get_min_max_from_dpm(sysfs_path.into(), parse_line)
     }
 
     /// Get the min/max gpu core clock (MHz) from sysfs (`pp_dpm_mclk`)

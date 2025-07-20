@@ -323,8 +323,6 @@ fn info(libdrm_amdgpu: &LibDrmAmdgpu, pci_bus: &PCI::BUS_INFO) {
     }
 
     if let Ok(sysfs) = amdgpu_dev.get_sysfs_path() {
-        println!("sysfs: {sysfs:?}");
-
         use AMDGPU::{DpmForcedLevel, PowerProfile};
 
         let profiles: Vec<String> = PowerProfile::get_all_supported_profiles_from_sysfs(&sysfs)
