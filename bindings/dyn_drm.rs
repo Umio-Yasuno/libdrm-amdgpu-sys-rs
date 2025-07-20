@@ -30,11 +30,11 @@ impl<T> ::core::fmt::Debug for __IncompleteArrayField<T> {
         fmt.write_str("__IncompleteArrayField")
     }
 }
-pub const __GNUC_VA_LIST: u32 = 1;
 pub const _SYS_TYPES_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
-pub const __GLIBC_USE_ISOC2X: u32 = 0;
+pub const __GLIBC_USE_ISOC2Y: u32 = 0;
+pub const __GLIBC_USE_ISOC23: u32 = 0;
 pub const __USE_ISOC11: u32 = 1;
 pub const __USE_ISOC99: u32 = 1;
 pub const __USE_ISOC95: u32 = 1;
@@ -52,11 +52,13 @@ pub const __WORDSIZE: u32 = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: u32 = 1;
 pub const __SYSCALL_WORDSIZE: u32 = 64;
 pub const __TIMESIZE: u32 = 64;
+pub const __USE_TIME_BITS64: u32 = 1;
 pub const __USE_MISC: u32 = 1;
 pub const __USE_ATFILE: u32 = 1;
 pub const __USE_FORTIFY_LEVEL: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_GETS: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_SCANF: u32 = 0;
+pub const __GLIBC_USE_C23_STRTOL: u32 = 0;
 pub const _STDC_PREDEF_H: u32 = 1;
 pub const __STDC_IEC_559__: u32 = 1;
 pub const __STDC_IEC_60559_BFP__: u32 = 201404;
@@ -65,7 +67,7 @@ pub const __STDC_IEC_60559_COMPLEX__: u32 = 201404;
 pub const __STDC_ISO_10646__: u32 = 201706;
 pub const __GNU_LIBRARY__: u32 = 6;
 pub const __GLIBC__: u32 = 2;
-pub const __GLIBC_MINOR__: u32 = 36;
+pub const __GLIBC_MINOR__: u32 = 41;
 pub const _SYS_CDEFS_H: u32 = 1;
 pub const __glibc_c99_flexarr_available: u32 = 1;
 pub const __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI: u32 = 0;
@@ -122,13 +124,14 @@ pub const __have_pthread_attr_t: u32 = 1;
 pub const _STDINT_H: u32 = 1;
 pub const __GLIBC_USE_LIB_EXT2: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_BFP_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_BFP_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_EXT: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_TYPES_EXT: u32 = 0;
 pub const _BITS_WCHAR_H: u32 = 1;
 pub const _BITS_STDINT_UINTN_H: u32 = 1;
+pub const _BITS_STDINT_LEAST_H: u32 = 1;
 pub const INT8_MIN: i32 = -128;
 pub const INT16_MIN: i32 = -32768;
 pub const INT32_MIN: i32 = -2147483648;
@@ -429,8 +432,8 @@ pub const DRM_MODE_FEATURE_DIRTYFB: u32 = 1;
 pub const DRM_PLANE_TYPE_OVERLAY: u32 = 0;
 pub const DRM_PLANE_TYPE_PRIMARY: u32 = 1;
 pub const DRM_PLANE_TYPE_CURSOR: u32 = 2;
-pub type va_list = __builtin_va_list;
 pub type __gnuc_va_list = __builtin_va_list;
+pub type va_list = __builtin_va_list;
 pub type __u_char = ::core::ffi::c_uchar;
 pub type __u_short = ::core::ffi::c_ushort;
 pub type __u_int = ::core::ffi::c_uint;
@@ -618,11 +621,12 @@ pub struct __pthread_rwlock_arch_t {
 pub struct __pthread_cond_s {
     pub __wseq: __atomic_wide_counter,
     pub __g1_start: __atomic_wide_counter,
-    pub __g_refs: [::core::ffi::c_uint; 2usize],
     pub __g_size: [::core::ffi::c_uint; 2usize],
     pub __g1_orig_size: ::core::ffi::c_uint,
     pub __wrefs: ::core::ffi::c_uint,
     pub __g_signals: [::core::ffi::c_uint; 2usize],
+    pub __unused_initialized_1: ::core::ffi::c_uint,
+    pub __unused_initialized_2: ::core::ffi::c_uint,
 }
 pub type __tss_t = ::core::ffi::c_uint;
 pub type __thrd_t = ::core::ffi::c_ulong;
@@ -1505,6 +1509,12 @@ pub struct drm_color_lut {
     pub green: __u16,
     pub blue: __u16,
     pub reserved: __u16,
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct drm_plane_size_hint {
+    pub width: __u16,
+    pub height: __u16,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]

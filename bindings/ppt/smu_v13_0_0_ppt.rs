@@ -139,7 +139,8 @@ where
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
-pub const __GLIBC_USE_ISOC2X: u32 = 0;
+pub const __GLIBC_USE_ISOC2Y: u32 = 0;
+pub const __GLIBC_USE_ISOC23: u32 = 0;
 pub const __USE_ISOC11: u32 = 1;
 pub const __USE_ISOC99: u32 = 1;
 pub const __USE_ISOC95: u32 = 1;
@@ -157,11 +158,13 @@ pub const __WORDSIZE: u32 = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: u32 = 1;
 pub const __SYSCALL_WORDSIZE: u32 = 64;
 pub const __TIMESIZE: u32 = 64;
+pub const __USE_TIME_BITS64: u32 = 1;
 pub const __USE_MISC: u32 = 1;
 pub const __USE_ATFILE: u32 = 1;
 pub const __USE_FORTIFY_LEVEL: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_GETS: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_SCANF: u32 = 0;
+pub const __GLIBC_USE_C23_STRTOL: u32 = 0;
 pub const _STDC_PREDEF_H: u32 = 1;
 pub const __STDC_IEC_559__: u32 = 1;
 pub const __STDC_IEC_60559_BFP__: u32 = 201404;
@@ -170,17 +173,17 @@ pub const __STDC_IEC_60559_COMPLEX__: u32 = 201404;
 pub const __STDC_ISO_10646__: u32 = 201706;
 pub const __GNU_LIBRARY__: u32 = 6;
 pub const __GLIBC__: u32 = 2;
-pub const __GLIBC_MINOR__: u32 = 36;
+pub const __GLIBC_MINOR__: u32 = 41;
 pub const _SYS_CDEFS_H: u32 = 1;
 pub const __glibc_c99_flexarr_available: u32 = 1;
 pub const __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI: u32 = 0;
 pub const __HAVE_GENERIC_SELECTION: u32 = 1;
 pub const __GLIBC_USE_LIB_EXT2: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_BFP_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_BFP_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_EXT: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_TYPES_EXT: u32 = 0;
 pub const _BITS_TYPES_H: u32 = 1;
 pub const _BITS_TYPESIZES_H: u32 = 1;
@@ -194,6 +197,7 @@ pub const _BITS_TIME64_H: u32 = 1;
 pub const _BITS_WCHAR_H: u32 = 1;
 pub const _BITS_STDINT_INTN_H: u32 = 1;
 pub const _BITS_STDINT_UINTN_H: u32 = 1;
+pub const _BITS_STDINT_LEAST_H: u32 = 1;
 pub const INT8_MIN: i32 = -128;
 pub const INT16_MIN: i32 = -32768;
 pub const INT32_MIN: i32 = -2147483648;
@@ -1152,6 +1156,39 @@ pub struct atom_firmware_info_v3_4 {
     pub pspbl_init_done_value: u32,
     pub pspbl_init_done_check_timeout: u32,
     pub reserved: [u32; 2usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct atom_firmware_info_v3_5 {
+    pub table_header: atom_common_table_header,
+    pub firmware_revision: u32,
+    pub bootup_clk_reserved: [u32; 2usize],
+    pub firmware_capability: u32,
+    pub fw_protect_region_size_in_kb: u32,
+    pub bios_scratch_reg_startaddr: u32,
+    pub bootup_voltage_reserved: [u32; 2usize],
+    pub mem_module_id: u8,
+    pub coolingsolution_id: u8,
+    pub hw_blt_mode: u8,
+    pub reserved1: u8,
+    pub mc_baseaddr_high: u32,
+    pub mc_baseaddr_low: u32,
+    pub board_i2c_feature_id: u8,
+    pub board_i2c_feature_gpio_id: u8,
+    pub board_i2c_feature_slave_addr: u8,
+    pub ras_rom_i2c_slave_addr: u8,
+    pub bootup_voltage_reserved1: u32,
+    pub zfb_reserved: u32,
+    pub pplib_pptable_id: u32,
+    pub hw_voltage_reserved: [u32; 3usize],
+    pub maco_pwrlimit_mw: u32,
+    pub usb_pwrlimit_mw: u32,
+    pub fw_reserved_size_in_kb: u32,
+    pub pspbl_init_reserved: [u32; 3usize],
+    pub spi_rom_size: u32,
+    pub support_dev_in_objinfo: u16,
+    pub disp_phy_tunning_size: u16,
+    pub reserved: [u32; 16usize],
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]

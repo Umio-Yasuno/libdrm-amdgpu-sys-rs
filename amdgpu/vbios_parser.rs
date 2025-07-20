@@ -1,6 +1,6 @@
 use core::mem::{size_of, MaybeUninit};
 use core::ptr;
-pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4};
+pub use crate::bindings::{atom_common_table_header, atom_rom_header_v2_2, atom_master_data_table_v2_1, atom_firmware_info_v3_4, atom_firmware_info_v3_5};
 use crate::AMDGPU::PPTable;
 
 // ref: drivers/gpu/drm/amd/amdgpu/amdgpu_bios.c
@@ -170,10 +170,24 @@ impl VbiosParser {
         self.read_table(rom_header.masterdatatable_offset as usize)
     }
 
+    pub fn get_atom_firmware_info_header(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<atom_common_table_header> {
+        self.read_header(data_table.listOfdatatables.firmwareinfo as usize)
+    }
+
     pub fn get_atom_firmware_info(
         &self,
         data_table: &atom_master_data_table_v2_1,
     ) -> Option<atom_firmware_info_v3_4> {
+        self.read_table_unchecked_size(data_table.listOfdatatables.firmwareinfo as usize)
+    }
+
+    pub fn get_atom_firmware_info_v3_5(
+        &self,
+        data_table: &atom_master_data_table_v2_1,
+    ) -> Option<atom_firmware_info_v3_5> {
         self.read_table_unchecked_size(data_table.listOfdatatables.firmwareinfo as usize)
     }
 

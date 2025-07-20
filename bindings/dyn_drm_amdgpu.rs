@@ -139,7 +139,8 @@ where
 pub const _STDINT_H: u32 = 1;
 pub const _FEATURES_H: u32 = 1;
 pub const _DEFAULT_SOURCE: u32 = 1;
-pub const __GLIBC_USE_ISOC2X: u32 = 0;
+pub const __GLIBC_USE_ISOC2Y: u32 = 0;
+pub const __GLIBC_USE_ISOC23: u32 = 0;
 pub const __USE_ISOC11: u32 = 1;
 pub const __USE_ISOC99: u32 = 1;
 pub const __USE_ISOC95: u32 = 1;
@@ -157,11 +158,13 @@ pub const __WORDSIZE: u32 = 64;
 pub const __WORDSIZE_TIME64_COMPAT32: u32 = 1;
 pub const __SYSCALL_WORDSIZE: u32 = 64;
 pub const __TIMESIZE: u32 = 64;
+pub const __USE_TIME_BITS64: u32 = 1;
 pub const __USE_MISC: u32 = 1;
 pub const __USE_ATFILE: u32 = 1;
 pub const __USE_FORTIFY_LEVEL: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_GETS: u32 = 0;
 pub const __GLIBC_USE_DEPRECATED_SCANF: u32 = 0;
+pub const __GLIBC_USE_C23_STRTOL: u32 = 0;
 pub const _STDC_PREDEF_H: u32 = 1;
 pub const __STDC_IEC_559__: u32 = 1;
 pub const __STDC_IEC_60559_BFP__: u32 = 201404;
@@ -170,17 +173,17 @@ pub const __STDC_IEC_60559_COMPLEX__: u32 = 201404;
 pub const __STDC_ISO_10646__: u32 = 201706;
 pub const __GNU_LIBRARY__: u32 = 6;
 pub const __GLIBC__: u32 = 2;
-pub const __GLIBC_MINOR__: u32 = 36;
+pub const __GLIBC_MINOR__: u32 = 41;
 pub const _SYS_CDEFS_H: u32 = 1;
 pub const __glibc_c99_flexarr_available: u32 = 1;
 pub const __LDOUBLE_REDIRECTS_TO_FLOAT128_ABI: u32 = 0;
 pub const __HAVE_GENERIC_SELECTION: u32 = 1;
 pub const __GLIBC_USE_LIB_EXT2: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_BFP_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_BFP_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_BFP_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_EXT: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_FUNCS_EXT: u32 = 0;
-pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C2X: u32 = 0;
+pub const __GLIBC_USE_IEC_60559_FUNCS_EXT_C23: u32 = 0;
 pub const __GLIBC_USE_IEC_60559_TYPES_EXT: u32 = 0;
 pub const _BITS_TYPES_H: u32 = 1;
 pub const _BITS_TYPESIZES_H: u32 = 1;
@@ -194,6 +197,7 @@ pub const _BITS_TIME64_H: u32 = 1;
 pub const _BITS_WCHAR_H: u32 = 1;
 pub const _BITS_STDINT_INTN_H: u32 = 1;
 pub const _BITS_STDINT_UINTN_H: u32 = 1;
+pub const _BITS_STDINT_LEAST_H: u32 = 1;
 pub const INT8_MIN: i32 = -128;
 pub const INT16_MIN: i32 = -32768;
 pub const INT32_MIN: i32 = -2147483648;
@@ -805,6 +809,12 @@ pub struct amdgpu_va {
     _unused: [u8; 0],
 }
 pub type amdgpu_va_handle = *mut amdgpu_va;
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct amdgpu_va_manager {
+    _unused: [u8; 0],
+}
+pub type amdgpu_va_manager_handle = *mut amdgpu_va_manager;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_semaphore {
@@ -1897,6 +1907,13 @@ pub struct drm_color_lut {
     pub blue: __u16,
     pub reserved: __u16,
 }
+#[doc = " struct drm_plane_size_hint - Plane size hints\n\n The plane SIZE_HINTS property blob contains an\n array of struct drm_plane_size_hint."]
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct drm_plane_size_hint {
+    pub width: __u16,
+    pub height: __u16,
+}
 #[doc = " struct hdr_metadata_infoframe - HDR Metadata Infoframe Data.\n\n HDR Metadata Infoframe as per CTA 861.G spec. This is expected\n to match exactly with the spec.\n\n Userspace is expected to pass the metadata information as per\n the format described in this structure."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1916,14 +1933,14 @@ pub struct hdr_metadata_infoframe {
     #[doc = " @max_fall: Max Frame Average Light Level.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_fall: __u16,
 }
-#[doc = " @display_primaries: Color Primaries of the Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @display_primaries.x: X cordinate of color primary.\n @display_primaries.y: Y cordinate of color primary."]
+#[doc = " @display_primaries: Color Primaries of the Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @display_primaries.x: X coordinate of color primary.\n @display_primaries.y: Y coordinate of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_1 {
     pub x: __u16,
     pub y: __u16,
 }
-#[doc = " @white_point: White Point of Colorspace Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @white_point.x: X cordinate of whitepoint of color primary.\n @white_point.y: Y cordinate of whitepoint of color primary."]
+#[doc = " @white_point: White Point of Colorspace Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @white_point.x: X coordinate of whitepoint of color primary.\n @white_point.y: Y coordinate of whitepoint of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_2 {
@@ -3433,6 +3450,39 @@ pub struct atom_firmware_info_v3_4 {
     pub pspbl_init_done_value: u32,
     pub pspbl_init_done_check_timeout: u32,
     pub reserved: [u32; 2usize],
+}
+#[repr(C, packed)]
+#[derive(Debug, Copy, Clone)]
+pub struct atom_firmware_info_v3_5 {
+    pub table_header: atom_common_table_header,
+    pub firmware_revision: u32,
+    pub bootup_clk_reserved: [u32; 2usize],
+    pub firmware_capability: u32,
+    pub fw_protect_region_size_in_kb: u32,
+    pub bios_scratch_reg_startaddr: u32,
+    pub bootup_voltage_reserved: [u32; 2usize],
+    pub mem_module_id: u8,
+    pub coolingsolution_id: u8,
+    pub hw_blt_mode: u8,
+    pub reserved1: u8,
+    pub mc_baseaddr_high: u32,
+    pub mc_baseaddr_low: u32,
+    pub board_i2c_feature_id: u8,
+    pub board_i2c_feature_gpio_id: u8,
+    pub board_i2c_feature_slave_addr: u8,
+    pub ras_rom_i2c_slave_addr: u8,
+    pub bootup_voltage_reserved1: u32,
+    pub zfb_reserved: u32,
+    pub pplib_pptable_id: u32,
+    pub hw_voltage_reserved: [u32; 3usize],
+    pub maco_pwrlimit_mw: u32,
+    pub usb_pwrlimit_mw: u32,
+    pub fw_reserved_size_in_kb: u32,
+    pub pspbl_init_reserved: [u32; 3usize],
+    pub spi_rom_size: u32,
+    pub support_dev_in_objinfo: u16,
+    pub disp_phy_tunning_size: u16,
+    pub reserved: [u32; 16usize],
 }
 #[repr(C, packed)]
 #[derive(Debug, Copy, Clone)]
@@ -8335,6 +8385,13 @@ pub struct DynLibDrmAmdgpu {
         minor_version: *mut u32,
         device_handle: *mut amdgpu_device_handle,
     ) -> ::core::ffi::c_int,
+    pub amdgpu_device_initialize2: unsafe extern "C" fn(
+        fd: ::core::ffi::c_int,
+        deduplicate_device: bool,
+        major_version: *mut u32,
+        minor_version: *mut u32,
+        device_handle: *mut amdgpu_device_handle,
+    ) -> ::core::ffi::c_int,
     pub amdgpu_device_deinitialize:
         unsafe extern "C" fn(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int,
     pub amdgpu_bo_alloc: unsafe extern "C" fn(
@@ -8551,6 +8608,26 @@ pub struct DynLibDrmAmdgpu {
         start: *mut u64,
         end: *mut u64,
     ) -> ::core::ffi::c_int,
+    pub amdgpu_va_manager_alloc: unsafe extern "C" fn() -> amdgpu_va_manager_handle,
+    pub amdgpu_va_manager_init: unsafe extern "C" fn(
+        va_mgr: amdgpu_va_manager_handle,
+        low_va_offset: u64,
+        low_va_max: u64,
+        high_va_offset: u64,
+        high_va_max: u64,
+        virtual_address_alignment: u32,
+    ),
+    pub amdgpu_va_manager_deinit: unsafe extern "C" fn(va_mgr: amdgpu_va_manager_handle),
+    pub amdgpu_va_range_alloc2: unsafe extern "C" fn(
+        va_mgr: amdgpu_va_manager_handle,
+        va_range_type: amdgpu_gpu_va_range,
+        size: u64,
+        va_base_alignment: u64,
+        va_base_required: u64,
+        va_base_allocated: *mut u64,
+        va_range_handle: *mut amdgpu_va_handle,
+        flags: u64,
+    ) -> ::core::ffi::c_int,
     pub amdgpu_bo_va_op: unsafe extern "C" fn(
         bo: amdgpu_bo_handle,
         offset: u64,
@@ -8731,6 +8808,9 @@ impl DynLibDrmAmdgpu {
         let amdgpu_device_initialize = __library
             .get(b"amdgpu_device_initialize\0")
             .map(|sym| *sym)?;
+        let amdgpu_device_initialize2 = __library
+            .get(b"amdgpu_device_initialize2\0")
+            .map(|sym| *sym)?;
         let amdgpu_device_deinitialize = __library
             .get(b"amdgpu_device_deinitialize\0")
             .map(|sym| *sym)?;
@@ -8813,6 +8893,14 @@ impl DynLibDrmAmdgpu {
         let amdgpu_va_range_alloc = __library.get(b"amdgpu_va_range_alloc\0").map(|sym| *sym)?;
         let amdgpu_va_range_free = __library.get(b"amdgpu_va_range_free\0").map(|sym| *sym)?;
         let amdgpu_va_range_query = __library.get(b"amdgpu_va_range_query\0").map(|sym| *sym)?;
+        let amdgpu_va_manager_alloc = __library
+            .get(b"amdgpu_va_manager_alloc\0")
+            .map(|sym| *sym)?;
+        let amdgpu_va_manager_init = __library.get(b"amdgpu_va_manager_init\0").map(|sym| *sym)?;
+        let amdgpu_va_manager_deinit = __library
+            .get(b"amdgpu_va_manager_deinit\0")
+            .map(|sym| *sym)?;
+        let amdgpu_va_range_alloc2 = __library.get(b"amdgpu_va_range_alloc2\0").map(|sym| *sym)?;
         let amdgpu_bo_va_op = __library.get(b"amdgpu_bo_va_op\0").map(|sym| *sym)?;
         let amdgpu_bo_va_op_raw = __library.get(b"amdgpu_bo_va_op_raw\0").map(|sym| *sym)?;
         let amdgpu_cs_create_semaphore = __library
@@ -8894,6 +8982,7 @@ impl DynLibDrmAmdgpu {
         Ok(DynLibDrmAmdgpu {
             __library,
             amdgpu_device_initialize,
+            amdgpu_device_initialize2,
             amdgpu_device_deinitialize,
             amdgpu_bo_alloc,
             amdgpu_bo_set_metadata,
@@ -8938,6 +9027,10 @@ impl DynLibDrmAmdgpu {
             amdgpu_va_range_alloc,
             amdgpu_va_range_free,
             amdgpu_va_range_query,
+            amdgpu_va_manager_alloc,
+            amdgpu_va_manager_init,
+            amdgpu_va_manager_deinit,
+            amdgpu_va_range_alloc2,
             amdgpu_bo_va_op,
             amdgpu_bo_va_op_raw,
             amdgpu_cs_create_semaphore,
@@ -8978,6 +9071,22 @@ impl DynLibDrmAmdgpu {
         device_handle: *mut amdgpu_device_handle,
     ) -> ::core::ffi::c_int {
         (self.amdgpu_device_initialize)(fd, major_version, minor_version, device_handle)
+    }
+    pub unsafe fn amdgpu_device_initialize2(
+        &self,
+        fd: ::core::ffi::c_int,
+        deduplicate_device: bool,
+        major_version: *mut u32,
+        minor_version: *mut u32,
+        device_handle: *mut amdgpu_device_handle,
+    ) -> ::core::ffi::c_int {
+        (self.amdgpu_device_initialize2)(
+            fd,
+            deduplicate_device,
+            major_version,
+            minor_version,
+            device_handle,
+        )
     }
     pub unsafe fn amdgpu_device_deinitialize(
         &self,
@@ -9336,6 +9445,52 @@ impl DynLibDrmAmdgpu {
         end: *mut u64,
     ) -> ::core::ffi::c_int {
         (self.amdgpu_va_range_query)(dev, type_, start, end)
+    }
+    pub unsafe fn amdgpu_va_manager_alloc(&self) -> amdgpu_va_manager_handle {
+        (self.amdgpu_va_manager_alloc)()
+    }
+    pub unsafe fn amdgpu_va_manager_init(
+        &self,
+        va_mgr: amdgpu_va_manager_handle,
+        low_va_offset: u64,
+        low_va_max: u64,
+        high_va_offset: u64,
+        high_va_max: u64,
+        virtual_address_alignment: u32,
+    ) {
+        (self.amdgpu_va_manager_init)(
+            va_mgr,
+            low_va_offset,
+            low_va_max,
+            high_va_offset,
+            high_va_max,
+            virtual_address_alignment,
+        )
+    }
+    pub unsafe fn amdgpu_va_manager_deinit(&self, va_mgr: amdgpu_va_manager_handle) {
+        (self.amdgpu_va_manager_deinit)(va_mgr)
+    }
+    pub unsafe fn amdgpu_va_range_alloc2(
+        &self,
+        va_mgr: amdgpu_va_manager_handle,
+        va_range_type: amdgpu_gpu_va_range,
+        size: u64,
+        va_base_alignment: u64,
+        va_base_required: u64,
+        va_base_allocated: *mut u64,
+        va_range_handle: *mut amdgpu_va_handle,
+        flags: u64,
+    ) -> ::core::ffi::c_int {
+        (self.amdgpu_va_range_alloc2)(
+            va_mgr,
+            va_range_type,
+            size,
+            va_base_alignment,
+            va_base_required,
+            va_base_allocated,
+            va_range_handle,
+            flags,
+        )
     }
     pub unsafe fn amdgpu_bo_va_op(
         &self,
