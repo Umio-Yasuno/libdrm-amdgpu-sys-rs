@@ -16,7 +16,6 @@ fn main() {
 
     let Ok(vbios_image) = amdgpu_dev.get_vbios_image() else { return };
 
-
     let vbios_parser = VbiosParser::new(vbios_image);
 
     if !vbios_parser.valid_vbios() || !vbios_parser.check_length() {
