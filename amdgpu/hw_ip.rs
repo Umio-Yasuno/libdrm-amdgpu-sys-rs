@@ -104,7 +104,7 @@ use crate::bindings::{
 };
 
 /// Used for [DeviceHandle::query_hw_ip_info] and [DeviceHandle::query_hw_ip_count]
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(u32)]
 pub enum HW_IP_TYPE {
     GFX = AMDGPU_HW_IP_GFX,
