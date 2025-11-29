@@ -188,12 +188,12 @@ impl DeviceHandle {
     }
 
     pub fn get_gpu_metrics(&self) -> io::Result<GpuMetrics> {
-        let sysfs_path = self.get_sysfs_path().unwrap();
+        let sysfs_path = self.get_sysfs_path_io()?;
         GpuMetrics::get_from_sysfs_path(sysfs_path)
     }
 
     pub fn get_raw_gpu_metrics(&self) -> io::Result<Vec<u8>> {
-        let sysfs_path = self.get_sysfs_path().unwrap();
+        let sysfs_path = self.get_sysfs_path_io()?;
         GpuMetrics::get_raw_from_sysfs_path(sysfs_path)
     }
 /*

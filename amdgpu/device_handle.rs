@@ -418,6 +418,15 @@ impl DeviceHandle {
         Ok(path)
     }
 
+    pub(crate) fn get_sysfs_path_io(&self) -> std::io::Result<PathBuf> {
+        let path = self
+            .get_pci_bus_info()
+            .map_err(|_| std::io::Error::new(std::io::ErrorKind::Other, "Failed get_pci_bus_info"))?
+            .get_sysfs_path();
+
+        Ok(path)
+    }
+
     /// 
     pub fn get_hwmon_path(&self) -> Option<PathBuf> {
         self.get_pci_bus_info().ok()?.get_hwmon_path()

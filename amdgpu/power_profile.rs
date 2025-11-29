@@ -35,13 +35,13 @@ pub enum PowerProfile {
 
 impl DeviceHandle {
     pub fn get_all_supported_profiles(&self) -> Vec<PowerProfile> {
-        let sysfs_path = self.get_sysfs_path().unwrap();
+        let Ok(sysfs_path) = self.get_sysfs_path() else { return Vec::new() };
 
         PowerProfile::get_all_supported_profiles_from_sysfs(sysfs_path)
     }
 
     pub fn get_current_profile(&self) -> Option<PowerProfile> {
-        let sysfs_path = self.get_sysfs_path().unwrap();
+        let sysfs_path = self.get_sysfs_path().ok()?;
 
         PowerProfile::get_current_profile_from_sysfs(sysfs_path)
     }
