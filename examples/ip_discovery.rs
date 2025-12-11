@@ -21,7 +21,7 @@ fn main() {
         println!("\ndie_id: {:>2}", entry.die_id);
 
         for ip_hw_id in &entry.ip_hw_ids {
-            println!("{ip_hw_id:#?}");
+            println!("{ip_hw_id:#X?}");
         }
     }
 }
