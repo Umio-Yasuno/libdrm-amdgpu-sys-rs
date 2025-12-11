@@ -199,9 +199,6 @@ fn main() {
     #[cfg(all(feature = "link_drm", feature = "dynamic_loading"))]
     compile_error!("feature \"link_drm\" and feature \"dynamic_loading\" cannot be enabled at the same time");
 
-    #[cfg(not(any(feature = "link_drm", feature = "dynamic_loading")))]
-    compile_error!("Either feature \"link_drm\" or feature \"dynamic_loading\" is not enabled.");
-
     #[cfg(feature = "link_drm")]
     println!("cargo:rustc-link-lib=drm");
     #[cfg(feature = "link_drm")]
