@@ -11,7 +11,7 @@ impl DeviceHandle {
     }
 }
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq, Eq)]
 pub struct PowerCap {
     pub type_: PowerCapType,
     pub current: u32, // W
