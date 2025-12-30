@@ -39,11 +39,11 @@
 1506,	C3,	AMD Radeon 610M
 1506,	C4,	AMD Radeon 610M
 150E,	C1,	AMD Radeon 890M Graphics
-150E,	C4,	AMD Radeon 890M Graphics
+150E,	C4,	AMD Radeon 880M Graphics
 150E,	C5,	AMD Radeon 890M Graphics
 150E,	C6,	AMD Radeon 890M Graphics
 150E,	D1,	AMD Radeon 890M Graphics
-150E,	D2,	AMD Radeon 890M Graphics
+150E,	D2,	AMD Radeon 880M Graphics
 150E,	D3,	AMD Radeon 890M Graphics
 1586,	C1,	Radeon 8060S Graphics
 1586,	C2,	Radeon 8050S Graphics
@@ -557,6 +557,7 @@
 7448,	00,	AMD Radeon Pro W7900
 7449,	00,	AMD Radeon Pro W7800 48GB
 744A,	00,	AMD Radeon Pro W7900 Dual Slot
+744B,	00,	AMD Radeon Pro W7900D
 744C,	C8,	AMD Radeon RX 7900 XTX
 744C,	CC,	AMD Radeon RX 7900 XT
 744C,	CE,	AMD Radeon RX 7900 GRE
@@ -567,6 +568,7 @@
 7470,	00,	AMD Radeon Pro W7700
 747E,	C8,	AMD Radeon RX 7800 XT
 747E,	D8,	AMD Radeon RX 7800M
+747E,	DB,	AMD Radeon RX 7700
 747E,	FF,	AMD Radeon RX 7700 XT
 7480,	00,	AMD Radeon Pro W7600
 7480,	C0,	AMD Radeon RX 7600 XT
@@ -575,6 +577,7 @@
 7480,	C3,	AMD Radeon RX 7600S
 7480,	C7,	AMD Radeon RX 7600M XT
 7480,	CF,	AMD Radeon RX 7600
+7481,   C7,     AMD Steam Machine
 7483,	CF,	AMD Radeon RX 7600M
 7489,	00,	AMD Radeon Pro W7500
 7499,	00,	AMD Radeon Pro W7400
@@ -584,12 +587,21 @@
 74A1,	00,	AMD Instinct MI300X
 74A2,	00,	AMD Instinct MI308X
 74A5,	00,	AMD Instinct MI325X
+74A8,	00,	AMD Instinct MI308X HF
 74A9,	00,	AMD Instinct MI300X HF
 74B5,	00,	AMD Instinct MI300X VF
 74B6,	00,	AMD Instinct MI308X
 74BD,	00,	AMD Instinct MI300X HF
 7550,	C0,	AMD Radeon RX 9070 XT
+7550,	C2,	AMD Radeon RX 9070 GRE
 7550,	C3,	AMD Radeon RX 9070
+7551,	C0,	AMD Radeon AI PRO R9700
+7590,	C0,	AMD Radeon RX 9060 XT
+7590,	C7,	AMD Radeon RX 9060
+75A0,	C0,	AMD Instinct MI350X
+75A3,	C0,	AMD Instinct MI355X
+75B0,	C0,	AMD Instinct MI350X VF
+75B3,	C0,	AMD Instinct MI355X VF
 9830,	00,	AMD Radeon HD 8400 / R3 Series
 9831,	00,	AMD Radeon HD 8400E
 9832,	00,	AMD Radeon HD 8330
