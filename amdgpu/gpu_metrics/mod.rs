@@ -207,6 +207,8 @@ impl DeviceHandle {
 */
 }
 
+const GPU_METRICS_CAPACITY: usize = std::mem::size_of::<gpu_metrics_v1_5>(); // 360 Bytes
+
 impl GpuMetrics {
     pub fn get_from_sysfs_path<P: Into<PathBuf>>(sysfs_path: P) -> io::Result<Self> {
         let raw = Self::get_raw_from_sysfs_path(sysfs_path.into())?;
@@ -215,7 +217,7 @@ impl GpuMetrics {
     }
 
     pub fn get_raw_from_sysfs_path<P: Into<PathBuf>>(sysfs_path: P) -> io::Result<Vec<u8>> {
-        let mut buf: Vec<u8> = Vec::with_capacity(256);
+        let mut buf: Vec<u8> = Vec::with_capacity(GPU_METRICS_CAPACITY);
 
         let mut f = File::open(sysfs_path.into().join("gpu_metrics"))?;
         f.read_to_end(&mut buf)?;
