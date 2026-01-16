@@ -113,9 +113,9 @@ impl VRAM_TYPE {
             Self::DDR5 |
             Self::HBM |
             Self::LPDDR4 => 2,
-            Self::GDDR5 |
+            Self::GDDR5 => 4,
             // Self::DDR5 |
-            Self::LPDDR5 => 4,
+            Self::LPDDR5 => 8,
             Self::GDDR6 => 16,
             _ => 1,
         }
