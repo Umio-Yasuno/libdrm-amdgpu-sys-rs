@@ -52,6 +52,7 @@ fn build() {
             // bindings for.
             .header("wrapper/wrapper_drm.h")
             .layout_tests(false)
+            .wrap_unsafe_ops(true)
             .clang_args(config.iter())
             .use_core()
             .ctypes_prefix("::core::ffi")
@@ -79,6 +80,7 @@ fn build() {
             .header("wrapper/wrapper_amdgpu.h")
             .header("wrapper/wrapper_gpu_metrics.h")
             .layout_tests(false)
+            .wrap_unsafe_ops(true)
             .clang_args(config.iter())
             .use_core()
             .ctypes_prefix("::core::ffi")
