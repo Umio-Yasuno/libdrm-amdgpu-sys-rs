@@ -1,6 +1,6 @@
 [package]
 name = "libdrm_amdgpu_sys"
-version = "0.8.10"
+version = "0.8.11"
 edition = "2024"
 build = "build.rs"
 license = "MIT"
