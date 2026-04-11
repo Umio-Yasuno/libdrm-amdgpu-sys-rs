@@ -1,11 +1,15 @@
 use std::fmt;
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct ThrottleStatus(u64);
 
 impl ThrottleStatus {
     pub fn new(val: u64) -> Self {
         Self(val)
+    }
+
+    pub fn is_zero(&self) -> bool {
+        self.0 == 0
     }
 
     pub fn check_throttler(&self, thr: ThrottlerBit) -> bool {
