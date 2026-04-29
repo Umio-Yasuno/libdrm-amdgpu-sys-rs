@@ -226,7 +226,7 @@ impl ASIC_NAME {
                 0x32..0x3C => Self::CHIP_NAVI22,
                 0x3C..0x46 => Self::CHIP_NAVI23,
                 0x46..0x50 => Self::CHIP_NAVI24,
-                0x84 => Self::CHIP_GFX1013,
+                0x82..0x86 => Self::CHIP_GFX1013,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::VGH => Self::CHIP_VANGOGH,
