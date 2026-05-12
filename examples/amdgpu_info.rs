@@ -4,11 +4,11 @@ fn info(libdrm_amdgpu: &LibDrmAmdgpu, pci_bus: &PCI::BUS_INFO) {
     let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let (amdgpu_dev, _major, _minor) = {
         use std::fs::File;
-        use std::os::fd::IntoRawFd;
+        use std::os::fd::AsRawFd;
 
         let fd = File::open(device_path).unwrap();
 
-        libdrm_amdgpu.init_device_handle(fd.into_raw_fd()).unwrap()
+        libdrm_amdgpu.init_device_handle(fd.as_raw_fd()).unwrap()
     };
 
     if let Ok(drm_ver) = amdgpu_dev.get_drm_version_struct() {
