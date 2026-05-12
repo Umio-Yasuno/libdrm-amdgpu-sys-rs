@@ -361,9 +361,7 @@ pub const DRM_CLIENT_CAP_WRITEBACK_CONNECTORS: u32 = 5;
 pub const DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT: u32 = 6;
 pub const DRM_SYNCOBJ_CREATE_SIGNALED: u32 = 1;
 pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL: u32 = 1;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE: u32 = 4;
@@ -371,7 +369,6 @@ pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE: u32 = 8;
 pub const DRM_SYNCOBJ_QUERY_FLAGS_LAST_SUBMITTED: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_RELATIVE: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_NEXT_ON_MISS: u32 = 2;
-pub const DRM_CLIENT_NAME_MAX_LEN: u32 = 64;
 pub const DRM_CONNECTOR_NAME_LEN: u32 = 32;
 pub const DRM_DISPLAY_MODE_LEN: u32 = 32;
 pub const DRM_PROP_NAME_LEN: u32 = 32;
@@ -560,10 +557,8 @@ pub const DRM_BUS_PCI: u32 = 0;
 pub const DRM_BUS_USB: u32 = 1;
 pub const DRM_BUS_PLATFORM: u32 = 2;
 pub const DRM_BUS_HOST1X: u32 = 3;
-pub const DRM_BUS_FAUX: u32 = 4;
 pub const DRM_PLATFORM_DEVICE_NAME_LEN: u32 = 512;
 pub const DRM_HOST1X_DEVICE_NAME_LEN: u32 = 512;
-pub const DRM_FAUX_DEVICE_NAME_LEN: u32 = 512;
 pub const DRM_DEVICE_GET_PCI_REVISION: u32 = 1;
 pub const __bool_true_false_are_defined: u32 = 1;
 pub const true_: u32 = 1;
@@ -685,6 +680,14 @@ pub const AMDGPU_TILING_DCC_INDEPENDENT_128B_SHIFT: u32 = 44;
 pub const AMDGPU_TILING_DCC_INDEPENDENT_128B_MASK: u32 = 1;
 pub const AMDGPU_TILING_SCANOUT_SHIFT: u32 = 63;
 pub const AMDGPU_TILING_SCANOUT_MASK: u32 = 1;
+pub const AMDGPU_TILING_GFX12_SWIZZLE_MODE_SHIFT: u32 = 0;
+pub const AMDGPU_TILING_GFX12_SWIZZLE_MODE_MASK: u32 = 7;
+pub const AMDGPU_TILING_GFX12_DCC_MAX_COMPRESSED_BLOCK_SHIFT: u32 = 3;
+pub const AMDGPU_TILING_GFX12_DCC_MAX_COMPRESSED_BLOCK_MASK: u32 = 3;
+pub const AMDGPU_TILING_GFX12_DCC_NUMBER_TYPE_SHIFT: u32 = 5;
+pub const AMDGPU_TILING_GFX12_DCC_NUMBER_TYPE_MASK: u32 = 7;
+pub const AMDGPU_TILING_GFX12_DCC_DATA_FORMAT_SHIFT: u32 = 8;
+pub const AMDGPU_TILING_GFX12_DCC_DATA_FORMAT_MASK: u32 = 63;
 pub const AMDGPU_GEM_METADATA_OP_SET_METADATA: u32 = 1;
 pub const AMDGPU_GEM_METADATA_OP_GET_METADATA: u32 = 2;
 pub const AMDGPU_GEM_OP_GET_GEM_CREATE_INFO: u32 = 0;
@@ -743,6 +746,11 @@ pub const AMDGPU_IDS_FLAGS_FUSION: u32 = 1;
 pub const AMDGPU_IDS_FLAGS_PREEMPTION: u32 = 2;
 pub const AMDGPU_IDS_FLAGS_TMZ: u32 = 4;
 pub const AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD: u32 = 8;
+pub const AMDGPU_IDS_FLAGS_MODE_MASK: u32 = 768;
+pub const AMDGPU_IDS_FLAGS_MODE_SHIFT: u32 = 8;
+pub const AMDGPU_IDS_FLAGS_MODE_PF: u32 = 0;
+pub const AMDGPU_IDS_FLAGS_MODE_VF: u32 = 1;
+pub const AMDGPU_IDS_FLAGS_MODE_PT: u32 = 2;
 pub const AMDGPU_INFO_ACCEL_WORKING: u32 = 0;
 pub const AMDGPU_INFO_CRTC_FROM_ID: u32 = 1;
 pub const AMDGPU_INFO_HW_IP_INFO: u32 = 2;
@@ -804,6 +812,7 @@ pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK: u32 = 8;
 pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK: u32 = 9;
 pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_SCLK: u32 = 10;
 pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_MCLK: u32 = 11;
+pub const AMDGPU_INFO_SENSOR_GPU_INPUT_POWER: u32 = 12;
 pub const AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS: u32 = 30;
 pub const AMDGPU_INFO_VRAM_LOST_COUNTER: u32 = 31;
 pub const AMDGPU_INFO_RAS_ENABLED_FEATURES: u32 = 32;
@@ -876,6 +885,7 @@ pub const AMDGPU_FAMILY_GC_11_0_1: u32 = 148;
 pub const AMDGPU_FAMILY_GC_10_3_6: u32 = 149;
 pub const AMDGPU_FAMILY_GC_10_3_7: u32 = 151;
 pub const AMDGPU_FAMILY_GC_11_5_0: u32 = 150;
+pub const AMDGPU_FAMILY_GC_12_0_0: u32 = 152;
 pub const BIOS_ATOM_PREFIX: &[u8; 9] = b"ATOMBIOS\0";
 pub const BIOS_VERSION_PREFIX: &[u8; 15] = b"ATOMBIOSBK-AMD\0";
 pub const BIOS_STRING_LENGTH: u32 = 43;
@@ -1228,6 +1238,7 @@ pub struct __kernel_fsid_t {
 }
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = ::core::ffi::c_longlong;
+pub type __kernel_uoff_t = ::core::ffi::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = ::core::ffi::c_longlong;
@@ -1278,31 +1289,45 @@ pub struct drm_tex_region {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_hw_lock {
+    #[doc = "< lock variable"]
     pub lock: ::core::ffi::c_uint,
+    #[doc = "< Pad to cache line"]
     pub padding: [::core::ffi::c_char; 60usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_version {
+    #[doc = "< Major version"]
     pub version_major: ::core::ffi::c_int,
+    #[doc = "< Minor version"]
     pub version_minor: ::core::ffi::c_int,
+    #[doc = "< Patch level"]
     pub version_patchlevel: ::core::ffi::c_int,
+    #[doc = "< Length of name buffer"]
     pub name_len: __kernel_size_t,
+    #[doc = "< Name of driver"]
     pub name: *mut ::core::ffi::c_char,
+    #[doc = "< Length of date buffer"]
     pub date_len: __kernel_size_t,
+    #[doc = "< User-space buffer to hold date"]
     pub date: *mut ::core::ffi::c_char,
+    #[doc = "< Length of desc buffer"]
     pub desc_len: __kernel_size_t,
+    #[doc = "< User-space buffer to hold desc"]
     pub desc: *mut ::core::ffi::c_char,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_unique {
+    #[doc = "< Length of unique"]
     pub unique_len: __kernel_size_t,
+    #[doc = "< Unique name for driver instantiation"]
     pub unique: *mut ::core::ffi::c_char,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_list {
+    #[doc = "< Length of user-space structures"]
     pub count: ::core::ffi::c_int,
     pub version: *mut drm_version,
 }
@@ -1322,46 +1347,73 @@ pub const drm_control_DRM_RM_COMMAND: drm_control__bindgen_ty_1 = 1;
 pub const drm_control_DRM_INST_HANDLER: drm_control__bindgen_ty_1 = 2;
 pub const drm_control_DRM_UNINST_HANDLER: drm_control__bindgen_ty_1 = 3;
 pub type drm_control__bindgen_ty_1 = ::core::ffi::c_uint;
+#[doc = "< WC (no caching), no core dump"]
 pub const drm_map_type__DRM_FRAME_BUFFER: drm_map_type = 0;
+#[doc = "< no caching, no core dump"]
 pub const drm_map_type__DRM_REGISTERS: drm_map_type = 1;
+#[doc = "< shared, cached"]
 pub const drm_map_type__DRM_SHM: drm_map_type = 2;
+#[doc = "< AGP/GART"]
 pub const drm_map_type__DRM_AGP: drm_map_type = 3;
+#[doc = "< Scatter/gather memory for PCI DMA"]
 pub const drm_map_type__DRM_SCATTER_GATHER: drm_map_type = 4;
+#[doc = "< Consistent memory for PCI DMA"]
 pub const drm_map_type__DRM_CONSISTENT: drm_map_type = 5;
 pub type drm_map_type = ::core::ffi::c_uint;
+#[doc = "< Cannot be mapped to user-virtual"]
 pub const drm_map_flags__DRM_RESTRICTED: drm_map_flags = 1;
 pub const drm_map_flags__DRM_READ_ONLY: drm_map_flags = 2;
+#[doc = "< shared, cached, locked"]
 pub const drm_map_flags__DRM_LOCKED: drm_map_flags = 4;
+#[doc = "< kernel requires access"]
 pub const drm_map_flags__DRM_KERNEL: drm_map_flags = 8;
+#[doc = "< use write-combining if available"]
 pub const drm_map_flags__DRM_WRITE_COMBINING: drm_map_flags = 16;
+#[doc = "< SHM page that contains lock"]
 pub const drm_map_flags__DRM_CONTAINS_LOCK: drm_map_flags = 32;
+#[doc = "< Removable mapping"]
 pub const drm_map_flags__DRM_REMOVABLE: drm_map_flags = 64;
+#[doc = "< Managed by driver"]
 pub const drm_map_flags__DRM_DRIVER: drm_map_flags = 128;
 pub type drm_map_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_ctx_priv_map {
+    #[doc = "< Context requesting private mapping"]
     pub ctx_id: ::core::ffi::c_uint,
+    #[doc = "< Handle of map"]
     pub handle: *mut ::core::ffi::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_map {
+    #[doc = "< Requested physical address (0 for SAREA)"]
     pub offset: ::core::ffi::c_ulong,
+    #[doc = "< Requested physical size (bytes)"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Type of memory to map"]
     pub type_: drm_map_type,
+    #[doc = "< Flags"]
     pub flags: drm_map_flags,
+    #[doc = "< User-space: \"Handle\" to pass to mmap() */\n/**< Kernel-space: kernel-virtual address"]
     pub handle: *mut ::core::ffi::c_void,
+    #[doc = "< MTRR slot used"]
     pub mtrr: ::core::ffi::c_int,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_client {
+    #[doc = "< Which client desired?"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Is client authenticated?"]
     pub auth: ::core::ffi::c_int,
+    #[doc = "< Process ID"]
     pub pid: ::core::ffi::c_ulong,
+    #[doc = "< User ID"]
     pub uid: ::core::ffi::c_ulong,
+    #[doc = "< Magic"]
     pub magic: ::core::ffi::c_ulong,
+    #[doc = "< Ioctl count"]
     pub iocs: ::core::ffi::c_ulong,
 }
 pub const drm_stat_type__DRM_STAT_LOCK: drm_stat_type = 0;
@@ -1370,14 +1422,23 @@ pub const drm_stat_type__DRM_STAT_CLOSES: drm_stat_type = 2;
 pub const drm_stat_type__DRM_STAT_IOCTLS: drm_stat_type = 3;
 pub const drm_stat_type__DRM_STAT_LOCKS: drm_stat_type = 4;
 pub const drm_stat_type__DRM_STAT_UNLOCKS: drm_stat_type = 5;
+#[doc = "< Generic value"]
 pub const drm_stat_type__DRM_STAT_VALUE: drm_stat_type = 6;
+#[doc = "< Generic byte counter (1024bytes/K)"]
 pub const drm_stat_type__DRM_STAT_BYTE: drm_stat_type = 7;
+#[doc = "< Generic non-byte counter (1000/k)"]
 pub const drm_stat_type__DRM_STAT_COUNT: drm_stat_type = 8;
+#[doc = "< IRQ"]
 pub const drm_stat_type__DRM_STAT_IRQ: drm_stat_type = 9;
+#[doc = "< Primary DMA bytes"]
 pub const drm_stat_type__DRM_STAT_PRIMARY: drm_stat_type = 10;
+#[doc = "< Secondary DMA bytes"]
 pub const drm_stat_type__DRM_STAT_SECONDARY: drm_stat_type = 11;
+#[doc = "< DMA"]
 pub const drm_stat_type__DRM_STAT_DMA: drm_stat_type = 12;
+#[doc = "< Special DMA (e.g., priority or polled)"]
 pub const drm_stat_type__DRM_STAT_SPECIAL: drm_stat_type = 13;
+#[doc = "< Missed DMA opportunity"]
 pub const drm_stat_type__DRM_STAT_MISSED: drm_stat_type = 14;
 pub type drm_stat_type = ::core::ffi::c_uint;
 #[repr(C)]
@@ -1392,11 +1453,17 @@ pub struct drm_stats__bindgen_ty_1 {
     pub value: ::core::ffi::c_ulong,
     pub type_: drm_stat_type,
 }
+#[doc = "< Wait until hardware is ready for DMA"]
 pub const drm_lock_flags__DRM_LOCK_READY: drm_lock_flags = 1;
+#[doc = "< Wait until hardware quiescent"]
 pub const drm_lock_flags__DRM_LOCK_QUIESCENT: drm_lock_flags = 2;
+#[doc = "< Flush this context's DMA queue first"]
 pub const drm_lock_flags__DRM_LOCK_FLUSH: drm_lock_flags = 4;
+#[doc = "< Flush all DMA queues first"]
 pub const drm_lock_flags__DRM_LOCK_FLUSH_ALL: drm_lock_flags = 8;
+#[doc = "< Halt all current and future queues"]
 pub const drm_lock_flags__DRM_HALT_ALL_QUEUES: drm_lock_flags = 16;
+#[doc = "< Halt all current queues"]
 pub const drm_lock_flags__DRM_HALT_CUR_QUEUES: drm_lock_flags = 32;
 pub type drm_lock_flags = ::core::ffi::c_uint;
 #[repr(C)]
@@ -1405,32 +1472,49 @@ pub struct drm_lock {
     pub context: ::core::ffi::c_int,
     pub flags: drm_lock_flags,
 }
+#[doc = "<\n Block until buffer dispatched.\n\n \\note The buffer may not yet have\n been processed by the hardware --\n getting a hardware lock with the\n hardware quiescent will ensure\n that the buffer has been\n processed."]
 pub const drm_dma_flags__DRM_DMA_BLOCK: drm_dma_flags = 1;
+#[doc = "< Dispatch while lock held"]
 pub const drm_dma_flags__DRM_DMA_WHILE_LOCKED: drm_dma_flags = 2;
+#[doc = "< High priority dispatch"]
 pub const drm_dma_flags__DRM_DMA_PRIORITY: drm_dma_flags = 4;
+#[doc = "< Wait for free buffers"]
 pub const drm_dma_flags__DRM_DMA_WAIT: drm_dma_flags = 16;
+#[doc = "< Smaller-than-requested buffers OK"]
 pub const drm_dma_flags__DRM_DMA_SMALLER_OK: drm_dma_flags = 32;
+#[doc = "< Larger-than-requested buffers OK"]
 pub const drm_dma_flags__DRM_DMA_LARGER_OK: drm_dma_flags = 64;
 pub type drm_dma_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_desc {
+    #[doc = "< Number of buffers of this size"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Size in bytes"]
     pub size: ::core::ffi::c_int,
+    #[doc = "< Low water mark"]
     pub low_mark: ::core::ffi::c_int,
+    #[doc = "< High water mark"]
     pub high_mark: ::core::ffi::c_int,
     pub flags: drm_buf_desc__bindgen_ty_1,
+    #[doc = "<\n Start address of where the AGP buffers are\n in the AGP aperture"]
     pub agp_start: ::core::ffi::c_ulong,
 }
+#[doc = "< Align on page boundaries for DMA"]
 pub const drm_buf_desc__DRM_PAGE_ALIGN: drm_buf_desc__bindgen_ty_1 = 1;
+#[doc = "< Buffer is in AGP space"]
 pub const drm_buf_desc__DRM_AGP_BUFFER: drm_buf_desc__bindgen_ty_1 = 2;
+#[doc = "< Scatter/gather memory buffer"]
 pub const drm_buf_desc__DRM_SG_BUFFER: drm_buf_desc__bindgen_ty_1 = 4;
+#[doc = "< Buffer is in frame buffer"]
 pub const drm_buf_desc__DRM_FB_BUFFER: drm_buf_desc__bindgen_ty_1 = 8;
+#[doc = "< Map PCI DMA buffer read-only"]
 pub const drm_buf_desc__DRM_PCI_BUFFER_RO: drm_buf_desc__bindgen_ty_1 = 16;
 pub type drm_buf_desc__bindgen_ty_1 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_info {
+    #[doc = "< Entries in list"]
     pub count: ::core::ffi::c_int,
     pub list: *mut drm_buf_desc,
 }
@@ -1443,30 +1527,46 @@ pub struct drm_buf_free {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_pub {
+    #[doc = "< Index into the master buffer list"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Buffer size"]
     pub total: ::core::ffi::c_int,
+    #[doc = "< Amount of buffer in use (for DMA)"]
     pub used: ::core::ffi::c_int,
+    #[doc = "< Address of buffer"]
     pub address: *mut ::core::ffi::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_map {
+    #[doc = "< Length of the buffer list"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Mmap'd area in user-virtual"]
     pub virtual_: *mut ::core::ffi::c_void,
+    #[doc = "< Buffer information"]
     pub list: *mut drm_buf_pub,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_dma {
+    #[doc = "< Context handle"]
     pub context: ::core::ffi::c_int,
+    #[doc = "< Number of buffers to send"]
     pub send_count: ::core::ffi::c_int,
+    #[doc = "< List of handles to buffers"]
     pub send_indices: *mut ::core::ffi::c_int,
+    #[doc = "< Lengths of data to send"]
     pub send_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Flags"]
     pub flags: drm_dma_flags,
+    #[doc = "< Number of buffers requested"]
     pub request_count: ::core::ffi::c_int,
+    #[doc = "< Desired size for buffers"]
     pub request_size: ::core::ffi::c_int,
+    #[doc = "< Buffer information"]
     pub request_indices: *mut ::core::ffi::c_int,
     pub request_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Number of buffers granted"]
     pub granted_count: ::core::ffi::c_int,
 }
 pub const drm_ctx_flags__DRM_CONTEXT_PRESERVED: drm_ctx_flags = 1;
@@ -1507,18 +1607,29 @@ pub struct drm_auth {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_irq_busid {
+    #[doc = "< IRQ number"]
     pub irq: ::core::ffi::c_int,
+    #[doc = "< bus number"]
     pub busnum: ::core::ffi::c_int,
+    #[doc = "< device number"]
     pub devnum: ::core::ffi::c_int,
+    #[doc = "< function number"]
     pub funcnum: ::core::ffi::c_int,
 }
+#[doc = "< Wait for specific vblank sequence number"]
 pub const drm_vblank_seq_type__DRM_VBLANK_ABSOLUTE: drm_vblank_seq_type = 0;
+#[doc = "< Wait for given number of vblanks"]
 pub const drm_vblank_seq_type__DRM_VBLANK_RELATIVE: drm_vblank_seq_type = 1;
 pub const drm_vblank_seq_type__DRM_VBLANK_HIGH_CRTC_MASK: drm_vblank_seq_type = 62;
+#[doc = "< Send event instead of blocking"]
 pub const drm_vblank_seq_type__DRM_VBLANK_EVENT: drm_vblank_seq_type = 67108864;
+#[doc = "< Scheduled buffer swap should flip"]
 pub const drm_vblank_seq_type__DRM_VBLANK_FLIP: drm_vblank_seq_type = 134217728;
+#[doc = "< If missed, wait for next vblank"]
 pub const drm_vblank_seq_type__DRM_VBLANK_NEXTONMISS: drm_vblank_seq_type = 268435456;
+#[doc = "< Secondary display controller"]
 pub const drm_vblank_seq_type__DRM_VBLANK_SECONDARY: drm_vblank_seq_type = 536870912;
+#[doc = "< Send signal instead of blocking, unsupported"]
 pub const drm_vblank_seq_type__DRM_VBLANK_SIGNAL: drm_vblank_seq_type = 1073741824;
 pub type drm_vblank_seq_type = ::core::ffi::c_uint;
 #[repr(C)]
@@ -1551,20 +1662,27 @@ pub struct drm_modeset_ctl {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_mode {
+    #[doc = "< AGP mode"]
     pub mode: ::core::ffi::c_ulong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_buffer {
+    #[doc = "< In bytes -- will round to page boundary"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Used for binding / unbinding"]
     pub handle: ::core::ffi::c_ulong,
+    #[doc = "< Type of memory to allocate"]
     pub type_: ::core::ffi::c_ulong,
+    #[doc = "< Physical used by i810"]
     pub physical: ::core::ffi::c_ulong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_binding {
+    #[doc = "< From drm_agp_buffer"]
     pub handle: ::core::ffi::c_ulong,
+    #[doc = "< In bytes -- will round to page boundary"]
     pub offset: ::core::ffi::c_ulong,
 }
 #[repr(C)]
@@ -1583,7 +1701,9 @@ pub struct drm_agp_info {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_scatter_gather {
+    #[doc = "< In bytes -- will round to page boundary"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Used for mapping / unmapping"]
     pub handle: ::core::ffi::c_ulong,
 }
 #[repr(C)]
@@ -1597,27 +1717,27 @@ pub struct drm_set_version {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_close {
+    #[doc = " Handle of the object to be closed."]
     pub handle: __u32,
     pub pad: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_flink {
+    #[doc = " Handle for the object being named"]
     pub handle: __u32,
+    #[doc = " Returned global name"]
     pub name: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_open {
+    #[doc = " Name of object being opened"]
     pub name: __u32,
+    #[doc = " Returned handle for the object"]
     pub handle: __u32,
+    #[doc = " Returned size of the object"]
     pub size: __u64,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_gem_change_handle {
-    pub handle: __u32,
-    pub new_handle: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1635,7 +1755,9 @@ pub struct drm_set_client_cap {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_prime_handle {
     pub handle: __u32,
+    #[doc = " Flags.. only applicable for handle->fd"]
     pub flags: __u32,
+    #[doc = " Returned dmabuf file descriptor"]
     pub fd: __s32,
 }
 #[repr(C)]
@@ -1657,7 +1779,6 @@ pub struct drm_syncobj_handle {
     pub flags: __u32,
     pub fd: __s32,
     pub pad: __u32,
-    pub point: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1678,6 +1799,7 @@ pub struct drm_syncobj_wait {
     pub flags: __u32,
     pub first_signaled: __u32,
     pub pad: __u32,
+    #[doc = " @deadline_nsec - fence deadline hint\n\n Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing\n fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is\n set."]
     pub deadline_nsec: __u64,
 }
 #[repr(C)]
@@ -1690,8 +1812,10 @@ pub struct drm_syncobj_timeline_wait {
     pub flags: __u32,
     pub first_signaled: __u32,
     pub pad: __u32,
+    #[doc = " @deadline_nsec - fence deadline hint\n\n Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing\n fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is\n set."]
     pub deadline_nsec: __u64,
 }
+#[doc = " struct drm_syncobj_eventfd\n @handle: syncobj handle.\n @flags: Zero to wait for the point to be signalled, or\n         &DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE to wait for a fence to be\n         available for the point.\n @point: syncobj timeline point (set to zero for binary syncobjs).\n @fd: Existing eventfd to sent events to.\n @pad: Must be zero.\n\n Register an eventfd to be signalled by a syncobj. The eventfd counter will\n be incremented by one."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_syncobj_eventfd {
@@ -1732,12 +1856,7 @@ pub struct drm_crtc_queue_sequence {
     pub sequence: __u64,
     pub user_data: __u64,
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_set_client_name {
-    pub name_len: __u64,
-    pub name: __u64,
-}
+#[doc = " struct drm_mode_modeinfo - Display mode information.\n @clock: pixel clock in kHz\n @hdisplay: horizontal display size\n @hsync_start: horizontal sync start\n @hsync_end: horizontal sync end\n @htotal: horizontal total size\n @hskew: horizontal skew\n @vdisplay: vertical display size\n @vsync_start: vertical sync start\n @vsync_end: vertical sync end\n @vtotal: vertical total size\n @vscan: vertical scan\n @vrefresh: approximate vertical refresh rate in Hz\n @flags: bitmask of misc. flags, see DRM_MODE_FLAG_* defines\n @type: bitmask of type flags, see DRM_MODE_TYPE_* defines\n @name: string describing the mode resolution\n\n This is the user-space API display mode information structure. For the\n kernel version see struct drm_display_mode."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_modeinfo {
@@ -1778,9 +1897,13 @@ pub struct drm_mode_card_res {
 pub struct drm_mode_crtc {
     pub set_connectors_ptr: __u64,
     pub count_connectors: __u32,
+    #[doc = "< Id"]
     pub crtc_id: __u32,
+    #[doc = "< Id of framebuffer"]
     pub fb_id: __u32,
+    #[doc = "< x Position on the framebuffer"]
     pub x: __u32,
+    #[doc = "< y Position on the framebuffer"]
     pub y: __u32,
     pub gamma_size: __u32,
     pub mode_valid: __u32,
@@ -1802,15 +1925,23 @@ pub struct drm_mode_set_plane {
     pub src_h: __u32,
     pub src_w: __u32,
 }
+#[doc = " struct drm_mode_get_plane - Get plane metadata.\n\n Userspace can perform a GETPLANE ioctl to retrieve information about a\n plane.\n\n To retrieve the number of formats supported, set @count_format_types to zero\n and call the ioctl. @count_format_types will be updated with the value.\n\n To retrieve these formats, allocate an array with the memory needed to store\n @count_format_types formats. Point @format_type_ptr to this array and call\n the ioctl again (with @count_format_types still set to the value returned in\n the first ioctl call)."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_plane {
+    #[doc = " @plane_id: Object ID of the plane whose information should be\n retrieved. Set by caller."]
     pub plane_id: __u32,
+    #[doc = " @crtc_id: Object ID of the current CRTC."]
     pub crtc_id: __u32,
+    #[doc = " @fb_id: Object ID of the current fb."]
     pub fb_id: __u32,
+    #[doc = " @possible_crtcs: Bitmask of CRTC's compatible with the plane. CRTC's\n are created and they receive an index, which corresponds to their\n position in the bitmask. Bit N corresponds to\n :ref:`CRTC index<crtc_index>` N."]
     pub possible_crtcs: __u32,
+    #[doc = " @gamma_size: Never used."]
     pub gamma_size: __u32,
+    #[doc = " @count_format_types: Number of formats."]
     pub count_format_types: __u32,
+    #[doc = " @format_type_ptr: Pointer to ``__u32`` array of formats that are\n supported by the plane. These formats do not require modifiers."]
     pub format_type_ptr: __u64,
 }
 #[repr(C)]
@@ -1824,6 +1955,7 @@ pub struct drm_mode_get_plane_res {
 pub struct drm_mode_get_encoder {
     pub encoder_id: __u32,
     pub encoder_type: __u32,
+    #[doc = "< Id of crtc"]
     pub crtc_id: __u32,
     pub possible_crtcs: __u32,
     pub possible_clones: __u32,
@@ -1842,41 +1974,67 @@ pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_HDMIA: drm_mode_subconnect
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Native: drm_mode_subconnector = 15;
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Wireless: drm_mode_subconnector = 18;
 pub type drm_mode_subconnector = ::core::ffi::c_uint;
+#[doc = " struct drm_mode_get_connector - Get connector metadata.\n\n User-space can perform a GETCONNECTOR ioctl to retrieve information about a\n connector. User-space is expected to retrieve encoders, modes and properties\n by performing this ioctl at least twice: the first time to retrieve the\n number of elements, the second time to retrieve the elements themselves.\n\n To retrieve the number of elements, set @count_props and @count_encoders to\n zero, set @count_modes to 1, and set @modes_ptr to a temporary struct\n drm_mode_modeinfo element.\n\n To retrieve the elements, allocate arrays for @encoders_ptr, @modes_ptr,\n @props_ptr and @prop_values_ptr, then set @count_modes, @count_props and\n @count_encoders to their capacity.\n\n Performing the ioctl only twice may be racy: the number of elements may have\n changed with a hotplug event in-between the two ioctls. User-space is\n expected to retry the last ioctl until the number of elements stabilizes.\n The kernel won't fill any array which doesn't have the expected length.\n\n **Force-probing a connector**\n\n If the @count_modes field is set to zero and the DRM client is the current\n DRM master, the kernel will perform a forced probe on the connector to\n refresh the connector status, modes and EDID. A forced-probe can be slow,\n might cause flickering and the ioctl will block.\n\n User-space needs to force-probe connectors to ensure their metadata is\n up-to-date at startup and after receiving a hot-plug event. User-space\n may perform a forced-probe when the user explicitly requests it. User-space\n shouldn't perform a forced-probe in other situations."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_connector {
+    #[doc = " @encoders_ptr: Pointer to ``__u32`` array of object IDs."]
     pub encoders_ptr: __u64,
+    #[doc = " @modes_ptr: Pointer to struct drm_mode_modeinfo array."]
     pub modes_ptr: __u64,
+    #[doc = " @props_ptr: Pointer to ``__u32`` array of property IDs."]
     pub props_ptr: __u64,
+    #[doc = " @prop_values_ptr: Pointer to ``__u64`` array of property values."]
     pub prop_values_ptr: __u64,
+    #[doc = " @count_modes: Number of modes."]
     pub count_modes: __u32,
+    #[doc = " @count_props: Number of properties."]
     pub count_props: __u32,
+    #[doc = " @count_encoders: Number of encoders."]
     pub count_encoders: __u32,
+    #[doc = " @encoder_id: Object ID of the current encoder."]
     pub encoder_id: __u32,
+    #[doc = " @connector_id: Object ID of the connector."]
     pub connector_id: __u32,
+    #[doc = " @connector_type: Type of the connector.\n\n See DRM_MODE_CONNECTOR_* defines."]
     pub connector_type: __u32,
+    #[doc = " @connector_type_id: Type-specific connector number.\n\n This is not an object ID. This is a per-type connector number. Each\n (type, type_id) combination is unique across all connectors of a DRM\n device.\n\n The (type, type_id) combination is not a stable identifier: the\n type_id can change depending on the driver probe order."]
     pub connector_type_id: __u32,
+    #[doc = " @connection: Status of the connector.\n\n See enum drm_connector_status."]
     pub connection: __u32,
+    #[doc = " @mm_width: Width of the connected sink in millimeters."]
     pub mm_width: __u32,
+    #[doc = " @mm_height: Height of the connected sink in millimeters."]
     pub mm_height: __u32,
+    #[doc = " @subpixel: Subpixel order of the connected sink.\n\n See enum subpixel_order."]
     pub subpixel: __u32,
+    #[doc = " @pad: Padding, must be zero."]
     pub pad: __u32,
 }
+#[doc = " struct drm_mode_property_enum - Description for an enum/bitfield entry.\n @value: numeric value for this enum entry.\n @name: symbolic name for this enum entry.\n\n See struct drm_property_enum for details."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_property_enum {
     pub value: __u64,
     pub name: [::core::ffi::c_char; 32usize],
 }
+#[doc = " struct drm_mode_get_property - Get property metadata.\n\n User-space can perform a GETPROPERTY ioctl to retrieve information about a\n property. The same property may be attached to multiple objects, see\n \"Modeset Base Object Abstraction\".\n\n The meaning of the @values_ptr field changes depending on the property type.\n See &drm_property.flags for more details.\n\n The @enum_blob_ptr and @count_enum_blobs fields are only meaningful when the\n property has the type &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK. For\n backwards compatibility, the kernel will always set @count_enum_blobs to\n zero when the property has the type &DRM_MODE_PROP_BLOB. User-space must\n ignore these two fields if the property has a different type.\n\n User-space is expected to retrieve values and enums by performing this ioctl\n at least twice: the first time to retrieve the number of elements, the\n second time to retrieve the elements themselves.\n\n To retrieve the number of elements, set @count_values and @count_enum_blobs\n to zero, then call the ioctl. @count_values will be updated with the number\n of elements. If the property has the type &DRM_MODE_PROP_ENUM or\n &DRM_MODE_PROP_BITMASK, @count_enum_blobs will be updated as well.\n\n To retrieve the elements themselves, allocate an array for @values_ptr and\n set @count_values to its capacity. If the property has the type\n &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK, allocate an array for\n @enum_blob_ptr and set @count_enum_blobs to its capacity. Calling the ioctl\n again will fill the arrays."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_property {
+    #[doc = " @values_ptr: Pointer to a ``__u64`` array."]
     pub values_ptr: __u64,
+    #[doc = " @enum_blob_ptr: Pointer to a struct drm_mode_property_enum array."]
     pub enum_blob_ptr: __u64,
+    #[doc = " @prop_id: Object ID of the property which should be retrieved. Set\n by the caller."]
     pub prop_id: __u32,
+    #[doc = " @flags: ``DRM_MODE_PROP_*`` bitfield. See &drm_property.flags for\n a definition of the flags."]
     pub flags: __u32,
+    #[doc = " @name: Symbolic property name. User-space should use this field to\n recognize properties."]
     pub name: [::core::ffi::c_char; 32usize],
+    #[doc = " @count_values: Number of elements in @values_ptr."]
     pub count_values: __u32,
+    #[doc = " @count_enum_blobs: Number of elements in @enum_blob_ptr."]
     pub count_enum_blobs: __u32,
 }
 #[repr(C)]
@@ -1921,17 +2079,27 @@ pub struct drm_mode_fb_cmd {
     pub depth: __u32,
     pub handle: __u32,
 }
+#[doc = " struct drm_mode_fb_cmd2 - Frame-buffer metadata.\n\n This struct holds frame-buffer metadata. There are two ways to use it:\n\n - User-space can fill this struct and perform a &DRM_IOCTL_MODE_ADDFB2\n   ioctl to register a new frame-buffer. The new frame-buffer object ID will\n   be set by the kernel in @fb_id.\n - User-space can set @fb_id and perform a &DRM_IOCTL_MODE_GETFB2 ioctl to\n   fetch metadata about an existing frame-buffer.\n\n In case of planar formats, this struct allows up to 4 buffer objects with\n offsets and pitches per plane. The pitch and offset order are dictated by\n the format FourCC as defined by ``drm_fourcc.h``, e.g. NV12 is described as:\n\n     YUV 4:2:0 image with a plane of 8-bit Y samples followed by an\n     interleaved U/V plane containing 8-bit 2x2 subsampled colour difference\n     samples.\n\n So it would consist of a Y plane at ``offsets[0]`` and a UV plane at\n ``offsets[1]``.\n\n To accommodate tiled, compressed, etc formats, a modifier can be specified.\n For more information see the \"Format Modifiers\" section. Note that even\n though it looks like we have a modifier per-plane, we in fact do not. The\n modifier for each plane must be identical. Thus all combinations of\n different data layouts for multi-plane formats must be enumerated as\n separate modifiers.\n\n All of the entries in @handles, @pitches, @offsets and @modifier must be\n zero when unused. Warning, for @offsets and @modifier zero can't be used to\n figure out whether the entry is used or not since it's a valid value (a zero\n offset is common, and a zero modifier is &DRM_FORMAT_MOD_LINEAR)."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_fb_cmd2 {
+    #[doc = " @fb_id: Object ID of the frame-buffer."]
     pub fb_id: __u32,
+    #[doc = " @width: Width of the frame-buffer."]
     pub width: __u32,
+    #[doc = " @height: Height of the frame-buffer."]
     pub height: __u32,
+    #[doc = " @pixel_format: FourCC format code, see ``DRM_FORMAT_*`` constants in\n ``drm_fourcc.h``."]
     pub pixel_format: __u32,
+    #[doc = " @flags: Frame-buffer flags (see &DRM_MODE_FB_INTERLACED and\n &DRM_MODE_FB_MODIFIERS)."]
     pub flags: __u32,
+    #[doc = " @handles: GEM buffer handle, one per plane. Set to 0 if the plane is\n unused. The same handle can be used for multiple planes."]
     pub handles: [__u32; 4usize],
+    #[doc = " @pitches: Pitch (aka. stride) in bytes, one per plane."]
     pub pitches: [__u32; 4usize],
+    #[doc = " @offsets: Offset into the buffer in bytes, one per plane."]
     pub offsets: [__u32; 4usize],
+    #[doc = " @modifier: Format modifier, one per plane. See ``DRM_FORMAT_MOD_*``\n constants in ``drm_fourcc.h``. All planes must use the same\n modifier. Ignored unless &DRM_MODE_FB_MODIFIERS is set in @flags."]
     pub modifier: [__u64; 4usize],
 }
 #[repr(C)]
@@ -1995,42 +2163,55 @@ pub struct drm_color_lut {
     pub blue: __u16,
     pub reserved: __u16,
 }
+#[doc = " struct drm_plane_size_hint - Plane size hints\n\n The plane SIZE_HINTS property blob contains an\n array of struct drm_plane_size_hint."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_plane_size_hint {
     pub width: __u16,
     pub height: __u16,
 }
+#[doc = " struct hdr_metadata_infoframe - HDR Metadata Infoframe Data.\n\n HDR Metadata Infoframe as per CTA 861.G spec. This is expected\n to match exactly with the spec.\n\n Userspace is expected to pass the metadata information as per\n the format described in this structure."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe {
+    #[doc = " @eotf: Electro-Optical Transfer Function (EOTF)\n used in the stream."]
     pub eotf: __u8,
+    #[doc = " @metadata_type: Static_Metadata_Descriptor_ID."]
     pub metadata_type: __u8,
     pub display_primaries: [hdr_metadata_infoframe__bindgen_ty_1; 3usize],
     pub white_point: hdr_metadata_infoframe__bindgen_ty_2,
+    #[doc = " @max_display_mastering_luminance: Max Mastering Display Luminance.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_display_mastering_luminance: __u16,
+    #[doc = " @min_display_mastering_luminance: Min Mastering Display Luminance.\n This value is coded as an unsigned 16-bit value in units of\n 0.0001 cd/m2, where 0x0001 represents 0.0001 cd/m2 and 0xFFFF\n represents 6.5535 cd/m2."]
     pub min_display_mastering_luminance: __u16,
+    #[doc = " @max_cll: Max Content Light Level.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_cll: __u16,
+    #[doc = " @max_fall: Max Frame Average Light Level.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_fall: __u16,
 }
+#[doc = " @display_primaries: Color Primaries of the Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @display_primaries.x: X coordinate of color primary.\n @display_primaries.y: Y coordinate of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_1 {
     pub x: __u16,
     pub y: __u16,
 }
+#[doc = " @white_point: White Point of Colorspace Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @white_point.x: X coordinate of whitepoint of color primary.\n @white_point.y: Y coordinate of whitepoint of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_2 {
     pub x: __u16,
     pub y: __u16,
 }
+#[doc = " struct hdr_output_metadata - HDR output metadata\n\n Metadata Information to be passed from userspace"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct hdr_output_metadata {
+    #[doc = " @metadata_type: Static_Metadata_Descriptor_ID."]
     pub metadata_type: __u32,
     pub __bindgen_anon_1: hdr_output_metadata__bindgen_ty_1,
 }
+#[doc = " @hdmi_metadata_type1: HDR Metadata Infoframe."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union hdr_output_metadata__bindgen_ty_1 {
@@ -2054,6 +2235,7 @@ pub struct drm_mode_crtc_page_flip_target {
     pub sequence: __u32,
     pub user_data: __u64,
 }
+#[doc = " struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.\n @height: buffer height in pixels\n @width: buffer width in pixels\n @bpp: bits per pixel\n @flags: must be zero\n @handle: buffer object handle\n @pitch: number of bytes between two consecutive lines\n @size: size of the whole buffer in bytes\n\n User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,\n the kernel fills @handle, @pitch and @size."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_dumb {
@@ -2068,8 +2250,10 @@ pub struct drm_mode_create_dumb {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_map_dumb {
+    #[doc = " Handle for the object being mapped."]
     pub handle: __u32,
     pub pad: __u32,
+    #[doc = " Fake offset to use for subsequent mmap call\n\n This is a fixed-size type for 32/64 compatibility."]
     pub offset: __u64,
 }
 #[repr(C)]
@@ -2107,46 +2291,68 @@ pub struct drm_format_modifier {
     pub pad: __u32,
     pub modifier: __u64,
 }
+#[doc = " struct drm_mode_create_blob - Create New blob property\n\n Create a new 'blob' data property, copying length bytes from data pointer,\n and returning new blob ID."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_blob {
+    #[doc = " @data: Pointer to data to copy."]
     pub data: __u64,
+    #[doc = " @length: Length of data to copy."]
     pub length: __u32,
+    #[doc = " @blob_id: Return: new property ID."]
     pub blob_id: __u32,
 }
+#[doc = " struct drm_mode_destroy_blob - Destroy user blob\n @blob_id: blob_id to destroy\n\n Destroy a user-created blob property.\n\n User-space can release blobs as soon as they do not need to refer to them by\n their blob object ID.  For instance, if you are using a MODE_ID blob in an\n atomic commit and you will not make another commit re-using the same ID, you\n can destroy the blob as soon as the commit has been issued, without waiting\n for it to complete."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_destroy_blob {
     pub blob_id: __u32,
 }
+#[doc = " struct drm_mode_create_lease - Create lease\n\n Lease mode resources, creating another drm_master.\n\n The @object_ids array must reference at least one CRTC, one connector and\n one plane if &DRM_CLIENT_CAP_UNIVERSAL_PLANES is enabled. Alternatively,\n the lease can be completely empty."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_lease {
+    #[doc = " @object_ids: Pointer to array of object ids (__u32)"]
     pub object_ids: __u64,
+    #[doc = " @object_count: Number of object ids"]
     pub object_count: __u32,
+    #[doc = " @flags: flags for new FD (O_CLOEXEC, etc)"]
     pub flags: __u32,
+    #[doc = " @lessee_id: Return: unique identifier for lessee."]
     pub lessee_id: __u32,
+    #[doc = " @fd: Return: file descriptor to new drm_master file"]
     pub fd: __u32,
 }
+#[doc = " struct drm_mode_list_lessees - List lessees\n\n List lesses from a drm_master."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_list_lessees {
+    #[doc = " @count_lessees: Number of lessees.\n\n On input, provides length of the array.\n On output, provides total number. No\n more than the input number will be written\n back, so two calls can be used to get\n the size and then the data."]
     pub count_lessees: __u32,
+    #[doc = " @pad: Padding."]
     pub pad: __u32,
+    #[doc = " @lessees_ptr: Pointer to lessees.\n\n Pointer to __u64 array of lessee ids"]
     pub lessees_ptr: __u64,
 }
+#[doc = " struct drm_mode_get_lease - Get Lease\n\n Get leased objects."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_lease {
+    #[doc = " @count_objects: Number of leased objects.\n\n On input, provides length of the array.\n On output, provides total number. No\n more than the input number will be written\n back, so two calls can be used to get\n the size and then the data."]
     pub count_objects: __u32,
+    #[doc = " @pad: Padding."]
     pub pad: __u32,
+    #[doc = " @objects_ptr: Pointer to objects.\n\n Pointer to __u32 array of object ids."]
     pub objects_ptr: __u64,
 }
+#[doc = " struct drm_mode_revoke_lease - Revoke lease"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_revoke_lease {
+    #[doc = " @lessee_id: Unique ID of lessee"]
     pub lessee_id: __u32,
 }
+#[doc = " struct drm_mode_rect - Two dimensional rectangle.\n @x1: Horizontal starting coordinate (inclusive).\n @y1: Vertical starting coordinate (inclusive).\n @x2: Horizontal ending coordinate (exclusive).\n @y2: Vertical ending coordinate (exclusive).\n\n With drm subsystem using struct drm_rect to manage rectangular area this\n export it to user-space.\n\n Currently used by drm_mode_atomic blob property FB_DAMAGE_CLIPS."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_rect {
@@ -2155,12 +2361,14 @@ pub struct drm_mode_rect {
     pub x2: __s32,
     pub y2: __s32,
 }
+#[doc = " struct drm_mode_closefb\n @fb_id: Framebuffer ID.\n @pad: Must be zero."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_closefb {
     pub fb_id: __u32,
     pub pad: __u32,
 }
+#[doc = " struct drm_event - Header for DRM events\n @type: event type.\n @length: total number of payload bytes (including header).\n\n This struct is a header for events written back to user-space on the DRM FD.\n A read on the DRM FD will always only return complete events: e.g. if the\n read buffer is 100 bytes large and there are two 64 byte events pending,\n only one will be returned.\n\n Event types 0 - 0x7fffffff are generic DRM events, 0x80000000 and\n up are chipset specific. Generic DRM events include &DRM_EVENT_VBLANK,\n &DRM_EVENT_FLIP_COMPLETE and &DRM_EVENT_CRTC_SEQUENCE."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_event {
@@ -2272,62 +2480,104 @@ unsafe extern "C" {
 unsafe extern "C" {
     pub fn drmGetEntry(fd: ::core::ffi::c_int) -> *mut drmHashEntry;
 }
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmVersion {
+    #[doc = "< Major version"]
     pub version_major: ::core::ffi::c_int,
+    #[doc = "< Minor version"]
     pub version_minor: ::core::ffi::c_int,
+    #[doc = "< Patch level"]
     pub version_patchlevel: ::core::ffi::c_int,
+    #[doc = "< Length of name buffer"]
     pub name_len: ::core::ffi::c_int,
+    #[doc = "< Name of driver"]
     pub name: *mut ::core::ffi::c_char,
+    #[doc = "< Length of date buffer"]
     pub date_len: ::core::ffi::c_int,
+    #[doc = "< User-space buffer to hold date"]
     pub date: *mut ::core::ffi::c_char,
+    #[doc = "< Length of desc buffer"]
     pub desc_len: ::core::ffi::c_int,
+    #[doc = "< User-space buffer to hold desc"]
     pub desc: *mut ::core::ffi::c_char,
 }
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 pub type drmVersion = _drmVersion;
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 pub type drmVersionPtr = *mut _drmVersion;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats {
+    #[doc = "< Number of data"]
     pub count: ::core::ffi::c_ulong,
     pub data: [_drmStats__bindgen_ty_1; 15usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats__bindgen_ty_1 {
+    #[doc = "< Value from kernel"]
     pub value: ::core::ffi::c_ulong,
+    #[doc = "< Suggested format for long_name"]
     pub long_format: *const ::core::ffi::c_char,
+    #[doc = "< Long name for value"]
     pub long_name: *const ::core::ffi::c_char,
+    #[doc = "< Suggested format for rate_name"]
     pub rate_format: *const ::core::ffi::c_char,
+    #[doc = "< Short name for value per second"]
     pub rate_name: *const ::core::ffi::c_char,
+    #[doc = "< True if value (vs. counter)"]
     pub isvalue: ::core::ffi::c_int,
+    #[doc = "< Multiplier names (e.g., \"KGM\")"]
     pub mult_names: *const ::core::ffi::c_char,
+    #[doc = "< Multiplier value (e.g., 1024)"]
     pub mult: ::core::ffi::c_int,
+    #[doc = "< Suggest only in verbose output"]
     pub verbose: ::core::ffi::c_int,
 }
 pub type drmStatsT = _drmStats;
+#[doc = "< WC, no caching, no core dump"]
 pub const drmMapType_DRM_FRAME_BUFFER: drmMapType = 0;
+#[doc = "< no caching, no core dump"]
 pub const drmMapType_DRM_REGISTERS: drmMapType = 1;
+#[doc = "< shared, cached"]
 pub const drmMapType_DRM_SHM: drmMapType = 2;
+#[doc = "< AGP/GART"]
 pub const drmMapType_DRM_AGP: drmMapType = 3;
+#[doc = "< PCI scatter/gather"]
 pub const drmMapType_DRM_SCATTER_GATHER: drmMapType = 4;
+#[doc = "< PCI consistent"]
 pub const drmMapType_DRM_CONSISTENT: drmMapType = 5;
 pub type drmMapType = ::core::ffi::c_uint;
+#[doc = "< Cannot be mapped to client-virtual"]
 pub const drmMapFlags_DRM_RESTRICTED: drmMapFlags = 1;
+#[doc = "< Read-only in client-virtual"]
 pub const drmMapFlags_DRM_READ_ONLY: drmMapFlags = 2;
+#[doc = "< Physical pages locked"]
 pub const drmMapFlags_DRM_LOCKED: drmMapFlags = 4;
+#[doc = "< Kernel requires access"]
 pub const drmMapFlags_DRM_KERNEL: drmMapFlags = 8;
+#[doc = "< Use write-combining, if available"]
 pub const drmMapFlags_DRM_WRITE_COMBINING: drmMapFlags = 16;
+#[doc = "< SHM page that contains lock"]
 pub const drmMapFlags_DRM_CONTAINS_LOCK: drmMapFlags = 32;
+#[doc = "< Removable mapping"]
 pub const drmMapFlags_DRM_REMOVABLE: drmMapFlags = 64;
 pub type drmMapFlags = ::core::ffi::c_uint;
+#[doc = "<\n Block until buffer dispatched.\n\n \\note the buffer may not yet have been\n processed by the hardware -- getting a\n hardware lock with the hardware quiescent\n will ensure that the buffer has been\n processed."]
 pub const drmDMAFlags_DRM_DMA_BLOCK: drmDMAFlags = 1;
+#[doc = "< Dispatch while lock held"]
 pub const drmDMAFlags_DRM_DMA_WHILE_LOCKED: drmDMAFlags = 2;
+#[doc = "< High priority dispatch"]
 pub const drmDMAFlags_DRM_DMA_PRIORITY: drmDMAFlags = 4;
+#[doc = "< Wait for free buffers"]
 pub const drmDMAFlags_DRM_DMA_WAIT: drmDMAFlags = 16;
+#[doc = "< Smaller-than-requested buffers OK"]
 pub const drmDMAFlags_DRM_DMA_SMALLER_OK: drmDMAFlags = 32;
+#[doc = "< Larger-than-requested buffers OK"]
 pub const drmDMAFlags_DRM_DMA_LARGER_OK: drmDMAFlags = 64;
+#[doc = " \\warning These values *MUST* match drm.h"]
 pub type drmDMAFlags = ::core::ffi::c_uint;
 pub const drmBufDescFlags_DRM_PAGE_ALIGN: drmBufDescFlags = 1;
 pub const drmBufDescFlags_DRM_AGP_BUFFER: drmBufDescFlags = 2;
@@ -2335,23 +2585,35 @@ pub const drmBufDescFlags_DRM_SG_BUFFER: drmBufDescFlags = 4;
 pub const drmBufDescFlags_DRM_FB_BUFFER: drmBufDescFlags = 8;
 pub const drmBufDescFlags_DRM_PCI_BUFFER_RO: drmBufDescFlags = 16;
 pub type drmBufDescFlags = ::core::ffi::c_uint;
+#[doc = "< Wait until hardware is ready for DMA"]
 pub const drmLockFlags_DRM_LOCK_READY: drmLockFlags = 1;
+#[doc = "< Wait until hardware quiescent"]
 pub const drmLockFlags_DRM_LOCK_QUIESCENT: drmLockFlags = 2;
+#[doc = "< Flush this context's DMA queue first"]
 pub const drmLockFlags_DRM_LOCK_FLUSH: drmLockFlags = 4;
+#[doc = "< Flush all DMA queues first"]
 pub const drmLockFlags_DRM_LOCK_FLUSH_ALL: drmLockFlags = 8;
+#[doc = "< Halt all current and future queues"]
 pub const drmLockFlags_DRM_HALT_ALL_QUEUES: drmLockFlags = 16;
+#[doc = "< Halt all current queues"]
 pub const drmLockFlags_DRM_HALT_CUR_QUEUES: drmLockFlags = 32;
 pub type drmLockFlags = ::core::ffi::c_uint;
+#[doc = "< This context is preserved and\nnever swapped."]
 pub const drm_context_tFlags_DRM_CONTEXT_PRESERVED: drm_context_tFlags = 1;
+#[doc = "< This context is for 2D rendering only."]
 pub const drm_context_tFlags_DRM_CONTEXT_2DONLY: drm_context_tFlags = 2;
 pub type drm_context_tFlags = ::core::ffi::c_uint;
 pub type drm_context_tFlagsPtr = *mut drm_context_tFlags;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufDesc {
+    #[doc = "< Number of buffers of this size"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Size in bytes"]
     pub size: ::core::ffi::c_int,
+    #[doc = "< Low water mark"]
     pub low_mark: ::core::ffi::c_int,
+    #[doc = "< High water mark"]
     pub high_mark: ::core::ffi::c_int,
 }
 pub type drmBufDesc = _drmBufDesc;
@@ -2359,7 +2621,9 @@ pub type drmBufDescPtr = *mut _drmBufDesc;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufInfo {
+    #[doc = "< Number of buffers described in list"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< List of buffer descriptions"]
     pub list: drmBufDescPtr,
 }
 pub type drmBufInfo = _drmBufInfo;
@@ -2367,20 +2631,29 @@ pub type drmBufInfoPtr = *mut _drmBufInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBuf {
+    #[doc = "< Index into the master buffer list"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Buffer size"]
     pub total: ::core::ffi::c_int,
+    #[doc = "< Amount of buffer in use (for DMA)"]
     pub used: ::core::ffi::c_int,
+    #[doc = "< Address"]
     pub address: drmAddress,
 }
 pub type drmBuf = _drmBuf;
 pub type drmBufPtr = *mut _drmBuf;
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufMap {
+    #[doc = "< Number of buffers mapped"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Buffers"]
     pub list: drmBufPtr,
 }
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 pub type drmBufMap = _drmBufMap;
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 pub type drmBufMapPtr = *mut _drmBufMap;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2390,21 +2663,34 @@ pub struct _drmLock {
 }
 pub type drmLock = _drmLock;
 pub type drmLockPtr = *mut _drmLock;
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmDMAReq {
+    #[doc = "< Context handle"]
     pub context: drm_context_t,
+    #[doc = "< Number of buffers to send"]
     pub send_count: ::core::ffi::c_int,
+    #[doc = "< List of handles to buffers"]
     pub send_list: *mut ::core::ffi::c_int,
+    #[doc = "< Lengths of data to send, in bytes"]
     pub send_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Flags"]
     pub flags: drmDMAFlags,
+    #[doc = "< Number of buffers requested"]
     pub request_count: ::core::ffi::c_int,
+    #[doc = "< Desired size of buffers requested"]
     pub request_size: ::core::ffi::c_int,
+    #[doc = "< Buffer information"]
     pub request_list: *mut ::core::ffi::c_int,
+    #[doc = "< Minimum acceptable sizes"]
     pub request_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Number of buffers granted at this size"]
     pub granted_count: ::core::ffi::c_int,
 }
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 pub type drmDMAReq = _drmDMAReq;
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 pub type drmDMAReqPtr = *mut _drmDMAReq;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -2422,17 +2708,24 @@ pub struct _drmTextureRegion {
     pub next: ::core::ffi::c_uchar,
     pub prev: ::core::ffi::c_uchar,
     pub in_use: ::core::ffi::c_uchar,
+    #[doc = "< Explicitly pad this out"]
     pub padding: ::core::ffi::c_uchar,
     pub age: ::core::ffi::c_uint,
 }
 pub type drmTextureRegion = _drmTextureRegion;
 pub type drmTextureRegionPtr = *mut _drmTextureRegion;
+#[doc = "< Wait for specific vblank sequence number"]
 pub const drmVBlankSeqType_DRM_VBLANK_ABSOLUTE: drmVBlankSeqType = 0;
+#[doc = "< Wait for given number of vblanks"]
 pub const drmVBlankSeqType_DRM_VBLANK_RELATIVE: drmVBlankSeqType = 1;
 pub const drmVBlankSeqType_DRM_VBLANK_HIGH_CRTC_MASK: drmVBlankSeqType = 62;
+#[doc = "< Send event instead of blocking"]
 pub const drmVBlankSeqType_DRM_VBLANK_EVENT: drmVBlankSeqType = 67108864;
+#[doc = "< Scheduled buffer swap should flip"]
 pub const drmVBlankSeqType_DRM_VBLANK_FLIP: drmVBlankSeqType = 134217728;
+#[doc = "< If missed, wait for next vblank"]
 pub const drmVBlankSeqType_DRM_VBLANK_NEXTONMISS: drmVBlankSeqType = 268435456;
+#[doc = "< Secondary display controller"]
 pub const drmVBlankSeqType_DRM_VBLANK_SECONDARY: drmVBlankSeqType = 536870912;
 pub const drmVBlankSeqType_DRM_VBLANK_SIGNAL: drmVBlankSeqType = 1073741824;
 pub type drmVBlankSeqType = ::core::ffi::c_uint;
@@ -3152,13 +3445,6 @@ pub struct _drmHost1xDeviceInfo {
 pub type drmHost1xDeviceInfo = _drmHost1xDeviceInfo;
 pub type drmHost1xDeviceInfoPtr = *mut _drmHost1xDeviceInfo;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _drmFauxBusInfo {
-    pub name: [::core::ffi::c_char; 512usize],
-}
-pub type drmFauxBusInfo = _drmFauxBusInfo;
-pub type drmFauxBusInfoPtr = *mut _drmFauxBusInfo;
-#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct _drmDevice {
     pub nodes: *mut *mut ::core::ffi::c_char,
@@ -3174,7 +3460,6 @@ pub union _drmDevice__bindgen_ty_1 {
     pub usb: drmUsbBusInfoPtr,
     pub platform: drmPlatformBusInfoPtr,
     pub host1x: drmHost1xBusInfoPtr,
-    pub faux: drmFauxBusInfoPtr,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -3223,9 +3508,11 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Get the node type (DRM_NODE_PRIMARY or DRM_NODE_RENDER) from a device ID.\n\n Returns negative errno on error."]
     pub fn drmGetNodeTypeFromDevId(devid: dev_t) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Check if two drmDevice pointers represent the same DRM device.\n\n Returns 1 if the devices are equal, 0 otherwise."]
     pub fn drmDevicesEqual(a: drmDevicePtr, b: drmDevicePtr) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
@@ -3460,13 +3747,17 @@ pub type drmModePropertyPtr = *mut _drmModeProperty;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmModeCrtc {
     pub crtc_id: u32,
+    #[doc = "< FB id to connect to 0 = disconnect"]
     pub buffer_id: u32,
+    #[doc = "< Position on the framebuffer"]
     pub x: u32,
+    #[doc = "< Position on the framebuffer"]
     pub y: u32,
     pub width: u32,
     pub height: u32,
     pub mode_valid: ::core::ffi::c_int,
     pub mode: drmModeModeInfo,
+    #[doc = "< Number of gamma stops"]
     pub gamma_size: ::core::ffi::c_int,
 }
 pub type drmModeCrtc = _drmModeCrtc;
@@ -3485,6 +3776,7 @@ pub type drmModeEncoderPtr = *mut _drmModeEncoder;
 pub const drmModeConnection_DRM_MODE_CONNECTED: drmModeConnection = 1;
 pub const drmModeConnection_DRM_MODE_DISCONNECTED: drmModeConnection = 2;
 pub const drmModeConnection_DRM_MODE_UNKNOWNCONNECTION: drmModeConnection = 3;
+#[doc = " Describes the connector status.\n\n DRM_MODE_CONNECTED means that the connector has a sink plugged in.\n DRM_MODE_DISCONNECTED means the contrary. DRM_MODE_UNKNOWNCONNECTION is used\n when it could be either.\n\n User-space should first try to enable DRM_MODE_CONNECTED connectors and\n ignore other connectors. If there are no DRM_MODE_CONNECTED connectors,\n user-space should then try to probe and enable DRM_MODE_UNKNOWNCONNECTION\n connectors."]
 pub type drmModeConnection = ::core::ffi::c_uint;
 pub const drmModeSubPixel_DRM_MODE_SUBPIXEL_UNKNOWN: drmModeSubPixel = 1;
 pub const drmModeSubPixel_DRM_MODE_SUBPIXEL_HORIZONTAL_RGB: drmModeSubPixel = 2;
@@ -3497,19 +3789,25 @@ pub type drmModeSubPixel = ::core::ffi::c_uint;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmModeConnector {
     pub connector_id: u32,
+    #[doc = "< Encoder currently connected to"]
     pub encoder_id: u32,
     pub connector_type: u32,
     pub connector_type_id: u32,
     pub connection: drmModeConnection,
+    #[doc = "< HxW in millimeters"]
     pub mmWidth: u32,
+    #[doc = "< HxW in millimeters"]
     pub mmHeight: u32,
     pub subpixel: drmModeSubPixel,
     pub count_modes: ::core::ffi::c_int,
     pub modes: drmModeModeInfoPtr,
     pub count_props: ::core::ffi::c_int,
+    #[doc = "< List of property ids"]
     pub props: *mut u32,
+    #[doc = "< List of property values"]
     pub prop_values: *mut u64,
     pub count_encoders: ::core::ffi::c_int,
+    #[doc = "< List of encoder ids"]
     pub encoders: *mut u32,
 }
 pub type drmModeConnector = _drmModeConnector;
@@ -3585,18 +3883,22 @@ unsafe extern "C" {
     pub fn drmModeFreePlaneResources(ptr: drmModePlaneResPtr);
 }
 unsafe extern "C" {
+    #[doc = " Check whether the DRM node supports Kernel Mode-Setting.\n\n Returns 1 if suitable for KMS, 0 otherwise."]
     pub fn drmIsKMS(fd: ::core::ffi::c_int) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Retrieves all of the resources associated with a card."]
     pub fn drmModeGetResources(fd: ::core::ffi::c_int) -> drmModeResPtr;
 }
 unsafe extern "C" {
+    #[doc = " Retrieve information about framebuffer bufferId"]
     pub fn drmModeGetFB(fd: ::core::ffi::c_int, bufferId: u32) -> drmModeFBPtr;
 }
 unsafe extern "C" {
     pub fn drmModeGetFB2(fd: ::core::ffi::c_int, bufferId: u32) -> drmModeFB2Ptr;
 }
 unsafe extern "C" {
+    #[doc = " Creates a new framebuffer with an buffer object as its scanout buffer."]
     pub fn drmModeAddFB(
         fd: ::core::ffi::c_int,
         width: u32,
@@ -3636,12 +3938,15 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Destroies the given framebuffer."]
     pub fn drmModeRmFB(fd: ::core::ffi::c_int, bufferId: u32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Close a framebuffer.\n\n Same as drmModeRmFB(), except it doesn't implicitly disable planes and CRTCs."]
     pub fn drmModeCloseFB(fd: ::core::ffi::c_int, buffer_id: u32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Mark a region of a framebuffer as dirty."]
     pub fn drmModeDirtyFB(
         fd: ::core::ffi::c_int,
         bufferId: u32,
@@ -3650,9 +3955,11 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Retrieve information about the ctrt crtcId"]
     pub fn drmModeGetCrtc(fd: ::core::ffi::c_int, crtcId: u32) -> drmModeCrtcPtr;
 }
 unsafe extern "C" {
+    #[doc = " Set the mode on a crtc crtcId with the given mode modeId."]
     pub fn drmModeSetCrtc(
         fd: ::core::ffi::c_int,
         crtcId: u32,
@@ -3665,6 +3972,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Set the cursor on crtc"]
     pub fn drmModeSetCursor(
         fd: ::core::ffi::c_int,
         crtcId: u32,
@@ -3685,6 +3993,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Move the cursor on crtc"]
     pub fn drmModeMoveCursor(
         fd: ::core::ffi::c_int,
         crtcId: u32,
@@ -3693,24 +4002,29 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Encoder functions"]
     pub fn drmModeGetEncoder(fd: ::core::ffi::c_int, encoder_id: u32) -> drmModeEncoderPtr;
 }
 unsafe extern "C" {
+    #[doc = " Retrieve all information about the connector connectorId. This will do a\n forced probe on the connector to retrieve remote information such as EDIDs\n from the display device."]
     pub fn drmModeGetConnector(fd: ::core::ffi::c_int, connectorId: u32) -> drmModeConnectorPtr;
 }
 unsafe extern "C" {
+    #[doc = " Retrieve current information, i.e the currently active mode and encoder,\n about the connector connectorId. This will not do any probing on the\n connector or remote device, and only reports what is currently known.\n For the complete set of modes and encoders associated with the connector\n use drmModeGetConnector() which will do a probe to determine any display\n link changes first."]
     pub fn drmModeGetConnectorCurrent(
         fd: ::core::ffi::c_int,
         connector_id: u32,
     ) -> drmModeConnectorPtr;
 }
 unsafe extern "C" {
+    #[doc = " Get a bitmask of CRTCs a connector is compatible with.\n\n The bits reference CRTC indices. If the n-th CRTC is compatible with the\n connector, the n-th bit will be set. The indices are taken from the array\n returned by drmModeGetResources(). The indices are different from the object\n IDs.\n\n Zero is returned on error."]
     pub fn drmModeConnectorGetPossibleCrtcs(
         fd: ::core::ffi::c_int,
         connector: *const drmModeConnector,
     ) -> u32;
 }
 unsafe extern "C" {
+    #[doc = " Attaches the given mode to an connector."]
     pub fn drmModeAttachMode(
         fd: ::core::ffi::c_int,
         connectorId: u32,
@@ -3718,6 +4032,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Detaches a mode from the connector\n must be unused, by the given mode."]
     pub fn drmModeDetachMode(
         fd: ::core::ffi::c_int,
         connectorId: u32,
@@ -3924,9 +4239,11 @@ unsafe extern "C" {
     pub fn drmModeRevokeLease(fd: ::core::ffi::c_int, lessee_id: u32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Get a string describing a connector type.\n\n NULL is returned if the connector type is unsupported. Callers should handle\n this gracefully, e.g. by falling back to \"Unknown\" or printing the raw value."]
     pub fn drmModeGetConnectorTypeName(connector_type: u32) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
+    #[doc = " Create a dumb buffer.\n\n Given a width, height and bits-per-pixel, the kernel will return a buffer\n handle, pitch and size. The flags must be zero.\n\n Returns 0 on success, negative errno on error."]
     pub fn drmModeCreateDumbBuffer(
         fd: ::core::ffi::c_int,
         width: u32,
@@ -3939,36 +4256,30 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Destroy a dumb buffer.\n\n Returns 0 on success, negative errno on error."]
     pub fn drmModeDestroyDumbBuffer(fd: ::core::ffi::c_int, handle: u32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Prepare a dumb buffer for mapping.\n\n The kernel returns an offset which can be used as an argument to mmap(2) on\n the DRM FD.\n\n Returns 0 on success, negative errno on error."]
     pub fn drmModeMapDumbBuffer(
         fd: ::core::ffi::c_int,
         handle: u32,
         offset: *mut u64,
     ) -> ::core::ffi::c_int;
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_info_uq_fw_areas {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_userq_signal {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_userq_wait {
-    _unused: [u8; 0],
-}
+#[doc = " GEM flink name (needs DRM authentication, used by DRI2)"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_gem_flink_name: amdgpu_bo_handle_type = 0;
+#[doc = " KMS handle which is used by all driver ioctls"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms: amdgpu_bo_handle_type = 1;
+#[doc = " DMA-buf fd handle"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_dma_buf_fd: amdgpu_bo_handle_type = 2;
+#[doc = " Deprecated in favour of and same behaviour as\n amdgpu_bo_handle_type_kms, use that instead of this"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms_noimport: amdgpu_bo_handle_type = 3;
+#[doc = " Enum describing possible handle types\n\n \\sa amdgpu_bo_import, amdgpu_bo_export"]
 pub type amdgpu_bo_handle_type = ::core::ffi::c_uint;
+#[doc = " Allocate from \"normal\"/general range"]
 pub const amdgpu_gpu_va_range_amdgpu_gpu_va_range_general: amdgpu_gpu_va_range = 0;
+#[doc = " Define known types of GPU VM VA ranges"]
 pub type amdgpu_gpu_va_range = ::core::ffi::c_uint;
 pub const amdgpu_sw_info_amdgpu_sw_info_address32_hi: amdgpu_sw_info = 0;
 pub type amdgpu_sw_info = ::core::ffi::c_uint;
@@ -3977,74 +4288,101 @@ pub type amdgpu_sw_info = ::core::ffi::c_uint;
 pub struct amdgpu_device {
     _unused: [u8; 0],
 }
+#[doc = " Define opaque pointer to context associated with fd.\n This context will be returned as the result of\n \"initialize\" function and should be pass as the first\n parameter to any API call"]
 pub type amdgpu_device_handle = *mut amdgpu_device;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_context {
     _unused: [u8; 0],
 }
+#[doc = " Define GPU Context type as pointer to opaque structure\n Example of GPU Context is the \"rendering\" context associated\n with OpenGL context (glCreateContext)"]
 pub type amdgpu_context_handle = *mut amdgpu_context;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for amdgpu resources: buffer, GDS, etc."]
 pub type amdgpu_bo_handle = *mut amdgpu_bo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_list {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for list of BOs"]
 pub type amdgpu_bo_list_handle = *mut amdgpu_bo_list;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_va {
     _unused: [u8; 0],
 }
+#[doc = " Define handle to be used to work with VA allocated ranges"]
 pub type amdgpu_va_handle = *mut amdgpu_va;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_va_manager {
     _unused: [u8; 0],
 }
+#[doc = " Define handle dealing with VA allocation. An amdgpu_device\n owns one of these, but they can also be used without a device."]
 pub type amdgpu_va_manager_handle = *mut amdgpu_va_manager;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_semaphore {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for semaphore"]
 pub type amdgpu_semaphore_handle = *mut amdgpu_semaphore;
+#[doc = " Structure describing memory allocation request\n\n \\sa amdgpu_bo_alloc()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_alloc_request {
+    #[doc = " Allocation request. It must be aligned correctly."]
     pub alloc_size: u64,
+    #[doc = " It may be required to have some specific alignment requirements\n for physical back-up storage (e.g. for displayable surface).\n If 0 there is no special alignment requirement"]
     pub phys_alignment: u64,
+    #[doc = " UMD should specify where to allocate memory and how it\n will be accessed by the CPU."]
     pub preferred_heap: u32,
+    #[doc = " Additional flags passed on allocation"]
     pub flags: u64,
 }
+#[doc = " Special UMD specific information associated with buffer.\n\n It may be need to pass some buffer charactersitic as part\n of buffer sharing. Such information are defined UMD and\n opaque for libdrm_amdgpu as well for kernel driver.\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_query_info,\n     amdgpu_bo_import(), amdgpu_bo_export"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_metadata {
+    #[doc = " Special flag associated with surface"]
     pub flags: u64,
+    #[doc = " ASIC-specific tiling information (also used by DCE).\n The encoding is defined by the AMDGPU_TILING_* definitions."]
     pub tiling_info: u64,
+    #[doc = " Size of metadata associated with the buffer, in bytes."]
     pub size_metadata: u32,
+    #[doc = " UMD specific metadata. Opaque for kernel"]
     pub umd_metadata: [u32; 64usize],
 }
+#[doc = " Structure describing allocated buffer. Client may need\n to query such information as part of 'sharing' buffers mechanism\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_query_info(),\n     amdgpu_bo_import(), amdgpu_bo_export()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_info {
+    #[doc = " Allocated memory size"]
     pub alloc_size: u64,
+    #[doc = " It may be required to have some specific alignment requirements\n for physical back-up storage."]
     pub phys_alignment: u64,
+    #[doc = " Heap where to allocate memory."]
     pub preferred_heap: u32,
+    #[doc = " Additional allocation flags."]
     pub alloc_flags: u64,
+    #[doc = " Metadata associated with buffer if any."]
     pub metadata: amdgpu_bo_metadata,
 }
+#[doc = " Structure with information about \"imported\" buffer\n\n \\sa amdgpu_bo_import()\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_import_result {
+    #[doc = " Handle of memory/buffer to use"]
     pub buf_handle: amdgpu_bo_handle,
+    #[doc = " Buffer size"]
     pub alloc_size: u64,
 }
+#[doc = " Structure to describe GDS partitioning information.\n \\note OA and GWS resources are asscoiated with GDS partition\n\n \\sa amdgpu_gpu_resource_query_gds_info"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_gds_resource_info {
@@ -4056,92 +4394,150 @@ pub struct amdgpu_gds_resource_info {
     pub oa_per_gfx_partition: u32,
     pub oa_per_compute_partition: u32,
 }
+#[doc = " Structure describing CS fence\n\n \\sa amdgpu_cs_query_fence_status(), amdgpu_cs_request, amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_fence {
+    #[doc = " In which context IB was sent to execution"]
     pub context: amdgpu_context_handle,
+    #[doc = " To which HW IP type the fence belongs"]
     pub ip_type: u32,
+    #[doc = " IP instance index if there are several IPs of the same type."]
     pub ip_instance: u32,
+    #[doc = " Ring index of the HW IP"]
     pub ring: u32,
+    #[doc = " Specify fence for which we need to check submission status."]
     pub fence: u64,
 }
+#[doc = " Structure describing IB\n\n \\sa amdgpu_cs_request, amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_ib_info {
+    #[doc = " Special flags"]
     pub flags: u64,
+    #[doc = " Virtual MC address of the command buffer"]
     pub ib_mc_address: u64,
+    #[doc = " Size of Command Buffer to be submitted.\n   - The size is in units of dwords (4 bytes).\n   - Could be 0"]
     pub size: u32,
 }
+#[doc = " Structure describing fence information\n\n \\sa amdgpu_cs_request, amdgpu_cs_query_fence,\n     amdgpu_cs_submit(), amdgpu_cs_query_fence_status()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_fence_info {
+    #[doc = " buffer object for the fence"]
     pub handle: amdgpu_bo_handle,
+    #[doc = " fence offset in the unit of sizeof(uint64_t)"]
     pub offset: u64,
 }
+#[doc = " Structure describing submission request\n\n \\note We could have several IBs as packet. e.g. CE, CE, DE case for gfx\n\n \\sa amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_request {
+    #[doc = " Specify flags with additional information"]
     pub flags: u64,
+    #[doc = " Specify HW IP block type to which to send the IB."]
     pub ip_type: ::core::ffi::c_uint,
+    #[doc = " IP instance index if there are several IPs of the same type."]
     pub ip_instance: ::core::ffi::c_uint,
+    #[doc = " Specify ring index of the IP. We could have several rings\n in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1."]
     pub ring: u32,
+    #[doc = " List handle with resources used by this request."]
     pub resources: amdgpu_bo_list_handle,
+    #[doc = " Number of dependencies this Command submission needs to\n wait for before starting execution."]
     pub number_of_dependencies: u32,
+    #[doc = " Array of dependencies which need to be met before\n execution can start."]
     pub dependencies: *mut amdgpu_cs_fence,
+    #[doc = " Number of IBs to submit in the field ibs."]
     pub number_of_ibs: u32,
+    #[doc = " IBs to submit. Those IBs will be submit together as single entity"]
     pub ibs: *mut amdgpu_cs_ib_info,
+    #[doc = " The returned sequence number for the command submission"]
     pub seq_no: u64,
+    #[doc = " The fence information"]
     pub fence_info: amdgpu_cs_fence_info,
 }
+#[doc = " Structure which provide information about GPU VM MC Address space\n alignments requirements\n\n \\sa amdgpu_query_buffer_size_alignment"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_buffer_size_alignments {
+    #[doc = " Size alignment requirement for allocation in\n local memory"]
     pub size_local: u64,
+    #[doc = " Size alignment requirement for allocation in remote memory"]
     pub size_remote: u64,
 }
+#[doc = " Structure which provide information about heap\n\n \\sa amdgpu_query_heap_info()\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_heap_info {
+    #[doc = " Theoretical max. available memory in the given heap"]
     pub heap_size: u64,
+    #[doc = " Number of bytes allocated in the heap. This includes all processes\n and private allocations in the kernel. It changes when new buffers\n are allocated, freed, and moved. It cannot be larger than\n heap_size."]
     pub heap_usage: u64,
+    #[doc = " Theoretical possible max. size of buffer which\n could be allocated in the given heap"]
     pub max_allocation: u64,
 }
+#[doc = " Describe GPU h/w info needed for UMD correct initialization\n\n \\sa amdgpu_query_gpu_info()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_gpu_info {
+    #[doc = " Asic id"]
     pub asic_id: u32,
+    #[doc = " Chip revision"]
     pub chip_rev: u32,
+    #[doc = " Chip external revision"]
     pub chip_external_rev: u32,
+    #[doc = " Family ID"]
     pub family_id: u32,
+    #[doc = " Special flags"]
     pub ids_flags: u64,
+    #[doc = " max engine clock"]
     pub max_engine_clk: u64,
+    #[doc = " max memory clock"]
     pub max_memory_clk: u64,
+    #[doc = " number of shader engines"]
     pub num_shader_engines: u32,
+    #[doc = " number of shader arrays per engine"]
     pub num_shader_arrays_per_engine: u32,
+    #[doc = "  Number of available good shader pipes"]
     pub avail_quad_shader_pipes: u32,
+    #[doc = "  Max. number of shader pipes.(including good and bad pipes"]
     pub max_quad_shader_pipes: u32,
+    #[doc = " Number of parameter cache entries per shader quad pipe"]
     pub cache_entries_per_quad_pipe: u32,
+    #[doc = "  Number of available graphics context"]
     pub num_hw_gfx_contexts: u32,
+    #[doc = " Number of render backend pipes"]
     pub rb_pipes: u32,
+    #[doc = "  Enabled render backend pipe mask"]
     pub enabled_rb_pipes_mask: u32,
+    #[doc = " Frequency of GPU Counter"]
     pub gpu_counter_freq: u32,
+    #[doc = " CC_RB_BACKEND_DISABLE.BACKEND_DISABLE per SE"]
     pub backend_disable: [u32; 4usize],
+    #[doc = " Value of MC_ARB_RAMCFG register"]
     pub mc_arb_ramcfg: u32,
+    #[doc = " Value of GB_ADDR_CONFIG"]
     pub gb_addr_cfg: u32,
+    #[doc = " Values of the GB_TILE_MODE0..31 registers"]
     pub gb_tile_mode: [u32; 32usize],
+    #[doc = " Values of GB_MACROTILE_MODE0..15 registers"]
     pub gb_macro_tile_mode: [u32; 16usize],
+    #[doc = " Value of PA_SC_RASTER_CONFIG register per SE"]
     pub pa_sc_raster_cfg: [u32; 4usize],
+    #[doc = " Value of PA_SC_RASTER_CONFIG_1 register per SE"]
     pub pa_sc_raster_cfg1: [u32; 4usize],
     pub cu_active_number: u32,
     pub cu_ao_mask: u32,
     pub cu_bitmap: [[u32; 4usize]; 4usize],
     pub vram_type: u32,
     pub vram_bit_width: u32,
+    #[doc = " constant engine ram size"]
     pub ce_ram_size: u32,
     pub vce_harvest_config: u32,
     pub pci_rev_id: u32,
 }
 unsafe extern "C" {
+    #[doc = " \\param   fd            - \\c [in]  File descriptor for AMD GPU device\n                                   received previously as the result of\n                                   e.g. drmOpen() call.\n                                   For legacy fd type, the DRI2/DRI3\n                                   authentication should be done before\n                                   calling this function.\n \\param   major_version - \\c [out] Major version of library. It is assumed\n                                   that adding new functionality will cause\n                                   increase in major version\n \\param   minor_version - \\c [out] Minor version of library\n \\param   device_handle - \\c [out] Pointer to opaque context which should\n                                   be passed as the first parameter on each\n                                   API call\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n\n \\sa amdgpu_device_deinitialize()"]
     pub fn amdgpu_device_initialize(
         fd: ::core::ffi::c_int,
         major_version: *mut u32,
@@ -4150,6 +4546,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Same as amdgpu_device_initialize() except when deduplicate_device\n is false *and* fd points to a device that was already initialized.\n In this case, amdgpu_device_initialize would return the same\n amdgpu_device_handle while here amdgpu_device_initialize2 would\n return a new handle.\n amdgpu_device_initialize() should be preferred in most situations;\n the only use-case where not-deduplicating devices make sense is\n when one wants to have isolated device handles in the same process."]
     pub fn amdgpu_device_initialize2(
         fd: ::core::ffi::c_int,
         deduplicate_device: bool,
@@ -4159,9 +4556,11 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " When access to such library does not needed any more the special\n function must be call giving opportunity to clean up any\n resources if needed.\n\n \\param   device_handle - \\c [in]  Context associated with file\n                                   descriptor for AMD GPU device\n                                   received previously as the\n                                   result e.g. of drmOpen() call.\n\n \\return  0 on success\\n\n         <0 - Negative POSIX Error code\n\n \\sa amdgpu_device_initialize()"]
     pub fn amdgpu_device_deinitialize(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Allocate memory to be used by UMD for GPU related operations\n\n \\param   dev\t\t - \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   alloc_buffer - \\c [in] Pointer to the structure describing an\n\t\t\t\t   allocation request\n \\param   buf_handle\t- \\c [out] Allocated buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_free()"]
     pub fn amdgpu_bo_alloc(
         dev: amdgpu_device_handle,
         alloc_buffer: *mut amdgpu_bo_alloc_request,
@@ -4169,18 +4568,21 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Associate opaque data with buffer to be queried by another UMD\n\n \\param   dev\t       - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in] Buffer handle\n \\param   info       - \\c [in] Metadata to associated with buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_bo_set_metadata(
         buf_handle: amdgpu_bo_handle,
         info: *mut amdgpu_bo_metadata,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query buffer information including metadata previusly associated with\n buffer.\n\n \\param   dev\t       - \\c [in] Device handle.\n\t\t\t\t See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in]   Buffer handle\n \\param   info       - \\c [out]  Structure describing buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_alloc()"]
     pub fn amdgpu_bo_query_info(
         buf_handle: amdgpu_bo_handle,
         info: *mut amdgpu_bo_info,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Allow others to get access to buffer\n\n \\param   dev\t\t  - \\c [in] Device handle.\n\t\t\t\t    See #amdgpu_device_initialize()\n \\param   buf_handle    - \\c [in] Buffer handle\n \\param   type          - \\c [in] Type of handle requested\n \\param   shared_handle - \\c [out] Special \"shared\" handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_import()"]
     pub fn amdgpu_bo_export(
         buf_handle: amdgpu_bo_handle,
         type_: amdgpu_bo_handle_type,
@@ -4188,6 +4590,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Request access to \"shared\" buffer\n\n \\param   dev\t\t  - \\c [in] Device handle.\n\t\t\t\t    See #amdgpu_device_initialize()\n \\param   type\t  - \\c [in] Type of handle requested\n \\param   shared_handle - \\c [in] Shared handle received as result \"import\"\n\t\t\t\t     operation\n \\param   output        - \\c [out] Pointer to structure with information\n\t\t\t\t     about imported buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note  Buffer must be \"imported\" only using new \"fd\" (different from\n\t  one used by \"exporter\").\n\n \\sa amdgpu_bo_export()"]
     pub fn amdgpu_bo_import(
         dev: amdgpu_device_handle,
         type_: amdgpu_bo_handle_type,
@@ -4196,6 +4599,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Request GPU access to user allocated memory e.g. via \"malloc\"\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param cpu - [in] CPU address of user allocated memory which we\n want to map to GPU address space (make GPU accessible)\n (This address must be correctly aligned).\n \\param size - [in] Size of allocation (must be correctly aligned)\n \\param buf_handle - [out] Buffer handle for the userptr memory\n resource on submission and be used in other operations.\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note\n This call doesn't guarantee that such memory will be persistently\n \"locked\" / make non-pageable. The purpose of this call is to provide\n opportunity for GPU get access to this resource during submission.\n\n The maximum amount of memory which could be mapped in this call depends\n if overcommit is disabled or not. If overcommit is disabled than the max.\n amount of memory to be pinned will be limited by left \"free\" size in total\n amount of memory which could be locked simultaneously (\"GART\" size).\n\n Supported (theoretical) max. size of mapping is restricted only by\n \"GART\" size.\n\n It is responsibility of caller to correctly specify access rights\n on VA assignment."]
     pub fn amdgpu_create_bo_from_user_mem(
         dev: amdgpu_device_handle,
         cpu: *mut ::core::ffi::c_void,
@@ -4204,6 +4608,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Validate if the user memory comes from BO\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param cpu - [in] CPU address of user allocated memory which we\n want to map to GPU address space (make GPU accessible)\n (This address must be correctly aligned).\n \\param size - [in] Size of allocation (must be correctly aligned)\n \\param buf_handle - [out] Buffer handle for the userptr memory\n if the user memory is not from BO, the buf_handle will be NULL.\n \\param offset_in_bo - [out] offset in this BO for this user memory\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_find_bo_by_cpu_mapping(
         dev: amdgpu_device_handle,
         cpu: *mut ::core::ffi::c_void,
@@ -4213,21 +4618,26 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Free previously allocated memory\n\n \\param   dev\t       - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in]  Buffer handle to free\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note In the case of memory shared between different applications all\n\t resources will be “physically” freed only all such applications\n\t will be terminated\n \\note If is UMD responsibility to ‘free’ buffer only when there is no\n\t more GPU access\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_alloc()"]
     pub fn amdgpu_bo_free(buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Increase the reference count of a buffer object\n\n \\param   bo - \\c [in]  Buffer object handle to increase the reference count\n\n \\sa amdgpu_bo_alloc(), amdgpu_bo_free()"]
     pub fn amdgpu_bo_inc_ref(bo: amdgpu_bo_handle);
 }
 unsafe extern "C" {
+    #[doc = " Request CPU access to GPU accessible memory\n\n \\param   buf_handle - \\c [in] Buffer handle\n \\param   cpu        - \\c [out] CPU address to be used for access\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_cpu_unmap()"]
     pub fn amdgpu_bo_cpu_map(
         buf_handle: amdgpu_bo_handle,
         cpu: *mut *mut ::core::ffi::c_void,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Release CPU access to GPU memory\n\n \\param   buf_handle  - \\c [in] Buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_cpu_map()"]
     pub fn amdgpu_bo_cpu_unmap(buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Wait until a buffer is not used by the device.\n\n \\param   dev           - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle    - \\c [in] Buffer handle.\n \\param   timeout_ns    - Timeout in nanoseconds.\n \\param   buffer_busy   - 0 if buffer is idle, all GPU access was completed\n                            and no GPU access is scheduled.\n                          1 GPU access is in fly or scheduled\n\n \\return   0 - on success\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_bo_wait_for_idle(
         buf_handle: amdgpu_bo_handle,
         timeout_ns: u64,
@@ -4235,6 +4645,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Creates a BO list handle for command submission.\n\n \\param   dev\t\t\t- \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   number_of_buffers\t- \\c [in] Number of BOs in the list\n \\param   buffers\t\t- \\c [in] List of BO handles\n \\param   result\t\t- \\c [out] Created BO list handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_destroy_raw(), amdgpu_cs_submit_raw2()"]
     pub fn amdgpu_bo_list_create_raw(
         dev: amdgpu_device_handle,
         number_of_buffers: u32,
@@ -4243,12 +4654,14 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Destroys a BO list handle.\n\n \\param   bo_list\t- \\c [in] BO list handle.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create_raw(), amdgpu_cs_submit_raw2()"]
     pub fn amdgpu_bo_list_destroy_raw(
         dev: amdgpu_device_handle,
         bo_list: u32,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Creates a BO list handle for command submission.\n\n \\param   dev\t\t\t- \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   number_of_resources\t- \\c [in] Number of BOs in the list\n \\param   resources\t\t- \\c [in] List of BO handles\n \\param   resource_prios\t- \\c [in] Optional priority for each handle\n \\param   result\t\t- \\c [out] Created BO list handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_destroy()"]
     pub fn amdgpu_bo_list_create(
         dev: amdgpu_device_handle,
         number_of_resources: u32,
@@ -4258,9 +4671,11 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Destroys a BO list handle.\n\n \\param   handle\t- \\c [in] BO list handle.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create()"]
     pub fn amdgpu_bo_list_destroy(handle: amdgpu_bo_list_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Update resources for existing BO list\n\n \\param   handle              - \\c [in] BO list handle\n \\param   number_of_resources - \\c [in] Number of BOs in the list\n \\param   resources           - \\c [in] List of BO handles\n \\param   resource_prios      - \\c [in] Optional priority for each handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_update()"]
     pub fn amdgpu_bo_list_update(
         handle: amdgpu_bo_list_handle,
         number_of_resources: u32,
@@ -4269,6 +4684,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Create GPU execution Context\n\n For the purpose of GPU Scheduler and GPU Robustness extensions it is\n necessary to have information/identify rendering/compute contexts.\n It also may be needed to associate some specific requirements with such\n contexts.  Kernel driver will guarantee that submission from the same\n context will always be executed in order (first come, first serve).\n\n\n \\param   dev      - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   priority - \\c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*\n \\param   context  - \\c [out] GPU Context handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_free()"]
     pub fn amdgpu_cs_ctx_create2(
         dev: amdgpu_device_handle,
         priority: u32,
@@ -4276,15 +4692,18 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Create GPU execution Context\n\n Refer to amdgpu_cs_ctx_create2 for full documentation. This call\n is missing the priority parameter.\n\n \\sa amdgpu_cs_ctx_create2()"]
     pub fn amdgpu_cs_ctx_create(
         dev: amdgpu_device_handle,
         context: *mut amdgpu_context_handle,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Destroy GPU execution context when not needed any more\n\n \\param   context - \\c [in] GPU Context handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub fn amdgpu_cs_ctx_free(context: amdgpu_context_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Override the submission priority for the given context using a master fd.\n\n \\param   dev        - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   master_fd  - \\c [in] The master fd to authorize the override.\n \\param   priority   - \\c [in] The priority to assign to the context.\n\n \\return 0 on success or a a negative Posix error code on failure."]
     pub fn amdgpu_cs_ctx_override_priority(
         dev: amdgpu_device_handle,
         context: amdgpu_context_handle,
@@ -4293,6 +4712,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Set or query the stable power state for GPU profiling.\n\n \\param   dev        - \\c [in] device handle\n \\param   op         - \\c [in] AMDGPU_CTX_OP_{GET,SET}_STABLE_PSTATE\n \\param   flags      - \\c [in] AMDGPU_CTX_STABLE_PSTATE_*\n \\param   out_flags  - \\c [out] output current stable pstate\n\n \\return  0 on success otherwise POSIX Error code."]
     pub fn amdgpu_cs_ctx_stable_pstate(
         context: amdgpu_context_handle,
         op: u32,
@@ -4301,6 +4721,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query reset state for the specific GPU Context\n\n \\param   context - \\c [in]  GPU Context handle\n \\param   state   - \\c [out] One of AMDGPU_CTX_*_RESET\n \\param   hangs   - \\c [out] Number of hangs caused by the context.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub fn amdgpu_cs_query_reset_state(
         context: amdgpu_context_handle,
         state: *mut u32,
@@ -4308,12 +4729,14 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query reset state for the specific GPU Context.\n\n \\param   context - \\c [in]  GPU Context handle\n \\param   flags   - \\c [out] A combination of AMDGPU_CTX_QUERY2_FLAGS_*\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub fn amdgpu_cs_query_reset_state2(
         context: amdgpu_context_handle,
         flags: *mut u64,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Send request to submit command buffers to hardware.\n\n Kernel driver could use GPU Scheduler to make decision when physically\n sent this request to the hardware. Accordingly this request could be put\n in queue and sent for execution later. The only guarantee is that request\n from the same GPU context to the same ip:ip_instance:ring will be executed in\n order.\n\n The caller can specify the user fence buffer/location with the fence_info in the\n cs_request.The sequence number is returned via the 'seq_no' parameter\n in ibs_request structure.\n\n\n \\param   dev\t\t       - \\c [in]  Device handle.\n\t\t\t\t\t  See #amdgpu_device_initialize()\n \\param   context            - \\c [in]  GPU Context\n \\param   flags              - \\c [in]  Global submission flags\n \\param   ibs_request        - \\c [in/out] Pointer to submission requests.\n\t\t\t\t\t  We could submit to the several\n\t\t\t\t\t  engines/rings simulteniously as\n\t\t\t\t\t  'atomic' operation\n \\param   number_of_requests - \\c [in]  Number of submission requests\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note It is required to pass correct resource list with buffer handles\n\t which will be accessible by command buffers from submission\n\t This will allow kernel driver to correctly implement \"paging\".\n\t Failure to do so will have unpredictable results.\n\n \\sa amdgpu_command_buffer_alloc(), amdgpu_command_buffer_free(),\n     amdgpu_cs_query_fence_status()"]
     pub fn amdgpu_cs_submit(
         context: amdgpu_context_handle,
         flags: u64,
@@ -4322,6 +4745,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Query status of Command Buffer Submission\n\n \\param   fence   - \\c [in] Structure describing fence to query\n \\param   timeout_ns - \\c [in] Timeout value to wait\n \\param   flags   - \\c [in] Flags for the query\n \\param   expired - \\c [out] If fence expired or not.\\n\n\t\t\t\t0  – if fence is not expired\\n\n\t\t\t\t!0 - otherwise\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note If UMD wants only to check operation status and returned immediately\n\t then timeout value as 0 must be passed. In this case success will be\n\t returned in the case if submission was completed or timeout error\n\t code.\n\n \\sa amdgpu_cs_submit()"]
     pub fn amdgpu_cs_query_fence_status(
         fence: *mut amdgpu_cs_fence,
         timeout_ns: u64,
@@ -4330,6 +4754,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Wait for multiple fences\n\n \\param   fences      - \\c [in] The fence array to wait\n \\param   fence_count - \\c [in] The fence count\n \\param   wait_all    - \\c [in] If true, wait all fences to be signaled,\n                                otherwise, wait at least one fence\n \\param   timeout_ns  - \\c [in] The timeout to wait, in nanoseconds\n \\param   status      - \\c [out] '1' for signaled, '0' for timeout\n \\param   first       - \\c [out] the index of the first signaled fence from @fences\n\n \\return  0 on success\n          <0 - Negative POSIX Error code\n\n \\note    Currently it supports only one amdgpu_device. All fences come from\n          the same amdgpu_device with the same fd."]
     pub fn amdgpu_cs_wait_fences(
         fences: *mut amdgpu_cs_fence,
         fence_count: u32,
@@ -4340,12 +4765,14 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query allocation size alignments\n\n UMD should query information about GPU VM MC size alignments requirements\n to be able correctly choose required allocation size and implement\n internal optimization if needed.\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info - \\c [out] Pointer to structure to get size alignment\n\t\t\t  requirements\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_buffer_size_alignment(
         dev: amdgpu_device_handle,
         info: *mut amdgpu_buffer_size_alignments,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query firmware versions\n\n \\param   dev\t        - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   fw_type     - \\c [in] AMDGPU_INFO_FW_*\n \\param   ip_instance - \\c [in] Index of the IP block of the same type.\n \\param   index       - \\c [in] Index of the engine. (for SDMA and MEC)\n \\param   version     - \\c [out] Pointer to to the \"version\" return value\n \\param   feature     - \\c [out] Pointer to to the \"feature\" return value\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_firmware_version(
         dev: amdgpu_device_handle,
         fw_type: ::core::ffi::c_uint,
@@ -4356,6 +4783,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query the number of HW IP instances of a certain type.\n\n \\param   dev      - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   type     - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   count    - \\c [out] Pointer to structure to get information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_hw_ip_count(
         dev: amdgpu_device_handle,
         type_: ::core::ffi::c_uint,
@@ -4363,6 +4791,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query engine information\n\n This query allows UMD to query information different engines and their\n capabilities.\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance - \\c [in] Index of the IP block of the same type.\n \\param   info        - \\c [out] Pointer to structure to get information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_hw_ip_info(
         dev: amdgpu_device_handle,
         type_: ::core::ffi::c_uint,
@@ -4371,14 +4800,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn amdgpu_query_uq_fw_area_info(
-        dev: amdgpu_device_handle,
-        type_: ::core::ffi::c_uint,
-        ip_instance: ::core::ffi::c_uint,
-        info: *mut drm_amdgpu_info_uq_fw_areas,
-    ) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
+    #[doc = " Query heap information\n\n This query allows UMD to query potentially available memory resources and\n adjust their logic if necessary.\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   heap - \\c [in] Heap type\n \\param   info - \\c [in] Pointer to structure to get needed information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_heap_info(
         dev: amdgpu_device_handle,
         heap: u32,
@@ -4387,6 +4809,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Get the CRTC ID from the mode object ID\n\n \\param   dev    - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   id     - \\c [in] Mode object ID\n \\param   result - \\c [in] Pointer to the CRTC ID\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_crtc_from_id(
         dev: amdgpu_device_handle,
         id: ::core::ffi::c_uint,
@@ -4394,12 +4817,14 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query GPU H/w Info\n\n Query hardware specific information\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   heap - \\c [in] Heap type\n \\param   info - \\c [in] Pointer to structure to get needed information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_gpu_info(
         dev: amdgpu_device_handle,
         info: *mut amdgpu_gpu_info,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query hardware or driver information.\n\n The return size is query-specific and depends on the \"info_id\" parameter.\n No more than \"size\" bytes is returned.\n\n \\param   dev     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info_id - \\c [in] AMDGPU_INFO_*\n \\param   size    - \\c [in] Size of the returned value.\n \\param   value   - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub fn amdgpu_query_info(
         dev: amdgpu_device_handle,
         info_id: ::core::ffi::c_uint,
@@ -4408,6 +4833,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query hardware or driver information.\n\n The return size is query-specific and depends on the \"info_id\" parameter.\n No more than \"size\" bytes is returned.\n\n \\param   dev     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info    - \\c [in] amdgpu_sw_info_*\n \\param   value   - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub fn amdgpu_query_sw_info(
         dev: amdgpu_device_handle,
         info: amdgpu_sw_info,
@@ -4415,12 +4841,14 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query information about GDS\n\n \\param   dev\t     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   gds_info - \\c [out] Pointer to structure to get GDS information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_gds_info(
         dev: amdgpu_device_handle,
         gds_info: *mut amdgpu_gds_resource_info,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query information about sensor.\n\n The return size is query-specific and depends on the \"sensor_type\"\n parameter. No more than \"size\" bytes is returned.\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   sensor_type - \\c [in] AMDGPU_INFO_SENSOR_*\n \\param   size        - \\c [in] Size of the returned value.\n \\param   value       - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_sensor_info(
         dev: amdgpu_device_handle,
         sensor_type: ::core::ffi::c_uint,
@@ -4429,6 +4857,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query information about video capabilities\n\n The return sizeof(struct drm_amdgpu_info_video_caps)\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   caps_type   - \\c [in] AMDGPU_INFO_VIDEO_CAPS_DECODE(ENCODE)\n \\param   size        - \\c [in] Size of the returned value.\n \\param   value       - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_video_caps_info(
         dev: amdgpu_device_handle,
         cap_type: ::core::ffi::c_uint,
@@ -4437,6 +4866,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Query information about VM faults\n\n The return sizeof(struct drm_amdgpu_info_gpuvm_fault)\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   size        - \\c [in] Size of the returned value.\n \\param   value       - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_query_gpuvm_fault_info(
         dev: amdgpu_device_handle,
         size: ::core::ffi::c_uint,
@@ -4444,6 +4874,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Read a set of consecutive memory-mapped registers.\n Not all registers are allowed to be read by userspace.\n\n \\param   dev          - \\c [in] Device handle. See #amdgpu_device_initialize(\n \\param   dword_offset - \\c [in] Register offset in dwords\n \\param   count        - \\c [in] The number of registers to read starting\n                                 from the offset\n \\param   instance     - \\c [in] GRBM_GFX_INDEX selector. It may have other\n                                 uses. Set it to 0xffffffff if unsure.\n \\param   flags        - \\c [in] Flags with additional information.\n \\param   values       - \\c [out] The pointer to return values.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub fn amdgpu_read_mm_registers(
         dev: amdgpu_device_handle,
         dword_offset: ::core::ffi::c_uint,
@@ -4454,6 +4885,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Allocate virtual address range\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param va_range_type - \\c [in] Type of MC va range from which to allocate\n \\param size - \\c [in] Size of range. Size must be correctly* aligned.\n It is client responsibility to correctly aligned size based on the future\n usage of allocated range.\n \\param va_base_alignment - \\c [in] Overwrite base address alignment\n requirement for GPU VM MC virtual\n address assignment. Must be multiple of size alignments received as\n 'amdgpu_buffer_size_alignments'.\n If 0 use the default one.\n \\param va_base_required - \\c [in] Specified required va base address.\n If 0 then library choose available one.\n If !0 value will be passed and those value already \"in use\" then\n corresponding error status will be returned.\n \\param va_base_allocated - \\c [out] On return: Allocated VA base to be used\n by client.\n \\param va_range_handle - \\c [out] On return: Handle assigned to allocation\n \\param flags - \\c [in] flags for special VA range\n\n \\return 0 on success\\n\n >0 - AMD specific error code\\n\n <0 - Negative POSIX Error code\n\n \\notes \\n\n It is client responsibility to correctly handle VA assignments and usage.\n Neither kernel driver nor libdrm_amdpgu are able to prevent and\n detect wrong va assignment.\n\n It is client responsibility to correctly handle multi-GPU cases and to pass\n the corresponding arrays of all devices handles where corresponding VA will\n be used."]
     pub fn amdgpu_va_range_alloc(
         dev: amdgpu_device_handle,
         va_range_type: amdgpu_gpu_va_range,
@@ -4466,12 +4898,15 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Free previously allocated virtual address range\n\n\n \\param va_range_handle - \\c [in] Handle assigned to VA allocation\n\n \\return 0 on success\\n\n >0 - AMD specific error code\\n\n <0 - Negative POSIX Error code"]
     pub fn amdgpu_va_range_free(va_range_handle: amdgpu_va_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Return the starting address of the allocated virtual address range."]
     pub fn amdgpu_va_get_start_addr(va_handle: amdgpu_va_handle) -> u64;
 }
 unsafe extern "C" {
+    #[doc = " Query virtual address range\n\n UMD can query GPU VM range supported by each device\n to initialize its own VAM accordingly.\n\n \\param   dev    - [in] Device handle. See #amdgpu_device_initialize()\n \\param   type   - \\c [in] Type of virtual address range\n \\param   offset - \\c [out] Start offset of virtual address range\n \\param   size   - \\c [out] Size of virtual address range\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_va_range_query(
         dev: amdgpu_device_handle,
         type_: amdgpu_gpu_va_range,
@@ -4480,6 +4915,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Allocate a amdgpu_va_manager object.\n The returned object has be initialized with the amdgpu_va_manager_init\n before use.\n On release, amdgpu_va_manager_deinit needs to be called, then the memory\n can be released using free()."]
     pub fn amdgpu_va_manager_alloc() -> amdgpu_va_manager_handle;
 }
 unsafe extern "C" {
@@ -4496,6 +4932,7 @@ unsafe extern "C" {
     pub fn amdgpu_va_manager_deinit(va_mgr: amdgpu_va_manager_handle);
 }
 unsafe extern "C" {
+    #[doc = " Similar to #amdgpu_va_range_alloc() but allocates VA\n directly from an amdgpu_va_manager_handle instead of using\n the manager from an amdgpu_device."]
     pub fn amdgpu_va_range_alloc2(
         va_mgr: amdgpu_va_manager_handle,
         va_range_type: amdgpu_gpu_va_range,
@@ -4508,6 +4945,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  VA mapping/unmapping for the buffer object\n\n \\param  bo\t\t- \\c [in] BO handle\n \\param  offset\t- \\c [in] Start offset to map\n \\param  size\t\t- \\c [in] Size to map\n \\param  addr\t\t- \\c [in] Start virtual address.\n \\param  flags\t- \\c [in] Supported flags for mapping/unmapping\n \\param  ops\t\t- \\c [in] AMDGPU_VA_OP_MAP or AMDGPU_VA_OP_UNMAP\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_bo_va_op(
         bo: amdgpu_bo_handle,
         offset: u64,
@@ -4518,6 +4956,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  VA mapping/unmapping for a buffer object or PRT region.\n\n This is not a simple drop-in extension for amdgpu_bo_va_op; instead, all\n parameters are treated \"raw\", i.e. size is not automatically aligned, and\n all flags must be specified explicitly.\n\n \\param  dev\t\t- \\c [in] device handle\n \\param  bo\t\t- \\c [in] BO handle (may be NULL)\n \\param  offset\t- \\c [in] Start offset to map\n \\param  size\t\t- \\c [in] Size to map\n \\param  addr\t\t- \\c [in] Start virtual address.\n \\param  flags\t- \\c [in] Supported flags for mapping/unmapping\n \\param  ops\t\t- \\c [in] AMDGPU_VA_OP_MAP or AMDGPU_VA_OP_UNMAP\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_bo_va_op_raw(
         dev: amdgpu_device_handle,
         bo: amdgpu_bo_handle,
@@ -4529,24 +4968,11 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
-    pub fn amdgpu_bo_va_op_raw2(
-        dev: amdgpu_device_handle,
-        bo: amdgpu_bo_handle,
-        offset: u64,
-        size: u64,
-        addr: u64,
-        flags: u64,
-        ops: u32,
-        vm_timeline_syncobj_out: u32,
-        vm_timeline_point: u64,
-        input_fence_syncobj_array_in: u64,
-        num_syncobj_handles_in: u32,
-    ) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
+    #[doc = "  create semaphore\n\n \\param   sem\t   - \\c [out] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_create_semaphore(sem: *mut amdgpu_semaphore_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  signal semaphore\n\n \\param   context        - \\c [in] GPU Context\n \\param   ip_type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance    - \\c [in] Index of the IP block of the same type\n \\param   ring           - \\c [in] Specify ring index of the IP\n \\param   sem\t           - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_signal_semaphore(
         ctx: amdgpu_context_handle,
         ip_type: u32,
@@ -4556,6 +4982,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  wait semaphore\n\n \\param   context        - \\c [in] GPU Context\n \\param   ip_type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance    - \\c [in] Index of the IP block of the same type\n \\param   ring           - \\c [in] Specify ring index of the IP\n \\param   sem\t           - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_wait_semaphore(
         ctx: amdgpu_context_handle,
         ip_type: u32,
@@ -4565,12 +4992,15 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  destroy semaphore\n\n \\param   sem\t    - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_destroy_semaphore(sem: amdgpu_semaphore_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Get the ASIC marketing name\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n\n \\return  the constant string of the marketing name\n          \"NULL\" means the ASIC is not found"]
     pub fn amdgpu_get_marketing_name(dev: amdgpu_device_handle) -> *const ::core::ffi::c_char;
 }
 unsafe extern "C" {
+    #[doc = "  Create kernel sync object\n\n \\param   dev         - \\c [in]  device handle\n \\param   flags       - \\c [in]  flags that affect creation\n \\param   syncobj     - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_create_syncobj2(
         dev: amdgpu_device_handle,
         flags: u32,
@@ -4578,16 +5008,19 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Create kernel sync object\n\n \\param   dev\t      - \\c [in]  device handle\n \\param   syncobj   - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_create_syncobj(
         dev: amdgpu_device_handle,
         syncobj: *mut u32,
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Destroy kernel sync object\n\n \\param   dev\t    - \\c [in] device handle\n \\param   syncobj - \\c [in] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_destroy_syncobj(dev: amdgpu_device_handle, syncobj: u32)
     -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Reset kernel sync objects to unsignalled state.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_syncobj_reset(
         dev: amdgpu_device_handle,
         syncobjs: *const u32,
@@ -4595,6 +5028,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Signal kernel sync objects.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_syncobj_signal(
         dev: amdgpu_device_handle,
         syncobjs: *const u32,
@@ -4602,6 +5036,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Signal kernel timeline sync objects.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param points\t- \\c [in] array of timeline points\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_syncobj_timeline_signal(
         dev: amdgpu_device_handle,
         syncobjs: *const u32,
@@ -4610,6 +5045,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Wait for one or all sync objects to signal.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   num_handles - \\c [in] self-explanatory\n \\param   timeout_nsec - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_WAIT_FLAGS_*\n \\param   first_signaled - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_wait(
         dev: amdgpu_device_handle,
         handles: *mut u32,
@@ -4620,6 +5056,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Wait for one or all sync objects on their points to signal.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [in] array of sync points to wait\n \\param   num_handles - \\c [in] self-explanatory\n \\param   timeout_nsec - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_WAIT_FLAGS_*\n \\param   first_signaled - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_timeline_wait(
         dev: amdgpu_device_handle,
         handles: *mut u32,
@@ -4631,6 +5068,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Query sync objects payloads.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [out] array of sync points returned, which presents\n syncobj payload.\n \\param   num_handles - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_query(
         dev: amdgpu_device_handle,
         handles: *mut u32,
@@ -4639,6 +5077,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Query sync objects last signaled or submitted point.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [out] array of sync points returned, which presents\n syncobj payload.\n \\param   num_handles - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_QUERY_FLAGS_*\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_query2(
         dev: amdgpu_device_handle,
         handles: *mut u32,
@@ -4648,6 +5087,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Export kernel sync object to shareable fd.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   shared_fd  - \\c [out] shared file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_export_syncobj(
         dev: amdgpu_device_handle,
         syncobj: u32,
@@ -4655,6 +5095,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Import kernel sync object from shareable fd.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   shared_fd  - \\c [in] shared file descriptor.\n \\param   syncobj    - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_import_syncobj(
         dev: amdgpu_device_handle,
         shared_fd: ::core::ffi::c_int,
@@ -4662,6 +5103,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Export kernel sync object to a sync_file.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   sync_file_fd - \\c [out] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_export_sync_file(
         dev: amdgpu_device_handle,
         syncobj: u32,
@@ -4669,6 +5111,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Import kernel sync object from a sync_file.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   sync_file_fd - \\c [in] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_import_sync_file(
         dev: amdgpu_device_handle,
         syncobj: u32,
@@ -4676,6 +5119,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Export kernel timeline sync object to a sync_file.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   syncobj\t- \\c [in] sync object handle\n \\param   point\t- \\c [in] timeline point\n \\param   flags\t- \\c [in] flags\n \\param   sync_file_fd - \\c [out] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_export_sync_file2(
         dev: amdgpu_device_handle,
         syncobj: u32,
@@ -4685,6 +5129,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  Import kernel timeline sync object from a sync_file.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   syncobj\t- \\c [in] sync object handle\n \\param   point\t- \\c [in] timeline point\n \\param   sync_file_fd - \\c [in] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_import_sync_file2(
         dev: amdgpu_device_handle,
         syncobj: u32,
@@ -4693,6 +5138,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = "  transfer between syncbojs.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   dst_handle\t- \\c [in] sync object handle\n \\param   dst_point\t- \\c [in] timeline point, 0 presents dst is binary\n \\param   src_handle\t- \\c [in] sync object handle\n \\param   src_point\t- \\c [in] timeline point, 0 presents src is binary\n \\param   flags\t- \\c [in] flags\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub fn amdgpu_cs_syncobj_transfer(
         dev: amdgpu_device_handle,
         dst_handle: u32,
@@ -4703,6 +5149,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Export an amdgpu fence as a handle (syncobj or fd).\n\n \\param what\t\tAMDGPU_FENCE_TO_HANDLE_GET_{SYNCOBJ, FD}\n \\param out_handle\treturned handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub fn amdgpu_cs_fence_to_handle(
         dev: amdgpu_device_handle,
         fence: *mut amdgpu_cs_fence,
@@ -4721,6 +5168,7 @@ unsafe extern "C" {
     ) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Submit raw command submission to the kernel with a raw BO list handle.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   bo_list_handle - \\c [in] raw bo list handle (0 for none)\n \\param   num_chunks - \\c [in] number of CS chunks to submit\n \\param   chunks     - \\c [in] array of CS chunks\n \\param   seq_no     - \\c [out] output sequence number for submission.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create_raw(), amdgpu_bo_list_destroy_raw()"]
     pub fn amdgpu_cs_submit_raw2(
         dev: amdgpu_device_handle,
         context: amdgpu_context_handle,
@@ -4743,40 +5191,12 @@ unsafe extern "C" {
     );
 }
 unsafe extern "C" {
+    #[doc = " Reserve VMID\n \\param   context - \\c [in]  GPU Context\n \\param   flags - \\c [in]  TBD\n\n \\return  0 on success otherwise POSIX Error code"]
     pub fn amdgpu_vm_reserve_vmid(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " Free reserved VMID\n \\param   context - \\c [in]  GPU Context\n \\param   flags - \\c [in]  TBD\n\n \\return  0 on success otherwise POSIX Error code"]
     pub fn amdgpu_vm_unreserve_vmid(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
-    pub fn amdgpu_create_userqueue(
-        dev: amdgpu_device_handle,
-        ip_type: u32,
-        doorbell_handle: u32,
-        doorbell_offset: u32,
-        queue_va: u64,
-        queue_size: u64,
-        wptr_va: u64,
-        rptr_va: u64,
-        mqd_in: *mut ::core::ffi::c_void,
-        flags: u32,
-        queue_id: *mut u32,
-    ) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
-    pub fn amdgpu_free_userqueue(dev: amdgpu_device_handle, queue_id: u32) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
-    pub fn amdgpu_userq_signal(
-        dev: amdgpu_device_handle,
-        signal_data: *mut drm_amdgpu_userq_signal,
-    ) -> ::core::ffi::c_int;
-}
-unsafe extern "C" {
-    pub fn amdgpu_userq_wait(
-        dev: amdgpu_device_handle,
-        wait_data: *mut drm_amdgpu_userq_wait,
-    ) -> ::core::ffi::c_int;
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -5068,6 +5488,7 @@ pub struct drm_amdgpu_gem_va {
     #[doc = " Specify mapping size. Must be correctly aligned."]
     pub map_size: __u64,
 }
+#[doc = "  Submit raw command submission to kernel\n\n \\param   dev\t       - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   bo_list_handle - \\c [in] request bo list handle (0 for none)\n \\param   num_chunks - \\c [in] number of CS chunks to submit\n \\param   chunks     - \\c [in] array of CS chunks\n \\param   seq_no     - \\c [out] output sequence number for submission.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_cs_chunk {

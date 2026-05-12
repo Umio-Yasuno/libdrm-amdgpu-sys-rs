@@ -1,3 +1,3 @@
-#include <libdrm/amdgpu.h>
+#include "amdgpu.h"
 #include "amdgpu_drm.h"
 #include "atomfirmware.h"

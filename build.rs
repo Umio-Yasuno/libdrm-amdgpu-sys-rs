@@ -2,15 +2,19 @@
 fn build() {
     use std::path::PathBuf;
 
-    let config = pkg_config::Config::new()
-        .probe("libdrm")
-        .unwrap()
-        .include_paths;
+    let config: Vec<String> = if let Ok(s) = std::env::var("BUILDTIME_BINDGEN_LIBDRM_PATH") {
+        vec![format!("-I{s}"), format!("-I{s}/include/drm/"), format!("-I{s}/amdgpu/")]
+    } else {
+        let config = pkg_config::Config::new()
+            .probe("libdrm")
+            .unwrap()
+            .include_paths;
 
-    let config: Vec<String> = config
-        .iter()
-        .map(|path| format!("-I{}", path.to_str().unwrap()))
-        .collect();
+        config
+            .iter()
+            .map(|path| format!("-I{}", path.to_str().unwrap()))
+            .collect()
+    };
 
     let out_path = PathBuf::from("./bindings/");
 

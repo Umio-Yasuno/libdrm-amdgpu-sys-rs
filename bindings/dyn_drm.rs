@@ -225,9 +225,7 @@ pub const DRM_CLIENT_CAP_WRITEBACK_CONNECTORS: u32 = 5;
 pub const DRM_CLIENT_CAP_CURSOR_PLANE_HOTSPOT: u32 = 6;
 pub const DRM_SYNCOBJ_CREATE_SIGNALED: u32 = 1;
 pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL: u32 = 1;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE: u32 = 4;
@@ -235,7 +233,6 @@ pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE: u32 = 8;
 pub const DRM_SYNCOBJ_QUERY_FLAGS_LAST_SUBMITTED: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_RELATIVE: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_NEXT_ON_MISS: u32 = 2;
-pub const DRM_CLIENT_NAME_MAX_LEN: u32 = 64;
 pub const DRM_CONNECTOR_NAME_LEN: u32 = 32;
 pub const DRM_DISPLAY_MODE_LEN: u32 = 32;
 pub const DRM_PROP_NAME_LEN: u32 = 32;
@@ -424,10 +421,8 @@ pub const DRM_BUS_PCI: u32 = 0;
 pub const DRM_BUS_USB: u32 = 1;
 pub const DRM_BUS_PLATFORM: u32 = 2;
 pub const DRM_BUS_HOST1X: u32 = 3;
-pub const DRM_BUS_FAUX: u32 = 4;
 pub const DRM_PLATFORM_DEVICE_NAME_LEN: u32 = 512;
 pub const DRM_HOST1X_DEVICE_NAME_LEN: u32 = 512;
-pub const DRM_FAUX_DEVICE_NAME_LEN: u32 = 512;
 pub const DRM_DEVICE_GET_PCI_REVISION: u32 = 1;
 pub const __bool_true_false_are_defined: u32 = 1;
 pub const true_: u32 = 1;
@@ -761,6 +756,7 @@ pub struct __kernel_fsid_t {
 }
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = ::core::ffi::c_longlong;
+pub type __kernel_uoff_t = ::core::ffi::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = ::core::ffi::c_longlong;
@@ -811,31 +807,45 @@ pub struct drm_tex_region {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_hw_lock {
+    #[doc = "< lock variable"]
     pub lock: ::core::ffi::c_uint,
+    #[doc = "< Pad to cache line"]
     pub padding: [::core::ffi::c_char; 60usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_version {
+    #[doc = "< Major version"]
     pub version_major: ::core::ffi::c_int,
+    #[doc = "< Minor version"]
     pub version_minor: ::core::ffi::c_int,
+    #[doc = "< Patch level"]
     pub version_patchlevel: ::core::ffi::c_int,
+    #[doc = "< Length of name buffer"]
     pub name_len: __kernel_size_t,
+    #[doc = "< Name of driver"]
     pub name: *mut ::core::ffi::c_char,
+    #[doc = "< Length of date buffer"]
     pub date_len: __kernel_size_t,
+    #[doc = "< User-space buffer to hold date"]
     pub date: *mut ::core::ffi::c_char,
+    #[doc = "< Length of desc buffer"]
     pub desc_len: __kernel_size_t,
+    #[doc = "< User-space buffer to hold desc"]
     pub desc: *mut ::core::ffi::c_char,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_unique {
+    #[doc = "< Length of unique"]
     pub unique_len: __kernel_size_t,
+    #[doc = "< Unique name for driver instantiation"]
     pub unique: *mut ::core::ffi::c_char,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_list {
+    #[doc = "< Length of user-space structures"]
     pub count: ::core::ffi::c_int,
     pub version: *mut drm_version,
 }
@@ -855,46 +865,73 @@ pub const drm_control_DRM_RM_COMMAND: drm_control__bindgen_ty_1 = 1;
 pub const drm_control_DRM_INST_HANDLER: drm_control__bindgen_ty_1 = 2;
 pub const drm_control_DRM_UNINST_HANDLER: drm_control__bindgen_ty_1 = 3;
 pub type drm_control__bindgen_ty_1 = ::core::ffi::c_uint;
+#[doc = "< WC (no caching), no core dump"]
 pub const drm_map_type__DRM_FRAME_BUFFER: drm_map_type = 0;
+#[doc = "< no caching, no core dump"]
 pub const drm_map_type__DRM_REGISTERS: drm_map_type = 1;
+#[doc = "< shared, cached"]
 pub const drm_map_type__DRM_SHM: drm_map_type = 2;
+#[doc = "< AGP/GART"]
 pub const drm_map_type__DRM_AGP: drm_map_type = 3;
+#[doc = "< Scatter/gather memory for PCI DMA"]
 pub const drm_map_type__DRM_SCATTER_GATHER: drm_map_type = 4;
+#[doc = "< Consistent memory for PCI DMA"]
 pub const drm_map_type__DRM_CONSISTENT: drm_map_type = 5;
 pub type drm_map_type = ::core::ffi::c_uint;
+#[doc = "< Cannot be mapped to user-virtual"]
 pub const drm_map_flags__DRM_RESTRICTED: drm_map_flags = 1;
 pub const drm_map_flags__DRM_READ_ONLY: drm_map_flags = 2;
+#[doc = "< shared, cached, locked"]
 pub const drm_map_flags__DRM_LOCKED: drm_map_flags = 4;
+#[doc = "< kernel requires access"]
 pub const drm_map_flags__DRM_KERNEL: drm_map_flags = 8;
+#[doc = "< use write-combining if available"]
 pub const drm_map_flags__DRM_WRITE_COMBINING: drm_map_flags = 16;
+#[doc = "< SHM page that contains lock"]
 pub const drm_map_flags__DRM_CONTAINS_LOCK: drm_map_flags = 32;
+#[doc = "< Removable mapping"]
 pub const drm_map_flags__DRM_REMOVABLE: drm_map_flags = 64;
+#[doc = "< Managed by driver"]
 pub const drm_map_flags__DRM_DRIVER: drm_map_flags = 128;
 pub type drm_map_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_ctx_priv_map {
+    #[doc = "< Context requesting private mapping"]
     pub ctx_id: ::core::ffi::c_uint,
+    #[doc = "< Handle of map"]
     pub handle: *mut ::core::ffi::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_map {
+    #[doc = "< Requested physical address (0 for SAREA)"]
     pub offset: ::core::ffi::c_ulong,
+    #[doc = "< Requested physical size (bytes)"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Type of memory to map"]
     pub type_: drm_map_type,
+    #[doc = "< Flags"]
     pub flags: drm_map_flags,
+    #[doc = "< User-space: \"Handle\" to pass to mmap() */\n/**< Kernel-space: kernel-virtual address"]
     pub handle: *mut ::core::ffi::c_void,
+    #[doc = "< MTRR slot used"]
     pub mtrr: ::core::ffi::c_int,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_client {
+    #[doc = "< Which client desired?"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Is client authenticated?"]
     pub auth: ::core::ffi::c_int,
+    #[doc = "< Process ID"]
     pub pid: ::core::ffi::c_ulong,
+    #[doc = "< User ID"]
     pub uid: ::core::ffi::c_ulong,
+    #[doc = "< Magic"]
     pub magic: ::core::ffi::c_ulong,
+    #[doc = "< Ioctl count"]
     pub iocs: ::core::ffi::c_ulong,
 }
 pub const drm_stat_type__DRM_STAT_LOCK: drm_stat_type = 0;
@@ -903,14 +940,23 @@ pub const drm_stat_type__DRM_STAT_CLOSES: drm_stat_type = 2;
 pub const drm_stat_type__DRM_STAT_IOCTLS: drm_stat_type = 3;
 pub const drm_stat_type__DRM_STAT_LOCKS: drm_stat_type = 4;
 pub const drm_stat_type__DRM_STAT_UNLOCKS: drm_stat_type = 5;
+#[doc = "< Generic value"]
 pub const drm_stat_type__DRM_STAT_VALUE: drm_stat_type = 6;
+#[doc = "< Generic byte counter (1024bytes/K)"]
 pub const drm_stat_type__DRM_STAT_BYTE: drm_stat_type = 7;
+#[doc = "< Generic non-byte counter (1000/k)"]
 pub const drm_stat_type__DRM_STAT_COUNT: drm_stat_type = 8;
+#[doc = "< IRQ"]
 pub const drm_stat_type__DRM_STAT_IRQ: drm_stat_type = 9;
+#[doc = "< Primary DMA bytes"]
 pub const drm_stat_type__DRM_STAT_PRIMARY: drm_stat_type = 10;
+#[doc = "< Secondary DMA bytes"]
 pub const drm_stat_type__DRM_STAT_SECONDARY: drm_stat_type = 11;
+#[doc = "< DMA"]
 pub const drm_stat_type__DRM_STAT_DMA: drm_stat_type = 12;
+#[doc = "< Special DMA (e.g., priority or polled)"]
 pub const drm_stat_type__DRM_STAT_SPECIAL: drm_stat_type = 13;
+#[doc = "< Missed DMA opportunity"]
 pub const drm_stat_type__DRM_STAT_MISSED: drm_stat_type = 14;
 pub type drm_stat_type = ::core::ffi::c_uint;
 #[repr(C)]
@@ -925,11 +971,17 @@ pub struct drm_stats__bindgen_ty_1 {
     pub value: ::core::ffi::c_ulong,
     pub type_: drm_stat_type,
 }
+#[doc = "< Wait until hardware is ready for DMA"]
 pub const drm_lock_flags__DRM_LOCK_READY: drm_lock_flags = 1;
+#[doc = "< Wait until hardware quiescent"]
 pub const drm_lock_flags__DRM_LOCK_QUIESCENT: drm_lock_flags = 2;
+#[doc = "< Flush this context's DMA queue first"]
 pub const drm_lock_flags__DRM_LOCK_FLUSH: drm_lock_flags = 4;
+#[doc = "< Flush all DMA queues first"]
 pub const drm_lock_flags__DRM_LOCK_FLUSH_ALL: drm_lock_flags = 8;
+#[doc = "< Halt all current and future queues"]
 pub const drm_lock_flags__DRM_HALT_ALL_QUEUES: drm_lock_flags = 16;
+#[doc = "< Halt all current queues"]
 pub const drm_lock_flags__DRM_HALT_CUR_QUEUES: drm_lock_flags = 32;
 pub type drm_lock_flags = ::core::ffi::c_uint;
 #[repr(C)]
@@ -938,32 +990,49 @@ pub struct drm_lock {
     pub context: ::core::ffi::c_int,
     pub flags: drm_lock_flags,
 }
+#[doc = "<\n Block until buffer dispatched.\n\n \\note The buffer may not yet have\n been processed by the hardware --\n getting a hardware lock with the\n hardware quiescent will ensure\n that the buffer has been\n processed."]
 pub const drm_dma_flags__DRM_DMA_BLOCK: drm_dma_flags = 1;
+#[doc = "< Dispatch while lock held"]
 pub const drm_dma_flags__DRM_DMA_WHILE_LOCKED: drm_dma_flags = 2;
+#[doc = "< High priority dispatch"]
 pub const drm_dma_flags__DRM_DMA_PRIORITY: drm_dma_flags = 4;
+#[doc = "< Wait for free buffers"]
 pub const drm_dma_flags__DRM_DMA_WAIT: drm_dma_flags = 16;
+#[doc = "< Smaller-than-requested buffers OK"]
 pub const drm_dma_flags__DRM_DMA_SMALLER_OK: drm_dma_flags = 32;
+#[doc = "< Larger-than-requested buffers OK"]
 pub const drm_dma_flags__DRM_DMA_LARGER_OK: drm_dma_flags = 64;
 pub type drm_dma_flags = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_desc {
+    #[doc = "< Number of buffers of this size"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Size in bytes"]
     pub size: ::core::ffi::c_int,
+    #[doc = "< Low water mark"]
     pub low_mark: ::core::ffi::c_int,
+    #[doc = "< High water mark"]
     pub high_mark: ::core::ffi::c_int,
     pub flags: drm_buf_desc__bindgen_ty_1,
+    #[doc = "<\n Start address of where the AGP buffers are\n in the AGP aperture"]
     pub agp_start: ::core::ffi::c_ulong,
 }
+#[doc = "< Align on page boundaries for DMA"]
 pub const drm_buf_desc__DRM_PAGE_ALIGN: drm_buf_desc__bindgen_ty_1 = 1;
+#[doc = "< Buffer is in AGP space"]
 pub const drm_buf_desc__DRM_AGP_BUFFER: drm_buf_desc__bindgen_ty_1 = 2;
+#[doc = "< Scatter/gather memory buffer"]
 pub const drm_buf_desc__DRM_SG_BUFFER: drm_buf_desc__bindgen_ty_1 = 4;
+#[doc = "< Buffer is in frame buffer"]
 pub const drm_buf_desc__DRM_FB_BUFFER: drm_buf_desc__bindgen_ty_1 = 8;
+#[doc = "< Map PCI DMA buffer read-only"]
 pub const drm_buf_desc__DRM_PCI_BUFFER_RO: drm_buf_desc__bindgen_ty_1 = 16;
 pub type drm_buf_desc__bindgen_ty_1 = ::core::ffi::c_uint;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_info {
+    #[doc = "< Entries in list"]
     pub count: ::core::ffi::c_int,
     pub list: *mut drm_buf_desc,
 }
@@ -976,30 +1045,46 @@ pub struct drm_buf_free {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_pub {
+    #[doc = "< Index into the master buffer list"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Buffer size"]
     pub total: ::core::ffi::c_int,
+    #[doc = "< Amount of buffer in use (for DMA)"]
     pub used: ::core::ffi::c_int,
+    #[doc = "< Address of buffer"]
     pub address: *mut ::core::ffi::c_void,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_buf_map {
+    #[doc = "< Length of the buffer list"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Mmap'd area in user-virtual"]
     pub virtual_: *mut ::core::ffi::c_void,
+    #[doc = "< Buffer information"]
     pub list: *mut drm_buf_pub,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_dma {
+    #[doc = "< Context handle"]
     pub context: ::core::ffi::c_int,
+    #[doc = "< Number of buffers to send"]
     pub send_count: ::core::ffi::c_int,
+    #[doc = "< List of handles to buffers"]
     pub send_indices: *mut ::core::ffi::c_int,
+    #[doc = "< Lengths of data to send"]
     pub send_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Flags"]
     pub flags: drm_dma_flags,
+    #[doc = "< Number of buffers requested"]
     pub request_count: ::core::ffi::c_int,
+    #[doc = "< Desired size for buffers"]
     pub request_size: ::core::ffi::c_int,
+    #[doc = "< Buffer information"]
     pub request_indices: *mut ::core::ffi::c_int,
     pub request_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Number of buffers granted"]
     pub granted_count: ::core::ffi::c_int,
 }
 pub const drm_ctx_flags__DRM_CONTEXT_PRESERVED: drm_ctx_flags = 1;
@@ -1040,18 +1125,29 @@ pub struct drm_auth {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_irq_busid {
+    #[doc = "< IRQ number"]
     pub irq: ::core::ffi::c_int,
+    #[doc = "< bus number"]
     pub busnum: ::core::ffi::c_int,
+    #[doc = "< device number"]
     pub devnum: ::core::ffi::c_int,
+    #[doc = "< function number"]
     pub funcnum: ::core::ffi::c_int,
 }
+#[doc = "< Wait for specific vblank sequence number"]
 pub const drm_vblank_seq_type__DRM_VBLANK_ABSOLUTE: drm_vblank_seq_type = 0;
+#[doc = "< Wait for given number of vblanks"]
 pub const drm_vblank_seq_type__DRM_VBLANK_RELATIVE: drm_vblank_seq_type = 1;
 pub const drm_vblank_seq_type__DRM_VBLANK_HIGH_CRTC_MASK: drm_vblank_seq_type = 62;
+#[doc = "< Send event instead of blocking"]
 pub const drm_vblank_seq_type__DRM_VBLANK_EVENT: drm_vblank_seq_type = 67108864;
+#[doc = "< Scheduled buffer swap should flip"]
 pub const drm_vblank_seq_type__DRM_VBLANK_FLIP: drm_vblank_seq_type = 134217728;
+#[doc = "< If missed, wait for next vblank"]
 pub const drm_vblank_seq_type__DRM_VBLANK_NEXTONMISS: drm_vblank_seq_type = 268435456;
+#[doc = "< Secondary display controller"]
 pub const drm_vblank_seq_type__DRM_VBLANK_SECONDARY: drm_vblank_seq_type = 536870912;
+#[doc = "< Send signal instead of blocking, unsupported"]
 pub const drm_vblank_seq_type__DRM_VBLANK_SIGNAL: drm_vblank_seq_type = 1073741824;
 pub type drm_vblank_seq_type = ::core::ffi::c_uint;
 #[repr(C)]
@@ -1084,20 +1180,27 @@ pub struct drm_modeset_ctl {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_mode {
+    #[doc = "< AGP mode"]
     pub mode: ::core::ffi::c_ulong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_buffer {
+    #[doc = "< In bytes -- will round to page boundary"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Used for binding / unbinding"]
     pub handle: ::core::ffi::c_ulong,
+    #[doc = "< Type of memory to allocate"]
     pub type_: ::core::ffi::c_ulong,
+    #[doc = "< Physical used by i810"]
     pub physical: ::core::ffi::c_ulong,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_agp_binding {
+    #[doc = "< From drm_agp_buffer"]
     pub handle: ::core::ffi::c_ulong,
+    #[doc = "< In bytes -- will round to page boundary"]
     pub offset: ::core::ffi::c_ulong,
 }
 #[repr(C)]
@@ -1116,7 +1219,9 @@ pub struct drm_agp_info {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_scatter_gather {
+    #[doc = "< In bytes -- will round to page boundary"]
     pub size: ::core::ffi::c_ulong,
+    #[doc = "< Used for mapping / unmapping"]
     pub handle: ::core::ffi::c_ulong,
 }
 #[repr(C)]
@@ -1130,27 +1235,27 @@ pub struct drm_set_version {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_close {
+    #[doc = " Handle of the object to be closed."]
     pub handle: __u32,
     pub pad: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_flink {
+    #[doc = " Handle for the object being named"]
     pub handle: __u32,
+    #[doc = " Returned global name"]
     pub name: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_open {
+    #[doc = " Name of object being opened"]
     pub name: __u32,
+    #[doc = " Returned handle for the object"]
     pub handle: __u32,
+    #[doc = " Returned size of the object"]
     pub size: __u64,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_gem_change_handle {
-    pub handle: __u32,
-    pub new_handle: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1168,7 +1273,9 @@ pub struct drm_set_client_cap {
 #[derive(Debug, Copy, Clone)]
 pub struct drm_prime_handle {
     pub handle: __u32,
+    #[doc = " Flags.. only applicable for handle->fd"]
     pub flags: __u32,
+    #[doc = " Returned dmabuf file descriptor"]
     pub fd: __s32,
 }
 #[repr(C)]
@@ -1190,7 +1297,6 @@ pub struct drm_syncobj_handle {
     pub flags: __u32,
     pub fd: __s32,
     pub pad: __u32,
-    pub point: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1211,6 +1317,7 @@ pub struct drm_syncobj_wait {
     pub flags: __u32,
     pub first_signaled: __u32,
     pub pad: __u32,
+    #[doc = " @deadline_nsec - fence deadline hint\n\n Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing\n fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is\n set."]
     pub deadline_nsec: __u64,
 }
 #[repr(C)]
@@ -1223,8 +1330,10 @@ pub struct drm_syncobj_timeline_wait {
     pub flags: __u32,
     pub first_signaled: __u32,
     pub pad: __u32,
+    #[doc = " @deadline_nsec - fence deadline hint\n\n Deadline hint, in absolute CLOCK_MONOTONIC, to set on backing\n fence(s) if the DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE flag is\n set."]
     pub deadline_nsec: __u64,
 }
+#[doc = " struct drm_syncobj_eventfd\n @handle: syncobj handle.\n @flags: Zero to wait for the point to be signalled, or\n         &DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE to wait for a fence to be\n         available for the point.\n @point: syncobj timeline point (set to zero for binary syncobjs).\n @fd: Existing eventfd to sent events to.\n @pad: Must be zero.\n\n Register an eventfd to be signalled by a syncobj. The eventfd counter will\n be incremented by one."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_syncobj_eventfd {
@@ -1265,12 +1374,7 @@ pub struct drm_crtc_queue_sequence {
     pub sequence: __u64,
     pub user_data: __u64,
 }
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_set_client_name {
-    pub name_len: __u64,
-    pub name: __u64,
-}
+#[doc = " struct drm_mode_modeinfo - Display mode information.\n @clock: pixel clock in kHz\n @hdisplay: horizontal display size\n @hsync_start: horizontal sync start\n @hsync_end: horizontal sync end\n @htotal: horizontal total size\n @hskew: horizontal skew\n @vdisplay: vertical display size\n @vsync_start: vertical sync start\n @vsync_end: vertical sync end\n @vtotal: vertical total size\n @vscan: vertical scan\n @vrefresh: approximate vertical refresh rate in Hz\n @flags: bitmask of misc. flags, see DRM_MODE_FLAG_* defines\n @type: bitmask of type flags, see DRM_MODE_TYPE_* defines\n @name: string describing the mode resolution\n\n This is the user-space API display mode information structure. For the\n kernel version see struct drm_display_mode."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_modeinfo {
@@ -1311,9 +1415,13 @@ pub struct drm_mode_card_res {
 pub struct drm_mode_crtc {
     pub set_connectors_ptr: __u64,
     pub count_connectors: __u32,
+    #[doc = "< Id"]
     pub crtc_id: __u32,
+    #[doc = "< Id of framebuffer"]
     pub fb_id: __u32,
+    #[doc = "< x Position on the framebuffer"]
     pub x: __u32,
+    #[doc = "< y Position on the framebuffer"]
     pub y: __u32,
     pub gamma_size: __u32,
     pub mode_valid: __u32,
@@ -1335,15 +1443,23 @@ pub struct drm_mode_set_plane {
     pub src_h: __u32,
     pub src_w: __u32,
 }
+#[doc = " struct drm_mode_get_plane - Get plane metadata.\n\n Userspace can perform a GETPLANE ioctl to retrieve information about a\n plane.\n\n To retrieve the number of formats supported, set @count_format_types to zero\n and call the ioctl. @count_format_types will be updated with the value.\n\n To retrieve these formats, allocate an array with the memory needed to store\n @count_format_types formats. Point @format_type_ptr to this array and call\n the ioctl again (with @count_format_types still set to the value returned in\n the first ioctl call)."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_plane {
+    #[doc = " @plane_id: Object ID of the plane whose information should be\n retrieved. Set by caller."]
     pub plane_id: __u32,
+    #[doc = " @crtc_id: Object ID of the current CRTC."]
     pub crtc_id: __u32,
+    #[doc = " @fb_id: Object ID of the current fb."]
     pub fb_id: __u32,
+    #[doc = " @possible_crtcs: Bitmask of CRTC's compatible with the plane. CRTC's\n are created and they receive an index, which corresponds to their\n position in the bitmask. Bit N corresponds to\n :ref:`CRTC index<crtc_index>` N."]
     pub possible_crtcs: __u32,
+    #[doc = " @gamma_size: Never used."]
     pub gamma_size: __u32,
+    #[doc = " @count_format_types: Number of formats."]
     pub count_format_types: __u32,
+    #[doc = " @format_type_ptr: Pointer to ``__u32`` array of formats that are\n supported by the plane. These formats do not require modifiers."]
     pub format_type_ptr: __u64,
 }
 #[repr(C)]
@@ -1357,6 +1473,7 @@ pub struct drm_mode_get_plane_res {
 pub struct drm_mode_get_encoder {
     pub encoder_id: __u32,
     pub encoder_type: __u32,
+    #[doc = "< Id of crtc"]
     pub crtc_id: __u32,
     pub possible_crtcs: __u32,
     pub possible_clones: __u32,
@@ -1375,41 +1492,67 @@ pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_HDMIA: drm_mode_subconnect
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Native: drm_mode_subconnector = 15;
 pub const drm_mode_subconnector_DRM_MODE_SUBCONNECTOR_Wireless: drm_mode_subconnector = 18;
 pub type drm_mode_subconnector = ::core::ffi::c_uint;
+#[doc = " struct drm_mode_get_connector - Get connector metadata.\n\n User-space can perform a GETCONNECTOR ioctl to retrieve information about a\n connector. User-space is expected to retrieve encoders, modes and properties\n by performing this ioctl at least twice: the first time to retrieve the\n number of elements, the second time to retrieve the elements themselves.\n\n To retrieve the number of elements, set @count_props and @count_encoders to\n zero, set @count_modes to 1, and set @modes_ptr to a temporary struct\n drm_mode_modeinfo element.\n\n To retrieve the elements, allocate arrays for @encoders_ptr, @modes_ptr,\n @props_ptr and @prop_values_ptr, then set @count_modes, @count_props and\n @count_encoders to their capacity.\n\n Performing the ioctl only twice may be racy: the number of elements may have\n changed with a hotplug event in-between the two ioctls. User-space is\n expected to retry the last ioctl until the number of elements stabilizes.\n The kernel won't fill any array which doesn't have the expected length.\n\n **Force-probing a connector**\n\n If the @count_modes field is set to zero and the DRM client is the current\n DRM master, the kernel will perform a forced probe on the connector to\n refresh the connector status, modes and EDID. A forced-probe can be slow,\n might cause flickering and the ioctl will block.\n\n User-space needs to force-probe connectors to ensure their metadata is\n up-to-date at startup and after receiving a hot-plug event. User-space\n may perform a forced-probe when the user explicitly requests it. User-space\n shouldn't perform a forced-probe in other situations."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_connector {
+    #[doc = " @encoders_ptr: Pointer to ``__u32`` array of object IDs."]
     pub encoders_ptr: __u64,
+    #[doc = " @modes_ptr: Pointer to struct drm_mode_modeinfo array."]
     pub modes_ptr: __u64,
+    #[doc = " @props_ptr: Pointer to ``__u32`` array of property IDs."]
     pub props_ptr: __u64,
+    #[doc = " @prop_values_ptr: Pointer to ``__u64`` array of property values."]
     pub prop_values_ptr: __u64,
+    #[doc = " @count_modes: Number of modes."]
     pub count_modes: __u32,
+    #[doc = " @count_props: Number of properties."]
     pub count_props: __u32,
+    #[doc = " @count_encoders: Number of encoders."]
     pub count_encoders: __u32,
+    #[doc = " @encoder_id: Object ID of the current encoder."]
     pub encoder_id: __u32,
+    #[doc = " @connector_id: Object ID of the connector."]
     pub connector_id: __u32,
+    #[doc = " @connector_type: Type of the connector.\n\n See DRM_MODE_CONNECTOR_* defines."]
     pub connector_type: __u32,
+    #[doc = " @connector_type_id: Type-specific connector number.\n\n This is not an object ID. This is a per-type connector number. Each\n (type, type_id) combination is unique across all connectors of a DRM\n device.\n\n The (type, type_id) combination is not a stable identifier: the\n type_id can change depending on the driver probe order."]
     pub connector_type_id: __u32,
+    #[doc = " @connection: Status of the connector.\n\n See enum drm_connector_status."]
     pub connection: __u32,
+    #[doc = " @mm_width: Width of the connected sink in millimeters."]
     pub mm_width: __u32,
+    #[doc = " @mm_height: Height of the connected sink in millimeters."]
     pub mm_height: __u32,
+    #[doc = " @subpixel: Subpixel order of the connected sink.\n\n See enum subpixel_order."]
     pub subpixel: __u32,
+    #[doc = " @pad: Padding, must be zero."]
     pub pad: __u32,
 }
+#[doc = " struct drm_mode_property_enum - Description for an enum/bitfield entry.\n @value: numeric value for this enum entry.\n @name: symbolic name for this enum entry.\n\n See struct drm_property_enum for details."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_property_enum {
     pub value: __u64,
     pub name: [::core::ffi::c_char; 32usize],
 }
+#[doc = " struct drm_mode_get_property - Get property metadata.\n\n User-space can perform a GETPROPERTY ioctl to retrieve information about a\n property. The same property may be attached to multiple objects, see\n \"Modeset Base Object Abstraction\".\n\n The meaning of the @values_ptr field changes depending on the property type.\n See &drm_property.flags for more details.\n\n The @enum_blob_ptr and @count_enum_blobs fields are only meaningful when the\n property has the type &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK. For\n backwards compatibility, the kernel will always set @count_enum_blobs to\n zero when the property has the type &DRM_MODE_PROP_BLOB. User-space must\n ignore these two fields if the property has a different type.\n\n User-space is expected to retrieve values and enums by performing this ioctl\n at least twice: the first time to retrieve the number of elements, the\n second time to retrieve the elements themselves.\n\n To retrieve the number of elements, set @count_values and @count_enum_blobs\n to zero, then call the ioctl. @count_values will be updated with the number\n of elements. If the property has the type &DRM_MODE_PROP_ENUM or\n &DRM_MODE_PROP_BITMASK, @count_enum_blobs will be updated as well.\n\n To retrieve the elements themselves, allocate an array for @values_ptr and\n set @count_values to its capacity. If the property has the type\n &DRM_MODE_PROP_ENUM or &DRM_MODE_PROP_BITMASK, allocate an array for\n @enum_blob_ptr and set @count_enum_blobs to its capacity. Calling the ioctl\n again will fill the arrays."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_property {
+    #[doc = " @values_ptr: Pointer to a ``__u64`` array."]
     pub values_ptr: __u64,
+    #[doc = " @enum_blob_ptr: Pointer to a struct drm_mode_property_enum array."]
     pub enum_blob_ptr: __u64,
+    #[doc = " @prop_id: Object ID of the property which should be retrieved. Set\n by the caller."]
     pub prop_id: __u32,
+    #[doc = " @flags: ``DRM_MODE_PROP_*`` bitfield. See &drm_property.flags for\n a definition of the flags."]
     pub flags: __u32,
+    #[doc = " @name: Symbolic property name. User-space should use this field to\n recognize properties."]
     pub name: [::core::ffi::c_char; 32usize],
+    #[doc = " @count_values: Number of elements in @values_ptr."]
     pub count_values: __u32,
+    #[doc = " @count_enum_blobs: Number of elements in @enum_blob_ptr."]
     pub count_enum_blobs: __u32,
 }
 #[repr(C)]
@@ -1454,17 +1597,27 @@ pub struct drm_mode_fb_cmd {
     pub depth: __u32,
     pub handle: __u32,
 }
+#[doc = " struct drm_mode_fb_cmd2 - Frame-buffer metadata.\n\n This struct holds frame-buffer metadata. There are two ways to use it:\n\n - User-space can fill this struct and perform a &DRM_IOCTL_MODE_ADDFB2\n   ioctl to register a new frame-buffer. The new frame-buffer object ID will\n   be set by the kernel in @fb_id.\n - User-space can set @fb_id and perform a &DRM_IOCTL_MODE_GETFB2 ioctl to\n   fetch metadata about an existing frame-buffer.\n\n In case of planar formats, this struct allows up to 4 buffer objects with\n offsets and pitches per plane. The pitch and offset order are dictated by\n the format FourCC as defined by ``drm_fourcc.h``, e.g. NV12 is described as:\n\n     YUV 4:2:0 image with a plane of 8-bit Y samples followed by an\n     interleaved U/V plane containing 8-bit 2x2 subsampled colour difference\n     samples.\n\n So it would consist of a Y plane at ``offsets[0]`` and a UV plane at\n ``offsets[1]``.\n\n To accommodate tiled, compressed, etc formats, a modifier can be specified.\n For more information see the \"Format Modifiers\" section. Note that even\n though it looks like we have a modifier per-plane, we in fact do not. The\n modifier for each plane must be identical. Thus all combinations of\n different data layouts for multi-plane formats must be enumerated as\n separate modifiers.\n\n All of the entries in @handles, @pitches, @offsets and @modifier must be\n zero when unused. Warning, for @offsets and @modifier zero can't be used to\n figure out whether the entry is used or not since it's a valid value (a zero\n offset is common, and a zero modifier is &DRM_FORMAT_MOD_LINEAR)."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_fb_cmd2 {
+    #[doc = " @fb_id: Object ID of the frame-buffer."]
     pub fb_id: __u32,
+    #[doc = " @width: Width of the frame-buffer."]
     pub width: __u32,
+    #[doc = " @height: Height of the frame-buffer."]
     pub height: __u32,
+    #[doc = " @pixel_format: FourCC format code, see ``DRM_FORMAT_*`` constants in\n ``drm_fourcc.h``."]
     pub pixel_format: __u32,
+    #[doc = " @flags: Frame-buffer flags (see &DRM_MODE_FB_INTERLACED and\n &DRM_MODE_FB_MODIFIERS)."]
     pub flags: __u32,
+    #[doc = " @handles: GEM buffer handle, one per plane. Set to 0 if the plane is\n unused. The same handle can be used for multiple planes."]
     pub handles: [__u32; 4usize],
+    #[doc = " @pitches: Pitch (aka. stride) in bytes, one per plane."]
     pub pitches: [__u32; 4usize],
+    #[doc = " @offsets: Offset into the buffer in bytes, one per plane."]
     pub offsets: [__u32; 4usize],
+    #[doc = " @modifier: Format modifier, one per plane. See ``DRM_FORMAT_MOD_*``\n constants in ``drm_fourcc.h``. All planes must use the same\n modifier. Ignored unless &DRM_MODE_FB_MODIFIERS is set in @flags."]
     pub modifier: [__u64; 4usize],
 }
 #[repr(C)]
@@ -1528,42 +1681,55 @@ pub struct drm_color_lut {
     pub blue: __u16,
     pub reserved: __u16,
 }
+#[doc = " struct drm_plane_size_hint - Plane size hints\n\n The plane SIZE_HINTS property blob contains an\n array of struct drm_plane_size_hint."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_plane_size_hint {
     pub width: __u16,
     pub height: __u16,
 }
+#[doc = " struct hdr_metadata_infoframe - HDR Metadata Infoframe Data.\n\n HDR Metadata Infoframe as per CTA 861.G spec. This is expected\n to match exactly with the spec.\n\n Userspace is expected to pass the metadata information as per\n the format described in this structure."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe {
+    #[doc = " @eotf: Electro-Optical Transfer Function (EOTF)\n used in the stream."]
     pub eotf: __u8,
+    #[doc = " @metadata_type: Static_Metadata_Descriptor_ID."]
     pub metadata_type: __u8,
     pub display_primaries: [hdr_metadata_infoframe__bindgen_ty_1; 3usize],
     pub white_point: hdr_metadata_infoframe__bindgen_ty_2,
+    #[doc = " @max_display_mastering_luminance: Max Mastering Display Luminance.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_display_mastering_luminance: __u16,
+    #[doc = " @min_display_mastering_luminance: Min Mastering Display Luminance.\n This value is coded as an unsigned 16-bit value in units of\n 0.0001 cd/m2, where 0x0001 represents 0.0001 cd/m2 and 0xFFFF\n represents 6.5535 cd/m2."]
     pub min_display_mastering_luminance: __u16,
+    #[doc = " @max_cll: Max Content Light Level.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_cll: __u16,
+    #[doc = " @max_fall: Max Frame Average Light Level.\n This value is coded as an unsigned 16-bit value in units of 1 cd/m2,\n where 0x0001 represents 1 cd/m2 and 0xFFFF represents 65535 cd/m2."]
     pub max_fall: __u16,
 }
+#[doc = " @display_primaries: Color Primaries of the Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @display_primaries.x: X coordinate of color primary.\n @display_primaries.y: Y coordinate of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_1 {
     pub x: __u16,
     pub y: __u16,
 }
+#[doc = " @white_point: White Point of Colorspace Data.\n These are coded as unsigned 16-bit values in units of\n 0.00002, where 0x0000 represents zero and 0xC350\n represents 1.0000.\n @white_point.x: X coordinate of whitepoint of color primary.\n @white_point.y: Y coordinate of whitepoint of color primary."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct hdr_metadata_infoframe__bindgen_ty_2 {
     pub x: __u16,
     pub y: __u16,
 }
+#[doc = " struct hdr_output_metadata - HDR output metadata\n\n Metadata Information to be passed from userspace"]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct hdr_output_metadata {
+    #[doc = " @metadata_type: Static_Metadata_Descriptor_ID."]
     pub metadata_type: __u32,
     pub __bindgen_anon_1: hdr_output_metadata__bindgen_ty_1,
 }
+#[doc = " @hdmi_metadata_type1: HDR Metadata Infoframe."]
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub union hdr_output_metadata__bindgen_ty_1 {
@@ -1587,6 +1753,7 @@ pub struct drm_mode_crtc_page_flip_target {
     pub sequence: __u32,
     pub user_data: __u64,
 }
+#[doc = " struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.\n @height: buffer height in pixels\n @width: buffer width in pixels\n @bpp: bits per pixel\n @flags: must be zero\n @handle: buffer object handle\n @pitch: number of bytes between two consecutive lines\n @size: size of the whole buffer in bytes\n\n User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,\n the kernel fills @handle, @pitch and @size."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_dumb {
@@ -1601,8 +1768,10 @@ pub struct drm_mode_create_dumb {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_map_dumb {
+    #[doc = " Handle for the object being mapped."]
     pub handle: __u32,
     pub pad: __u32,
+    #[doc = " Fake offset to use for subsequent mmap call\n\n This is a fixed-size type for 32/64 compatibility."]
     pub offset: __u64,
 }
 #[repr(C)]
@@ -1640,46 +1809,68 @@ pub struct drm_format_modifier {
     pub pad: __u32,
     pub modifier: __u64,
 }
+#[doc = " struct drm_mode_create_blob - Create New blob property\n\n Create a new 'blob' data property, copying length bytes from data pointer,\n and returning new blob ID."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_blob {
+    #[doc = " @data: Pointer to data to copy."]
     pub data: __u64,
+    #[doc = " @length: Length of data to copy."]
     pub length: __u32,
+    #[doc = " @blob_id: Return: new property ID."]
     pub blob_id: __u32,
 }
+#[doc = " struct drm_mode_destroy_blob - Destroy user blob\n @blob_id: blob_id to destroy\n\n Destroy a user-created blob property.\n\n User-space can release blobs as soon as they do not need to refer to them by\n their blob object ID.  For instance, if you are using a MODE_ID blob in an\n atomic commit and you will not make another commit re-using the same ID, you\n can destroy the blob as soon as the commit has been issued, without waiting\n for it to complete."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_destroy_blob {
     pub blob_id: __u32,
 }
+#[doc = " struct drm_mode_create_lease - Create lease\n\n Lease mode resources, creating another drm_master.\n\n The @object_ids array must reference at least one CRTC, one connector and\n one plane if &DRM_CLIENT_CAP_UNIVERSAL_PLANES is enabled. Alternatively,\n the lease can be completely empty."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_lease {
+    #[doc = " @object_ids: Pointer to array of object ids (__u32)"]
     pub object_ids: __u64,
+    #[doc = " @object_count: Number of object ids"]
     pub object_count: __u32,
+    #[doc = " @flags: flags for new FD (O_CLOEXEC, etc)"]
     pub flags: __u32,
+    #[doc = " @lessee_id: Return: unique identifier for lessee."]
     pub lessee_id: __u32,
+    #[doc = " @fd: Return: file descriptor to new drm_master file"]
     pub fd: __u32,
 }
+#[doc = " struct drm_mode_list_lessees - List lessees\n\n List lesses from a drm_master."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_list_lessees {
+    #[doc = " @count_lessees: Number of lessees.\n\n On input, provides length of the array.\n On output, provides total number. No\n more than the input number will be written\n back, so two calls can be used to get\n the size and then the data."]
     pub count_lessees: __u32,
+    #[doc = " @pad: Padding."]
     pub pad: __u32,
+    #[doc = " @lessees_ptr: Pointer to lessees.\n\n Pointer to __u64 array of lessee ids"]
     pub lessees_ptr: __u64,
 }
+#[doc = " struct drm_mode_get_lease - Get Lease\n\n Get leased objects."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_get_lease {
+    #[doc = " @count_objects: Number of leased objects.\n\n On input, provides length of the array.\n On output, provides total number. No\n more than the input number will be written\n back, so two calls can be used to get\n the size and then the data."]
     pub count_objects: __u32,
+    #[doc = " @pad: Padding."]
     pub pad: __u32,
+    #[doc = " @objects_ptr: Pointer to objects.\n\n Pointer to __u32 array of object ids."]
     pub objects_ptr: __u64,
 }
+#[doc = " struct drm_mode_revoke_lease - Revoke lease"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_revoke_lease {
+    #[doc = " @lessee_id: Unique ID of lessee"]
     pub lessee_id: __u32,
 }
+#[doc = " struct drm_mode_rect - Two dimensional rectangle.\n @x1: Horizontal starting coordinate (inclusive).\n @y1: Vertical starting coordinate (inclusive).\n @x2: Horizontal ending coordinate (exclusive).\n @y2: Vertical ending coordinate (exclusive).\n\n With drm subsystem using struct drm_rect to manage rectangular area this\n export it to user-space.\n\n Currently used by drm_mode_atomic blob property FB_DAMAGE_CLIPS."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_rect {
@@ -1688,12 +1879,14 @@ pub struct drm_mode_rect {
     pub x2: __s32,
     pub y2: __s32,
 }
+#[doc = " struct drm_mode_closefb\n @fb_id: Framebuffer ID.\n @pad: Must be zero."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_closefb {
     pub fb_id: __u32,
     pub pad: __u32,
 }
+#[doc = " struct drm_event - Header for DRM events\n @type: event type.\n @length: total number of payload bytes (including header).\n\n This struct is a header for events written back to user-space on the DRM FD.\n A read on the DRM FD will always only return complete events: e.g. if the\n read buffer is 100 bytes large and there are two 64 byte events pending,\n only one will be returned.\n\n Event types 0 - 0x7fffffff are generic DRM events, 0x80000000 and\n up are chipset specific. Generic DRM events include &DRM_EVENT_VBLANK,\n &DRM_EVENT_FLIP_COMPLETE and &DRM_EVENT_CRTC_SEQUENCE."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_event {
@@ -1792,62 +1985,104 @@ pub struct drmHashEntry {
     >,
     pub tagTable: *mut ::core::ffi::c_void,
 }
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmVersion {
+    #[doc = "< Major version"]
     pub version_major: ::core::ffi::c_int,
+    #[doc = "< Minor version"]
     pub version_minor: ::core::ffi::c_int,
+    #[doc = "< Patch level"]
     pub version_patchlevel: ::core::ffi::c_int,
+    #[doc = "< Length of name buffer"]
     pub name_len: ::core::ffi::c_int,
+    #[doc = "< Name of driver"]
     pub name: *mut ::core::ffi::c_char,
+    #[doc = "< Length of date buffer"]
     pub date_len: ::core::ffi::c_int,
+    #[doc = "< User-space buffer to hold date"]
     pub date: *mut ::core::ffi::c_char,
+    #[doc = "< Length of desc buffer"]
     pub desc_len: ::core::ffi::c_int,
+    #[doc = "< User-space buffer to hold desc"]
     pub desc: *mut ::core::ffi::c_char,
 }
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 pub type drmVersion = _drmVersion;
+#[doc = " Driver version information.\n\n \\sa drmGetVersion() and drmSetVersion()."]
 pub type drmVersionPtr = *mut _drmVersion;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats {
+    #[doc = "< Number of data"]
     pub count: ::core::ffi::c_ulong,
     pub data: [_drmStats__bindgen_ty_1; 15usize],
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmStats__bindgen_ty_1 {
+    #[doc = "< Value from kernel"]
     pub value: ::core::ffi::c_ulong,
+    #[doc = "< Suggested format for long_name"]
     pub long_format: *const ::core::ffi::c_char,
+    #[doc = "< Long name for value"]
     pub long_name: *const ::core::ffi::c_char,
+    #[doc = "< Suggested format for rate_name"]
     pub rate_format: *const ::core::ffi::c_char,
+    #[doc = "< Short name for value per second"]
     pub rate_name: *const ::core::ffi::c_char,
+    #[doc = "< True if value (vs. counter)"]
     pub isvalue: ::core::ffi::c_int,
+    #[doc = "< Multiplier names (e.g., \"KGM\")"]
     pub mult_names: *const ::core::ffi::c_char,
+    #[doc = "< Multiplier value (e.g., 1024)"]
     pub mult: ::core::ffi::c_int,
+    #[doc = "< Suggest only in verbose output"]
     pub verbose: ::core::ffi::c_int,
 }
 pub type drmStatsT = _drmStats;
+#[doc = "< WC, no caching, no core dump"]
 pub const drmMapType_DRM_FRAME_BUFFER: drmMapType = 0;
+#[doc = "< no caching, no core dump"]
 pub const drmMapType_DRM_REGISTERS: drmMapType = 1;
+#[doc = "< shared, cached"]
 pub const drmMapType_DRM_SHM: drmMapType = 2;
+#[doc = "< AGP/GART"]
 pub const drmMapType_DRM_AGP: drmMapType = 3;
+#[doc = "< PCI scatter/gather"]
 pub const drmMapType_DRM_SCATTER_GATHER: drmMapType = 4;
+#[doc = "< PCI consistent"]
 pub const drmMapType_DRM_CONSISTENT: drmMapType = 5;
 pub type drmMapType = ::core::ffi::c_uint;
+#[doc = "< Cannot be mapped to client-virtual"]
 pub const drmMapFlags_DRM_RESTRICTED: drmMapFlags = 1;
+#[doc = "< Read-only in client-virtual"]
 pub const drmMapFlags_DRM_READ_ONLY: drmMapFlags = 2;
+#[doc = "< Physical pages locked"]
 pub const drmMapFlags_DRM_LOCKED: drmMapFlags = 4;
+#[doc = "< Kernel requires access"]
 pub const drmMapFlags_DRM_KERNEL: drmMapFlags = 8;
+#[doc = "< Use write-combining, if available"]
 pub const drmMapFlags_DRM_WRITE_COMBINING: drmMapFlags = 16;
+#[doc = "< SHM page that contains lock"]
 pub const drmMapFlags_DRM_CONTAINS_LOCK: drmMapFlags = 32;
+#[doc = "< Removable mapping"]
 pub const drmMapFlags_DRM_REMOVABLE: drmMapFlags = 64;
 pub type drmMapFlags = ::core::ffi::c_uint;
+#[doc = "<\n Block until buffer dispatched.\n\n \\note the buffer may not yet have been\n processed by the hardware -- getting a\n hardware lock with the hardware quiescent\n will ensure that the buffer has been\n processed."]
 pub const drmDMAFlags_DRM_DMA_BLOCK: drmDMAFlags = 1;
+#[doc = "< Dispatch while lock held"]
 pub const drmDMAFlags_DRM_DMA_WHILE_LOCKED: drmDMAFlags = 2;
+#[doc = "< High priority dispatch"]
 pub const drmDMAFlags_DRM_DMA_PRIORITY: drmDMAFlags = 4;
+#[doc = "< Wait for free buffers"]
 pub const drmDMAFlags_DRM_DMA_WAIT: drmDMAFlags = 16;
+#[doc = "< Smaller-than-requested buffers OK"]
 pub const drmDMAFlags_DRM_DMA_SMALLER_OK: drmDMAFlags = 32;
+#[doc = "< Larger-than-requested buffers OK"]
 pub const drmDMAFlags_DRM_DMA_LARGER_OK: drmDMAFlags = 64;
+#[doc = " \\warning These values *MUST* match drm.h"]
 pub type drmDMAFlags = ::core::ffi::c_uint;
 pub const drmBufDescFlags_DRM_PAGE_ALIGN: drmBufDescFlags = 1;
 pub const drmBufDescFlags_DRM_AGP_BUFFER: drmBufDescFlags = 2;
@@ -1855,23 +2090,35 @@ pub const drmBufDescFlags_DRM_SG_BUFFER: drmBufDescFlags = 4;
 pub const drmBufDescFlags_DRM_FB_BUFFER: drmBufDescFlags = 8;
 pub const drmBufDescFlags_DRM_PCI_BUFFER_RO: drmBufDescFlags = 16;
 pub type drmBufDescFlags = ::core::ffi::c_uint;
+#[doc = "< Wait until hardware is ready for DMA"]
 pub const drmLockFlags_DRM_LOCK_READY: drmLockFlags = 1;
+#[doc = "< Wait until hardware quiescent"]
 pub const drmLockFlags_DRM_LOCK_QUIESCENT: drmLockFlags = 2;
+#[doc = "< Flush this context's DMA queue first"]
 pub const drmLockFlags_DRM_LOCK_FLUSH: drmLockFlags = 4;
+#[doc = "< Flush all DMA queues first"]
 pub const drmLockFlags_DRM_LOCK_FLUSH_ALL: drmLockFlags = 8;
+#[doc = "< Halt all current and future queues"]
 pub const drmLockFlags_DRM_HALT_ALL_QUEUES: drmLockFlags = 16;
+#[doc = "< Halt all current queues"]
 pub const drmLockFlags_DRM_HALT_CUR_QUEUES: drmLockFlags = 32;
 pub type drmLockFlags = ::core::ffi::c_uint;
+#[doc = "< This context is preserved and\nnever swapped."]
 pub const drm_context_tFlags_DRM_CONTEXT_PRESERVED: drm_context_tFlags = 1;
+#[doc = "< This context is for 2D rendering only."]
 pub const drm_context_tFlags_DRM_CONTEXT_2DONLY: drm_context_tFlags = 2;
 pub type drm_context_tFlags = ::core::ffi::c_uint;
 pub type drm_context_tFlagsPtr = *mut drm_context_tFlags;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufDesc {
+    #[doc = "< Number of buffers of this size"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Size in bytes"]
     pub size: ::core::ffi::c_int,
+    #[doc = "< Low water mark"]
     pub low_mark: ::core::ffi::c_int,
+    #[doc = "< High water mark"]
     pub high_mark: ::core::ffi::c_int,
 }
 pub type drmBufDesc = _drmBufDesc;
@@ -1879,7 +2126,9 @@ pub type drmBufDescPtr = *mut _drmBufDesc;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufInfo {
+    #[doc = "< Number of buffers described in list"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< List of buffer descriptions"]
     pub list: drmBufDescPtr,
 }
 pub type drmBufInfo = _drmBufInfo;
@@ -1887,20 +2136,29 @@ pub type drmBufInfoPtr = *mut _drmBufInfo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBuf {
+    #[doc = "< Index into the master buffer list"]
     pub idx: ::core::ffi::c_int,
+    #[doc = "< Buffer size"]
     pub total: ::core::ffi::c_int,
+    #[doc = "< Amount of buffer in use (for DMA)"]
     pub used: ::core::ffi::c_int,
+    #[doc = "< Address"]
     pub address: drmAddress,
 }
 pub type drmBuf = _drmBuf;
 pub type drmBufPtr = *mut _drmBuf;
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmBufMap {
+    #[doc = "< Number of buffers mapped"]
     pub count: ::core::ffi::c_int,
+    #[doc = "< Buffers"]
     pub list: drmBufPtr,
 }
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 pub type drmBufMap = _drmBufMap;
+#[doc = " Buffer mapping information.\n\n Used by drmMapBufs() and drmUnmapBufs() to store information about the\n mapped buffers."]
 pub type drmBufMapPtr = *mut _drmBufMap;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1910,21 +2168,34 @@ pub struct _drmLock {
 }
 pub type drmLock = _drmLock;
 pub type drmLockPtr = *mut _drmLock;
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct _drmDMAReq {
+    #[doc = "< Context handle"]
     pub context: drm_context_t,
+    #[doc = "< Number of buffers to send"]
     pub send_count: ::core::ffi::c_int,
+    #[doc = "< List of handles to buffers"]
     pub send_list: *mut ::core::ffi::c_int,
+    #[doc = "< Lengths of data to send, in bytes"]
     pub send_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Flags"]
     pub flags: drmDMAFlags,
+    #[doc = "< Number of buffers requested"]
     pub request_count: ::core::ffi::c_int,
+    #[doc = "< Desired size of buffers requested"]
     pub request_size: ::core::ffi::c_int,
+    #[doc = "< Buffer information"]
     pub request_list: *mut ::core::ffi::c_int,
+    #[doc = "< Minimum acceptable sizes"]
     pub request_sizes: *mut ::core::ffi::c_int,
+    #[doc = "< Number of buffers granted at this size"]
     pub granted_count: ::core::ffi::c_int,
 }
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 pub type drmDMAReq = _drmDMAReq;
+#[doc = " Indices here refer to the offset into\n list in drmBufInfo"]
 pub type drmDMAReqPtr = *mut _drmDMAReq;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1942,17 +2213,24 @@ pub struct _drmTextureRegion {
     pub next: ::core::ffi::c_uchar,
     pub prev: ::core::ffi::c_uchar,
     pub in_use: ::core::ffi::c_uchar,
+    #[doc = "< Explicitly pad this out"]
     pub padding: ::core::ffi::c_uchar,
     pub age: ::core::ffi::c_uint,
 }
 pub type drmTextureRegion = _drmTextureRegion;
 pub type drmTextureRegionPtr = *mut _drmTextureRegion;
+#[doc = "< Wait for specific vblank sequence number"]
 pub const drmVBlankSeqType_DRM_VBLANK_ABSOLUTE: drmVBlankSeqType = 0;
+#[doc = "< Wait for given number of vblanks"]
 pub const drmVBlankSeqType_DRM_VBLANK_RELATIVE: drmVBlankSeqType = 1;
 pub const drmVBlankSeqType_DRM_VBLANK_HIGH_CRTC_MASK: drmVBlankSeqType = 62;
+#[doc = "< Send event instead of blocking"]
 pub const drmVBlankSeqType_DRM_VBLANK_EVENT: drmVBlankSeqType = 67108864;
+#[doc = "< Scheduled buffer swap should flip"]
 pub const drmVBlankSeqType_DRM_VBLANK_FLIP: drmVBlankSeqType = 134217728;
+#[doc = "< If missed, wait for next vblank"]
 pub const drmVBlankSeqType_DRM_VBLANK_NEXTONMISS: drmVBlankSeqType = 268435456;
+#[doc = "< Secondary display controller"]
 pub const drmVBlankSeqType_DRM_VBLANK_SECONDARY: drmVBlankSeqType = 536870912;
 pub const drmVBlankSeqType_DRM_VBLANK_SIGNAL: drmVBlankSeqType = 1073741824;
 pub type drmVBlankSeqType = ::core::ffi::c_uint;
@@ -2097,13 +2375,6 @@ pub struct _drmHost1xDeviceInfo {
 pub type drmHost1xDeviceInfo = _drmHost1xDeviceInfo;
 pub type drmHost1xDeviceInfoPtr = *mut _drmHost1xDeviceInfo;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct _drmFauxBusInfo {
-    pub name: [::core::ffi::c_char; 512usize],
-}
-pub type drmFauxBusInfo = _drmFauxBusInfo;
-pub type drmFauxBusInfoPtr = *mut _drmFauxBusInfo;
-#[repr(C)]
 #[derive(Copy, Clone)]
 pub struct _drmDevice {
     pub nodes: *mut *mut ::core::ffi::c_char,
@@ -2119,7 +2390,6 @@ pub union _drmDevice__bindgen_ty_1 {
     pub usb: drmUsbBusInfoPtr,
     pub platform: drmPlatformBusInfoPtr,
     pub host1x: drmHost1xBusInfoPtr,
-    pub faux: drmFauxBusInfoPtr,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -2237,13 +2507,17 @@ pub type drmModePropertyPtr = *mut _drmModeProperty;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmModeCrtc {
     pub crtc_id: u32,
+    #[doc = "< FB id to connect to 0 = disconnect"]
     pub buffer_id: u32,
+    #[doc = "< Position on the framebuffer"]
     pub x: u32,
+    #[doc = "< Position on the framebuffer"]
     pub y: u32,
     pub width: u32,
     pub height: u32,
     pub mode_valid: ::core::ffi::c_int,
     pub mode: drmModeModeInfo,
+    #[doc = "< Number of gamma stops"]
     pub gamma_size: ::core::ffi::c_int,
 }
 pub type drmModeCrtc = _drmModeCrtc;
@@ -2262,6 +2536,7 @@ pub type drmModeEncoderPtr = *mut _drmModeEncoder;
 pub const drmModeConnection_DRM_MODE_CONNECTED: drmModeConnection = 1;
 pub const drmModeConnection_DRM_MODE_DISCONNECTED: drmModeConnection = 2;
 pub const drmModeConnection_DRM_MODE_UNKNOWNCONNECTION: drmModeConnection = 3;
+#[doc = " Describes the connector status.\n\n DRM_MODE_CONNECTED means that the connector has a sink plugged in.\n DRM_MODE_DISCONNECTED means the contrary. DRM_MODE_UNKNOWNCONNECTION is used\n when it could be either.\n\n User-space should first try to enable DRM_MODE_CONNECTED connectors and\n ignore other connectors. If there are no DRM_MODE_CONNECTED connectors,\n user-space should then try to probe and enable DRM_MODE_UNKNOWNCONNECTION\n connectors."]
 pub type drmModeConnection = ::core::ffi::c_uint;
 pub const drmModeSubPixel_DRM_MODE_SUBPIXEL_UNKNOWN: drmModeSubPixel = 1;
 pub const drmModeSubPixel_DRM_MODE_SUBPIXEL_HORIZONTAL_RGB: drmModeSubPixel = 2;
@@ -2274,19 +2549,25 @@ pub type drmModeSubPixel = ::core::ffi::c_uint;
 #[derive(Debug, Copy, Clone)]
 pub struct _drmModeConnector {
     pub connector_id: u32,
+    #[doc = "< Encoder currently connected to"]
     pub encoder_id: u32,
     pub connector_type: u32,
     pub connector_type_id: u32,
     pub connection: drmModeConnection,
+    #[doc = "< HxW in millimeters"]
     pub mmWidth: u32,
+    #[doc = "< HxW in millimeters"]
     pub mmHeight: u32,
     pub subpixel: drmModeSubPixel,
     pub count_modes: ::core::ffi::c_int,
     pub modes: drmModeModeInfoPtr,
     pub count_props: ::core::ffi::c_int,
+    #[doc = "< List of property ids"]
     pub props: *mut u32,
+    #[doc = "< List of property values"]
     pub prop_values: *mut u64,
     pub count_encoders: ::core::ffi::c_int,
+    #[doc = "< List of encoder ids"]
     pub encoders: *mut u32,
 }
 pub type drmModeConnector = _drmModeConnector;
@@ -4448,9 +4729,11 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmGetDeviceFromDevId)(dev_id, flags, device) }
     }
+    #[doc = " Get the node type (DRM_NODE_PRIMARY or DRM_NODE_RENDER) from a device ID.\n\n Returns negative errno on error."]
     pub unsafe fn drmGetNodeTypeFromDevId(&self, devid: dev_t) -> ::core::ffi::c_int {
         unsafe { (self.drmGetNodeTypeFromDevId)(devid) }
     }
+    #[doc = " Check if two drmDevice pointers represent the same DRM device.\n\n Returns 1 if the devices are equal, 0 otherwise."]
     pub unsafe fn drmDevicesEqual(&self, a: drmDevicePtr, b: drmDevicePtr) -> ::core::ffi::c_int {
         unsafe { (self.drmDevicesEqual)(a, b) }
     }
@@ -4646,18 +4929,22 @@ impl DynLibDrm {
     pub unsafe fn drmModeFreePlaneResources(&self, ptr: drmModePlaneResPtr) {
         unsafe { (self.drmModeFreePlaneResources)(ptr) }
     }
+    #[doc = " Check whether the DRM node supports Kernel Mode-Setting.\n\n Returns 1 if suitable for KMS, 0 otherwise."]
     pub unsafe fn drmIsKMS(&self, fd: ::core::ffi::c_int) -> ::core::ffi::c_int {
         unsafe { (self.drmIsKMS)(fd) }
     }
+    #[doc = " Retrieves all of the resources associated with a card."]
     pub unsafe fn drmModeGetResources(&self, fd: ::core::ffi::c_int) -> drmModeResPtr {
         unsafe { (self.drmModeGetResources)(fd) }
     }
+    #[doc = " Retrieve information about framebuffer bufferId"]
     pub unsafe fn drmModeGetFB(&self, fd: ::core::ffi::c_int, bufferId: u32) -> drmModeFBPtr {
         unsafe { (self.drmModeGetFB)(fd, bufferId) }
     }
     pub unsafe fn drmModeGetFB2(&self, fd: ::core::ffi::c_int, bufferId: u32) -> drmModeFB2Ptr {
         unsafe { (self.drmModeGetFB2)(fd, bufferId) }
     }
+    #[doc = " Creates a new framebuffer with an buffer object as its scanout buffer."]
     pub unsafe fn drmModeAddFB(
         &self,
         fd: ::core::ffi::c_int,
@@ -4725,9 +5012,11 @@ impl DynLibDrm {
             )
         }
     }
+    #[doc = " Destroies the given framebuffer."]
     pub unsafe fn drmModeRmFB(&self, fd: ::core::ffi::c_int, bufferId: u32) -> ::core::ffi::c_int {
         unsafe { (self.drmModeRmFB)(fd, bufferId) }
     }
+    #[doc = " Close a framebuffer.\n\n Same as drmModeRmFB(), except it doesn't implicitly disable planes and CRTCs."]
     pub unsafe fn drmModeCloseFB(
         &self,
         fd: ::core::ffi::c_int,
@@ -4735,6 +5024,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeCloseFB)(fd, buffer_id) }
     }
+    #[doc = " Mark a region of a framebuffer as dirty."]
     pub unsafe fn drmModeDirtyFB(
         &self,
         fd: ::core::ffi::c_int,
@@ -4744,9 +5034,11 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeDirtyFB)(fd, bufferId, clips, num_clips) }
     }
+    #[doc = " Retrieve information about the ctrt crtcId"]
     pub unsafe fn drmModeGetCrtc(&self, fd: ::core::ffi::c_int, crtcId: u32) -> drmModeCrtcPtr {
         unsafe { (self.drmModeGetCrtc)(fd, crtcId) }
     }
+    #[doc = " Set the mode on a crtc crtcId with the given mode modeId."]
     pub unsafe fn drmModeSetCrtc(
         &self,
         fd: ::core::ffi::c_int,
@@ -4760,6 +5052,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeSetCrtc)(fd, crtcId, bufferId, x, y, connectors, count, mode) }
     }
+    #[doc = " Set the cursor on crtc"]
     pub unsafe fn drmModeSetCursor(
         &self,
         fd: ::core::ffi::c_int,
@@ -4782,6 +5075,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeSetCursor2)(fd, crtcId, bo_handle, width, height, hot_x, hot_y) }
     }
+    #[doc = " Move the cursor on crtc"]
     pub unsafe fn drmModeMoveCursor(
         &self,
         fd: ::core::ffi::c_int,
@@ -4791,6 +5085,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeMoveCursor)(fd, crtcId, x, y) }
     }
+    #[doc = " Encoder functions"]
     pub unsafe fn drmModeGetEncoder(
         &self,
         fd: ::core::ffi::c_int,
@@ -4798,6 +5093,7 @@ impl DynLibDrm {
     ) -> drmModeEncoderPtr {
         unsafe { (self.drmModeGetEncoder)(fd, encoder_id) }
     }
+    #[doc = " Retrieve all information about the connector connectorId. This will do a\n forced probe on the connector to retrieve remote information such as EDIDs\n from the display device."]
     pub unsafe fn drmModeGetConnector(
         &self,
         fd: ::core::ffi::c_int,
@@ -4805,6 +5101,7 @@ impl DynLibDrm {
     ) -> drmModeConnectorPtr {
         unsafe { (self.drmModeGetConnector)(fd, connectorId) }
     }
+    #[doc = " Retrieve current information, i.e the currently active mode and encoder,\n about the connector connectorId. This will not do any probing on the\n connector or remote device, and only reports what is currently known.\n For the complete set of modes and encoders associated with the connector\n use drmModeGetConnector() which will do a probe to determine any display\n link changes first."]
     pub unsafe fn drmModeGetConnectorCurrent(
         &self,
         fd: ::core::ffi::c_int,
@@ -4812,6 +5109,7 @@ impl DynLibDrm {
     ) -> drmModeConnectorPtr {
         unsafe { (self.drmModeGetConnectorCurrent)(fd, connector_id) }
     }
+    #[doc = " Get a bitmask of CRTCs a connector is compatible with.\n\n The bits reference CRTC indices. If the n-th CRTC is compatible with the\n connector, the n-th bit will be set. The indices are taken from the array\n returned by drmModeGetResources(). The indices are different from the object\n IDs.\n\n Zero is returned on error."]
     pub unsafe fn drmModeConnectorGetPossibleCrtcs(
         &self,
         fd: ::core::ffi::c_int,
@@ -4819,6 +5117,7 @@ impl DynLibDrm {
     ) -> u32 {
         unsafe { (self.drmModeConnectorGetPossibleCrtcs)(fd, connector) }
     }
+    #[doc = " Attaches the given mode to an connector."]
     pub unsafe fn drmModeAttachMode(
         &self,
         fd: ::core::ffi::c_int,
@@ -4827,6 +5126,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeAttachMode)(fd, connectorId, mode_info) }
     }
+    #[doc = " Detaches a mode from the connector\n must be unused, by the given mode."]
     pub unsafe fn drmModeDetachMode(
         &self,
         fd: ::core::ffi::c_int,
@@ -5053,12 +5353,14 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeRevokeLease)(fd, lessee_id) }
     }
+    #[doc = " Get a string describing a connector type.\n\n NULL is returned if the connector type is unsupported. Callers should handle\n this gracefully, e.g. by falling back to \"Unknown\" or printing the raw value."]
     pub unsafe fn drmModeGetConnectorTypeName(
         &self,
         connector_type: u32,
     ) -> *const ::core::ffi::c_char {
         unsafe { (self.drmModeGetConnectorTypeName)(connector_type) }
     }
+    #[doc = " Create a dumb buffer.\n\n Given a width, height and bits-per-pixel, the kernel will return a buffer\n handle, pitch and size. The flags must be zero.\n\n Returns 0 on success, negative errno on error."]
     pub unsafe fn drmModeCreateDumbBuffer(
         &self,
         fd: ::core::ffi::c_int,
@@ -5074,6 +5376,7 @@ impl DynLibDrm {
             (self.drmModeCreateDumbBuffer)(fd, width, height, bpp, flags, handle, pitch, size)
         }
     }
+    #[doc = " Destroy a dumb buffer.\n\n Returns 0 on success, negative errno on error."]
     pub unsafe fn drmModeDestroyDumbBuffer(
         &self,
         fd: ::core::ffi::c_int,
@@ -5081,6 +5384,7 @@ impl DynLibDrm {
     ) -> ::core::ffi::c_int {
         unsafe { (self.drmModeDestroyDumbBuffer)(fd, handle) }
     }
+    #[doc = " Prepare a dumb buffer for mapping.\n\n The kernel returns an offset which can be used as an argument to mmap(2) on\n the DRM FD.\n\n Returns 0 on success, negative errno on error."]
     pub unsafe fn drmModeMapDumbBuffer(
         &self,
         fd: ::core::ffi::c_int,

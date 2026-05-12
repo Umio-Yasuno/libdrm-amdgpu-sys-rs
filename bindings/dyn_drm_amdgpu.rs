@@ -294,9 +294,7 @@ pub const DRM_CAP_SYNCOBJ_TIMELINE: u32 = 20;
 pub const DRM_CAP_ATOMIC_ASYNC_PAGE_FLIP: u32 = 21;
 pub const DRM_SYNCOBJ_CREATE_SIGNALED: u32 = 1;
 pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_IMPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_FD_TO_HANDLE_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_EXPORT_SYNC_FILE: u32 = 1;
-pub const DRM_SYNCOBJ_HANDLE_TO_FD_FLAGS_TIMELINE: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL: u32 = 1;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT: u32 = 2;
 pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE: u32 = 4;
@@ -304,7 +302,6 @@ pub const DRM_SYNCOBJ_WAIT_FLAGS_WAIT_DEADLINE: u32 = 8;
 pub const DRM_SYNCOBJ_QUERY_FLAGS_LAST_SUBMITTED: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_RELATIVE: u32 = 1;
 pub const DRM_CRTC_SEQUENCE_NEXT_ON_MISS: u32 = 2;
-pub const DRM_CLIENT_NAME_MAX_LEN: u32 = 64;
 pub const DRM_CONNECTOR_NAME_LEN: u32 = 32;
 pub const DRM_DISPLAY_MODE_LEN: u32 = 32;
 pub const DRM_PROP_NAME_LEN: u32 = 32;
@@ -488,6 +485,14 @@ pub const AMDGPU_TILING_DCC_INDEPENDENT_128B_SHIFT: u32 = 44;
 pub const AMDGPU_TILING_DCC_INDEPENDENT_128B_MASK: u32 = 1;
 pub const AMDGPU_TILING_SCANOUT_SHIFT: u32 = 63;
 pub const AMDGPU_TILING_SCANOUT_MASK: u32 = 1;
+pub const AMDGPU_TILING_GFX12_SWIZZLE_MODE_SHIFT: u32 = 0;
+pub const AMDGPU_TILING_GFX12_SWIZZLE_MODE_MASK: u32 = 7;
+pub const AMDGPU_TILING_GFX12_DCC_MAX_COMPRESSED_BLOCK_SHIFT: u32 = 3;
+pub const AMDGPU_TILING_GFX12_DCC_MAX_COMPRESSED_BLOCK_MASK: u32 = 3;
+pub const AMDGPU_TILING_GFX12_DCC_NUMBER_TYPE_SHIFT: u32 = 5;
+pub const AMDGPU_TILING_GFX12_DCC_NUMBER_TYPE_MASK: u32 = 7;
+pub const AMDGPU_TILING_GFX12_DCC_DATA_FORMAT_SHIFT: u32 = 8;
+pub const AMDGPU_TILING_GFX12_DCC_DATA_FORMAT_MASK: u32 = 63;
 pub const AMDGPU_GEM_METADATA_OP_SET_METADATA: u32 = 1;
 pub const AMDGPU_GEM_METADATA_OP_GET_METADATA: u32 = 2;
 pub const AMDGPU_GEM_OP_GET_GEM_CREATE_INFO: u32 = 0;
@@ -546,6 +551,11 @@ pub const AMDGPU_IDS_FLAGS_FUSION: u32 = 1;
 pub const AMDGPU_IDS_FLAGS_PREEMPTION: u32 = 2;
 pub const AMDGPU_IDS_FLAGS_TMZ: u32 = 4;
 pub const AMDGPU_IDS_FLAGS_CONFORMANT_TRUNC_COORD: u32 = 8;
+pub const AMDGPU_IDS_FLAGS_MODE_MASK: u32 = 768;
+pub const AMDGPU_IDS_FLAGS_MODE_SHIFT: u32 = 8;
+pub const AMDGPU_IDS_FLAGS_MODE_PF: u32 = 0;
+pub const AMDGPU_IDS_FLAGS_MODE_VF: u32 = 1;
+pub const AMDGPU_IDS_FLAGS_MODE_PT: u32 = 2;
 pub const AMDGPU_INFO_ACCEL_WORKING: u32 = 0;
 pub const AMDGPU_INFO_CRTC_FROM_ID: u32 = 1;
 pub const AMDGPU_INFO_HW_IP_INFO: u32 = 2;
@@ -607,6 +617,7 @@ pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_SCLK: u32 = 8;
 pub const AMDGPU_INFO_SENSOR_STABLE_PSTATE_GFX_MCLK: u32 = 9;
 pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_SCLK: u32 = 10;
 pub const AMDGPU_INFO_SENSOR_PEAK_PSTATE_GFX_MCLK: u32 = 11;
+pub const AMDGPU_INFO_SENSOR_GPU_INPUT_POWER: u32 = 12;
 pub const AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS: u32 = 30;
 pub const AMDGPU_INFO_VRAM_LOST_COUNTER: u32 = 31;
 pub const AMDGPU_INFO_RAS_ENABLED_FEATURES: u32 = 32;
@@ -679,6 +690,7 @@ pub const AMDGPU_FAMILY_GC_11_0_1: u32 = 148;
 pub const AMDGPU_FAMILY_GC_10_3_6: u32 = 149;
 pub const AMDGPU_FAMILY_GC_10_3_7: u32 = 151;
 pub const AMDGPU_FAMILY_GC_11_5_0: u32 = 150;
+pub const AMDGPU_FAMILY_GC_12_0_0: u32 = 152;
 pub const BIOS_ATOM_PREFIX: &[u8; 9] = b"ATOMBIOS\0";
 pub const BIOS_VERSION_PREFIX: &[u8; 15] = b"ATOMBIOSBK-AMD\0";
 pub const BIOS_STRING_LENGTH: u32 = 43;
@@ -773,27 +785,19 @@ pub type uint_fast32_t = ::core::ffi::c_ulong;
 pub type uint_fast64_t = ::core::ffi::c_ulong;
 pub type intmax_t = __intmax_t;
 pub type uintmax_t = __uintmax_t;
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_info_uq_fw_areas {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_userq_signal {
-    _unused: [u8; 0],
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_amdgpu_userq_wait {
-    _unused: [u8; 0],
-}
+#[doc = " GEM flink name (needs DRM authentication, used by DRI2)"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_gem_flink_name: amdgpu_bo_handle_type = 0;
+#[doc = " KMS handle which is used by all driver ioctls"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms: amdgpu_bo_handle_type = 1;
+#[doc = " DMA-buf fd handle"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_dma_buf_fd: amdgpu_bo_handle_type = 2;
+#[doc = " Deprecated in favour of and same behaviour as\n amdgpu_bo_handle_type_kms, use that instead of this"]
 pub const amdgpu_bo_handle_type_amdgpu_bo_handle_type_kms_noimport: amdgpu_bo_handle_type = 3;
+#[doc = " Enum describing possible handle types\n\n \\sa amdgpu_bo_import, amdgpu_bo_export"]
 pub type amdgpu_bo_handle_type = ::core::ffi::c_uint;
+#[doc = " Allocate from \"normal\"/general range"]
 pub const amdgpu_gpu_va_range_amdgpu_gpu_va_range_general: amdgpu_gpu_va_range = 0;
+#[doc = " Define known types of GPU VM VA ranges"]
 pub type amdgpu_gpu_va_range = ::core::ffi::c_uint;
 pub const amdgpu_sw_info_amdgpu_sw_info_address32_hi: amdgpu_sw_info = 0;
 pub type amdgpu_sw_info = ::core::ffi::c_uint;
@@ -802,74 +806,101 @@ pub type amdgpu_sw_info = ::core::ffi::c_uint;
 pub struct amdgpu_device {
     _unused: [u8; 0],
 }
+#[doc = " Define opaque pointer to context associated with fd.\n This context will be returned as the result of\n \"initialize\" function and should be pass as the first\n parameter to any API call"]
 pub type amdgpu_device_handle = *mut amdgpu_device;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_context {
     _unused: [u8; 0],
 }
+#[doc = " Define GPU Context type as pointer to opaque structure\n Example of GPU Context is the \"rendering\" context associated\n with OpenGL context (glCreateContext)"]
 pub type amdgpu_context_handle = *mut amdgpu_context;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for amdgpu resources: buffer, GDS, etc."]
 pub type amdgpu_bo_handle = *mut amdgpu_bo;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_list {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for list of BOs"]
 pub type amdgpu_bo_list_handle = *mut amdgpu_bo_list;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_va {
     _unused: [u8; 0],
 }
+#[doc = " Define handle to be used to work with VA allocated ranges"]
 pub type amdgpu_va_handle = *mut amdgpu_va;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_va_manager {
     _unused: [u8; 0],
 }
+#[doc = " Define handle dealing with VA allocation. An amdgpu_device\n owns one of these, but they can also be used without a device."]
 pub type amdgpu_va_manager_handle = *mut amdgpu_va_manager;
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_semaphore {
     _unused: [u8; 0],
 }
+#[doc = " Define handle for semaphore"]
 pub type amdgpu_semaphore_handle = *mut amdgpu_semaphore;
+#[doc = " Structure describing memory allocation request\n\n \\sa amdgpu_bo_alloc()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_alloc_request {
+    #[doc = " Allocation request. It must be aligned correctly."]
     pub alloc_size: u64,
+    #[doc = " It may be required to have some specific alignment requirements\n for physical back-up storage (e.g. for displayable surface).\n If 0 there is no special alignment requirement"]
     pub phys_alignment: u64,
+    #[doc = " UMD should specify where to allocate memory and how it\n will be accessed by the CPU."]
     pub preferred_heap: u32,
+    #[doc = " Additional flags passed on allocation"]
     pub flags: u64,
 }
+#[doc = " Special UMD specific information associated with buffer.\n\n It may be need to pass some buffer charactersitic as part\n of buffer sharing. Such information are defined UMD and\n opaque for libdrm_amdgpu as well for kernel driver.\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_query_info,\n     amdgpu_bo_import(), amdgpu_bo_export"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_metadata {
+    #[doc = " Special flag associated with surface"]
     pub flags: u64,
+    #[doc = " ASIC-specific tiling information (also used by DCE).\n The encoding is defined by the AMDGPU_TILING_* definitions."]
     pub tiling_info: u64,
+    #[doc = " Size of metadata associated with the buffer, in bytes."]
     pub size_metadata: u32,
+    #[doc = " UMD specific metadata. Opaque for kernel"]
     pub umd_metadata: [u32; 64usize],
 }
+#[doc = " Structure describing allocated buffer. Client may need\n to query such information as part of 'sharing' buffers mechanism\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_query_info(),\n     amdgpu_bo_import(), amdgpu_bo_export()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_info {
+    #[doc = " Allocated memory size"]
     pub alloc_size: u64,
+    #[doc = " It may be required to have some specific alignment requirements\n for physical back-up storage."]
     pub phys_alignment: u64,
+    #[doc = " Heap where to allocate memory."]
     pub preferred_heap: u32,
+    #[doc = " Additional allocation flags."]
     pub alloc_flags: u64,
+    #[doc = " Metadata associated with buffer if any."]
     pub metadata: amdgpu_bo_metadata,
 }
+#[doc = " Structure with information about \"imported\" buffer\n\n \\sa amdgpu_bo_import()\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_bo_import_result {
+    #[doc = " Handle of memory/buffer to use"]
     pub buf_handle: amdgpu_bo_handle,
+    #[doc = " Buffer size"]
     pub alloc_size: u64,
 }
+#[doc = " Structure to describe GDS partitioning information.\n \\note OA and GWS resources are asscoiated with GDS partition\n\n \\sa amdgpu_gpu_resource_query_gds_info"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_gds_resource_info {
@@ -881,87 +912,144 @@ pub struct amdgpu_gds_resource_info {
     pub oa_per_gfx_partition: u32,
     pub oa_per_compute_partition: u32,
 }
+#[doc = " Structure describing CS fence\n\n \\sa amdgpu_cs_query_fence_status(), amdgpu_cs_request, amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_fence {
+    #[doc = " In which context IB was sent to execution"]
     pub context: amdgpu_context_handle,
+    #[doc = " To which HW IP type the fence belongs"]
     pub ip_type: u32,
+    #[doc = " IP instance index if there are several IPs of the same type."]
     pub ip_instance: u32,
+    #[doc = " Ring index of the HW IP"]
     pub ring: u32,
+    #[doc = " Specify fence for which we need to check submission status."]
     pub fence: u64,
 }
+#[doc = " Structure describing IB\n\n \\sa amdgpu_cs_request, amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_ib_info {
+    #[doc = " Special flags"]
     pub flags: u64,
+    #[doc = " Virtual MC address of the command buffer"]
     pub ib_mc_address: u64,
+    #[doc = " Size of Command Buffer to be submitted.\n   - The size is in units of dwords (4 bytes).\n   - Could be 0"]
     pub size: u32,
 }
+#[doc = " Structure describing fence information\n\n \\sa amdgpu_cs_request, amdgpu_cs_query_fence,\n     amdgpu_cs_submit(), amdgpu_cs_query_fence_status()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_fence_info {
+    #[doc = " buffer object for the fence"]
     pub handle: amdgpu_bo_handle,
+    #[doc = " fence offset in the unit of sizeof(uint64_t)"]
     pub offset: u64,
 }
+#[doc = " Structure describing submission request\n\n \\note We could have several IBs as packet. e.g. CE, CE, DE case for gfx\n\n \\sa amdgpu_cs_submit()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_cs_request {
+    #[doc = " Specify flags with additional information"]
     pub flags: u64,
+    #[doc = " Specify HW IP block type to which to send the IB."]
     pub ip_type: ::core::ffi::c_uint,
+    #[doc = " IP instance index if there are several IPs of the same type."]
     pub ip_instance: ::core::ffi::c_uint,
+    #[doc = " Specify ring index of the IP. We could have several rings\n in the same IP. E.g. 0 for SDMA0 and 1 for SDMA1."]
     pub ring: u32,
+    #[doc = " List handle with resources used by this request."]
     pub resources: amdgpu_bo_list_handle,
+    #[doc = " Number of dependencies this Command submission needs to\n wait for before starting execution."]
     pub number_of_dependencies: u32,
+    #[doc = " Array of dependencies which need to be met before\n execution can start."]
     pub dependencies: *mut amdgpu_cs_fence,
+    #[doc = " Number of IBs to submit in the field ibs."]
     pub number_of_ibs: u32,
+    #[doc = " IBs to submit. Those IBs will be submit together as single entity"]
     pub ibs: *mut amdgpu_cs_ib_info,
+    #[doc = " The returned sequence number for the command submission"]
     pub seq_no: u64,
+    #[doc = " The fence information"]
     pub fence_info: amdgpu_cs_fence_info,
 }
+#[doc = " Structure which provide information about GPU VM MC Address space\n alignments requirements\n\n \\sa amdgpu_query_buffer_size_alignment"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_buffer_size_alignments {
+    #[doc = " Size alignment requirement for allocation in\n local memory"]
     pub size_local: u64,
+    #[doc = " Size alignment requirement for allocation in remote memory"]
     pub size_remote: u64,
 }
+#[doc = " Structure which provide information about heap\n\n \\sa amdgpu_query_heap_info()\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_heap_info {
+    #[doc = " Theoretical max. available memory in the given heap"]
     pub heap_size: u64,
+    #[doc = " Number of bytes allocated in the heap. This includes all processes\n and private allocations in the kernel. It changes when new buffers\n are allocated, freed, and moved. It cannot be larger than\n heap_size."]
     pub heap_usage: u64,
+    #[doc = " Theoretical possible max. size of buffer which\n could be allocated in the given heap"]
     pub max_allocation: u64,
 }
+#[doc = " Describe GPU h/w info needed for UMD correct initialization\n\n \\sa amdgpu_query_gpu_info()"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct amdgpu_gpu_info {
+    #[doc = " Asic id"]
     pub asic_id: u32,
+    #[doc = " Chip revision"]
     pub chip_rev: u32,
+    #[doc = " Chip external revision"]
     pub chip_external_rev: u32,
+    #[doc = " Family ID"]
     pub family_id: u32,
+    #[doc = " Special flags"]
     pub ids_flags: u64,
+    #[doc = " max engine clock"]
     pub max_engine_clk: u64,
+    #[doc = " max memory clock"]
     pub max_memory_clk: u64,
+    #[doc = " number of shader engines"]
     pub num_shader_engines: u32,
+    #[doc = " number of shader arrays per engine"]
     pub num_shader_arrays_per_engine: u32,
+    #[doc = "  Number of available good shader pipes"]
     pub avail_quad_shader_pipes: u32,
+    #[doc = "  Max. number of shader pipes.(including good and bad pipes"]
     pub max_quad_shader_pipes: u32,
+    #[doc = " Number of parameter cache entries per shader quad pipe"]
     pub cache_entries_per_quad_pipe: u32,
+    #[doc = "  Number of available graphics context"]
     pub num_hw_gfx_contexts: u32,
+    #[doc = " Number of render backend pipes"]
     pub rb_pipes: u32,
+    #[doc = "  Enabled render backend pipe mask"]
     pub enabled_rb_pipes_mask: u32,
+    #[doc = " Frequency of GPU Counter"]
     pub gpu_counter_freq: u32,
+    #[doc = " CC_RB_BACKEND_DISABLE.BACKEND_DISABLE per SE"]
     pub backend_disable: [u32; 4usize],
+    #[doc = " Value of MC_ARB_RAMCFG register"]
     pub mc_arb_ramcfg: u32,
+    #[doc = " Value of GB_ADDR_CONFIG"]
     pub gb_addr_cfg: u32,
+    #[doc = " Values of the GB_TILE_MODE0..31 registers"]
     pub gb_tile_mode: [u32; 32usize],
+    #[doc = " Values of GB_MACROTILE_MODE0..15 registers"]
     pub gb_macro_tile_mode: [u32; 16usize],
+    #[doc = " Value of PA_SC_RASTER_CONFIG register per SE"]
     pub pa_sc_raster_cfg: [u32; 4usize],
+    #[doc = " Value of PA_SC_RASTER_CONFIG_1 register per SE"]
     pub pa_sc_raster_cfg1: [u32; 4usize],
     pub cu_active_number: u32,
     pub cu_ao_mask: u32,
     pub cu_bitmap: [[u32; 4usize]; 4usize],
     pub vram_type: u32,
     pub vram_bit_width: u32,
+    #[doc = " constant engine ram size"]
     pub ce_ram_size: u32,
     pub vce_harvest_config: u32,
     pub pci_rev_id: u32,
@@ -1008,6 +1096,7 @@ pub struct __kernel_fsid_t {
 }
 pub type __kernel_off_t = __kernel_long_t;
 pub type __kernel_loff_t = ::core::ffi::c_longlong;
+pub type __kernel_uoff_t = ::core::ffi::c_ulonglong;
 pub type __kernel_old_time_t = __kernel_long_t;
 pub type __kernel_time_t = __kernel_long_t;
 pub type __kernel_time64_t = ::core::ffi::c_longlong;
@@ -1483,34 +1572,30 @@ pub struct drm_set_version {
     pub drm_dd_major: ::core::ffi::c_int,
     pub drm_dd_minor: ::core::ffi::c_int,
 }
-#[doc = " struct drm_gem_close - Argument for &DRM_IOCTL_GEM_CLOSE ioctl.\n @handle: Handle of the object to be closed.\n @pad: Padding.\n\n Releases the handle to an mm object."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_close {
+    #[doc = " Handle of the object to be closed."]
     pub handle: __u32,
     pub pad: __u32,
 }
-#[doc = " struct drm_gem_flink - Argument for &DRM_IOCTL_GEM_FLINK ioctl.\n @handle: Handle for the object being named.\n @name: Returned global name.\n\n Create a global name for an object, returning the name.\n\n Note that the name does not hold a reference; when the object\n is freed, the name goes away."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_flink {
+    #[doc = " Handle for the object being named"]
     pub handle: __u32,
+    #[doc = " Returned global name"]
     pub name: __u32,
 }
-#[doc = " struct drm_gem_open - Argument for &DRM_IOCTL_GEM_OPEN ioctl.\n @name: Name of object being opened.\n @handle: Returned handle for the object.\n @size: Returned size of the object\n\n Open an object using the global name, returning a handle and the size.\n\n This handle (of course) holds a reference to the object, so the object\n will not go away until the handle is deleted."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_gem_open {
+    #[doc = " Name of object being opened"]
     pub name: __u32,
+    #[doc = " Returned handle for the object"]
     pub handle: __u32,
+    #[doc = " Returned size of the object"]
     pub size: __u64,
-}
-#[doc = " struct drm_gem_change_handle - Argument for &DRM_IOCTL_GEM_CHANGE_HANDLE ioctl.\n @handle: The handle of a gem object.\n @new_handle: An available gem handle.\n\n This ioctl changes the handle of a GEM object to the specified one.\n The new handle must be unused. On success the old handle is closed\n and all further IOCTL should refer to the new handle only.\n Calls to DRM_IOCTL_PRIME_FD_TO_HANDLE will return the new handle."]
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_gem_change_handle {
-    pub handle: __u32,
-    pub new_handle: __u32,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1552,7 +1637,6 @@ pub struct drm_syncobj_handle {
     pub flags: __u32,
     pub fd: __s32,
     pub pad: __u32,
-    pub point: __u64,
 }
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -1629,12 +1713,6 @@ pub struct drm_crtc_queue_sequence {
     pub flags: __u32,
     pub sequence: __u64,
     pub user_data: __u64,
-}
-#[repr(C)]
-#[derive(Debug, Copy, Clone)]
-pub struct drm_set_client_name {
-    pub name_len: __u64,
-    pub name: __u64,
 }
 #[doc = " struct drm_mode_modeinfo - Display mode information.\n @clock: pixel clock in kHz\n @hdisplay: horizontal display size\n @hsync_start: horizontal sync start\n @hsync_end: horizontal sync end\n @htotal: horizontal total size\n @hskew: horizontal skew\n @vdisplay: vertical display size\n @vsync_start: vertical sync start\n @vsync_end: vertical sync end\n @vtotal: vertical total size\n @vscan: vertical scan\n @vrefresh: approximate vertical refresh rate in Hz\n @flags: bitmask of misc. flags, see DRM_MODE_FLAG_* defines\n @type: bitmask of type flags, see DRM_MODE_TYPE_* defines\n @name: string describing the mode resolution\n\n This is the user-space API display mode information structure. For the\n kernel version see struct drm_display_mode."]
 #[repr(C)]
@@ -1936,7 +2014,7 @@ pub struct drm_color_lut {
     pub blue: __u16,
     pub reserved: __u16,
 }
-#[doc = " struct drm_plane_size_hint - Plane size hints\n @width: The width of the plane in pixel\n @height: The height of the plane in pixel\n\n The plane SIZE_HINTS property blob contains an\n array of struct drm_plane_size_hint."]
+#[doc = " struct drm_plane_size_hint - Plane size hints\n\n The plane SIZE_HINTS property blob contains an\n array of struct drm_plane_size_hint."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_plane_size_hint {
@@ -2008,7 +2086,7 @@ pub struct drm_mode_crtc_page_flip_target {
     pub sequence: __u32,
     pub user_data: __u64,
 }
-#[doc = " struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.\n @height: buffer height in pixels\n @width: buffer width in pixels\n @bpp: color mode\n @flags: must be zero\n @handle: buffer object handle\n @pitch: number of bytes between two consecutive lines\n @size: size of the whole buffer in bytes\n\n User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,\n the kernel fills @handle, @pitch and @size.\n\n The value of @bpp is a color-mode number describing a specific format\n or a variant thereof. The value often corresponds to the number of bits\n per pixel for most modes, although there are exceptions. Each color mode\n maps to a DRM format plus a number of modes with similar pixel layout.\n Framebuffer layout is always linear.\n\n Support for all modes and formats is optional. Even if dumb-buffer\n creation with a certain color mode succeeds, it is not guaranteed that\n the DRM driver supports any of the related formats. Most drivers support\n a color mode of 32 with a format of DRM_FORMAT_XRGB8888 on their primary\n plane.\n\n +------------+------------------------+------------------------+\n | Color mode | Framebuffer format     | Compatible formats     |\n +============+========================+========================+\n |     32     |  * DRM_FORMAT_XRGB8888 |  * DRM_FORMAT_BGRX8888 |\n |            |                        |  * DRM_FORMAT_RGBX8888 |\n |            |                        |  * DRM_FORMAT_XBGR8888 |\n +------------+------------------------+------------------------+\n |     24     |  * DRM_FORMAT_RGB888   |  * DRM_FORMAT_BGR888   |\n +------------+------------------------+------------------------+\n |     16     |  * DRM_FORMAT_RGB565   |  * DRM_FORMAT_BGR565   |\n +------------+------------------------+------------------------+\n |     15     |  * DRM_FORMAT_XRGB1555 |  * DRM_FORMAT_BGRX1555 |\n |            |                        |  * DRM_FORMAT_RGBX1555 |\n |            |                        |  * DRM_FORMAT_XBGR1555 |\n +------------+------------------------+------------------------+\n |      8     |  * DRM_FORMAT_C8       |  * DRM_FORMAT_D8       |\n |            |                        |  * DRM_FORMAT_R8       |\n +------------+------------------------+------------------------+\n |      4     |  * DRM_FORMAT_C4       |  * DRM_FORMAT_D4       |\n |            |                        |  * DRM_FORMAT_R4       |\n +------------+------------------------+------------------------+\n |      2     |  * DRM_FORMAT_C2       |  * DRM_FORMAT_D2       |\n |            |                        |  * DRM_FORMAT_R2       |\n +------------+------------------------+------------------------+\n |      1     |  * DRM_FORMAT_C1       |  * DRM_FORMAT_D1       |\n |            |                        |  * DRM_FORMAT_R1       |\n +------------+------------------------+------------------------+\n\n Color modes of 10, 12, 15, 30 and 64 are only supported for use by\n legacy user space. Please don't use them in new code. Other modes\n are not support.\n\n Do not attempt to allocate anything but linear framebuffer memory\n with single-plane RGB data. Allocation of other framebuffer\n layouts requires dedicated ioctls in the respective DRM driver."]
+#[doc = " struct drm_mode_create_dumb - Create a KMS dumb buffer for scanout.\n @height: buffer height in pixels\n @width: buffer width in pixels\n @bpp: bits per pixel\n @flags: must be zero\n @handle: buffer object handle\n @pitch: number of bytes between two consecutive lines\n @size: size of the whole buffer in bytes\n\n User-space fills @height, @width, @bpp and @flags. If the IOCTL succeeds,\n the kernel fills @handle, @pitch and @size."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_mode_create_dumb {
@@ -2496,6 +2574,7 @@ pub struct drm_amdgpu_gem_va {
     #[doc = " Specify mapping size. Must be correctly aligned."]
     pub map_size: __u64,
 }
+#[doc = "  Submit raw command submission to kernel\n\n \\param   dev\t       - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   bo_list_handle - \\c [in] request bo list handle (0 for none)\n \\param   num_chunks - \\c [in] number of CS chunks to submit\n \\param   chunks     - \\c [in] array of CS chunks\n \\param   seq_no     - \\c [out] output sequence number for submission.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct drm_amdgpu_cs_chunk {
@@ -8569,12 +8648,6 @@ pub struct DynLibDrmAmdgpu {
         ip_instance: ::core::ffi::c_uint,
         info: *mut drm_amdgpu_info_hw_ip,
     ) -> ::core::ffi::c_int,
-    pub amdgpu_query_uq_fw_area_info: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        type_: ::core::ffi::c_uint,
-        ip_instance: ::core::ffi::c_uint,
-        info: *mut drm_amdgpu_info_uq_fw_areas,
-    ) -> ::core::ffi::c_int,
     pub amdgpu_query_heap_info: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         heap: u32,
@@ -8679,19 +8752,6 @@ pub struct DynLibDrmAmdgpu {
         addr: u64,
         flags: u64,
         ops: u32,
-    ) -> ::core::ffi::c_int,
-    pub amdgpu_bo_va_op_raw2: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        bo: amdgpu_bo_handle,
-        offset: u64,
-        size: u64,
-        addr: u64,
-        flags: u64,
-        ops: u32,
-        vm_timeline_syncobj_out: u32,
-        vm_timeline_point: u64,
-        input_fence_syncobj_array_in: u64,
-        num_syncobj_handles_in: u32,
     ) -> ::core::ffi::c_int,
     pub amdgpu_cs_create_semaphore:
         unsafe extern "C" fn(sem: *mut amdgpu_semaphore_handle) -> ::core::ffi::c_int,
@@ -8839,29 +8899,6 @@ pub struct DynLibDrmAmdgpu {
         unsafe extern "C" fn(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int,
     pub amdgpu_vm_unreserve_vmid:
         unsafe extern "C" fn(dev: amdgpu_device_handle, flags: u32) -> ::core::ffi::c_int,
-    pub amdgpu_create_userqueue: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        ip_type: u32,
-        doorbell_handle: u32,
-        doorbell_offset: u32,
-        queue_va: u64,
-        queue_size: u64,
-        wptr_va: u64,
-        rptr_va: u64,
-        mqd_in: *mut ::core::ffi::c_void,
-        flags: u32,
-        queue_id: *mut u32,
-    ) -> ::core::ffi::c_int,
-    pub amdgpu_free_userqueue:
-        unsafe extern "C" fn(dev: amdgpu_device_handle, queue_id: u32) -> ::core::ffi::c_int,
-    pub amdgpu_userq_signal: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        signal_data: *mut drm_amdgpu_userq_signal,
-    ) -> ::core::ffi::c_int,
-    pub amdgpu_userq_wait: unsafe extern "C" fn(
-        dev: amdgpu_device_handle,
-        wait_data: *mut drm_amdgpu_userq_wait,
-    ) -> ::core::ffi::c_int,
 }
 impl DynLibDrmAmdgpu {
     pub unsafe fn new<P>(path: P) -> Result<Self, ::libloading::Error>
@@ -8937,8 +8974,6 @@ impl DynLibDrmAmdgpu {
             unsafe { __library.get(b"amdgpu_query_hw_ip_count\0") }.map(|sym| *sym)?;
         let amdgpu_query_hw_ip_info =
             unsafe { __library.get(b"amdgpu_query_hw_ip_info\0") }.map(|sym| *sym)?;
-        let amdgpu_query_uq_fw_area_info =
-            unsafe { __library.get(b"amdgpu_query_uq_fw_area_info\0") }.map(|sym| *sym)?;
         let amdgpu_query_heap_info =
             unsafe { __library.get(b"amdgpu_query_heap_info\0") }.map(|sym| *sym)?;
         let amdgpu_query_crtc_from_id =
@@ -8973,8 +9008,6 @@ impl DynLibDrmAmdgpu {
         let amdgpu_bo_va_op = unsafe { __library.get(b"amdgpu_bo_va_op\0") }.map(|sym| *sym)?;
         let amdgpu_bo_va_op_raw =
             unsafe { __library.get(b"amdgpu_bo_va_op_raw\0") }.map(|sym| *sym)?;
-        let amdgpu_bo_va_op_raw2 =
-            unsafe { __library.get(b"amdgpu_bo_va_op_raw2\0") }.map(|sym| *sym)?;
         let amdgpu_cs_create_semaphore =
             unsafe { __library.get(b"amdgpu_cs_create_semaphore\0") }.map(|sym| *sym)?;
         let amdgpu_cs_signal_semaphore =
@@ -9031,13 +9064,6 @@ impl DynLibDrmAmdgpu {
             unsafe { __library.get(b"amdgpu_vm_reserve_vmid\0") }.map(|sym| *sym)?;
         let amdgpu_vm_unreserve_vmid =
             unsafe { __library.get(b"amdgpu_vm_unreserve_vmid\0") }.map(|sym| *sym)?;
-        let amdgpu_create_userqueue =
-            unsafe { __library.get(b"amdgpu_create_userqueue\0") }.map(|sym| *sym)?;
-        let amdgpu_free_userqueue =
-            unsafe { __library.get(b"amdgpu_free_userqueue\0") }.map(|sym| *sym)?;
-        let amdgpu_userq_signal =
-            unsafe { __library.get(b"amdgpu_userq_signal\0") }.map(|sym| *sym)?;
-        let amdgpu_userq_wait = unsafe { __library.get(b"amdgpu_userq_wait\0") }.map(|sym| *sym)?;
         Ok(DynLibDrmAmdgpu {
             __library,
             amdgpu_device_initialize,
@@ -9074,7 +9100,6 @@ impl DynLibDrmAmdgpu {
             amdgpu_query_firmware_version,
             amdgpu_query_hw_ip_count,
             amdgpu_query_hw_ip_info,
-            amdgpu_query_uq_fw_area_info,
             amdgpu_query_heap_info,
             amdgpu_query_crtc_from_id,
             amdgpu_query_gpu_info,
@@ -9093,7 +9118,6 @@ impl DynLibDrmAmdgpu {
             amdgpu_va_range_alloc2,
             amdgpu_bo_va_op,
             amdgpu_bo_va_op_raw,
-            amdgpu_bo_va_op_raw2,
             amdgpu_cs_create_semaphore,
             amdgpu_cs_signal_semaphore,
             amdgpu_cs_wait_semaphore,
@@ -9122,12 +9146,9 @@ impl DynLibDrmAmdgpu {
             amdgpu_cs_chunk_fence_info_to_data,
             amdgpu_vm_reserve_vmid,
             amdgpu_vm_unreserve_vmid,
-            amdgpu_create_userqueue,
-            amdgpu_free_userqueue,
-            amdgpu_userq_signal,
-            amdgpu_userq_wait,
         })
     }
+    #[doc = " \\param   fd            - \\c [in]  File descriptor for AMD GPU device\n                                   received previously as the result of\n                                   e.g. drmOpen() call.\n                                   For legacy fd type, the DRI2/DRI3\n                                   authentication should be done before\n                                   calling this function.\n \\param   major_version - \\c [out] Major version of library. It is assumed\n                                   that adding new functionality will cause\n                                   increase in major version\n \\param   minor_version - \\c [out] Minor version of library\n \\param   device_handle - \\c [out] Pointer to opaque context which should\n                                   be passed as the first parameter on each\n                                   API call\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n\n \\sa amdgpu_device_deinitialize()"]
     pub unsafe fn amdgpu_device_initialize(
         &self,
         fd: ::core::ffi::c_int,
@@ -9137,6 +9158,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_device_initialize)(fd, major_version, minor_version, device_handle) }
     }
+    #[doc = " Same as amdgpu_device_initialize() except when deduplicate_device\n is false *and* fd points to a device that was already initialized.\n In this case, amdgpu_device_initialize would return the same\n amdgpu_device_handle while here amdgpu_device_initialize2 would\n return a new handle.\n amdgpu_device_initialize() should be preferred in most situations;\n the only use-case where not-deduplicating devices make sense is\n when one wants to have isolated device handles in the same process."]
     pub unsafe fn amdgpu_device_initialize2(
         &self,
         fd: ::core::ffi::c_int,
@@ -9155,12 +9177,14 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = " When access to such library does not needed any more the special\n function must be call giving opportunity to clean up any\n resources if needed.\n\n \\param   device_handle - \\c [in]  Context associated with file\n                                   descriptor for AMD GPU device\n                                   received previously as the\n                                   result e.g. of drmOpen() call.\n\n \\return  0 on success\\n\n         <0 - Negative POSIX Error code\n\n \\sa amdgpu_device_initialize()"]
     pub unsafe fn amdgpu_device_deinitialize(
         &self,
         device_handle: amdgpu_device_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_device_deinitialize)(device_handle) }
     }
+    #[doc = " Allocate memory to be used by UMD for GPU related operations\n\n \\param   dev\t\t - \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   alloc_buffer - \\c [in] Pointer to the structure describing an\n\t\t\t\t   allocation request\n \\param   buf_handle\t- \\c [out] Allocated buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_free()"]
     pub unsafe fn amdgpu_bo_alloc(
         &self,
         dev: amdgpu_device_handle,
@@ -9169,6 +9193,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_alloc)(dev, alloc_buffer, buf_handle) }
     }
+    #[doc = " Associate opaque data with buffer to be queried by another UMD\n\n \\param   dev\t       - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in] Buffer handle\n \\param   info       - \\c [in] Metadata to associated with buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_bo_set_metadata(
         &self,
         buf_handle: amdgpu_bo_handle,
@@ -9176,6 +9201,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_set_metadata)(buf_handle, info) }
     }
+    #[doc = " Query buffer information including metadata previusly associated with\n buffer.\n\n \\param   dev\t       - \\c [in] Device handle.\n\t\t\t\t See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in]   Buffer handle\n \\param   info       - \\c [out]  Structure describing buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_alloc()"]
     pub unsafe fn amdgpu_bo_query_info(
         &self,
         buf_handle: amdgpu_bo_handle,
@@ -9183,6 +9209,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_query_info)(buf_handle, info) }
     }
+    #[doc = " Allow others to get access to buffer\n\n \\param   dev\t\t  - \\c [in] Device handle.\n\t\t\t\t    See #amdgpu_device_initialize()\n \\param   buf_handle    - \\c [in] Buffer handle\n \\param   type          - \\c [in] Type of handle requested\n \\param   shared_handle - \\c [out] Special \"shared\" handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_import()"]
     pub unsafe fn amdgpu_bo_export(
         &self,
         buf_handle: amdgpu_bo_handle,
@@ -9191,6 +9218,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_export)(buf_handle, type_, shared_handle) }
     }
+    #[doc = " Request access to \"shared\" buffer\n\n \\param   dev\t\t  - \\c [in] Device handle.\n\t\t\t\t    See #amdgpu_device_initialize()\n \\param   type\t  - \\c [in] Type of handle requested\n \\param   shared_handle - \\c [in] Shared handle received as result \"import\"\n\t\t\t\t     operation\n \\param   output        - \\c [out] Pointer to structure with information\n\t\t\t\t     about imported buffer\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note  Buffer must be \"imported\" only using new \"fd\" (different from\n\t  one used by \"exporter\").\n\n \\sa amdgpu_bo_export()"]
     pub unsafe fn amdgpu_bo_import(
         &self,
         dev: amdgpu_device_handle,
@@ -9200,6 +9228,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_import)(dev, type_, shared_handle, output) }
     }
+    #[doc = " Request GPU access to user allocated memory e.g. via \"malloc\"\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param cpu - [in] CPU address of user allocated memory which we\n want to map to GPU address space (make GPU accessible)\n (This address must be correctly aligned).\n \\param size - [in] Size of allocation (must be correctly aligned)\n \\param buf_handle - [out] Buffer handle for the userptr memory\n resource on submission and be used in other operations.\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note\n This call doesn't guarantee that such memory will be persistently\n \"locked\" / make non-pageable. The purpose of this call is to provide\n opportunity for GPU get access to this resource during submission.\n\n The maximum amount of memory which could be mapped in this call depends\n if overcommit is disabled or not. If overcommit is disabled than the max.\n amount of memory to be pinned will be limited by left \"free\" size in total\n amount of memory which could be locked simultaneously (\"GART\" size).\n\n Supported (theoretical) max. size of mapping is restricted only by\n \"GART\" size.\n\n It is responsibility of caller to correctly specify access rights\n on VA assignment."]
     pub unsafe fn amdgpu_create_bo_from_user_mem(
         &self,
         dev: amdgpu_device_handle,
@@ -9209,6 +9238,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_create_bo_from_user_mem)(dev, cpu, size, buf_handle) }
     }
+    #[doc = " Validate if the user memory comes from BO\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param cpu - [in] CPU address of user allocated memory which we\n want to map to GPU address space (make GPU accessible)\n (This address must be correctly aligned).\n \\param size - [in] Size of allocation (must be correctly aligned)\n \\param buf_handle - [out] Buffer handle for the userptr memory\n if the user memory is not from BO, the buf_handle will be NULL.\n \\param offset_in_bo - [out] offset in this BO for this user memory\n\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_find_bo_by_cpu_mapping(
         &self,
         dev: amdgpu_device_handle,
@@ -9219,12 +9249,15 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_find_bo_by_cpu_mapping)(dev, cpu, size, buf_handle, offset_in_bo) }
     }
+    #[doc = " Free previously allocated memory\n\n \\param   dev\t       - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle - \\c [in]  Buffer handle to free\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note In the case of memory shared between different applications all\n\t resources will be “physically” freed only all such applications\n\t will be terminated\n \\note If is UMD responsibility to ‘free’ buffer only when there is no\n\t more GPU access\n\n \\sa amdgpu_bo_set_metadata(), amdgpu_bo_alloc()"]
     pub unsafe fn amdgpu_bo_free(&self, buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_free)(buf_handle) }
     }
+    #[doc = " Increase the reference count of a buffer object\n\n \\param   bo - \\c [in]  Buffer object handle to increase the reference count\n\n \\sa amdgpu_bo_alloc(), amdgpu_bo_free()"]
     pub unsafe fn amdgpu_bo_inc_ref(&self, bo: amdgpu_bo_handle) {
         unsafe { (self.amdgpu_bo_inc_ref)(bo) }
     }
+    #[doc = " Request CPU access to GPU accessible memory\n\n \\param   buf_handle - \\c [in] Buffer handle\n \\param   cpu        - \\c [out] CPU address to be used for access\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_cpu_unmap()"]
     pub unsafe fn amdgpu_bo_cpu_map(
         &self,
         buf_handle: amdgpu_bo_handle,
@@ -9232,9 +9265,11 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_cpu_map)(buf_handle, cpu) }
     }
+    #[doc = " Release CPU access to GPU memory\n\n \\param   buf_handle  - \\c [in] Buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_cpu_map()"]
     pub unsafe fn amdgpu_bo_cpu_unmap(&self, buf_handle: amdgpu_bo_handle) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_cpu_unmap)(buf_handle) }
     }
+    #[doc = " Wait until a buffer is not used by the device.\n\n \\param   dev           - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   buf_handle    - \\c [in] Buffer handle.\n \\param   timeout_ns    - Timeout in nanoseconds.\n \\param   buffer_busy   - 0 if buffer is idle, all GPU access was completed\n                            and no GPU access is scheduled.\n                          1 GPU access is in fly or scheduled\n\n \\return   0 - on success\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_bo_wait_for_idle(
         &self,
         buf_handle: amdgpu_bo_handle,
@@ -9243,6 +9278,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_wait_for_idle)(buf_handle, timeout_ns, buffer_busy) }
     }
+    #[doc = " Creates a BO list handle for command submission.\n\n \\param   dev\t\t\t- \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   number_of_buffers\t- \\c [in] Number of BOs in the list\n \\param   buffers\t\t- \\c [in] List of BO handles\n \\param   result\t\t- \\c [out] Created BO list handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_destroy_raw(), amdgpu_cs_submit_raw2()"]
     pub unsafe fn amdgpu_bo_list_create_raw(
         &self,
         dev: amdgpu_device_handle,
@@ -9252,6 +9288,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_list_create_raw)(dev, number_of_buffers, buffers, result) }
     }
+    #[doc = " Destroys a BO list handle.\n\n \\param   bo_list\t- \\c [in] BO list handle.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create_raw(), amdgpu_cs_submit_raw2()"]
     pub unsafe fn amdgpu_bo_list_destroy_raw(
         &self,
         dev: amdgpu_device_handle,
@@ -9259,6 +9296,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_list_destroy_raw)(dev, bo_list) }
     }
+    #[doc = " Creates a BO list handle for command submission.\n\n \\param   dev\t\t\t- \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   number_of_resources\t- \\c [in] Number of BOs in the list\n \\param   resources\t\t- \\c [in] List of BO handles\n \\param   resource_prios\t- \\c [in] Optional priority for each handle\n \\param   result\t\t- \\c [out] Created BO list handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_destroy()"]
     pub unsafe fn amdgpu_bo_list_create(
         &self,
         dev: amdgpu_device_handle,
@@ -9277,12 +9315,14 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = " Destroys a BO list handle.\n\n \\param   handle\t- \\c [in] BO list handle.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create()"]
     pub unsafe fn amdgpu_bo_list_destroy(
         &self,
         handle: amdgpu_bo_list_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_list_destroy)(handle) }
     }
+    #[doc = " Update resources for existing BO list\n\n \\param   handle              - \\c [in] BO list handle\n \\param   number_of_resources - \\c [in] Number of BOs in the list\n \\param   resources           - \\c [in] List of BO handles\n \\param   resource_prios      - \\c [in] Optional priority for each handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_update()"]
     pub unsafe fn amdgpu_bo_list_update(
         &self,
         handle: amdgpu_bo_list_handle,
@@ -9294,6 +9334,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_bo_list_update)(handle, number_of_resources, resources, resource_prios)
         }
     }
+    #[doc = " Create GPU execution Context\n\n For the purpose of GPU Scheduler and GPU Robustness extensions it is\n necessary to have information/identify rendering/compute contexts.\n It also may be needed to associate some specific requirements with such\n contexts.  Kernel driver will guarantee that submission from the same\n context will always be executed in order (first come, first serve).\n\n\n \\param   dev      - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   priority - \\c [in] Context creation flags. See AMDGPU_CTX_PRIORITY_*\n \\param   context  - \\c [out] GPU Context handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_free()"]
     pub unsafe fn amdgpu_cs_ctx_create2(
         &self,
         dev: amdgpu_device_handle,
@@ -9302,6 +9343,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_ctx_create2)(dev, priority, context) }
     }
+    #[doc = " Create GPU execution Context\n\n Refer to amdgpu_cs_ctx_create2 for full documentation. This call\n is missing the priority parameter.\n\n \\sa amdgpu_cs_ctx_create2()"]
     pub unsafe fn amdgpu_cs_ctx_create(
         &self,
         dev: amdgpu_device_handle,
@@ -9309,9 +9351,11 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_ctx_create)(dev, context) }
     }
+    #[doc = " Destroy GPU execution context when not needed any more\n\n \\param   context - \\c [in] GPU Context handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub unsafe fn amdgpu_cs_ctx_free(&self, context: amdgpu_context_handle) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_ctx_free)(context) }
     }
+    #[doc = " Override the submission priority for the given context using a master fd.\n\n \\param   dev        - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   master_fd  - \\c [in] The master fd to authorize the override.\n \\param   priority   - \\c [in] The priority to assign to the context.\n\n \\return 0 on success or a a negative Posix error code on failure."]
     pub unsafe fn amdgpu_cs_ctx_override_priority(
         &self,
         dev: amdgpu_device_handle,
@@ -9321,6 +9365,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_ctx_override_priority)(dev, context, master_fd, priority) }
     }
+    #[doc = " Set or query the stable power state for GPU profiling.\n\n \\param   dev        - \\c [in] device handle\n \\param   op         - \\c [in] AMDGPU_CTX_OP_{GET,SET}_STABLE_PSTATE\n \\param   flags      - \\c [in] AMDGPU_CTX_STABLE_PSTATE_*\n \\param   out_flags  - \\c [out] output current stable pstate\n\n \\return  0 on success otherwise POSIX Error code."]
     pub unsafe fn amdgpu_cs_ctx_stable_pstate(
         &self,
         context: amdgpu_context_handle,
@@ -9330,6 +9375,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_ctx_stable_pstate)(context, op, flags, out_flags) }
     }
+    #[doc = " Query reset state for the specific GPU Context\n\n \\param   context - \\c [in]  GPU Context handle\n \\param   state   - \\c [out] One of AMDGPU_CTX_*_RESET\n \\param   hangs   - \\c [out] Number of hangs caused by the context.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub unsafe fn amdgpu_cs_query_reset_state(
         &self,
         context: amdgpu_context_handle,
@@ -9338,6 +9384,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_query_reset_state)(context, state, hangs) }
     }
+    #[doc = " Query reset state for the specific GPU Context.\n\n \\param   context - \\c [in]  GPU Context handle\n \\param   flags   - \\c [out] A combination of AMDGPU_CTX_QUERY2_FLAGS_*\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_cs_ctx_create()"]
     pub unsafe fn amdgpu_cs_query_reset_state2(
         &self,
         context: amdgpu_context_handle,
@@ -9345,6 +9392,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_query_reset_state2)(context, flags) }
     }
+    #[doc = " Send request to submit command buffers to hardware.\n\n Kernel driver could use GPU Scheduler to make decision when physically\n sent this request to the hardware. Accordingly this request could be put\n in queue and sent for execution later. The only guarantee is that request\n from the same GPU context to the same ip:ip_instance:ring will be executed in\n order.\n\n The caller can specify the user fence buffer/location with the fence_info in the\n cs_request.The sequence number is returned via the 'seq_no' parameter\n in ibs_request structure.\n\n\n \\param   dev\t\t       - \\c [in]  Device handle.\n\t\t\t\t\t  See #amdgpu_device_initialize()\n \\param   context            - \\c [in]  GPU Context\n \\param   flags              - \\c [in]  Global submission flags\n \\param   ibs_request        - \\c [in/out] Pointer to submission requests.\n\t\t\t\t\t  We could submit to the several\n\t\t\t\t\t  engines/rings simulteniously as\n\t\t\t\t\t  'atomic' operation\n \\param   number_of_requests - \\c [in]  Number of submission requests\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note It is required to pass correct resource list with buffer handles\n\t which will be accessible by command buffers from submission\n\t This will allow kernel driver to correctly implement \"paging\".\n\t Failure to do so will have unpredictable results.\n\n \\sa amdgpu_command_buffer_alloc(), amdgpu_command_buffer_free(),\n     amdgpu_cs_query_fence_status()"]
     pub unsafe fn amdgpu_cs_submit(
         &self,
         context: amdgpu_context_handle,
@@ -9354,6 +9402,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_submit)(context, flags, ibs_request, number_of_requests) }
     }
+    #[doc = "  Query status of Command Buffer Submission\n\n \\param   fence   - \\c [in] Structure describing fence to query\n \\param   timeout_ns - \\c [in] Timeout value to wait\n \\param   flags   - \\c [in] Flags for the query\n \\param   expired - \\c [out] If fence expired or not.\\n\n\t\t\t\t0  – if fence is not expired\\n\n\t\t\t\t!0 - otherwise\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\note If UMD wants only to check operation status and returned immediately\n\t then timeout value as 0 must be passed. In this case success will be\n\t returned in the case if submission was completed or timeout error\n\t code.\n\n \\sa amdgpu_cs_submit()"]
     pub unsafe fn amdgpu_cs_query_fence_status(
         &self,
         fence: *mut amdgpu_cs_fence,
@@ -9363,6 +9412,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_query_fence_status)(fence, timeout_ns, flags, expired) }
     }
+    #[doc = "  Wait for multiple fences\n\n \\param   fences      - \\c [in] The fence array to wait\n \\param   fence_count - \\c [in] The fence count\n \\param   wait_all    - \\c [in] If true, wait all fences to be signaled,\n                                otherwise, wait at least one fence\n \\param   timeout_ns  - \\c [in] The timeout to wait, in nanoseconds\n \\param   status      - \\c [out] '1' for signaled, '0' for timeout\n \\param   first       - \\c [out] the index of the first signaled fence from @fences\n\n \\return  0 on success\n          <0 - Negative POSIX Error code\n\n \\note    Currently it supports only one amdgpu_device. All fences come from\n          the same amdgpu_device with the same fd."]
     pub unsafe fn amdgpu_cs_wait_fences(
         &self,
         fences: *mut amdgpu_cs_fence,
@@ -9376,6 +9426,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_cs_wait_fences)(fences, fence_count, wait_all, timeout_ns, status, first)
         }
     }
+    #[doc = " Query allocation size alignments\n\n UMD should query information about GPU VM MC size alignments requirements\n to be able correctly choose required allocation size and implement\n internal optimization if needed.\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info - \\c [out] Pointer to structure to get size alignment\n\t\t\t  requirements\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_buffer_size_alignment(
         &self,
         dev: amdgpu_device_handle,
@@ -9383,6 +9434,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_buffer_size_alignment)(dev, info) }
     }
+    #[doc = " Query firmware versions\n\n \\param   dev\t        - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   fw_type     - \\c [in] AMDGPU_INFO_FW_*\n \\param   ip_instance - \\c [in] Index of the IP block of the same type.\n \\param   index       - \\c [in] Index of the engine. (for SDMA and MEC)\n \\param   version     - \\c [out] Pointer to to the \"version\" return value\n \\param   feature     - \\c [out] Pointer to to the \"feature\" return value\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_firmware_version(
         &self,
         dev: amdgpu_device_handle,
@@ -9396,6 +9448,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_query_firmware_version)(dev, fw_type, ip_instance, index, version, feature)
         }
     }
+    #[doc = " Query the number of HW IP instances of a certain type.\n\n \\param   dev      - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   type     - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   count    - \\c [out] Pointer to structure to get information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_hw_ip_count(
         &self,
         dev: amdgpu_device_handle,
@@ -9404,6 +9457,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_hw_ip_count)(dev, type_, count) }
     }
+    #[doc = " Query engine information\n\n This query allows UMD to query information different engines and their\n capabilities.\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance - \\c [in] Index of the IP block of the same type.\n \\param   info        - \\c [out] Pointer to structure to get information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_hw_ip_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9413,15 +9467,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_hw_ip_info)(dev, type_, ip_instance, info) }
     }
-    pub unsafe fn amdgpu_query_uq_fw_area_info(
-        &self,
-        dev: amdgpu_device_handle,
-        type_: ::core::ffi::c_uint,
-        ip_instance: ::core::ffi::c_uint,
-        info: *mut drm_amdgpu_info_uq_fw_areas,
-    ) -> ::core::ffi::c_int {
-        unsafe { (self.amdgpu_query_uq_fw_area_info)(dev, type_, ip_instance, info) }
-    }
+    #[doc = " Query heap information\n\n This query allows UMD to query potentially available memory resources and\n adjust their logic if necessary.\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   heap - \\c [in] Heap type\n \\param   info - \\c [in] Pointer to structure to get needed information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_heap_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9431,6 +9477,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_heap_info)(dev, heap, flags, info) }
     }
+    #[doc = " Get the CRTC ID from the mode object ID\n\n \\param   dev    - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   id     - \\c [in] Mode object ID\n \\param   result - \\c [in] Pointer to the CRTC ID\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_crtc_from_id(
         &self,
         dev: amdgpu_device_handle,
@@ -9439,6 +9486,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_crtc_from_id)(dev, id, result) }
     }
+    #[doc = " Query GPU H/w Info\n\n Query hardware specific information\n\n \\param   dev  - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   heap - \\c [in] Heap type\n \\param   info - \\c [in] Pointer to structure to get needed information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_gpu_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9446,6 +9494,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_gpu_info)(dev, info) }
     }
+    #[doc = " Query hardware or driver information.\n\n The return size is query-specific and depends on the \"info_id\" parameter.\n No more than \"size\" bytes is returned.\n\n \\param   dev     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info_id - \\c [in] AMDGPU_INFO_*\n \\param   size    - \\c [in] Size of the returned value.\n \\param   value   - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub unsafe fn amdgpu_query_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9455,6 +9504,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_info)(dev, info_id, size, value) }
     }
+    #[doc = " Query hardware or driver information.\n\n The return size is query-specific and depends on the \"info_id\" parameter.\n No more than \"size\" bytes is returned.\n\n \\param   dev     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   info    - \\c [in] amdgpu_sw_info_*\n \\param   value   - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub unsafe fn amdgpu_query_sw_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9463,6 +9513,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_sw_info)(dev, info, value) }
     }
+    #[doc = " Query information about GDS\n\n \\param   dev\t     - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   gds_info - \\c [out] Pointer to structure to get GDS information\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_gds_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9470,6 +9521,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_gds_info)(dev, gds_info) }
     }
+    #[doc = " Query information about sensor.\n\n The return size is query-specific and depends on the \"sensor_type\"\n parameter. No more than \"size\" bytes is returned.\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   sensor_type - \\c [in] AMDGPU_INFO_SENSOR_*\n \\param   size        - \\c [in] Size of the returned value.\n \\param   value       - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_sensor_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9479,6 +9531,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_sensor_info)(dev, sensor_type, size, value) }
     }
+    #[doc = " Query information about video capabilities\n\n The return sizeof(struct drm_amdgpu_info_video_caps)\n\n \\param   dev         - \\c [in] Device handle. See #amdgpu_device_initialize()\n \\param   caps_type   - \\c [in] AMDGPU_INFO_VIDEO_CAPS_DECODE(ENCODE)\n \\param   size        - \\c [in] Size of the returned value.\n \\param   value       - \\c [out] Pointer to the return value.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_query_video_caps_info(
         &self,
         dev: amdgpu_device_handle,
@@ -9488,6 +9541,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_query_video_caps_info)(dev, cap_type, size, value) }
     }
+    #[doc = " Read a set of consecutive memory-mapped registers.\n Not all registers are allowed to be read by userspace.\n\n \\param   dev          - \\c [in] Device handle. See #amdgpu_device_initialize(\n \\param   dword_offset - \\c [in] Register offset in dwords\n \\param   count        - \\c [in] The number of registers to read starting\n                                 from the offset\n \\param   instance     - \\c [in] GRBM_GFX_INDEX selector. It may have other\n                                 uses. Set it to 0xffffffff if unsure.\n \\param   flags        - \\c [in] Flags with additional information.\n \\param   values       - \\c [out] The pointer to return values.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX error code"]
     pub unsafe fn amdgpu_read_mm_registers(
         &self,
         dev: amdgpu_device_handle,
@@ -9501,6 +9555,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_read_mm_registers)(dev, dword_offset, count, instance, flags, values)
         }
     }
+    #[doc = " Allocate virtual address range\n\n \\param dev - [in] Device handle. See #amdgpu_device_initialize()\n \\param va_range_type - \\c [in] Type of MC va range from which to allocate\n \\param size - \\c [in] Size of range. Size must be correctly* aligned.\n It is client responsibility to correctly aligned size based on the future\n usage of allocated range.\n \\param va_base_alignment - \\c [in] Overwrite base address alignment\n requirement for GPU VM MC virtual\n address assignment. Must be multiple of size alignments received as\n 'amdgpu_buffer_size_alignments'.\n If 0 use the default one.\n \\param va_base_required - \\c [in] Specified required va base address.\n If 0 then library choose available one.\n If !0 value will be passed and those value already \"in use\" then\n corresponding error status will be returned.\n \\param va_base_allocated - \\c [out] On return: Allocated VA base to be used\n by client.\n \\param va_range_handle - \\c [out] On return: Handle assigned to allocation\n \\param flags - \\c [in] flags for special VA range\n\n \\return 0 on success\\n\n >0 - AMD specific error code\\n\n <0 - Negative POSIX Error code\n\n \\notes \\n\n It is client responsibility to correctly handle VA assignments and usage.\n Neither kernel driver nor libdrm_amdpgu are able to prevent and\n detect wrong va assignment.\n\n It is client responsibility to correctly handle multi-GPU cases and to pass\n the corresponding arrays of all devices handles where corresponding VA will\n be used."]
     pub unsafe fn amdgpu_va_range_alloc(
         &self,
         dev: amdgpu_device_handle,
@@ -9525,12 +9580,14 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = " Free previously allocated virtual address range\n\n\n \\param va_range_handle - \\c [in] Handle assigned to VA allocation\n\n \\return 0 on success\\n\n >0 - AMD specific error code\\n\n <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_va_range_free(
         &self,
         va_range_handle: amdgpu_va_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_va_range_free)(va_range_handle) }
     }
+    #[doc = " Query virtual address range\n\n UMD can query GPU VM range supported by each device\n to initialize its own VAM accordingly.\n\n \\param   dev    - [in] Device handle. See #amdgpu_device_initialize()\n \\param   type   - \\c [in] Type of virtual address range\n \\param   offset - \\c [out] Start offset of virtual address range\n \\param   size   - \\c [out] Size of virtual address range\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_va_range_query(
         &self,
         dev: amdgpu_device_handle,
@@ -9540,6 +9597,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_va_range_query)(dev, type_, start, end) }
     }
+    #[doc = " Allocate a amdgpu_va_manager object.\n The returned object has be initialized with the amdgpu_va_manager_init\n before use.\n On release, amdgpu_va_manager_deinit needs to be called, then the memory\n can be released using free()."]
     pub unsafe fn amdgpu_va_manager_alloc(&self) -> amdgpu_va_manager_handle {
         unsafe { (self.amdgpu_va_manager_alloc)() }
     }
@@ -9566,6 +9624,7 @@ impl DynLibDrmAmdgpu {
     pub unsafe fn amdgpu_va_manager_deinit(&self, va_mgr: amdgpu_va_manager_handle) {
         unsafe { (self.amdgpu_va_manager_deinit)(va_mgr) }
     }
+    #[doc = " Similar to #amdgpu_va_range_alloc() but allocates VA\n directly from an amdgpu_va_manager_handle instead of using\n the manager from an amdgpu_device."]
     pub unsafe fn amdgpu_va_range_alloc2(
         &self,
         va_mgr: amdgpu_va_manager_handle,
@@ -9590,6 +9649,7 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = "  VA mapping/unmapping for the buffer object\n\n \\param  bo\t\t- \\c [in] BO handle\n \\param  offset\t- \\c [in] Start offset to map\n \\param  size\t\t- \\c [in] Size to map\n \\param  addr\t\t- \\c [in] Start virtual address.\n \\param  flags\t- \\c [in] Supported flags for mapping/unmapping\n \\param  ops\t\t- \\c [in] AMDGPU_VA_OP_MAP or AMDGPU_VA_OP_UNMAP\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_bo_va_op(
         &self,
         bo: amdgpu_bo_handle,
@@ -9601,6 +9661,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_va_op)(bo, offset, size, addr, flags, ops) }
     }
+    #[doc = "  VA mapping/unmapping for a buffer object or PRT region.\n\n This is not a simple drop-in extension for amdgpu_bo_va_op; instead, all\n parameters are treated \"raw\", i.e. size is not automatically aligned, and\n all flags must be specified explicitly.\n\n \\param  dev\t\t- \\c [in] device handle\n \\param  bo\t\t- \\c [in] BO handle (may be NULL)\n \\param  offset\t- \\c [in] Start offset to map\n \\param  size\t\t- \\c [in] Size to map\n \\param  addr\t\t- \\c [in] Start virtual address.\n \\param  flags\t- \\c [in] Supported flags for mapping/unmapping\n \\param  ops\t\t- \\c [in] AMDGPU_VA_OP_MAP or AMDGPU_VA_OP_UNMAP\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_bo_va_op_raw(
         &self,
         dev: amdgpu_device_handle,
@@ -9613,42 +9674,14 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_bo_va_op_raw)(dev, bo, offset, size, addr, flags, ops) }
     }
-    pub unsafe fn amdgpu_bo_va_op_raw2(
-        &self,
-        dev: amdgpu_device_handle,
-        bo: amdgpu_bo_handle,
-        offset: u64,
-        size: u64,
-        addr: u64,
-        flags: u64,
-        ops: u32,
-        vm_timeline_syncobj_out: u32,
-        vm_timeline_point: u64,
-        input_fence_syncobj_array_in: u64,
-        num_syncobj_handles_in: u32,
-    ) -> ::core::ffi::c_int {
-        unsafe {
-            (self.amdgpu_bo_va_op_raw2)(
-                dev,
-                bo,
-                offset,
-                size,
-                addr,
-                flags,
-                ops,
-                vm_timeline_syncobj_out,
-                vm_timeline_point,
-                input_fence_syncobj_array_in,
-                num_syncobj_handles_in,
-            )
-        }
-    }
+    #[doc = "  create semaphore\n\n \\param   sem\t   - \\c [out] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_create_semaphore(
         &self,
         sem: *mut amdgpu_semaphore_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_create_semaphore)(sem) }
     }
+    #[doc = "  signal semaphore\n\n \\param   context        - \\c [in] GPU Context\n \\param   ip_type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance    - \\c [in] Index of the IP block of the same type\n \\param   ring           - \\c [in] Specify ring index of the IP\n \\param   sem\t           - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_signal_semaphore(
         &self,
         ctx: amdgpu_context_handle,
@@ -9659,6 +9692,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_signal_semaphore)(ctx, ip_type, ip_instance, ring, sem) }
     }
+    #[doc = "  wait semaphore\n\n \\param   context        - \\c [in] GPU Context\n \\param   ip_type        - \\c [in] Hardware IP block type = AMDGPU_HW_IP_*\n \\param   ip_instance    - \\c [in] Index of the IP block of the same type\n \\param   ring           - \\c [in] Specify ring index of the IP\n \\param   sem\t           - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_wait_semaphore(
         &self,
         ctx: amdgpu_context_handle,
@@ -9669,12 +9703,14 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_wait_semaphore)(ctx, ip_type, ip_instance, ring, sem) }
     }
+    #[doc = "  destroy semaphore\n\n \\param   sem\t    - \\c [in] semaphore handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_destroy_semaphore(
         &self,
         sem: amdgpu_semaphore_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_destroy_semaphore)(sem) }
     }
+    #[doc = "  Create kernel sync object\n\n \\param   dev         - \\c [in]  device handle\n \\param   flags       - \\c [in]  flags that affect creation\n \\param   syncobj     - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_create_syncobj2(
         &self,
         dev: amdgpu_device_handle,
@@ -9683,6 +9719,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_create_syncobj2)(dev, flags, syncobj) }
     }
+    #[doc = "  Create kernel sync object\n\n \\param   dev\t      - \\c [in]  device handle\n \\param   syncobj   - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_create_syncobj(
         &self,
         dev: amdgpu_device_handle,
@@ -9690,6 +9727,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_create_syncobj)(dev, syncobj) }
     }
+    #[doc = "  Destroy kernel sync object\n\n \\param   dev\t    - \\c [in] device handle\n \\param   syncobj - \\c [in] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_destroy_syncobj(
         &self,
         dev: amdgpu_device_handle,
@@ -9697,6 +9735,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_destroy_syncobj)(dev, syncobj) }
     }
+    #[doc = " Reset kernel sync objects to unsignalled state.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_syncobj_reset(
         &self,
         dev: amdgpu_device_handle,
@@ -9705,6 +9744,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_reset)(dev, syncobjs, syncobj_count) }
     }
+    #[doc = " Signal kernel sync objects.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_syncobj_signal(
         &self,
         dev: amdgpu_device_handle,
@@ -9713,6 +9753,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_signal)(dev, syncobjs, syncobj_count) }
     }
+    #[doc = " Signal kernel timeline sync objects.\n\n \\param dev           - \\c [in] device handle\n \\param syncobjs      - \\c [in] array of sync object handles\n \\param points\t- \\c [in] array of timeline points\n \\param syncobj_count - \\c [in] number of handles in syncobjs\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_syncobj_timeline_signal(
         &self,
         dev: amdgpu_device_handle,
@@ -9722,6 +9763,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_timeline_signal)(dev, syncobjs, points, syncobj_count) }
     }
+    #[doc = "  Wait for one or all sync objects to signal.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   num_handles - \\c [in] self-explanatory\n \\param   timeout_nsec - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_WAIT_FLAGS_*\n \\param   first_signaled - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_wait(
         &self,
         dev: amdgpu_device_handle,
@@ -9742,6 +9784,7 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = "  Wait for one or all sync objects on their points to signal.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [in] array of sync points to wait\n \\param   num_handles - \\c [in] self-explanatory\n \\param   timeout_nsec - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_WAIT_FLAGS_*\n \\param   first_signaled - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_timeline_wait(
         &self,
         dev: amdgpu_device_handle,
@@ -9764,6 +9807,7 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = "  Query sync objects payloads.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [out] array of sync points returned, which presents\n syncobj payload.\n \\param   num_handles - \\c [in] self-explanatory\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_query(
         &self,
         dev: amdgpu_device_handle,
@@ -9773,6 +9817,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_query)(dev, handles, points, num_handles) }
     }
+    #[doc = "  Query sync objects last signaled or submitted point.\n\n \\param   dev\t    - \\c [in] self-explanatory\n \\param   handles - \\c [in] array of sync object handles\n \\param   points - \\c [out] array of sync points returned, which presents\n syncobj payload.\n \\param   num_handles - \\c [in] self-explanatory\n \\param   flags   - \\c [in] a bitmask of DRM_SYNCOBJ_QUERY_FLAGS_*\n\n \\return   0 on success\\n\n          -ETIME - Timeout\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_query2(
         &self,
         dev: amdgpu_device_handle,
@@ -9783,6 +9828,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_query2)(dev, handles, points, num_handles, flags) }
     }
+    #[doc = "  Export kernel sync object to shareable fd.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   shared_fd  - \\c [out] shared file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_export_syncobj(
         &self,
         dev: amdgpu_device_handle,
@@ -9791,6 +9837,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_export_syncobj)(dev, syncobj, shared_fd) }
     }
+    #[doc = "  Import kernel sync object from shareable fd.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   shared_fd  - \\c [in] shared file descriptor.\n \\param   syncobj    - \\c [out] sync object handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_import_syncobj(
         &self,
         dev: amdgpu_device_handle,
@@ -9799,6 +9846,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_import_syncobj)(dev, shared_fd, syncobj) }
     }
+    #[doc = "  Export kernel sync object to a sync_file.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   sync_file_fd - \\c [out] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_export_sync_file(
         &self,
         dev: amdgpu_device_handle,
@@ -9807,6 +9855,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_export_sync_file)(dev, syncobj, sync_file_fd) }
     }
+    #[doc = "  Import kernel sync object from a sync_file.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   syncobj    - \\c [in] sync object handle\n \\param   sync_file_fd - \\c [in] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_import_sync_file(
         &self,
         dev: amdgpu_device_handle,
@@ -9815,6 +9864,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_import_sync_file)(dev, syncobj, sync_file_fd) }
     }
+    #[doc = "  Export kernel timeline sync object to a sync_file.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   syncobj\t- \\c [in] sync object handle\n \\param   point\t- \\c [in] timeline point\n \\param   flags\t- \\c [in] flags\n \\param   sync_file_fd - \\c [out] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_export_sync_file2(
         &self,
         dev: amdgpu_device_handle,
@@ -9827,6 +9877,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_cs_syncobj_export_sync_file2)(dev, syncobj, point, flags, sync_file_fd)
         }
     }
+    #[doc = "  Import kernel timeline sync object from a sync_file.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   syncobj\t- \\c [in] sync object handle\n \\param   point\t- \\c [in] timeline point\n \\param   sync_file_fd - \\c [in] sync_file file descriptor.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_import_sync_file2(
         &self,
         dev: amdgpu_device_handle,
@@ -9836,6 +9887,7 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_cs_syncobj_import_sync_file2)(dev, syncobj, point, sync_file_fd) }
     }
+    #[doc = "  transfer between syncbojs.\n\n \\param   dev\t\t- \\c [in] device handle\n \\param   dst_handle\t- \\c [in] sync object handle\n \\param   dst_point\t- \\c [in] timeline point, 0 presents dst is binary\n \\param   src_handle\t- \\c [in] sync object handle\n \\param   src_point\t- \\c [in] timeline point, 0 presents src is binary\n \\param   flags\t- \\c [in] flags\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n"]
     pub unsafe fn amdgpu_cs_syncobj_transfer(
         &self,
         dev: amdgpu_device_handle,
@@ -9851,6 +9903,7 @@ impl DynLibDrmAmdgpu {
             )
         }
     }
+    #[doc = " Export an amdgpu fence as a handle (syncobj or fd).\n\n \\param what\t\tAMDGPU_FENCE_TO_HANDLE_GET_{SYNCOBJ, FD}\n \\param out_handle\treturned handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code"]
     pub unsafe fn amdgpu_cs_fence_to_handle(
         &self,
         dev: amdgpu_device_handle,
@@ -9873,6 +9926,7 @@ impl DynLibDrmAmdgpu {
             (self.amdgpu_cs_submit_raw)(dev, context, bo_list_handle, num_chunks, chunks, seq_no)
         }
     }
+    #[doc = " Submit raw command submission to the kernel with a raw BO list handle.\n\n \\param   dev\t       - \\c [in] device handle\n \\param   context    - \\c [in] context handle for context id\n \\param   bo_list_handle - \\c [in] raw bo list handle (0 for none)\n \\param   num_chunks - \\c [in] number of CS chunks to submit\n \\param   chunks     - \\c [in] array of CS chunks\n \\param   seq_no     - \\c [out] output sequence number for submission.\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_list_create_raw(), amdgpu_bo_list_destroy_raw()"]
     pub unsafe fn amdgpu_cs_submit_raw2(
         &self,
         dev: amdgpu_device_handle,
@@ -9900,6 +9954,7 @@ impl DynLibDrmAmdgpu {
     ) {
         unsafe { (self.amdgpu_cs_chunk_fence_info_to_data)(fence_info, data) }
     }
+    #[doc = " Reserve VMID\n \\param   context - \\c [in]  GPU Context\n \\param   flags - \\c [in]  TBD\n\n \\return  0 on success otherwise POSIX Error code"]
     pub unsafe fn amdgpu_vm_reserve_vmid(
         &self,
         dev: amdgpu_device_handle,
@@ -9907,62 +9962,12 @@ impl DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_vm_reserve_vmid)(dev, flags) }
     }
+    #[doc = " Free reserved VMID\n \\param   context - \\c [in]  GPU Context\n \\param   flags - \\c [in]  TBD\n\n \\return  0 on success otherwise POSIX Error code"]
     pub unsafe fn amdgpu_vm_unreserve_vmid(
         &self,
         dev: amdgpu_device_handle,
         flags: u32,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_vm_unreserve_vmid)(dev, flags) }
-    }
-    pub unsafe fn amdgpu_create_userqueue(
-        &self,
-        dev: amdgpu_device_handle,
-        ip_type: u32,
-        doorbell_handle: u32,
-        doorbell_offset: u32,
-        queue_va: u64,
-        queue_size: u64,
-        wptr_va: u64,
-        rptr_va: u64,
-        mqd_in: *mut ::core::ffi::c_void,
-        flags: u32,
-        queue_id: *mut u32,
-    ) -> ::core::ffi::c_int {
-        unsafe {
-            (self.amdgpu_create_userqueue)(
-                dev,
-                ip_type,
-                doorbell_handle,
-                doorbell_offset,
-                queue_va,
-                queue_size,
-                wptr_va,
-                rptr_va,
-                mqd_in,
-                flags,
-                queue_id,
-            )
-        }
-    }
-    pub unsafe fn amdgpu_free_userqueue(
-        &self,
-        dev: amdgpu_device_handle,
-        queue_id: u32,
-    ) -> ::core::ffi::c_int {
-        unsafe { (self.amdgpu_free_userqueue)(dev, queue_id) }
-    }
-    pub unsafe fn amdgpu_userq_signal(
-        &self,
-        dev: amdgpu_device_handle,
-        signal_data: *mut drm_amdgpu_userq_signal,
-    ) -> ::core::ffi::c_int {
-        unsafe { (self.amdgpu_userq_signal)(dev, signal_data) }
-    }
-    pub unsafe fn amdgpu_userq_wait(
-        &self,
-        dev: amdgpu_device_handle,
-        wait_data: *mut drm_amdgpu_userq_wait,
-    ) -> ::core::ffi::c_int {
-        unsafe { (self.amdgpu_userq_wait)(dev, wait_data) }
     }
 }
