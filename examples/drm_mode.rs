@@ -1,13 +1,13 @@
-use libdrm_amdgpu_sys::{drmModePropType, LibDrm};
+use libdrm_amdgpu_sys::{LibDrm, drmModePropType};
 use std::fs::File;
 
 fn main() {
     let fd = {
-        use std::os::fd::IntoRawFd;
+        use std::os::fd::AsRawFd;
 
         let f = File::open("/dev/dri/card0").unwrap();
 
-        f.into_raw_fd()
+        f.as_raw_fd()
     };
 
     let libdrm = LibDrm::new().unwrap();
