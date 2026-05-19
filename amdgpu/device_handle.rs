@@ -33,6 +33,24 @@ use bindings::{
     AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS,
 };
 use core::mem::{size_of, MaybeUninit};
+use std::os::fd::OwnedFd;
+use std::os::fd::AsRawFd;
+use std::path::PathBuf;
+
+use std::ops::Deref;
+
+pub struct AmdgpuDeviceHandle {
+    pub device_handle: DeviceHandle,
+    pub(crate) owned_fd: OwnedFd,
+}
+
+impl Deref for AmdgpuDeviceHandle {
+    type Target = DeviceHandle;
+
+    fn deref(&self) -> &Self::Target {
+        &self.device_handle
+    }
+}
 
 pub struct DeviceHandle {
     #[cfg(feature = "dynamic_loading")]
@@ -45,8 +63,6 @@ pub struct DeviceHandle {
 
 unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
-
-use std::path::PathBuf;
 
 impl LibDrmAmdgpu {
     pub fn init_device_handle(&self, fd: i32) -> Result<(DeviceHandle, u32, u32), i32> {
@@ -81,6 +97,45 @@ impl LibDrmAmdgpu {
 
             Ok((device_handle, major, minor))
         }
+    }
+
+    pub fn init_amdgpu_device_handle(&self, fd: impl Into<OwnedFd>) -> Result<(AmdgpuDeviceHandle, u32, u32), i32> {
+        #[cfg(not(feature = "dynamic_loading"))]
+        let init = bindings::amdgpu_device_initialize;
+        #[cfg(feature = "dynamic_loading")]
+        let init = self.libdrm_amdgpu.amdgpu_device_initialize;
+
+        let owned_fd = fd.into();
+        let raw_fd = owned_fd.as_raw_fd();
+
+        let (device_handle, major, minor) = unsafe {
+            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
+            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = init(
+                raw_fd,
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
+                amdgpu_dev.as_mut_ptr(),
+            );
+
+            let [major, minor] = [major.assume_init(), minor.assume_init()];
+            let device_handle = DeviceHandle {
+                #[cfg(feature = "dynamic_loading")]
+                libdrm: self.libdrm.clone(),
+                #[cfg(feature = "dynamic_loading")]
+                libdrm_amdgpu: self.libdrm_amdgpu.clone(),
+                amdgpu_dev: amdgpu_dev.assume_init(),
+                fd: raw_fd,
+            };
+
+            query_error!(r);
+
+            (device_handle, major, minor)
+        };
+
+        Ok((AmdgpuDeviceHandle { device_handle, owned_fd }, major, minor))
     }
 }
 
