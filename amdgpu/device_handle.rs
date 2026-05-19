@@ -39,6 +39,7 @@ use std::path::PathBuf;
 
 use std::ops::Deref;
 
+#[allow(dead_code)]
 pub struct AmdgpuDeviceHandle {
     pub device_handle: DeviceHandle,
     pub(crate) owned_fd: OwnedFd,

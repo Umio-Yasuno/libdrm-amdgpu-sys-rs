@@ -7,7 +7,7 @@ fn info(pci_bus: &PCI::BUS_INFO) {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
     let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let f = File::open(device_path).unwrap();
-    let (amdgpu_dev, _major, _minor) = libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap();
+    let (amdgpu_dev, _major, _minor) = libdrm_amdgpu.init_amdgpu_device_handle(f).unwrap();
 
     let ext_info = amdgpu_dev.device_info().unwrap();
     println!("Marketing Name: [{}]", ext_info.find_device_name_or_default());

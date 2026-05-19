@@ -1,11 +1,10 @@
 use libdrm_amdgpu_sys::*;
 use std::fs::File;
-use std::os::fd::AsRawFd;
 
 fn info(libdrm_amdgpu: &LibDrmAmdgpu, pci_bus: &PCI::BUS_INFO) {
     let Ok(device_path) = pci_bus.get_drm_render_path() else { return };
     let f = File::open(device_path).unwrap();
-    let (amdgpu_dev, _major, _minor) = libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap();
+    let (amdgpu_dev, _major, _minor) = libdrm_amdgpu.init_amdgpu_device_handle(f).unwrap();
 
     if let Ok(drm_ver) = amdgpu_dev.get_drm_version_struct() {
         println!("{drm_ver:#?}");
