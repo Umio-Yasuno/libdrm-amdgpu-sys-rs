@@ -1,14 +1,10 @@
 use libdrm_amdgpu_sys::{LibDrm, drmModePropType};
 use std::fs::File;
+use std::os::fd::AsRawFd;
 
 fn main() {
-    let fd = {
-        use std::os::fd::AsRawFd;
-
-        let f = File::open("/dev/dri/card0").unwrap();
-
-        f.as_raw_fd()
-    };
+    let f = File::open("/dev/dri/card0").unwrap();
+    let fd = f.as_raw_fd();
 
     let libdrm = LibDrm::new().unwrap();
     libdrm.set_all_client_caps(fd);

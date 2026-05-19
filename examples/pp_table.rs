@@ -1,17 +1,13 @@
 use libdrm_amdgpu_sys::*;
 use AMDGPU::{IpHwId, HwId};
 use std::fs::File;
+use std::os::fd::AsRawFd;
 
 fn main() {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
     let device_path = std::env::var("AMDGPU_PATH").unwrap_or("/dev/dri/renderD128".to_string());
-    let (amdgpu_dev, _, _) = {
-        use std::os::fd::AsRawFd;
-
-        let f = File::open(device_path).unwrap();
-
-        libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap()
-    };
+    let f = File::open(device_path).unwrap();
+    let (amdgpu_dev, _, _) = libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap();
 
     let sysfs = amdgpu_dev.get_sysfs_path().unwrap();
     let smu = IpHwId::get_from_die_id_sysfs(HwId::MP1, &sysfs.join("ip_discovery/die/0/")).ok().and_then(|smu| smu.instances.get(0).map(|v| v.clone()));

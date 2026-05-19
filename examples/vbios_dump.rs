@@ -1,6 +1,7 @@
 use libdrm_amdgpu_sys::*;
 use std::fs::File;
 use std::io;
+use std::os::fd::AsRawFd;
 
 fn dump(image: &[u8], vbios_name: String) -> io::Result<()> {
     use std::io::Write;
@@ -17,13 +18,8 @@ fn dump(image: &[u8], vbios_name: String) -> io::Result<()> {
 fn main() {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
     let device_path = std::env::var("AMDGPU_PATH").unwrap_or("/dev/dri/renderD128".to_string());
-    let (amdgpu_dev, _, _) = {
-        use std::os::fd::AsRawFd;
-
-        let f = File::open(device_path).unwrap();
-
-        libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap()
-    };
+    let f = File::open(device_path).unwrap();
+    let (amdgpu_dev, _, _) = libdrm_amdgpu.init_device_handle(f.as_raw_fd()).unwrap();
 
     if let Ok(vbios) = amdgpu_dev.get_vbios_info() {
         println!("\nVBIOS info:");
