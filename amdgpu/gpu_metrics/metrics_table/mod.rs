@@ -214,7 +214,7 @@ pub trait MetricsInfo {
     fn get_throttle_status(&self) -> Option<u32>;
     /// This method returns `None` if `indep_throttle_status` is `u64::MAX`,
     /// and implements a workaround for RDNA 3 dGPUs and RDNA 4 dGPUs.
-    /// ref: https://gitlab.freedesktop.org/drm/amd/-/issues/3251
+    /// ref: <https://gitlab.freedesktop.org/drm/amd/-/issues/3251>
     fn get_indep_throttle_status(&self) -> Option<u64>;
     fn get_current_fan_speed(&self) -> Option<u16>;
     fn get_fan_pwm(&self) -> Option<u16>;

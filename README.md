@@ -41,11 +41,10 @@ use libdrm_amdgpu_sys::AMDGPU::GPU_INFO;
 let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
 let (amdgpu_dev, drm_major, drm_minor) = {
     use std::fs::OpenOptions;
-    use std::os::fd::AsRawFd;
 
-    let fd = OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
+    let f = OpenOptions::new().read(true).write(true).open("/dev/dri/renderD128").unwrap();
 
-    libdrm_amdgpu.init_device_handle(fd.as_raw_fd()).unwrap()
+    libdrm_amdgpu.init_amdgpu_device_handle(f).unwrap()
 };
 let device_info = amdgpu_dev.device_info().unwrap();
 let device_name = device_info.find_device_name_or_default();

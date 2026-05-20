@@ -93,11 +93,10 @@ pub mod VBIOS {
 /// let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
 /// let (amdgpu_dev, drm_major, drm_minor) = {
 ///     use std::fs::File;
-///     use std::os::fd::AsRawFd;
 ///
-///     let fd = File::open("/dev/dri/renderD128").unwrap();
+///     let f = File::open("/dev/dri/renderD128").unwrap();
 ///
-///     libdrm_amdgpu.init_device_handle(fd.as_raw_fd()).unwrap()
+///     libdrm_amdgpu.init_amdgpu_device_handle(f).unwrap()
 /// };
 /// for cap_type in [
 ///     amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap(),
