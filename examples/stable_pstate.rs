@@ -1,7 +1,6 @@
 use libdrm_amdgpu_sys::*;
 use AMDGPU::GPU_INFO;
 use std::fs::File;
-use std::os::fd::AsRawFd;
 
 fn info(pci_bus: &PCI::BUS_INFO) {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();

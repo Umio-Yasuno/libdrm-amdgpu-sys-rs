@@ -1,7 +1,6 @@
 use libdrm_amdgpu_sys::AMDGPU::IpDieEntry;
 use libdrm_amdgpu_sys::LibDrmAmdgpu;
 use std::fs::File;
-use std::os::fd::AsRawFd;
 
 fn main() {
     let libdrm_amdgpu = LibDrmAmdgpu::new().unwrap();
