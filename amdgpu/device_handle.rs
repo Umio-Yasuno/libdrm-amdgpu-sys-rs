@@ -75,6 +75,7 @@ unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
 impl LibDrmAmdgpu {
+    #[deprecated(since = "0.8.15", note = "use the [LibDrmAmdgpu::init_amdgpu_device_handle] instead")]
     pub fn init_device_handle(&self, fd: i32) -> Result<(DeviceHandle, u32, u32), i32> {
         #[cfg(not(feature = "dynamic_loading"))]
         let init = bindings::amdgpu_device_initialize;
