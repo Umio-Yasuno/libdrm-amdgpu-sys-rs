@@ -44,7 +44,7 @@ use std::ops::Deref;
 /// It implements [`Deref`] to [`DeviceHandle`], allowing it to be used
 /// interchangeably with a [`DeviceHandle`].
 pub struct AmdgpuDeviceHandle {
-    pub device_handle: DeviceHandle,
+    pub(crate) device_handle: DeviceHandle,
     pub(crate) owned_fd: OwnedFd,
 }
 
