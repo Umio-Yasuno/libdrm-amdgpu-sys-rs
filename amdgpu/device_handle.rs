@@ -80,6 +80,10 @@ impl LibDrmAmdgpu {
         let init = bindings::amdgpu_device_initialize;
         #[cfg(feature = "dynamic_loading")]
         let init = self.libdrm_amdgpu.amdgpu_device_initialize;
+        #[cfg(not(feature = "dynamic_loading"))]
+        let get_fd = bindings::amdgpu_device_get_fd;
+        #[cfg(feature = "dynamic_loading")]
+        let get_fd = self.libdrm_amdgpu.amdgpu_device_get_fd;
 
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
@@ -93,14 +97,15 @@ impl LibDrmAmdgpu {
                 amdgpu_dev.as_mut_ptr(),
             );
 
+            let amdgpu_dev = amdgpu_dev.assume_init();
             let [major, minor] = [major.assume_init(), minor.assume_init()];
             let device_handle = DeviceHandle {
                 #[cfg(feature = "dynamic_loading")]
                 libdrm: self.libdrm.clone(),
                 #[cfg(feature = "dynamic_loading")]
                 libdrm_amdgpu: self.libdrm_amdgpu.clone(),
-                amdgpu_dev: amdgpu_dev.assume_init(),
-                fd,
+                amdgpu_dev,
+                fd: get_fd(amdgpu_dev),
             };
 
             query_error!(r);
@@ -169,10 +174,11 @@ impl DeviceHandle {
                 amdgpu_dev.as_mut_ptr(),
             );
 
+            let amdgpu_dev = amdgpu_dev.assume_init();
             let [major, minor] = [major.assume_init(), minor.assume_init()];
             let device_handle = Self {
-                amdgpu_dev: amdgpu_dev.assume_init(),
-                fd,
+                amdgpu_dev,
+                fd: bindings::amdgpu_device_get_fd(amdgpu_dev),
             };
 
             query_error!(r);

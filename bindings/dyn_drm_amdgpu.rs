@@ -8502,6 +8502,8 @@ pub struct DynLibDrmAmdgpu {
     ) -> ::core::ffi::c_int,
     pub amdgpu_device_deinitialize:
         unsafe extern "C" fn(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int,
+    pub amdgpu_device_get_fd:
+        unsafe extern "C" fn(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int,
     pub amdgpu_bo_alloc: unsafe extern "C" fn(
         dev: amdgpu_device_handle,
         alloc_buffer: *mut amdgpu_bo_alloc_request,
@@ -8919,6 +8921,8 @@ impl DynLibDrmAmdgpu {
             unsafe { __library.get(b"amdgpu_device_initialize2\0") }.map(|sym| *sym)?;
         let amdgpu_device_deinitialize =
             unsafe { __library.get(b"amdgpu_device_deinitialize\0") }.map(|sym| *sym)?;
+        let amdgpu_device_get_fd =
+            unsafe { __library.get(b"amdgpu_device_get_fd\0") }.map(|sym| *sym)?;
         let amdgpu_bo_alloc = unsafe { __library.get(b"amdgpu_bo_alloc\0") }.map(|sym| *sym)?;
         let amdgpu_bo_set_metadata =
             unsafe { __library.get(b"amdgpu_bo_set_metadata\0") }.map(|sym| *sym)?;
@@ -9069,6 +9073,7 @@ impl DynLibDrmAmdgpu {
             amdgpu_device_initialize,
             amdgpu_device_initialize2,
             amdgpu_device_deinitialize,
+            amdgpu_device_get_fd,
             amdgpu_bo_alloc,
             amdgpu_bo_set_metadata,
             amdgpu_bo_query_info,
@@ -9183,6 +9188,13 @@ impl DynLibDrmAmdgpu {
         device_handle: amdgpu_device_handle,
     ) -> ::core::ffi::c_int {
         unsafe { (self.amdgpu_device_deinitialize)(device_handle) }
+    }
+    #[doc = " /param device_handle - \\c [in] Device handle.\n                           See #amdgpu_device_initialize()\n\n \\return Returns the drm fd used for operations on this\n         device. This is still owned by the library and hence\n         should not be closed. Guaranteed to be valid until\n         #amdgpu_device_deinitialize gets called."]
+    pub unsafe fn amdgpu_device_get_fd(
+        &self,
+        device_handle: amdgpu_device_handle,
+    ) -> ::core::ffi::c_int {
+        unsafe { (self.amdgpu_device_get_fd)(device_handle) }
     }
     #[doc = " Allocate memory to be used by UMD for GPU related operations\n\n \\param   dev\t\t - \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   alloc_buffer - \\c [in] Pointer to the structure describing an\n\t\t\t\t   allocation request\n \\param   buf_handle\t- \\c [out] Allocated buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_free()"]
     pub unsafe fn amdgpu_bo_alloc(

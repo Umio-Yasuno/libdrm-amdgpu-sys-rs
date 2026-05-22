@@ -4560,6 +4560,10 @@ unsafe extern "C" {
     pub fn amdgpu_device_deinitialize(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
 }
 unsafe extern "C" {
+    #[doc = " /param device_handle - \\c [in] Device handle.\n                           See #amdgpu_device_initialize()\n\n \\return Returns the drm fd used for operations on this\n         device. This is still owned by the library and hence\n         should not be closed. Guaranteed to be valid until\n         #amdgpu_device_deinitialize gets called."]
+    pub fn amdgpu_device_get_fd(device_handle: amdgpu_device_handle) -> ::core::ffi::c_int;
+}
+unsafe extern "C" {
     #[doc = " Allocate memory to be used by UMD for GPU related operations\n\n \\param   dev\t\t - \\c [in] Device handle.\n\t\t\t\t   See #amdgpu_device_initialize()\n \\param   alloc_buffer - \\c [in] Pointer to the structure describing an\n\t\t\t\t   allocation request\n \\param   buf_handle\t- \\c [out] Allocated buffer handle\n\n \\return   0 on success\\n\n          <0 - Negative POSIX Error code\n\n \\sa amdgpu_bo_free()"]
     pub fn amdgpu_bo_alloc(
         dev: amdgpu_device_handle,
