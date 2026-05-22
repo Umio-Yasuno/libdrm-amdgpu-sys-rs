@@ -1,4 +1,4 @@
-/// ref: drivers/gpu/drm/amd/include/kgd_pp_interface.h
+//! ref: drivers/gpu/drm/amd/include/kgd_pp_interface.h
 
 mod v1;
 mod v1_4_5;

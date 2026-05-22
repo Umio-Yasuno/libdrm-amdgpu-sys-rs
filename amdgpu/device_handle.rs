@@ -476,7 +476,6 @@ impl DeviceHandle {
         self.get_min_max_gpu_clock_from_sysfs(sysfs_path)
     }
 
-    /// 
     pub fn get_sysfs_path(&self) -> Result<PathBuf, i32> {
         let path = self.get_pci_bus_info()?.get_sysfs_path();
 
@@ -486,7 +485,7 @@ impl DeviceHandle {
     pub(crate) fn get_sysfs_path_io(&self) -> std::io::Result<PathBuf> {
         let path = self
             .get_pci_bus_info()
-            .map_err(|_| std::io::Error::new(std::io::ErrorKind::Other, "Failed get_pci_bus_info"))?
+            .map_err(|_| std::io::Error::other("Failed get_pci_bus_info"))?
             .get_sysfs_path();
 
         Ok(path)
