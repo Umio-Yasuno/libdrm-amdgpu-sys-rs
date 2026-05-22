@@ -33,7 +33,7 @@ use bindings::{
     AMDGPU_INFO_NUM_VRAM_CPU_PAGE_FAULTS,
 };
 use core::mem::{size_of, MaybeUninit};
-use std::os::fd::{AsRawFd, RawFd, OwnedFd};
+use std::os::fd::{AsFd, AsRawFd, RawFd, OwnedFd};
 use std::path::PathBuf;
 
 use std::ops::Deref;
@@ -75,6 +75,7 @@ unsafe impl Send for DeviceHandle {}
 unsafe impl Sync for DeviceHandle {}
 
 impl LibDrmAmdgpu {
+    #[deprecated(since = "0.8.16", note = "use the [LibDrmAmdgpu::init_device_handle_with_fd] instead")]
     pub fn init_device_handle(&self, fd: i32) -> Result<(DeviceHandle, u32, u32), i32> {
         #[cfg(not(feature = "dynamic_loading"))]
         let init = bindings::amdgpu_device_initialize;
@@ -92,6 +93,49 @@ impl LibDrmAmdgpu {
 
             let r = init(
                 fd,
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
+                amdgpu_dev.as_mut_ptr(),
+            );
+
+            let amdgpu_dev = amdgpu_dev.assume_init();
+            let [major, minor] = [major.assume_init(), minor.assume_init()];
+            let device_handle = DeviceHandle {
+                #[cfg(feature = "dynamic_loading")]
+                libdrm: self.libdrm.clone(),
+                #[cfg(feature = "dynamic_loading")]
+                libdrm_amdgpu: self.libdrm_amdgpu.clone(),
+                amdgpu_dev,
+                fd: get_fd(amdgpu_dev),
+            };
+
+            query_error!(r);
+
+            Ok((device_handle, major, minor))
+        }
+    }
+
+    /// This initialization function prevents code patterns where the [`std::fs::File`] is released before [`RawFd`].
+    pub fn init_device_handle_with_fd(&self, fd: impl AsFd) -> Result<(DeviceHandle, u32, u32), i32> {
+        #[cfg(not(feature = "dynamic_loading"))]
+        let init = bindings::amdgpu_device_initialize;
+        #[cfg(feature = "dynamic_loading")]
+        let init = self.libdrm_amdgpu.amdgpu_device_initialize;
+        #[cfg(not(feature = "dynamic_loading"))]
+        let get_fd = bindings::amdgpu_device_get_fd;
+        #[cfg(feature = "dynamic_loading")]
+        let get_fd = self.libdrm_amdgpu.amdgpu_device_get_fd;
+
+        let fd = fd.as_fd();
+        let raw_fd = fd.as_raw_fd();
+
+        unsafe {
+            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
+            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = init(
+                raw_fd,
                 major.as_mut_ptr(),
                 minor.as_mut_ptr(),
                 amdgpu_dev.as_mut_ptr(),
@@ -161,6 +205,7 @@ impl DeviceHandle {
     /// for GUI context.  
     /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
     #[cfg(not(feature = "dynamic_loading"))]
+    #[deprecated(since = "0.8.16", note = "use the [DeviceHandle::init_with_fd] instead")]
     pub fn init(fd: i32) -> Result<(Self, u32, u32), i32> {
         unsafe {
             let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
@@ -169,6 +214,43 @@ impl DeviceHandle {
 
             let r = bindings::amdgpu_device_initialize(
                 fd,
+                major.as_mut_ptr(),
+                minor.as_mut_ptr(),
+                amdgpu_dev.as_mut_ptr(),
+            );
+
+            let amdgpu_dev = amdgpu_dev.assume_init();
+            let [major, minor] = [major.assume_init(), minor.assume_init()];
+            let device_handle = Self {
+                amdgpu_dev,
+                fd: bindings::amdgpu_device_get_fd(amdgpu_dev),
+            };
+
+            query_error!(r);
+
+            Ok((device_handle, major, minor))
+        }
+    }
+
+    /// Initialization.
+    /// Example of `fd`: `/dev/dri/renderD128`, `/dev/dri/by-path/pci-{[PCI::BUS]}-render`  
+    /// It may require a write option (`std::fs::OpenOptions::new().read(true).write(true)`)
+    /// for GUI context.  
+    /// ref: <https://gitlab.freedesktop.org/mesa/mesa/-/issues/2424>
+    ///
+    /// This initialization function prevents code patterns where the [`std::fs::File`] is released before [`RawFd`].
+    #[cfg(not(feature = "dynamic_loading"))]
+    pub fn init_with_fd(fd: impl AsFd) -> Result<(Self, u32, u32), i32> {
+        let fd = fd.as_fd();
+        let raw_fd = fd.as_raw_fd();
+
+        unsafe {
+            let mut amdgpu_dev: MaybeUninit<amdgpu_device_handle> = MaybeUninit::zeroed();
+            let mut major: MaybeUninit<u32> = MaybeUninit::zeroed();
+            let mut minor: MaybeUninit<u32> = MaybeUninit::zeroed();
+
+            let r = bindings::amdgpu_device_initialize(
+                raw_fd,
                 major.as_mut_ptr(),
                 minor.as_mut_ptr(),
                 amdgpu_dev.as_mut_ptr(),

@@ -96,7 +96,7 @@ pub mod VBIOS {
 ///
 ///     let f = File::open("/dev/dri/renderD128").unwrap();
 ///
-///     libdrm_amdgpu.init_amdgpu_device_handle(f).unwrap()
+///     libdrm_amdgpu.init_device_handle_with_fd(f).unwrap()
 /// };
 /// for cap_type in [
 ///     amdgpu_dev.get_video_caps(CAP_TYPE::DECODE).unwrap(),
