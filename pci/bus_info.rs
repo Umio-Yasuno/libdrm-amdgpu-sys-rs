@@ -200,6 +200,17 @@ impl BUS_INFO {
 
         s.starts_with("active")
     }
+
+    pub fn to_u32_lossy(&self) -> u32 {
+        let mut pci = 0u32;
+
+        pci |= (self.domain as u32) << 16;
+        pci |= ((self.bus as u32) & 0b1111_1111) << 8;
+        pci |= ((self.dev as u32) & 0b11111) << 3;
+        pci |= (self.func as u32) & 0b111;
+
+        pci
+    }
 }
 
 #[derive(Debug, PartialEq, Eq)]
@@ -242,4 +253,13 @@ impl fmt::Display for BUS_INFO {
             self.domain, self.bus, self.dev, self.func
         )
     }
+}
+
+#[test]
+fn test_pci_bus_into_u32() {
+    let u = 0x0000_1300u32;
+    let pci_bus = BUS_INFO { domain: 0x0, bus: 0x13, dev: 0x0, func: 0x0 };
+    let pci_bus = pci_bus.to_u32_lossy();
+
+    assert_eq!(u, pci_bus);
 }
