@@ -16,9 +16,7 @@ pub trait GPU_INFO {
     /// KHz
     fn max_engine_clock(&self) -> u64;
     fn ids_flags(&self) -> u64;
-    /// Number of enabled render backend pipes including disabled
     fn rb_pipes(&self) -> u32;
-    /// Number of enabled render backend pipes.
     fn enabled_rb_pipes(&self) -> u32;
     fn cu_active_number(&self) -> u32;
     fn max_se(&self) -> u32;
@@ -64,6 +62,7 @@ pub trait GPU_INFO {
         }
     }
 
+    /// Number of active ROPs.
     fn calc_rop_count(&self) -> u32 {
         self.enabled_rb_pipes() * self.rop_per_rb()
     }
