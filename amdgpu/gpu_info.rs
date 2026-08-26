@@ -16,7 +16,10 @@ pub trait GPU_INFO {
     /// KHz
     fn max_engine_clock(&self) -> u64;
     fn ids_flags(&self) -> u64;
+    /// Number of enabled render backend pipes including disabled
     fn rb_pipes(&self) -> u32;
+    /// Number of enabled render backend pipes.
+    fn enabled_rb_pipes(&self) -> u32;
     fn cu_active_number(&self) -> u32;
     fn max_se(&self) -> u32;
     fn max_sa_per_se(&self) -> u32;
@@ -62,7 +65,7 @@ pub trait GPU_INFO {
     }
 
     fn calc_rop_count(&self) -> u32 {
-        self.rb_pipes() * self.rop_per_rb()
+        self.enabled_rb_pipes() * self.rop_per_rb()
     }
 
     /// \[CU\] * \[Lane\] * 2 \[ops\] * \[GHz\]
@@ -142,6 +145,9 @@ impl GPU_INFO for amdgpu_gpu_info {
     fn rb_pipes(&self) -> u32 {
         self.rb_pipes
     }
+    fn enabled_rb_pipes(&self) -> u32 {
+        self.enabled_rb_pipes_mask.count_ones()
+    }
     fn cu_active_number(&self) -> u32 {
         self.cu_active_number
     }
@@ -183,6 +189,9 @@ impl GPU_INFO for drm_amdgpu_info_device {
     }
     fn rb_pipes(&self) -> u32 {
         self.num_rb_pipes
+    }
+    fn enabled_rb_pipes(&self) -> u32 {
+        self.enabled_rb_pipes_mask.count_ones() + self.enabled_rb_pipes_mask_hi.count_ones()
     }
     fn cu_active_number(&self) -> u32 {
         self.cu_active_number
