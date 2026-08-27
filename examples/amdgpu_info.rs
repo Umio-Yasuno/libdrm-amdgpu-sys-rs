@@ -14,7 +14,7 @@ fn info(libdrm_amdgpu: &LibDrmAmdgpu, pci_bus: &PCI::BUS_INFO) {
         use AMDGPU::GPU_INFO;
 
         println!("Marketing Name: [{}]", ext_info.find_device_name_or_default());
-        // println!("\n{ext_info:#X?}\n");
+        println!("\n{ext_info:#?}\n");
         let gpu_type = if ext_info.is_apu() { "APU" } else { "dGPU" };
         let asic = ext_info.get_asic_name();
 
