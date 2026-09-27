@@ -147,8 +147,12 @@ pub enum ASIC_NAME {
     /* GFX11.5 (RDNA 3.5) */
     CHIP_GFX1150, /* Strix Point */
     CHIP_GFX1151, /* Strix Halo */
-    CHIP_GFX1152,
+    CHIP_GFX1152, /* Krackan Point1 */
     CHIP_GFX1153,
+    CHIP_GFX1156,
+    /* GFX11.7 (RDNA4m) */
+    CHIP_GFX1170,
+    CHIP_GFX1171,
     /* GFX12 (RDNA 4) */
     CHIP_GFX1200,
     CHIP_GFX1201,
@@ -250,7 +254,13 @@ impl ASIC_NAME {
                 0x01..0x40 => Self::CHIP_GFX1150,
                 0x40..0x50 => Self::CHIP_GFX1152,
                 0x50..0x80 => Self::CHIP_GFX1153,
-                0xC0..0xFF => Self::CHIP_GFX1151,
+                0xC0..0xD0 => Self::CHIP_GFX1151,
+                0xD0..0xFF => Self::CHIP_GFX1156,
+                _ => Self::CHIP_UNKNOWN,
+            },
+            FAMILY_NAME::GC_11_5_4 => match rev {
+                0x01..0x40 => Self::CHIP_GFX1170,
+                0x40..0x80 => Self::CHIP_GFX1171,
                 _ => Self::CHIP_UNKNOWN,
             },
             FAMILY_NAME::GC_12_0_0 => match rev {
@@ -620,8 +630,12 @@ impl fmt::Display for ASIC_NAME {
             /* GFX11.5 (RDMA 3.5) */
             Self::CHIP_GFX1150 => write!(f, "GFX1150/Strix Point"),
             Self::CHIP_GFX1151 => write!(f, "GFX1151/Strix Halo"),
-            Self::CHIP_GFX1152 => write!(f, "GFX1152"),
+            Self::CHIP_GFX1152 => write!(f, "GFX1152/Krackan Point1"),
             Self::CHIP_GFX1153 => write!(f, "GFX1153"),
+            Self::CHIP_GFX1156 => write!(f, "GFX1156"),
+            /* GFX11.7 (RDNA 4m) */
+            Self::CHIP_GFX1170 => write!(f, "GFX1170"),
+            Self::CHIP_GFX1171 => write!(f, "GFX1171"),
             /* GFX12 (RDNA 4) */
             Self::CHIP_GFX1200 => write!(f, "GFX1200"),
             Self::CHIP_GFX1201 => write!(f, "GFX1201"),

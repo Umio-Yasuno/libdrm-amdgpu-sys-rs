@@ -20,7 +20,7 @@ use bindings::{
 };
 
 const AMDGPU_FAMILY_GC_12_0_0: u32 = 152;
-const AMDGPU_FAMILY_GC_11_5_4: u32 = 154; // GFX1170, GFX1171
+const AMDGPU_FAMILY_GC_11_5_4: u32 = 154; // GFX1170, GFX1171, Medusa
 
 /// List of AMDGPU Family names
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd)]
