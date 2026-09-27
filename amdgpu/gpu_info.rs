@@ -1,4 +1,5 @@
-use crate::bindings::{self, amdgpu_gpu_info, drm_amdgpu_info_device};
+use crate::bindings::{self, amdgpu_gpu_info};
+pub use crate::AMDGPU::drm_amdgpu_info_device;
 use crate::AMDGPU::{self, ASIC_NAME, GfxTargetVersion};
 
 /// Information that [amdgpu_gpu_info] and [drm_amdgpu_info_device] have in common
